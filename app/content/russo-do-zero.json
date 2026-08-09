@@ -29,15 +29,25 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual letra russa soa como \"v\" (e não \"b\")?",
-              "options": ["В", "Б", "Н"],
-              "solution": "В"
+              "options": [
+                "В",
+                "Б",
+                "Н"
+              ],
+              "solution": "В",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Qual letra russa soa como \"n\" (e não \"h\")?",
-              "options": ["Н", "П", "И"],
-              "solution": "Н"
+              "options": [
+                "Н",
+                "П",
+                "И"
+              ],
+              "solution": "Н",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
@@ -59,8 +69,13 @@
               "position": 0,
               "type": "quiz",
               "prompt": "O que o sinal mole (ь) faz?",
-              "options": ["Amolece a consoante anterior", "Cria um novo som vocálico", "Não faz nada"],
-              "solution": "Amolece a consoante anterior"
+              "options": [
+                "Amolece a consoante anterior",
+                "Cria um novo som vocálico",
+                "Não faz nada"
+              ],
+              "solution": "Amolece a consoante anterior",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
@@ -89,8 +104,13 @@
               "position": 1,
               "type": "quiz",
               "prompt": "Como se diz \"Olá\" de forma FORMAL?",
-              "options": ["Привет", "Здравствуйте", "Пока"],
-              "solution": "Здравствуйте"
+              "options": [
+                "Привет",
+                "Здравствуйте",
+                "Пока"
+              ],
+              "solution": "Здравствуйте",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
@@ -119,8 +139,13 @@
               "position": 1,
               "type": "quiz",
               "prompt": "Qual número é \"четыре\"?",
-              "options": ["3", "4", "5"],
-              "solution": "4"
+              "options": [
+                "3",
+                "4",
+                "5"
+              ],
+              "solution": "4",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
@@ -150,14 +175,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual pronome é usado tanto para \"vocês\" quanto como forma FORMAL de \"você\"?",
-              "options": ["ты", "вы", "они"],
-              "solution": "вы"
+              "options": [
+                "ты",
+                "вы",
+                "они"
+              ],
+              "solution": "вы",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: eu",
-              "solution": "я"
+              "solution": "я",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
@@ -179,22 +210,37 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual o gênero de uma palavra terminada em consoante (ex: стол)?",
-              "options": ["masculino", "feminino", "neutro"],
-              "solution": "masculino"
+              "options": [
+                "masculino",
+                "feminino",
+                "neutro"
+              ],
+              "solution": "masculino",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Qual o gênero de uma palavra terminada em -о (ex: окно)?",
-              "options": ["masculino", "feminino", "neutro"],
-              "solution": "neutro"
+              "options": [
+                "masculino",
+                "feminino",
+                "neutro"
+              ],
+              "solution": "neutro",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Qual o gênero de \"книга\" (livro)?",
-              "options": ["masculino", "feminino", "neutro"],
-              "solution": "feminino"
+              "options": [
+                "masculino",
+                "feminino",
+                "neutro"
+              ],
+              "solution": "feminino",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -208,14 +254,20 @@
               "position": 0,
               "type": "text",
               "prompt": "Traduza: Eu [sou] estudante. (я + студент)",
-              "solution": "я студент"
+              "solution": "я студент",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Como se traduz \"Isso é um livro\" (это + книга)?",
-              "options": ["Это книга.", "Это есть книга.", "Книга это."],
-              "solution": "Это книга."
+              "options": [
+                "Это книга.",
+                "Это есть книга.",
+                "Книга это."
+              ],
+              "solution": "Это книга.",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
@@ -237,21 +289,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual o plural de \"стол\" (mesa)?",
-              "options": ["столы", "столо", "столе"],
-              "solution": "столы"
+              "options": [
+                "столы",
+                "столо",
+                "столе"
+              ],
+              "solution": "столы",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Escreva o plural de \"книга\" (livro).",
-              "solution": "книги"
+              "solution": "книги",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Qual o plural de \"окно\" (janela)?",
-              "options": ["окны", "окна", "окне"],
-              "solution": "окна"
+              "options": [
+                "окны",
+                "окна",
+                "окне"
+              ],
+              "solution": "окна",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -273,14 +336,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Para que serve o caso Nominativo?",
-              "options": ["Indicar o sujeito da frase", "Indicar posse", "Indicar objeto direto"],
-              "solution": "Indicar o sujeito da frase"
+              "options": [
+                "Indicar o sujeito da frase",
+                "Indicar posse",
+                "Indicar objeto direto"
+              ],
+              "solution": "Indicar o sujeito da frase",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: O estudante lê. (студент + читает)",
-              "solution": "студент читает"
+              "solution": "студент читает",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -294,14 +363,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual palavra significa \"onde?\"",
-              "options": ["где", "куда", "когда"],
-              "solution": "где"
+              "options": [
+                "где",
+                "куда",
+                "когда"
+              ],
+              "solution": "где",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: O que é isso? (что + это)",
-              "solution": "что это"
+              "solution": "что это",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
@@ -323,14 +398,20 @@
               "position": 0,
               "type": "text",
               "prompt": "Traduza: Eu não sou estudante. (я + не + студент)",
-              "solution": "я не студент"
+              "solution": "я не студент",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Onde \"не\" deve ficar na frase?",
-              "options": ["Antes da palavra negada", "Depois da palavra negada", "No final da frase"],
-              "solution": "Antes da palavra negada"
+              "options": [
+                "Antes da palavra negada",
+                "Depois da palavra negada",
+                "No final da frase"
+              ],
+              "solution": "Antes da palavra negada",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -352,20 +433,27 @@
               "position": 0,
               "type": "text",
               "prompt": "Complete a frase com a forma correta de \"стол\" no Preposicional: \"Книга на ___.\"",
-              "solution": "столе"
+              "solution": "столе",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Qual preposição indica \"dentro de\" + Preposicional?",
-              "options": ["в", "на", "о"],
-              "solution": "в"
+              "options": [
+                "в",
+                "на",
+                "о"
+              ],
+              "solution": "в",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "text",
               "prompt": "Traduza: Ele mora em Moscou. (он + живёт + в + Москве)",
-              "solution": "он живёт в москве"
+              "solution": "он живёт в москве",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -379,21 +467,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual forma de \"о\" se usa antes de palavra iniciada por som de vogal?",
-              "options": ["об", "о", "на"],
-              "solution": "об"
+              "options": [
+                "об",
+                "о",
+                "на"
+              ],
+              "solution": "об",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Nós falamos sobre o livro. (мы + говорим + о + книге)",
-              "solution": "мы говорим о книге"
+              "solution": "мы говорим о книге",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Complete: \"Она рассказывает ___ Америке.\" (ela fala sobre a América)",
-              "options": ["о", "об", "на"],
-              "solution": "об"
+              "options": [
+                "о",
+                "об",
+                "на"
+              ],
+              "solution": "об",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -415,21 +514,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Como fica \"книга\" (livro) no Acusativo?",
-              "options": ["книгу", "книге", "книги"],
-              "solution": "книгу"
+              "options": [
+                "книгу",
+                "книге",
+                "книги"
+              ],
+              "solution": "книгу",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Eu leio o livro. (я + читаю + книгу)",
-              "solution": "я читаю книгу"
+              "solution": "я читаю книгу",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "No Acusativo, um substantivo masculino INANIMADO (ex: журнал):",
-              "options": ["fica igual ao Nominativo", "muda para -а", "muda para -у"],
-              "solution": "fica igual ao Nominativo"
+              "options": [
+                "fica igual ao Nominativo",
+                "muda para -а",
+                "muda para -у"
+              ],
+              "solution": "fica igual ao Nominativo",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -443,14 +553,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual caso indica \"PARA ONDE\" (movimento/direção)?",
-              "options": ["Acusativo", "Preposicional", "Nominativo"],
-              "solution": "Acusativo"
+              "options": [
+                "Acusativo",
+                "Preposicional",
+                "Nominativo"
+              ],
+              "solution": "Acusativo",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Eu vou para a escola. (я + иду + в + школу)",
-              "solution": "я иду в школу"
+              "solution": "я иду в школу",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -472,21 +588,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Como se diz \"eu tenho\" em russo (construção com у + Genitivo)?",
-              "options": ["у меня есть", "я имею", "я есть"],
-              "solution": "у меня есть"
+              "options": [
+                "у меня есть",
+                "я имею",
+                "я есть"
+              ],
+              "solution": "у меня есть",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Eu tenho um livro. (у + меня + есть + книга)",
-              "solution": "у меня есть книга"
+              "solution": "у меня есть книга",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Qual a forma de \"она\" (ela) no Genitivo?",
-              "options": ["неё", "него", "них"],
-              "solution": "неё"
+              "options": [
+                "неё",
+                "него",
+                "них"
+              ],
+              "solution": "неё",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -500,14 +627,20 @@
               "position": 0,
               "type": "text",
               "prompt": "Traduza: Eu não tenho um livro. (у + меня + нет + книги)",
-              "solution": "у меня нет книги"
+              "solution": "у меня нет книги",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Depois do número 5, o substantivo vai para:",
-              "options": ["Genitivo plural", "Genitivo singular", "Nominativo"],
-              "solution": "Genitivo plural"
+              "options": [
+                "Genitivo plural",
+                "Genitivo singular",
+                "Nominativo"
+              ],
+              "solution": "Genitivo plural",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -529,14 +662,20 @@
               "position": 0,
               "type": "text",
               "prompt": "Complete no Dativo: \"Я даю книгу ___.\" (para a irmã: сестра)",
-              "solution": "сестре"
+              "solution": "сестре",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "O caso Dativo marca:",
-              "options": ["o objeto indireto (para quem)", "o sujeito", "posse"],
-              "solution": "o objeto indireto (para quem)"
+              "options": [
+                "o objeto indireto (para quem)",
+                "o sujeito",
+                "posse"
+              ],
+              "solution": "o objeto indireto (para quem)",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -550,14 +689,20 @@
               "position": 0,
               "type": "text",
               "prompt": "Traduza: Eu gosto de música. (мне + нравится + музыка)",
-              "solution": "мне нравится музыка"
+              "solution": "мне нравится музыка",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Qual a forma de \"она\" (ela) no Dativo?",
-              "options": ["ей", "её", "неё"],
-              "solution": "ей"
+              "options": [
+                "ей",
+                "её",
+                "неё"
+              ],
+              "solution": "ей",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
@@ -587,14 +732,20 @@
               "position": 0,
               "type": "text",
               "prompt": "Complete no Instrumental: \"Я пишу ___.\" (com uma caneta: ручка)",
-              "solution": "ручкой"
+              "solution": "ручкой",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "O caso Instrumental indica:",
-              "options": ["o meio/instrumento de uma ação", "posse", "objeto direto"],
-              "solution": "o meio/instrumento de uma ação"
+              "options": [
+                "o meio/instrumento de uma ação",
+                "posse",
+                "objeto direto"
+              ],
+              "solution": "o meio/instrumento de uma ação",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -608,14 +759,20 @@
               "position": 0,
               "type": "text",
               "prompt": "Traduza: Eu vou com um amigo. (я + иду + с + другом)",
-              "solution": "я иду с другом"
+              "solution": "я иду с другом",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Complete: \"Он был ___.\" (ele era médico: врач)",
-              "options": ["врачом", "врача", "врачу"],
-              "solution": "врачом"
+              "options": [
+                "врачом",
+                "врача",
+                "врачу"
+              ],
+              "solution": "врачом",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -637,21 +794,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Complete: \"Я ___ книгу.\" (eu leio)",
-              "options": ["читаю", "читаешь", "читает"],
-              "solution": "читаю"
+              "options": [
+                "читаю",
+                "читаешь",
+                "читает"
+              ],
+              "solution": "читаю",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Ela lê. (она + читает)",
-              "solution": "она читает"
+              "solution": "она читает",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Qual a terminação de \"вы\" (vocês/você formal) na 1ª conjugação?",
-              "options": ["-ете", "-ешь", "-ют"],
-              "solution": "-ете"
+              "options": [
+                "-ете",
+                "-ешь",
+                "-ют"
+              ],
+              "solution": "-ете",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -665,14 +833,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Complete: \"Он ___ по-русски.\" (ele fala russo)",
-              "options": ["говорит", "говорю", "говорят"],
-              "solution": "говорит"
+              "options": [
+                "говорит",
+                "говорю",
+                "говорят"
+              ],
+              "solution": "говорит",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Nós falamos. (мы + говорим)",
-              "solution": "мы говорим"
+              "solution": "мы говорим",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -686,14 +860,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Complete: \"Я ___ есть.\" (eu quero comer)",
-              "options": ["хочу", "хочешь", "хотим"],
-              "solution": "хочу"
+              "options": [
+                "хочу",
+                "хочешь",
+                "хотим"
+              ],
+              "solution": "хочу",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Eu vou (a pé, agora). (я + иду)",
-              "solution": "я иду"
+              "solution": "я иду",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -715,15 +895,25 @@
               "position": 0,
               "type": "quiz",
               "prompt": "O aspecto PERFECTIVO indica:",
-              "options": ["uma ação completa, com resultado", "uma ação repetida", "uma ação no futuro"],
-              "solution": "uma ação completa, com resultado"
+              "options": [
+                "uma ação completa, com resultado",
+                "uma ação repetida",
+                "uma ação no futuro"
+              ],
+              "solution": "uma ação completa, com resultado",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "O aspecto IMPERFECTIVO indica:",
-              "options": ["processo, ação em andamento ou repetida", "só o futuro", "só o passado"],
-              "solution": "processo, ação em andamento ou repetida"
+              "options": [
+                "processo, ação em andamento ou repetida",
+                "só o futuro",
+                "só o passado"
+              ],
+              "solution": "processo, ação em andamento ou repetida",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -737,14 +927,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual é o perfectivo de \"читать\" (ler)?",
-              "options": ["прочитать", "читать", "читал"],
-              "solution": "прочитать"
+              "options": [
+                "прочитать",
+                "читать",
+                "читал"
+              ],
+              "solution": "прочитать",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Escreva o perfectivo de \"делать\" (fazer), formado com o prefixo с-.",
-              "solution": "сделать"
+              "solution": "сделать",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -758,14 +954,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual frase enfatiza que a carta FOI TERMINADA?",
-              "options": ["Я написал письмо.", "Я писал письмо.", "Я пишу письмо."],
-              "solution": "Я написал письмо."
+              "options": [
+                "Я написал письмо.",
+                "Я писал письмо.",
+                "Я пишу письмо."
+              ],
+              "solution": "Я написал письмо.",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza usando o IMPERFECTIVO (processo, sem garantir que terminou): Eu escrevia uma carta. (я + писал + письмо)",
-              "solution": "я писал письмо"
+              "solution": "я писал письмо",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -787,21 +989,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual a terminação do passado para sujeito FEMININO?",
-              "options": ["-ла", "-л", "-ло"],
-              "solution": "-ла"
+              "options": [
+                "-ла",
+                "-л",
+                "-ло"
+              ],
+              "solution": "-ла",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Ela leu o livro. (она + читала + книгу)",
-              "solution": "она читала книгу"
+              "solution": "она читала книгу",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Complete: \"Они ___ письмо.\" (eles escreveram uma carta — писать no passado)",
-              "options": ["писали", "писал", "писала"],
-              "solution": "писали"
+              "options": [
+                "писали",
+                "писал",
+                "писала"
+              ],
+              "solution": "писали",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -815,14 +1028,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual estrutura forma o futuro de um verbo IMPERFECTIVO?",
-              "options": ["быть (futuro) + infinitivo", "prefixo + presente", "não existe futuro imperfectivo"],
-              "solution": "быть (futuro) + infinitivo"
+              "options": [
+                "быть (futuro) + infinitivo",
+                "prefixo + presente",
+                "não existe futuro imperfectivo"
+              ],
+              "solution": "быть (futuro) + infinitivo",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Eu vou ficar lendo o livro. (я + буду + читать + книгу)",
-              "solution": "я буду читать книгу"
+              "solution": "я буду читать книгу",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -844,21 +1063,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual terminação de adjetivo combina com um substantivo FEMININO no Nominativo?",
-              "options": ["-ая", "-ый", "-ое"],
-              "solution": "-ая"
+              "options": [
+                "-ая",
+                "-ый",
+                "-ое"
+              ],
+              "solution": "-ая",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Um livro novo. (новая + книга)",
-              "solution": "новая книга"
+              "solution": "новая книга",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Qual terminação de adjetivo combina com PLURAL?",
-              "options": ["-ые", "-ая", "-ое"],
-              "solution": "-ые"
+              "options": [
+                "-ые",
+                "-ая",
+                "-ое"
+              ],
+              "solution": "-ые",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -872,21 +1102,32 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual o comparativo de \"хороший\" (bom)?",
-              "options": ["лучше", "хорошее", "более"],
-              "solution": "лучше"
+              "options": [
+                "лучше",
+                "хорошее",
+                "более"
+              ],
+              "solution": "лучше",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: mais bonito (красивее)",
-              "solution": "красивее"
+              "solution": "красивее",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "quiz",
               "prompt": "Como se forma o superlativo de forma simples?",
-              "options": ["самый + adjetivo", "adjetivo + -ее", "adjetivo + -ше"],
-              "solution": "самый + adjetivo"
+              "options": [
+                "самый + adjetivo",
+                "adjetivo + -ее",
+                "adjetivo + -ше"
+              ],
+              "solution": "самый + adjetivo",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -908,14 +1149,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual verbo se usa para uma ação repetida (ex: \"vou à escola todo dia\")?",
-              "options": ["ходить", "идти", "быть"],
-              "solution": "ходить"
+              "options": [
+                "ходить",
+                "идти",
+                "быть"
+              ],
+              "solution": "ходить",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza (movimento agora, numa direção): Eu estou indo para a escola. (я + иду + в + школу)",
-              "solution": "я иду в школу"
+              "solution": "я иду в школу",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -929,14 +1176,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual verbo indica ir de veículo AGORA, numa direção?",
-              "options": ["ехать", "ездить", "идти"],
-              "solution": "ехать"
+              "options": [
+                "ехать",
+                "ездить",
+                "идти"
+              ],
+              "solution": "ехать",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: Eu estou indo para Moscou. (я + еду + в + Москву)",
-              "solution": "я еду в москву"
+              "solution": "я еду в москву",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -958,14 +1211,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual a diferença entre \"учить\" e \"учиться\"?",
-              "options": ["\"учить\" é ensinar, \"учиться\" é estudar/aprender", "são sinônimos exatos", "\"учиться\" não existe"],
-              "solution": "\"учить\" é ensinar, \"учиться\" é estudar/aprender"
+              "options": [
+                "\"учить\" é ensinar, \"учиться\" é estudar/aprender",
+                "são sinônimos exatos",
+                "\"учиться\" não existe"
+              ],
+              "solution": "\"учить\" é ensinar, \"учиться\" é estudar/aprender",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza: eu me lavo (я + моюсь)",
-              "solution": "я моюсь"
+              "solution": "я моюсь",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -979,14 +1238,20 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual terminação marca o imperativo formal/plural (вы)?",
-              "options": ["-те", "-й", "-ешь"],
-              "solution": "-те"
+              "options": [
+                "-те",
+                "-й",
+                "-ешь"
+              ],
+              "solution": "-те",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "text",
               "prompt": "Traduza (imperativo informal): Leia o livro! (читай + книгу)",
-              "solution": "читай книгу"
+              "solution": "читай книгу",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -1008,15 +1273,25 @@
               "position": 0,
               "type": "quiz",
               "prompt": "O particípio ATIVO indica:",
-              "options": ["quem pratica a ação", "quem sofre a ação", "o tempo verbal"],
-              "solution": "quem pratica a ação"
+              "options": [
+                "quem pratica a ação",
+                "quem sofre a ação",
+                "o tempo verbal"
+              ],
+              "solution": "quem pratica a ação",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Na fala cotidiana, russos costumam substituir particípios por orações com:",
-              "options": ["который (que)", "и (e)", "но (mas)"],
-              "solution": "который (que)"
+              "options": [
+                "который (que)",
+                "и (e)",
+                "но (mas)"
+              ],
+              "solution": "который (que)",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -1030,15 +1305,25 @@
               "position": 0,
               "type": "quiz",
               "prompt": "O gerúndio russo (деепричастие) é:",
-              "options": ["invariável (não concorda com nada)", "concorda em gênero", "concorda em caso"],
-              "solution": "invariável (não concorda com nada)"
+              "options": [
+                "invariável (não concorda com nada)",
+                "concorda em gênero",
+                "concorda em caso"
+              ],
+              "solution": "invariável (não concorda com nada)",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Qual gerúndio indica uma ação JÁ CONCLUÍDA antes da principal?",
-              "options": ["perfectivo (ex: прочитав)", "imperfectivo (ex: читая)", "nenhum dos dois"],
-              "solution": "perfectivo (ex: прочитав)"
+              "options": [
+                "perfectivo (ex: прочитав)",
+                "imperfectivo (ex: читая)",
+                "nenhum dos dois"
+              ],
+              "solution": "perfectivo (ex: прочитав)",
+              "audio_lang": "ru-RU"
             }
           ]
         }
@@ -1060,15 +1345,25 @@
               "position": 0,
               "type": "quiz",
               "prompt": "No discurso indireto russo, o tempo verbal:",
-              "options": ["não muda (sem backshift)", "sempre vira passado", "sempre vira futuro"],
-              "solution": "não muda (sem backshift)"
+              "options": [
+                "não muda (sem backshift)",
+                "sempre vira passado",
+                "sempre vira futuro"
+              ],
+              "solution": "não muda (sem backshift)",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Qual partícula é usada para transformar perguntas de SIM/NÃO em discurso indireto?",
-              "options": ["ли", "что", "где"],
-              "solution": "ли"
+              "options": [
+                "ли",
+                "что",
+                "где"
+              ],
+              "solution": "ли",
+              "audio_lang": "ru-RU"
             }
           ]
         },
@@ -1082,28 +1377,44 @@
               "position": 0,
               "type": "quiz",
               "prompt": "Qual caso é usado para o objeto direto?",
-              "options": ["Acusativo", "Dativo", "Instrumental"],
-              "solution": "Acusativo"
+              "options": [
+                "Acusativo",
+                "Dativo",
+                "Instrumental"
+              ],
+              "solution": "Acusativo",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 1,
               "type": "quiz",
               "prompt": "Qual aspecto verbal indica uma ação completa, com resultado?",
-              "options": ["Perfectivo", "Imperfectivo", "Nenhum"],
-              "solution": "Perfectivo"
+              "options": [
+                "Perfectivo",
+                "Imperfectivo",
+                "Nenhum"
+              ],
+              "solution": "Perfectivo",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 2,
               "type": "text",
               "prompt": "Traduza (revisão): Eu tenho um livro. (у + меня + есть + книга)",
-              "solution": "у меня есть книга"
+              "solution": "у меня есть книга",
+              "audio_lang": "ru-RU"
             },
             {
               "position": 3,
               "type": "quiz",
               "prompt": "Qual verbo de movimento indica ir a pé, AGORA, numa direção?",
-              "options": ["идти", "ходить", "ехать"],
-              "solution": "идти"
+              "options": [
+                "идти",
+                "ходить",
+                "ехать"
+              ],
+              "solution": "идти",
+              "audio_lang": "ru-RU"
             }
           ]
         }

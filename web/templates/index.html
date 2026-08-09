@@ -3,31 +3,29 @@
 {% block title %}BuildYourStudy — Estude o que quiser{% endblock %}
 
 {% block content %}
-<section class="hero-section">
-  <div class="hero-content">
-    <span class="hero-badge">✦ Plataforma de Estudos Interativa</span>
-    <h1 class="hero-title">O que você quer <span class="gradient-text">aprender hoje</span>?</h1>
-    <p class="hero-subtitle">Escolha seu roadmap, aprenda conceitos direto no navegador e acompanhe seu progresso em tempo real.</p>
+<section class="hero">
+  <span class="hero-badge"><i class="ph-duotone ph-sparkle"></i> Plataforma de Estudos Interativa</span>
+  <h1 class="hero-title">O que você quer aprender hoje?</h1>
+  <p class="hero-subtitle">Escolha seu roadmap, aprenda conceitos direto no navegador e acompanhe seu progresso em tempo real.</p>
 
-    {% if total_all_topics > 0 %}
-    <div class="global-progress-card">
-      <div class="global-progress-info">
-        <span class="global-progress-title">Seu Progresso Global</span>
-        <span class="global-progress-stats">{{ total_done_topics }} de {{ total_all_topics }} lições ({{ global_pct }}%)</span>
-      </div>
-      <div class="progress-bar">
-        <span style="width: {{ global_pct }}%"></span>
-      </div>
+  {% if total_all_topics > 0 %}
+  <div class="global-progress-card">
+    <div class="global-progress-info">
+      <span class="global-progress-title">Seu progresso global</span>
+      <span class="global-progress-stats">{{ total_done_topics }} de {{ total_all_topics }} lições ({{ global_pct }}%)</span>
     </div>
-    {% endif %}
+    <div class="progress-bar">
+      <span style="width: {{ global_pct }}%"></span>
+    </div>
   </div>
+  {% endif %}
 </section>
 
 <section class="catalog-section">
   <div class="catalog-header">
-    <h2>Trilhas Disponíveis</h2>
+    <h2>Trilhas disponíveis</h2>
     <div class="category-filters">
-      <button class="filter-btn active" data-filter="all">★ Todos</button>
+      <button class="filter-btn active" data-filter="all">Todos</button>
       {% for cat in categories %}
       <button class="filter-btn" data-filter="{{ cat }}">{{ cat }}</button>
       {% endfor %}
@@ -37,21 +35,21 @@
   <div class="courses-grid">
     {% for roadmap in roadmaps %}
     {% set s = stats[roadmap.id] %}
-    <article class="course-card" data-category="{{ roadmap.category }}">
+    <article class="course-card card" data-category="{{ roadmap.category }}">
       <div class="course-card-header">
-        <span class="course-icon">{{ roadmap.icon }}</span>
+        <span class="course-icon"><i class="ph-duotone ph-graduation-cap"></i></span>
         <div class="course-badges">
-          <span class="badge badge-category">{{ roadmap.category }}</span>
-          <span class="badge badge-level">{{ roadmap.level }}</span>
+          <span class="tag tag-accent">{{ roadmap.category }}</span>
+          <span class="tag tag-neutral">{{ roadmap.level }}</span>
         </div>
       </div>
 
-      <h3 class="course-title">{{ roadmap.title }}</h3>
-      <p class="course-description">{{ roadmap.description }}</p>
+      <h3 class="course-title card-title">{{ roadmap.title }}</h3>
+      <p class="course-description card-body">{{ roadmap.description }}</p>
 
       <div class="course-meta">
-        <span class="meta-item">📦 {{ roadmap.modules|length }} Módulos</span>
-        <span class="meta-item">📝 {{ s.total }} Lições</span>
+        <span class="meta-item"><i class="ph-duotone ph-package"></i> {{ roadmap.modules|length }} Módulos</span>
+        <span class="meta-item"><i class="ph-duotone ph-list-bullets"></i> {{ s.total }} Lições</span>
       </div>
 
       <div class="course-progress">
@@ -59,14 +57,15 @@
           <span style="width: {{ s.pct }}%"></span>
         </div>
         <div class="progress-label-wrap">
-          <span class="progress-status">{% if s.pct == 100 %}Concluído 🎉{% elif s.pct > 0 %}Em andamento{% else %}Não iniciado{% endif %}</span>
+          <span class="progress-status">{% if s.pct == 100 %}Concluído{% elif s.pct > 0 %}Em andamento{% else %}Não iniciado{% endif %}</span>
           <span class="progress-pct">{{ s.pct }}% ({{ s.done }}/{{ s.total }})</span>
         </div>
       </div>
 
       <div class="course-card-action">
-        <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-course">
-          {% if s.pct > 0 %}Continuar Trilha ➔{% else %}Iniciar Trilha ➔{% endif %}
+        <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-primary btn-block btn-course">
+          {% if s.pct > 0 %}Continuar trilha{% else %}Iniciar trilha{% endif %}
+          <i class="ph-duotone ph-arrow-right"></i>
         </a>
       </div>
     </article>

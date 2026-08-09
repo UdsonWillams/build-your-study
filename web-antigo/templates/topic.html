@@ -32,29 +32,25 @@
 {% if topic.exercises %}
 <section class="exercises">
   <h2>Exercícios</h2>
-  <p id="pyodide-status" class="pyodide-status"><i class="ph-duotone ph-hourglass-simple"></i> Preparando o ambiente Python…</p>
+  <p id="pyodide-status" class="pyodide-status">⏳ Preparando o ambiente Python…</p>
   <script type="text/plain" id="topic-setup-sql">{{ topic.setup_sql | safe }}</script>
 
   {% for ex in topic.exercises %}
-  <div class="exercise" data-exercise-id="{{ ex.id }}" data-type="{{ ex.type }}" data-audio-lang="{{ ex.audio_lang }}">
-    <span class="kicker">Exercício {{ loop.index }}</span>
+  <div class="exercise" data-exercise-id="{{ ex.id }}" data-type="{{ ex.type }}">
     <div class="exercise-prompt markdown-body" data-prompt></div>
     <script type="text/plain" data-prompt-md>{{ ex.prompt | safe }}</script>
 
     {% if ex.type == 'code' or not ex.type %}
       <textarea class="code-editor">{{ ex.starter_code }}</textarea>
     {% elif ex.type == 'text' %}
-      <div class="text-input-row">
-        <input type="text" class="text-input" placeholder="Digite sua resposta..." autocomplete="off">
-        <button type="button" class="btn btn-ghost btn-icon btn-audio" data-audio-text="{{ ex.solution }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="1" aria-label="Ouvir pronúncia"><i class="ph-duotone ph-speaker-high"></i></button>
-      </div>
+      <input type="text" class="text-input" placeholder="Digite sua resposta..." autocomplete="off">
       {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
       <div class="cyrillic-keyboard" data-cyrillic-keyboard></div>
       {% endif %}
     {% elif ex.type == 'audio' %}
       <div class="audio-controls">
-        <button class="btn btn-secondary btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="1"><i class="ph-duotone ph-speaker-high"></i> Ouvir</button>
-        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5"><i class="ph-duotone ph-hourglass-simple"></i> Lento</button>
+        <button class="btn btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="1">🔊 Ouvir</button>
+        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5">🐢 Lento</button>
       </div>
       <input type="text" class="text-input" placeholder="O que você ouviu?" autocomplete="off">
       {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
@@ -62,12 +58,12 @@
       {% endif %}
     {% elif ex.type == 'speak' %}
       <div class="speak-target">
-        <span class="speak-label"><i class="ph-duotone ph-megaphone-simple"></i> Diga em voz alta:</span>
+        <span class="speak-label">📢 Diga em voz alta:</span>
         <span class="speak-phrase">{{ ex.audio_text }}</span>
       </div>
       <div class="audio-controls">
-        <button class="btn btn-primary btn-speak" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}"><i class="ph-duotone ph-microphone"></i> Gravar fala</button>
-        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5"><i class="ph-duotone ph-speaker-high"></i> Ouvir exemplo</button>
+        <button class="btn btn-speak" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}">🎤 Gravar Fala</button>
+        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5">🔊 Ouvir exemplo</button>
       </div>
       <div class="speak-result" hidden></div>
     {% elif ex.type == 'quiz' %}
@@ -80,7 +76,7 @@
 
     <div class="exercise-actions">
       {% if ex.type != 'speak' %}
-      <button class="btn btn-primary" data-run>Verificar</button>
+      <button class="btn btn-run" data-run>▶ Verificar</button>
       {% endif %}
       <button class="btn btn-ghost" data-solution>Ver solução</button>
     </div>
@@ -98,20 +94,20 @@
 
 <section class="topic-footer">
   <div class="footer-left">
-    <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-ghost"><i class="ph-duotone ph-arrow-left"></i> Voltar ao curso</a>
+    <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-ghost">← Voltar ao curso</a>
   </div>
 
   <div class="footer-center">
     <button id="complete-btn" class="btn btn-primary {% if is_done %}is-done{% endif %}"
             data-topic-id="{{ topic.id }}"
             data-has-exercises="{{ 'true' if topic.exercises else 'false' }}">
-      {% if is_done %}<i class="ph-duotone ph-check"></i> Concluído{% elif topic.exercises %}Conclua os exercícios para liberar{% else %}Marcar como lido{% endif %}
+      {% if is_done %}✓ Concluído{% elif topic.exercises %}Conclua os exercícios para liberar{% else %}Marcar como lido{% endif %}
     </button>
   </div>
 
   <div class="nav-buttons">
-    {% if prev_topic %}<a class="btn btn-ghost" href="/topic/{{ prev_topic.slug }}"><i class="ph-duotone ph-arrow-left"></i> Anterior</a>{% endif %}
-    {% if next_topic %}<a class="btn btn-ghost" href="/topic/{{ next_topic.slug }}">Próximo <i class="ph-duotone ph-arrow-right"></i></a>{% endif %}
+    {% if prev_topic %}<a class="btn btn-ghost" href="/topic/{{ prev_topic.slug }}">← Anterior</a>{% endif %}
+    {% if next_topic %}<a class="btn btn-ghost" href="/topic/{{ next_topic.slug }}">Próximo →</a>{% endif %}
   </div>
 </section>
 {% endblock %}

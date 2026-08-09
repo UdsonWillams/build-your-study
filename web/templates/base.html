@@ -6,31 +6,26 @@
   <title>{% block title %}BuildYourStudy — Estude o que quiser{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/duotone/style.css" />
+  <link rel="stylesheet" href="/static/css/broadsheet.css" />
   <link rel="stylesheet" href="/static/css/style.css" />
   {% block head %}{% endblock %}
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="/">
-        <span class="brand-logo">🚀</span>
-        <span class="brand-name">Build<span class="brand-highlight">Your</span>Study</span>
-      </a>
-      <nav class="nav-links">
-        <a href="/" class="nav-link">Catálogo</a>
-        <a href="/lixeira" class="nav-link">🗑️ Lixeira</a>
-      </nav>
-    </div>
-  </header>
+  <nav class="nav">
+    <a class="nav-brand" href="/" style="text-decoration:none;color:inherit"><i class="ph-duotone ph-rocket-launch"></i>Build<span style="color:var(--color-accent-700)">Your</span>Study</a>
+    <a href="/">Catálogo</a>
+    <a href="/lixeira"><i class="ph-duotone ph-trash"></i> Lixeira</a>
+  </nav>
 
-  <main class="container">
+  <main class="wrap">
     {% block content %}{% endblock %}
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>🚀 <strong>BuildYourStudy</strong> — Aprenda o que quiser no seu próprio ritmo com lições interativas no navegador.</p>
+    <div class="footer-inner">
+      <p>BuildYourStudy — aprenda o que quiser no seu próprio ritmo, com lições interativas no navegador.</p>
     </div>
   </footer>
 

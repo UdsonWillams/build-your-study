@@ -11,11 +11,11 @@
 
 <section class="roadmap-detail-header">
   <div class="roadmap-title-row">
-    <span class="roadmap-icon-lg"><i class="ph-duotone ph-graduation-cap"></i></span>
+    <span class="roadmap-icon-lg">{{ roadmap.icon }}</span>
     <div>
       <div class="course-badges">
-        <span class="tag tag-accent">{{ roadmap.category }}</span>
-        <span class="tag tag-neutral">{{ roadmap.level }}</span>
+        <span class="badge badge-category">{{ roadmap.category }}</span>
+        <span class="badge badge-level">{{ roadmap.level }}</span>
       </div>
       <h1>{{ roadmap.title }}</h1>
     </div>
@@ -30,13 +30,13 @@
   {% if roadmap.active %}
   <form method="post" action="/roadmap/{{ roadmap.slug }}/disable" class="roadmap-admin-form"
         onsubmit="return confirm('Desativar este curso? Ele sai do catálogo, mas nada é apagado — dá para reativar na Lixeira.');">
-    <button type="submit" class="btn btn-ghost btn-sm"><i class="ph-duotone ph-trash"></i> Desativar curso</button>
+    <button type="submit" class="btn btn-ghost btn-sm">🗑️ Desativar curso</button>
   </form>
   {% else %}
   <div class="disabled-banner">
-    <span><i class="ph-duotone ph-warning"></i> Este curso está desativado e não aparece no catálogo.</span>
+    <span>⚠️ Este curso está desativado e não aparece no catálogo.</span>
     <form method="post" action="/roadmap/{{ roadmap.slug }}/enable">
-      <button type="submit" class="btn btn-primary btn-sm"><i class="ph-duotone ph-arrow-counter-clockwise"></i> Reativar</button>
+      <button type="submit" class="btn btn-primary btn-sm">↩️ Reativar</button>
     </form>
   </div>
   {% endif %}
@@ -46,7 +46,6 @@
   {% for module in roadmap.modules %}
   <article class="module-card">
     <header class="module-header">
-      <span class="kicker">Módulo {{ loop.index }}</span>
       <h2>{{ module.title }}</h2>
       {% if module.summary %}<p class="module-summary">{{ module.summary }}</p>{% endif %}
     </header>
@@ -54,12 +53,12 @@
       {% for topic in module.topics %}
       <li class="topic-item {% if topic.id in completed %}is-done{% endif %}">
         <a href="/topic/{{ topic.slug }}">
-          <span class="check">{% if topic.id in completed %}<i class="ph-duotone ph-check-circle"></i>{% else %}<i class="ph-duotone ph-circle"></i>{% endif %}</span>
+          <span class="check">{% if topic.id in completed %}✓{% else %}○{% endif %}</span>
           <span class="topic-title">{{ topic.title }}</span>
           {% if topic.exercises %}
-            <span class="tag tag-accent-2 badge">{{ topic.exercises|length }} ex.</span>
+            <span class="badge badge-ex">{{ topic.exercises|length }} ex.</span>
           {% else %}
-            <span class="tag tag-neutral badge"><i class="ph-duotone ph-book-open"></i> Leitura</span>
+            <span class="badge badge-reading">📖 Leitura</span>
           {% endif %}
         </a>
       </li>

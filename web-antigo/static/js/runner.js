@@ -48,12 +48,7 @@
         opts = [];
       }
 
-      const audioLang = ex.dataset.audioLang || "en-US";
-
       opts.forEach((opt) => {
-        const row = document.createElement("div");
-        row.className = "quiz-option-row";
-
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "quiz-option";
@@ -62,19 +57,7 @@
           container.querySelectorAll(".quiz-option").forEach((b) => b.classList.remove("is-selected"));
           btn.classList.add("is-selected");
         });
-
-        const audioBtn = document.createElement("button");
-        audioBtn.type = "button";
-        audioBtn.className = "btn btn-ghost btn-icon btn-audio";
-        audioBtn.innerHTML = '<i class="ph-duotone ph-speaker-high"></i>';
-        audioBtn.setAttribute("aria-label", "Ouvir");
-        audioBtn.dataset.audioText = opt;
-        audioBtn.dataset.audioLang = audioLang;
-        audioBtn.dataset.speed = "1";
-
-        row.appendChild(btn);
-        row.appendChild(audioBtn);
-        container.appendChild(row);
+        container.appendChild(btn);
       });
     });
   }
@@ -147,7 +130,7 @@
     if (!pyodidePromise) {
       pyodidePromise = loadPyodide().then((py) => {
         if (statusEl) {
-          statusEl.innerHTML = '<i class="ph-duotone ph-check-circle"></i> Ambiente Python pronto!';
+          statusEl.textContent = "✓ Ambiente Python pronto!";
           statusEl.classList.add("ready");
         }
         return py;
@@ -233,7 +216,7 @@
   // ordem das linhas só importa se orderMatters for true).
   function compareSqlResults(a, b, orderMatters) {
     if (a.columns.length !== b.columns.length) return false;
-    const stringifyRow = (row) => JSON.stringify(row.map((v) => (v === null ? " NULL" : String(v))));
+    const stringifyRow = (row) => JSON.stringify(row.map((v) => (v === null ? " NULL" : String(v))));
     let rowsA = a.rows.map(stringifyRow);
     let rowsB = b.rows.map(stringifyRow);
     if (!orderMatters) {
@@ -312,7 +295,7 @@
       completeBtn.disabled = false;
     } else if (passed.size >= totalExercises) {
       completeBtn.disabled = false;
-      completeBtn.innerHTML = "Marcar como concluído";
+      completeBtn.textContent = "Marcar como concluído";
     } else {
       completeBtn.disabled = true;
     }
@@ -337,9 +320,9 @@
     const correctWords = wordsStudent.filter(w => wordsSolution.includes(w));
     const missingWords = wordsSolution.filter(w => !wordsStudent.includes(w));
 
-    let hint = "Quase lá! ";
+    let hint = "❌ Quase lá! ";
     if (student.trim() === "") {
-      hint = "Digite sua resposta antes de verificar.";
+      hint = "❌ Digite sua resposta antes de verificar.";
     } else if (missingWords.length > 0 && missingWords.length <= 3) {
       hint += `Palavras faltando ou erradas: "${missingWords.join('", "')}"`;
     } else if (correctWords.length > 0) {
@@ -367,7 +350,7 @@
 
       if (normalize(studentAnswer) === normalize(solution)) {
         output.classList.add("ok");
-        output.textContent = "Correto! Muito bem.";
+        output.textContent = "✅ Correto! Muito bem! 🎉";
         passed.add(exId);
         refreshCompleteButton();
       } else {
@@ -384,14 +367,14 @@
 
       if (!selected) {
         output.classList.add("err");
-        output.textContent = "Selecione uma opção antes de verificar.";
+        output.textContent = "❌ Selecione uma opção antes de verificar.";
         return;
       }
 
       if (normalize(selected.textContent) === normalize(solution)) {
         selected.classList.add("is-correct");
         output.classList.add("ok");
-        output.textContent = "Correto! Muito bem.";
+        output.textContent = "✅ Correto! Muito bem! 🎉";
         passed.add(exId);
         refreshCompleteButton();
       } else {
@@ -400,7 +383,7 @@
           if (normalize(b.textContent) === normalize(solution)) b.classList.add("is-correct");
         });
         output.classList.add("err");
-        output.textContent = "Não foi dessa vez. A opção correta está destacada.";
+        output.textContent = "❌ Não foi dessa vez. A opção correta está destacada.";
       }
       return;
     }
@@ -430,9 +413,9 @@
       } catch (err) {
         output.classList.add("err");
         if (err && err.userError) {
-          output.textContent = err.userError;
+          output.textContent = "❌ " + err.userError;
         } else {
-          output.textContent = err && err.raw ? err.raw.message : "Erro ao executar seu comando.";
+          output.textContent = "❌ " + (err && err.raw ? err.raw.message : "Erro ao executar seu comando.");
         }
         if (resultEl) resultEl.hidden = true;
         return;
@@ -445,22 +428,22 @@
         solutionResult = run(SQL, solution);
       } catch (err) {
         output.classList.add("err");
-        output.textContent = "Erro interno no exercício (comando de referência falhou). Avise quem criou o curso.";
+        output.textContent = "❌ Erro interno no exercício (comando de referência falhou). Avise quem criou o curso.";
         return;
       }
 
       if (compareSqlResults(studentResult, solutionResult, orderMatters)) {
         output.classList.add("ok");
         output.textContent = verifyQuery
-          ? "Correto! O estado da tabela depois do seu comando bate com o esperado."
-          : "Correto! O resultado da sua consulta bate com o esperado.";
+          ? "✅ Correto! O estado da tabela depois do seu comando bate com o esperado."
+          : "✅ Correto! O resultado da sua consulta bate com o esperado.";
         passed.add(exId);
         refreshCompleteButton();
       } else {
         output.classList.add("err");
         output.textContent = verifyQuery
-          ? "Seu comando rodou, mas o estado da tabela depois não é o esperado. Veja a tabela acima e compare."
-          : "Sua consulta rodou, mas o resultado não é o esperado. Veja a tabela acima e compare.";
+          ? "❌ Seu comando rodou, mas o estado da tabela depois não é o esperado. Veja a tabela acima e compare."
+          : "❌ Sua consulta rodou, mas o resultado não é o esperado. Veja a tabela acima e compare.";
       }
       return;
     }
@@ -491,12 +474,12 @@ exec(_student_src, _ns)
 exec(_test_src, _ns)
 `);
       output.classList.add("ok");
-      output.textContent = "Correto! Muito bem.";
+      output.textContent = "✅ Correto! Muito bem.";
       passed.add(exId);
       refreshCompleteButton();
     } catch (err) {
       output.classList.add("err");
-      output.textContent = formatPyError(err.message);
+      output.textContent = "❌ " + formatPyError(err.message);
     } finally {
       py.globals.delete("_student_src");
       py.globals.delete("_test_src");
@@ -521,7 +504,7 @@ exec(_test_src, _ns)
       const resultEl = ex.querySelector(".speak-result");
       resultEl.hidden = false;
       resultEl.className = "speak-result err";
-      resultEl.textContent = "Seu navegador não suporta reconhecimento de voz. Use o Chrome.";
+      resultEl.textContent = "❌ Seu navegador não suporta reconhecimento de voz. Use o Chrome.";
       return;
     }
 
@@ -536,11 +519,11 @@ exec(_test_src, _ns)
     recognition.interimResults = false;
     recognition.maxAlternatives = 3;
 
-    btn.innerHTML = '<i class="ph-duotone ph-record"></i> Ouvindo...';
+    btn.textContent = "🔴 Ouvindo...";
     btn.disabled = true;
     resultEl.hidden = false;
     resultEl.className = "speak-result";
-    resultEl.textContent = "Fale agora...";
+    resultEl.textContent = "🎙️ Fale agora...";
 
     recognition.start();
 
@@ -550,28 +533,28 @@ exec(_test_src, _ns)
 
       if (transcripts.some(t => normalize(t) === normalize(solution))) {
         resultEl.className = "speak-result ok";
-        resultEl.textContent = `Perfeito! Você disse: "${best}"`;
+        resultEl.textContent = `✅ Perfeito! Você disse: "${best}"`;
         passed.add(exId);
         refreshCompleteButton();
       } else {
         resultEl.className = "speak-result err";
-        resultEl.textContent = `Ouvi: "${best}". A pronúncia esperada era: "${solution}". Tente novamente!`;
+        resultEl.textContent = `❌ Ouvi: "${best}". A pronúncia esperada era: "${solution}". Tente novamente!`;
       }
     };
 
     recognition.onerror = (event) => {
       resultEl.className = "speak-result err";
       if (event.error === "no-speech") {
-        resultEl.textContent = "Nenhuma fala detectada. Fique mais perto do microfone.";
+        resultEl.textContent = "❌ Nenhuma fala detectada. Fique mais perto do microfone.";
       } else if (event.error === "not-allowed") {
-        resultEl.textContent = "Acesso ao microfone negado. Habilite nas configurações do navegador.";
+        resultEl.textContent = "❌ Acesso ao microfone negado. Habilite nas configurações do navegador.";
       } else {
-        resultEl.textContent = `Erro no reconhecimento: ${event.error}`;
+        resultEl.textContent = `❌ Erro no reconhecimento: ${event.error}`;
       }
     };
 
     recognition.onend = () => {
-      btn.innerHTML = '<i class="ph-duotone ph-microphone"></i> Gravar fala';
+      btn.textContent = "🎤 Gravar Fala";
       btn.disabled = false;
     };
   }
@@ -600,7 +583,7 @@ exec(_test_src, _ns)
             const resultEl = ex.querySelector(".speak-result");
             resultEl.hidden = false;
             resultEl.className = "speak-result";
-            resultEl.textContent = `A pronúncia esperada é: "${solution}"`;
+            resultEl.textContent = `💡 A pronúncia esperada é: "${solution}"`;
           } else if (type === "quiz") {
             ex.querySelectorAll(".quiz-option").forEach((b) => {
               b.classList.remove("is-wrong");
@@ -643,7 +626,7 @@ exec(_test_src, _ns)
         try {
           await Progress.markDone(topicId);
           completeBtn.classList.add("is-done");
-          completeBtn.innerHTML = '<i class="ph-duotone ph-check"></i> Concluído';
+          completeBtn.textContent = "✓ Concluído";
           completeBtn.disabled = false;
         } catch (e) {
           alert("Não foi possível salvar o progresso.");

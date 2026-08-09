@@ -9,40 +9,40 @@
   <strong>Lixeira</strong>
 </nav>
 
-<section class="catalog-header">
-  <h1>🗑️ Lixeira</h1>
-  <p class="roadmap-desc">Cursos desativados ficam aqui. Nada é apagado automaticamente — você pode reativar a qualquer momento, ou excluir definitivamente quando tiver certeza.</p>
+<section class="catalog-header" style="border-bottom:none">
+  <h1><i class="ph-duotone ph-trash"></i> Lixeira</h1>
 </section>
+<p class="roadmap-desc">Cursos desativados ficam aqui. Nada é apagado automaticamente — você pode reativar a qualquer momento, ou excluir definitivamente quando tiver certeza.</p>
 
 {% if roadmaps %}
 <section class="trash-list">
   {% for rm in roadmaps %}
-  <article class="trash-item">
+  <article class="trash-item card">
     <div class="trash-item-info">
-      <span class="course-icon">{{ rm.icon }}</span>
+      <span class="course-icon"><i class="ph-duotone ph-graduation-cap"></i></span>
       <div>
         <div class="course-badges">
-          <span class="badge badge-category">{{ rm.category }}</span>
-          <span class="badge badge-level">{{ rm.level }}</span>
+          <span class="tag tag-accent">{{ rm.category }}</span>
+          <span class="tag tag-neutral">{{ rm.level }}</span>
         </div>
         <h3>{{ rm.title }}</h3>
         <p class="trash-item-desc">{{ rm.description }}</p>
-        <span class="trash-item-meta">{{ rm.modules|length }} módulos · {{ stats[rm.id].total }} lições</span>
+        <span class="trash-item-meta"><i class="ph-duotone ph-package"></i> {{ rm.modules|length }} módulos · <i class="ph-duotone ph-list-bullets"></i> {{ stats[rm.id].total }} lições</span>
       </div>
     </div>
     <div class="trash-item-actions">
       <form method="post" action="/roadmap/{{ rm.slug }}/enable">
-        <button type="submit" class="btn btn-primary btn-sm">↩️ Reativar</button>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="ph-duotone ph-arrow-counter-clockwise"></i> Reativar</button>
       </form>
       <form method="post" action="/roadmap/{{ rm.slug }}/delete"
             onsubmit="return confirm('Excluir \'{{ rm.title }}\' definitivamente? Todo o progresso e conteúdo desse curso serão apagados do banco de dados. Essa ação não pode ser desfeita.');">
-        <button type="submit" class="btn btn-danger btn-sm">Excluir definitivamente</button>
+        <button type="submit" class="btn btn-ghost btn-sm btn-danger"><i class="ph-duotone ph-x-circle"></i> Excluir definitivamente</button>
       </form>
     </div>
   </article>
   {% endfor %}
 </section>
 {% else %}
-<p class="empty-trash">A lixeira está vazia. 🎉</p>
+<p class="empty-trash">A lixeira está vazia.</p>
 {% endif %}
 {% endblock %}

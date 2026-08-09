@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}BuildYourStudy — Estude o que quiser{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="hero-content">
+    <span class="hero-badge">✦ Plataforma de Estudos Interativa</span>
+    <h1 class="hero-title">O que você quer <span class="gradient-text">aprender hoje</span>?</h1>
+    <p class="hero-subtitle">Escolha seu roadmap, aprenda conceitos direto no navegador e acompanhe seu progresso em tempo real.</p>
+
+    {% if total_all_topics > 0 %}
+    <div class="global-progress-card">
+      <div class="global-progress-info">
+        <span class="global-progress-title">Seu Progresso Global</span>
+        <span class="global-progress-stats">{{ total_done_topics }} de {{ total_all_topics }} lições ({{ global_pct }}%)</span>
+      </div>
+      <div class="progress-bar">
+        <span style="width: {{ global_pct }}%"></span>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="catalog-section">
+  <div class="catalog-header">
+    <h2>Trilhas Disponíveis</h2>
+    <div class="category-filters">
+      <button class="filter-btn active" data-filter="all">★ Todos</button>
+      {% for cat in categories %}
+      <button class="filter-btn" data-filter="{{ cat }}">{{ cat }}</button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="courses-grid">
+    {% for roadmap in roadmaps %}
+    {% set s = stats[roadmap.id] %}
+    <article class="course-card" data-category="{{ roadmap.category }}">
+      <div class="course-card-header">
+        <span class="course-icon">{{ roadmap.icon }}</span>
+        <div class="course-badges">
+          <span class="badge badge-category">{{ roadmap.category }}</span>
+          <span class="badge badge-level">{{ roadmap.level }}</span>
+        </div>
+      </div>
+
+      <h3 class="course-title">{{ roadmap.title }}</h3>
+      <p class="course-description">{{ roadmap.description }}</p>
+
+      <div class="course-meta">
+        <span class="meta-item">📦 {{ roadmap.modules|length }} Módulos</span>
+        <span class="meta-item">📝 {{ s.total }} Lições</span>
+      </div>
+
+      <div class="course-progress">
+        <div class="progress-bar">
+          <span style="width: {{ s.pct }}%"></span>
+        </div>
+        <div class="progress-label-wrap">
+          <span class="progress-status">{% if s.pct == 100 %}Concluído 🎉{% elif s.pct > 0 %}Em andamento{% else %}Não iniciado{% endif %}</span>
+          <span class="progress-pct">{{ s.pct }}% ({{ s.done }}/{{ s.total }})</span>
+        </div>
+      </div>
+
+      <div class="course-card-action">
+        <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-course">
+          {% if s.pct > 0 %}Continuar Trilha ➔{% else %}Iniciar Trilha ➔{% endif %}
+        </a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const courseCards = document.querySelectorAll('.course-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        courseCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+{% endblock %}
