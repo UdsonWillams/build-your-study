@@ -2,6 +2,9 @@
   "slug": "python-do-zero",
   "title": "Python do Zero",
   "description": "Uma trilha completa para quem está começando: do entendimento do que é programação até escrever funções em Python. Cada lição é curta e prática — e você escreve código de verdade direto no navegador.",
+  "category": "Programação",
+  "icon": "🐍",
+  "level": "Iniciante",
   "position": 0,
   "modules": [
     {

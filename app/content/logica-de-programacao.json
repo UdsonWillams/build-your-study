@@ -1,0 +1,802 @@
+{
+  "slug": "logica-de-programacao",
+  "title": "Lógica de Programação & Estruturas de Dados",
+  "description": "Uma trilha completa de fundamentos de ciência da computação usando Python: lógica proposicional, fluxogramas, desafios clássicos de raciocínio, recursão e complexidade — e depois as estruturas de dados clássicas: busca, ordenação, pilhas, filas, listas ligadas, árvores, hashing, grafos e programação dinâmica.",
+  "category": "Lógica",
+  "icon": "🧠",
+  "level": "Iniciante ao Avançado",
+  "position": 2,
+  "modules": [
+    {
+      "slug": "pensamento-computacional",
+      "title": "Módulo 0 — Pensamento Computacional",
+      "summary": "Os 4 pilares do pensamento computacional e o que é um algoritmo.",
+      "position": 0,
+      "topics": [
+        {
+          "slug": "pilares-do-pensamento-computacional",
+          "title": "Os 4 Pilares da Lógica",
+          "position": 0,
+          "lesson_md": "# Os 4 Pilares do Pensamento Computacional\n\nAntes de escrever qualquer linha de código em qualquer linguagem, você precisa aprender a **pensar como um computador**.\n\nO pensamento computacional é dividido em **4 pilares fundamentais**:\n\n1. **Decomposição:** Quebrar um problema grande e complexo em partes menores e mais fáceis de resolver.\n2. **Reconhecimento de Padrões:** Identificar similaridades ou tendências entre problemas já conhecidos.\n3. **Abstração:** Focar no que é essencial e ignorar detalhes irrelevantes no momento.\n4. **Algoritmos:** Desenvolver um passo a passo detalhado para resolver cada parte do problema.\n\nCom esses 4 pilares, você consegue resolver qualquer desafio na programação!"
+        },
+        {
+          "slug": "o-que-e-um-algoritmo",
+          "title": "O que é um algoritmo?",
+          "position": 1,
+          "lesson_md": "# O que é um algoritmo?\n\nUm **algoritmo** é uma sequência finita e bem definida de passos para resolver um problema ou realizar uma tarefa.\n\n## Características de um bom algoritmo\n\n- **Finito**: tem que terminar em algum momento (não pode rodar para sempre).\n- **Bem definido**: cada passo é claro, sem ambiguidade.\n- **Entrada e saída**: geralmente recebe algum dado de entrada e produz um resultado.\n- **Eficaz**: cada passo deve ser executável na prática.\n\n## Exemplo do dia a dia\n\nReceita de um sanduíche:\n\n1. Pegue duas fatias de pão.\n2. Passe manteiga em uma das fatias.\n3. Coloque o recheio.\n4. Junte as duas fatias.\n\nIsso é um algoritmo! Programar é basicamente **traduzir algoritmos como esse para uma linguagem que o computador entende**.\n\n> 💡 Antes de escrever código, é sempre bom conseguir descrever o algoritmo em palavras (ou pseudocódigo) — se você não consegue explicar o passo a passo, também não vai conseguir programá-lo.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual característica um algoritmo PRECISA ter?",
+              "options": ["Ser infinito", "Ser finito (terminar em algum momento)", "Ser escrito em Python"],
+              "solution": "Ser finito (terminar em algum momento)"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual das opções abaixo é um algoritmo?",
+              "options": ["Uma receita de bolo com passo a passo", "Uma foto de um bolo", "O nome de um bolo"],
+              "solution": "Uma receita de bolo com passo a passo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "logica-proposicional",
+      "title": "Módulo 1 — Lógica Proposicional e Tabelas-Verdade",
+      "summary": "Proposições, conectivos lógicos (E, OU, NÃO), tabelas-verdade e as leis de De Morgan.",
+      "position": 1,
+      "topics": [
+        {
+          "slug": "proposicoes-e-conectivos",
+          "title": "Proposições e conectivos lógicos",
+          "position": 0,
+          "lesson_md": "# Lógica Proposicional\n\nUma **proposição** é uma frase que só pode ser **verdadeira** ou **falsa** — nunca as duas, nunca nenhuma.\n\nExemplos de proposições:\n- \"2 + 2 = 4\" (verdadeira)\n- \"O Brasil fica na Europa\" (falsa)\n\nNão são proposições: \"Que dia lindo!\", \"Vá estudar!\" (não têm valor verdadeiro/falso).\n\n## Conectivos lógicos\n\n| Conectivo | Símbolo | Significado |\n|---|---|---|\n| E (AND) | ∧ | verdadeiro só se AMBAS forem verdadeiras |\n| OU (OR) | ∨ | verdadeiro se PELO MENOS UMA for verdadeira |\n| NÃO (NOT) | ¬ | inverte o valor |\n\nEm Python, esses conectivos viram `and`, `or` e `not`:\n\n```python\nchoveu = True\nfrio = False\nchoveu and frio    # False (precisa das duas)\nchoveu or frio     # True (basta uma)\nnot choveu         # False\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Dadas as variáveis `sol` (True) e `calor` (True), crie uma variável `dia_de_praia` que seja True apenas se as duas forem verdadeiras (use `and`).",
+              "starter_code": "sol = True\ncalor = True\n# crie dia_de_praia\n",
+              "test_code": "assert 'dia_de_praia' in dir(), 'Crie a variável dia_de_praia'\nassert dia_de_praia == True, 'Com sol e calor True, deveria ser True'",
+              "solution": "sol = True\ncalor = True\ndia_de_praia = sol and calor"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual o resultado de `True or False`?",
+              "options": ["True", "False"],
+              "solution": "True"
+            }
+          ]
+        },
+        {
+          "slug": "tabelas-verdade",
+          "title": "Tabelas-verdade",
+          "position": 1,
+          "lesson_md": "# Tabelas-verdade\n\nUma tabela-verdade mostra o resultado de uma operação lógica para **todas as combinações possíveis** de entrada.\n\n## AND (E)\n\n| A | B | A and B |\n|---|---|---|\n| V | V | V |\n| V | F | F |\n| F | V | F |\n| F | F | F |\n\n## OR (OU)\n\n| A | B | A or B |\n|---|---|---|\n| V | V | V |\n| V | F | V |\n| F | V | V |\n| F | F | F |\n\n## NOT (NÃO)\n\n| A | not A |\n|---|---|\n| V | F |\n| F | V |\n\n> 🎯 Repare: `and` só é falso quando pelo menos um dos dois é falso. `or` só é falso quando os DOIS são falsos.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Em uma tabela-verdade de AND (com 2 entradas), quantas das 4 linhas resultam em Verdadeiro?",
+              "options": ["1", "2", "4"],
+              "solution": "1"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Em uma tabela-verdade de OR (com 2 entradas), quantas das 4 linhas resultam em Falso?",
+              "options": ["1", "2", "4"],
+              "solution": "1"
+            }
+          ]
+        },
+        {
+          "slug": "leis-de-morgan",
+          "title": "Leis de De Morgan",
+          "position": 2,
+          "lesson_md": "# Leis de De Morgan\n\nAs leis de De Morgan mostram como \"distribuir\" uma negação sobre `and`/`or`:\n\n```\nnot (A and B)  ==  (not A) or (not B)\nnot (A or B)   ==  (not A) and (not B)\n```\n\n## Por que isso importa na programação?\n\nCondições negadas complexas ficam mais fáceis de ler se você aplicar De Morgan:\n\n```python\n# Confuso:\nif not (idade >= 18 and tem_documento):\n    ...\n\n# Mais claro (De Morgan):\nif idade < 18 or not tem_documento:\n    ...\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "De Morgan diz que `not (A and B)` é equivalente a:",
+              "options": ["(not A) or (not B)", "(not A) and (not B)", "A or B"],
+              "solution": "(not A) or (not B)"
+            },
+            {
+              "position": 1,
+              "prompt": "Dadas `esta_logado` (False) e `tem_permissao` (True), calcule `bloqueado` usando a lei de De Morgan (equivalente a `not (esta_logado and tem_permissao)`, mas sem colocar `not` na frente de um `and`).",
+              "starter_code": "esta_logado = False\ntem_permissao = True\n# calcule bloqueado usando De Morgan\n",
+              "test_code": "assert 'bloqueado' in dir(), 'Crie a variável bloqueado'\nassert bloqueado == True, 'Com esta_logado=False, deveria ser True (bloqueado)'\nesta_logado = True\ntem_permissao = True\nbloqueado = (not esta_logado) or (not tem_permissao)\nassert bloqueado == False, 'Com os dois True, nao deveria estar bloqueado'",
+              "solution": "esta_logado = False\ntem_permissao = True\nbloqueado = (not esta_logado) or (not tem_permissao)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fluxogramas-e-pseudocodigo",
+      "title": "Módulo 2 — Fluxogramas e Pseudocódigo",
+      "summary": "Representar um algoritmo antes de programar: pseudocódigo e símbolos de fluxograma.",
+      "position": 2,
+      "topics": [
+        {
+          "slug": "pseudocodigo",
+          "title": "Pseudocódigo",
+          "position": 0,
+          "lesson_md": "# Pseudocódigo\n\n**Pseudocódigo** é uma forma de escrever um algoritmo em uma linguagem quase natural, sem se preocupar com a sintaxe exata de uma linguagem de programação. Serve para planejar antes de codar.\n\n## Exemplo: maior de três números\n\n**Pseudocódigo:**\n```\nINÍCIO\n  LER a, b, c\n  SE a > b E a > c ENTÃO\n    maior = a\n  SENÃO SE b > c ENTÃO\n    maior = b\n  SENÃO\n    maior = c\n  ESCREVER maior\nFIM\n```\n\n**Traduzido para Python:**\n```python\na, b, c = 5, 9, 3\nif a > b and a > c:\n    maior = a\nelif b > c:\n    maior = b\nelse:\n    maior = c\nprint(maior)\n```\n\n> 🎯 Escrever pseudocódigo primeiro ajuda a organizar o raciocínio antes de se preocupar com a sintaxe de uma linguagem específica.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Dadas as variáveis `a`, `b`, `c`, calcule `maior` (o maior dos três) seguindo a lógica do pseudocódigo acima.",
+              "starter_code": "a, b, c = 4, 9, 7\n# calcule maior\n",
+              "test_code": "assert 'maior' in dir(), 'Crie a variável maior'\nassert maior == 9, f'Esperava 9, mas maior ficou {maior!r}'\na, b, c = 10, 2, 3\nif a > b and a > c:\n    maior = a\nelif b > c:\n    maior = b\nelse:\n    maior = c\nassert maior == 10, 'Falhou quando o maior é a'",
+              "solution": "a, b, c = 4, 9, 7\nif a > b and a > c:\n    maior = a\nelif b > c:\n    maior = b\nelse:\n    maior = c"
+            }
+          ]
+        },
+        {
+          "slug": "fluxogramas",
+          "title": "Fluxogramas",
+          "position": 1,
+          "lesson_md": "# Fluxogramas\n\nUm **fluxograma** representa um algoritmo visualmente, usando formas padronizadas:\n\n| Símbolo | Formato | Significado |\n|---|---|---|\n| Oval | ⬭ | Início / Fim |\n| Retângulo | ▭ | Processo / ação |\n| Losango | ◇ | Decisão (sim/não) |\n| Seta | → | Direção do fluxo |\n\n## Exemplo: verificar se um número é par\n\n```\n(Início) → [Ler número] → <número % 2 == 0?> --Sim--> [Escrever \"par\"] → (Fim)\n                                    |\n                                   Não\n                                    ↓\n                          [Escrever \"ímpar\"] → (Fim)\n```\n\nCada losango (decisão) sempre tem **dois caminhos possíveis**: sim e não (verdadeiro e falso) — exatamente como um `if/else` no código.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual símbolo de fluxograma representa uma decisão (sim/não)?",
+              "options": ["Retângulo", "Losango", "Oval"],
+              "solution": "Losango"
+            },
+            {
+              "position": 1,
+              "prompt": "Escreva o código equivalente ao fluxograma de par/ímpar: dado `numero`, crie a variável `resultado` com `\"par\"` ou `\"ímpar\"`.",
+              "starter_code": "numero = 7\n# crie resultado\n",
+              "test_code": "assert 'resultado' in dir(), 'Crie a variável resultado'\nassert resultado == 'ímpar', f'7 é ímpar, mas resultado ficou {resultado!r}'\nnumero = 10\nresultado = 'par' if numero % 2 == 0 else 'ímpar'\nassert resultado == 'par', 'Falhou para número par'",
+              "solution": "numero = 7\nif numero % 2 == 0:\n    resultado = \"par\"\nelse:\n    resultado = \"ímpar\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vetores-e-matrizes",
+      "title": "Módulo 3 — Vetores e Matrizes",
+      "summary": "Vetores (arrays) representados por listas, e matrizes como listas de listas.",
+      "position": 3,
+      "topics": [
+        {
+          "slug": "vetores",
+          "title": "Vetores (arrays)",
+          "position": 0,
+          "lesson_md": "# Vetores (arrays)\n\nEm ciência da computação, um **vetor** (array) é uma estrutura que guarda vários valores do mesmo tipo, em posições sequenciais e numeradas (o índice). Em Python, usamos **listas** para representar vetores.\n\n```python\nnotas = [7.5, 8.0, 6.5, 9.0]\n```\n\n## Percorrendo um vetor\n\n```python\nfor nota in notas:\n    print(nota)\n\nfor i in range(len(notas)):\n    print(i, notas[i])\n```\n\n## Operações clássicas com vetores\n\n- Somar todos os elementos\n- Encontrar o maior/menor\n- Buscar um valor específico\n- Contar quantos atendem a uma condição\n\nEssas operações são a base de praticamente todo processamento de dados.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Some todos os elementos da lista `numeros` e guarde em `soma`, **sem usar** a função `sum()` (use um loop com acumulador).",
+              "starter_code": "numeros = [4, 8, 15, 16, 23]\n# calcule soma com um loop\n",
+              "test_code": "assert 'soma' in dir(), 'Crie a variável soma'\nassert soma == 66, f'Esperava 66, mas soma ficou {soma!r}'",
+              "solution": "numeros = [4, 8, 15, 16, 23]\nsoma = 0\nfor n in numeros:\n    soma = soma + n"
+            },
+            {
+              "position": 1,
+              "prompt": "Encontre o maior valor da lista `numeros`, **sem usar** `max()`, e guarde em `maior`.",
+              "starter_code": "numeros = [4, 8, 15, 16, 23, 1]\n# calcule maior sem usar max()\n",
+              "test_code": "assert 'maior' in dir(), 'Crie a variável maior'\nassert maior == 23, f'Esperava 23, mas maior ficou {maior!r}'",
+              "solution": "numeros = [4, 8, 15, 16, 23, 1]\nmaior = numeros[0]\nfor n in numeros:\n    if n > maior:\n        maior = n"
+            }
+          ]
+        },
+        {
+          "slug": "matrizes",
+          "title": "Matrizes",
+          "position": 1,
+          "lesson_md": "# Matrizes\n\nUma **matriz** é um vetor de vetores — em Python, uma lista de listas:\n\n```python\nmatriz = [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n]\n\nmatriz[0][0]   # 1  (linha 0, coluna 0)\nmatriz[1][2]   # 6  (linha 1, coluna 2)\n```\n\n## Percorrendo uma matriz\n\nPrecisamos de **dois loops aninhados** — um para as linhas, outro para as colunas:\n\n```python\nfor linha in matriz:\n    for valor in linha:\n        print(valor)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Some todos os elementos da matriz `m` (uma lista de listas), guarde em `total`, usando dois loops aninhados.",
+              "starter_code": "m = [[1, 2], [3, 4], [5, 6]]\n# calcule total\n",
+              "test_code": "assert 'total' in dir(), 'Crie a variável total'\nassert total == 21, f'Esperava 21, mas total ficou {total!r}'",
+              "solution": "m = [[1, 2], [3, 4], [5, 6]]\ntotal = 0\nfor linha in m:\n    for valor in linha:\n        total = total + valor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "desafios-classicos-de-logica",
+      "title": "Módulo 4 — Desafios Clássicos de Lógica",
+      "summary": "A bateria clássica de problemas de raciocínio: fatorial, tabuada, primos, MDC/MMC, palíndromo e ordenação manual.",
+      "position": 4,
+      "topics": [
+        {
+          "slug": "fatorial-e-tabuada",
+          "title": "Fatorial e tabuada",
+          "position": 0,
+          "lesson_md": "# Fatorial e tabuada\n\n## Fatorial\n\nO fatorial de `n` (escrito `n!`) é o produto de todos os inteiros de 1 até `n`. Por definição, `0! = 1`.\n\n```\n5! = 5 * 4 * 3 * 2 * 1 = 120\n```\n\n```python\nn = 5\nfatorial = 1\nfor i in range(1, n + 1):\n    fatorial = fatorial * i\n```\n\n## Tabuada\n\nA tabuada de um número `n` é a lista de `n * 1, n * 2, ..., n * 10`.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Calcule o fatorial de `n` usando um loop, guarde em `fatorial`.",
+              "starter_code": "n = 5\n# calcule fatorial\n",
+              "test_code": "assert 'fatorial' in dir(), 'Crie a variável fatorial'\nassert fatorial == 120, f'fatorial de 5 deveria ser 120, mas ficou {fatorial!r}'\nn = 0\nfatorial = 1\nfor i in range(1, n + 1):\n    fatorial = fatorial * i\nassert fatorial == 1, 'fatorial de 0 deveria ser 1'",
+              "solution": "n = 5\nfatorial = 1\nfor i in range(1, n + 1):\n    fatorial = fatorial * i"
+            },
+            {
+              "position": 1,
+              "prompt": "Crie uma lista `tabuada` com os 10 primeiros resultados da tabuada do número `n` (de `n*1` até `n*10`).",
+              "starter_code": "n = 7\n# crie tabuada\n",
+              "test_code": "assert 'tabuada' in dir(), 'Crie a variável tabuada'\nassert tabuada == [7, 14, 21, 28, 35, 42, 49, 56, 63, 70], f'tabuada ficou {tabuada!r}'",
+              "solution": "n = 7\ntabuada = []\nfor i in range(1, 11):\n    tabuada.append(n * i)"
+            }
+          ]
+        },
+        {
+          "slug": "primos-mdc-mmc",
+          "title": "Números primos e MDC",
+          "position": 1,
+          "lesson_md": "# Números primos e MDC\n\n## É primo?\n\nUm número é **primo** se só é divisível por 1 e por ele mesmo (e é maior que 1).\n\n```python\ndef eh_primo(n):\n    if n < 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\n```\n\n## MDC (Máximo Divisor Comum) — Algoritmo de Euclides\n\n```python\ndef mdc(a, b):\n    while b != 0:\n        a, b = b, a % b\n    return a\n```\n\nA cada passo, trocamos `(a, b)` por `(b, a % b)`, até `b` chegar a zero — o `a` que sobra é o MDC.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Verifique se `n` é primo, guarde o resultado (True/False) em `eh_primo`.",
+              "starter_code": "n = 7\n# calcule eh_primo\n",
+              "test_code": "assert 'eh_primo' in dir(), 'Crie a variável eh_primo'\nassert eh_primo == True, '7 é primo'\nn = 8\nresultado = n >= 2\nfor i in range(2, n):\n    if n % i == 0:\n        resultado = False\neh_primo = resultado\nassert eh_primo == False, '8 não é primo'",
+              "solution": "n = 7\neh_primo = n >= 2\nfor i in range(2, n):\n    if n % i == 0:\n        eh_primo = False"
+            },
+            {
+              "position": 1,
+              "prompt": "Calcule o MDC entre `a` e `b` usando o Algoritmo de Euclides (sem usar `math.gcd`), guarde em `mdc`.",
+              "starter_code": "a, b = 48, 18\n# calcule mdc\n",
+              "test_code": "assert 'mdc' in dir(), 'Crie a variável mdc'\nassert mdc == 6, f'MDC de 48 e 18 deveria ser 6, mas ficou {mdc!r}'",
+              "solution": "a, b = 48, 18\nwhile b != 0:\n    a, b = b, a % b\nmdc = a"
+            }
+          ]
+        },
+        {
+          "slug": "palindromo-e-contagem",
+          "title": "Palíndromo e contagem de vogais",
+          "position": 2,
+          "lesson_md": "# Palíndromo e contagem de vogais\n\n## Palíndromo\n\nUma palavra ou frase é um **palíndromo** se é lida da mesma forma de trás para frente (ex.: \"arara\", \"ovo\").\n\n```python\npalavra = \"arara\"\neh_palindromo = palavra == palavra[::-1]\n```\n\n`palavra[::-1]` inverte a string usando *slicing* com passo -1.\n\n## Contando vogais\n\n```python\nfrase = \"programacao\"\ntotal = 0\nfor letra in frase:\n    if letra in \"aeiou\":\n        total += 1\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Verifique se a string `palavra` é um palíndromo, guarde o resultado em `eh_palindromo`.",
+              "starter_code": "palavra = \"arara\"\n# calcule eh_palindromo\n",
+              "test_code": "assert 'eh_palindromo' in dir(), 'Crie a variável eh_palindromo'\nassert eh_palindromo == True, \"'arara' é um palíndromo\"\npalavra = 'python'\neh_palindromo = palavra == palavra[::-1]\nassert eh_palindromo == False, \"'python' não é um palíndromo\"",
+              "solution": "palavra = \"arara\"\neh_palindromo = palavra == palavra[::-1]"
+            },
+            {
+              "position": 1,
+              "prompt": "Conte quantas vogais (a, e, i, o, u) existem na string `frase`, guarde em `total_vogais`.",
+              "starter_code": "frase = \"programacao\"\n# calcule total_vogais\n",
+              "test_code": "assert 'total_vogais' in dir(), 'Crie a variável total_vogais'\nassert total_vogais == 5, f'Esperava 5 vogais, mas ficou {total_vogais!r}'",
+              "solution": "frase = \"programacao\"\ntotal_vogais = 0\nfor letra in frase:\n    if letra in \"aeiou\":\n        total_vogais = total_vogais + 1"
+            }
+          ]
+        },
+        {
+          "slug": "ordenar-sem-sorted",
+          "title": "Ordenando 3 números manualmente",
+          "position": 3,
+          "lesson_md": "# Ordenando 3 números manualmente\n\nAntes de usar algoritmos prontos de ordenação (próximo módulo!), vale entender a lógica \"na mão\": comparar e trocar valores usando `if`.\n\n```python\na, b = 5, 2\nif a > b:\n    a, b = b, a   # troca sem variável auxiliar (Python permite isso!)\n```\n\nCom 3 números, o raciocínio é parecido, só com mais comparações.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Dados três números `a`, `b`, `c`, ordene-os em ordem crescente **sem usar** `sorted()` nem `.sort()` — apenas comparações e trocas manuais — e guarde em `menor`, `meio`, `maior`.",
+              "starter_code": "a, b, c = 9, 3, 6\n# calcule menor, meio, maior sem usar sorted()\n",
+              "test_code": "assert {'menor', 'meio', 'maior'} <= set(dir()), 'Crie menor, meio e maior'\nassert (menor, meio, maior) == (3, 6, 9), f'Esperava (3, 6, 9), veio ({menor!r}, {meio!r}, {maior!r})'",
+              "solution": "a, b, c = 9, 3, 6\nif a > b:\n    a, b = b, a\nif b > c:\n    b, c = c, b\nif a > b:\n    a, b = b, a\nmenor, meio, maior = a, b, c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "recursao-e-complexidade",
+      "title": "Módulo 5 — Recursão e Complexidade",
+      "summary": "O que é recursão, recursão vs iteração, e uma introdução intuitiva a Big-O.",
+      "position": 5,
+      "topics": [
+        {
+          "slug": "o-que-e-recursao",
+          "title": "O que é recursão?",
+          "position": 0,
+          "lesson_md": "# O que é recursão?\n\n**Recursão** é quando uma função chama a si mesma para resolver um problema, dividindo-o em uma versão menor do mesmo problema.\n\nToda função recursiva precisa de:\n\n1. **Caso base**: a condição que faz a recursão parar (sem isso, ela nunca termina!).\n2. **Caso recursivo**: a função chama a si mesma com uma entrada \"menor\", aproximando-se do caso base.\n\n## Exemplo: fatorial\n\n```python\ndef fatorial(n):\n    if n <= 1:                    # caso base\n        return 1\n    return n * fatorial(n - 1)    # caso recursivo\n```\n\n`fatorial(4)` chama `fatorial(3)`, que chama `fatorial(2)`, que chama `fatorial(1)` (caso base, retorna 1) — e as chamadas vão \"desempilhando\": `1 * 2 * 3 * 4 = 24`.\n\n> ⚠️ Uma função recursiva sem caso base (ou que nunca alcança o caso base) causa **estouro de pilha** (`RecursionError` em Python).",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente a função `fatorial(n)` de forma recursiva.",
+              "starter_code": "def fatorial(n):\n    # implemente de forma recursiva\n    pass\n",
+              "test_code": "assert fatorial(5) == 120, f'fatorial(5) deveria ser 120, veio {fatorial(5)!r}'\nassert fatorial(0) == 1, 'fatorial(0) deveria ser 1'\nassert fatorial(1) == 1, 'fatorial(1) deveria ser 1'",
+              "solution": "def fatorial(n):\n    if n <= 1:\n        return 1\n    return n * fatorial(n - 1)"
+            },
+            {
+              "position": 1,
+              "prompt": "Implemente `soma_ate(n)` que retorna a soma de 1 até `n`, de forma recursiva (sem usar loop).",
+              "starter_code": "def soma_ate(n):\n    # implemente de forma recursiva\n    pass\n",
+              "test_code": "assert soma_ate(5) == 15, f'soma_ate(5) deveria ser 15, veio {soma_ate(5)!r}'\nassert soma_ate(1) == 1, 'soma_ate(1) deveria ser 1'",
+              "solution": "def soma_ate(n):\n    if n <= 1:\n        return n\n    return n + soma_ate(n - 1)"
+            }
+          ]
+        },
+        {
+          "slug": "recursao-vs-iteracao",
+          "title": "Recursão vs Iteração",
+          "position": 1,
+          "lesson_md": "# Recursão vs Iteração\n\nQualquer problema recursivo também pode ser resolvido com um loop (iteração) — a escolha é sobre clareza vs desempenho.\n\n## Fibonacci: duas formas\n\n**Recursiva** (elegante, mas lenta para `n` grande — refaz cálculos repetidos):\n```python\ndef fib(n):\n    if n <= 1:\n        return n\n    return fib(n - 1) + fib(n - 2)\n```\n\n**Iterativa** (mais rápida, usa menos memória):\n```python\ndef fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n```\n\n> 🎯 Recursão tende a ser mais legível para problemas naturalmente \"divididos em partes menores\" (árvores, por exemplo, que veremos mais adiante). Iteração tende a ser mais eficiente em Python, que não otimiza recursão de cauda.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `fib(n)` de forma **iterativa** (com loop, não recursão), retornando o n-ésimo número de Fibonacci (fib(0)=0, fib(1)=1).",
+              "starter_code": "def fib(n):\n    # implemente de forma iterativa\n    pass\n",
+              "test_code": "assert fib(0) == 0, 'fib(0) deveria ser 0'\nassert fib(1) == 1, 'fib(1) deveria ser 1'\nassert fib(10) == 55, f'fib(10) deveria ser 55, veio {fib(10)!r}'",
+              "solution": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Por que a versão recursiva ingênua de Fibonacci é lenta para `n` grande?",
+              "options": ["Porque recalcula os mesmos valores várias vezes", "Porque usa mais memória de disco", "Porque Python não suporta recursão"],
+              "solution": "Porque recalcula os mesmos valores várias vezes"
+            }
+          ]
+        },
+        {
+          "slug": "complexidade-big-o",
+          "title": "Complexidade de algoritmos (Big-O)",
+          "position": 2,
+          "lesson_md": "# Complexidade de algoritmos (Big-O)\n\n**Big-O** descreve, de forma aproximada, como o tempo (ou memória) que um algoritmo gasta cresce conforme o tamanho da entrada (`n`) aumenta.\n\n| Notação | Nome | Exemplo |\n|---|---|---|\n| O(1) | constante | acessar `lista[0]` |\n| O(log n) | logarítmica | busca binária |\n| O(n) | linear | percorrer uma lista uma vez |\n| O(n²) | quadrática | dois loops aninhados sobre a mesma lista |\n\n## Por que isso importa?\n\nUm algoritmo O(n²) pode ser rápido para 10 itens, mas **extremamente lento** para 1 milhão de itens. Entender a complexidade ajuda a escolher o algoritmo certo antes que o problema vire um gargalo de performance.\n\n```python\n# O(n) - um loop\nfor item in lista:\n    ...\n\n# O(n²) - loop dentro de loop\nfor item in lista:\n    for outro in lista:\n        ...\n```\n\n> 💡 Não precisa calcular Big-O formalmente agora — o importante é desenvolver a intuição de \"quantos loops aninhados eu tenho, e sobre o quê\".",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual a complexidade de um único loop que percorre uma lista de tamanho n uma vez?",
+              "options": ["O(1)", "O(n)", "O(n²)"],
+              "solution": "O(n)"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual a complexidade de dois loops aninhados, cada um percorrendo a lista inteira?",
+              "options": ["O(n)", "O(n²)", "O(log n)"],
+              "solution": "O(n²)"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Acessar um elemento de uma lista pelo índice (`lista[5]`) tem complexidade:",
+              "options": ["O(1)", "O(n)", "O(n²)"],
+              "solution": "O(1)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "busca-e-ordenacao-basica",
+      "title": "Módulo 6 — Busca e Ordenação Básica",
+      "summary": "Busca linear, busca binária, bubble sort, insertion sort e selection sort.",
+      "position": 6,
+      "topics": [
+        {
+          "slug": "busca-linear",
+          "title": "Busca Linear",
+          "position": 0,
+          "lesson_md": "# Busca Linear\n\nA forma mais simples de procurar um valor numa lista: percorrer item por item até achar (ou chegar ao fim).\n\n```python\ndef busca_linear(lista, alvo):\n    for i, valor in enumerate(lista):\n        if valor == alvo:\n            return i        # posição onde achou\n    return -1                # não achou\n```\n\nComplexidade: **O(n)** no pior caso (o valor está no fim, ou não existe).",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `busca_linear(lista, alvo)` que retorna o índice do `alvo` na `lista`, ou -1 se não encontrar.",
+              "starter_code": "def busca_linear(lista, alvo):\n    # implemente\n    pass\n",
+              "test_code": "assert busca_linear([5, 3, 8, 1], 8) == 2, 'deveria achar 8 no índice 2'\nassert busca_linear([5, 3, 8, 1], 99) == -1, 'não deveria achar 99'",
+              "solution": "def busca_linear(lista, alvo):\n    for i, valor in enumerate(lista):\n        if valor == alvo:\n            return i\n    return -1"
+            }
+          ]
+        },
+        {
+          "slug": "busca-binaria",
+          "title": "Busca Binária",
+          "position": 1,
+          "lesson_md": "# Busca Binária\n\nSe a lista está **ordenada**, dá pra buscar muito mais rápido: compare com o meio, e descarte metade da lista a cada passo.\n\n```python\ndef busca_binaria(lista, alvo):\n    inicio, fim = 0, len(lista) - 1\n    while inicio <= fim:\n        meio = (inicio + fim) // 2\n        if lista[meio] == alvo:\n            return meio\n        elif lista[meio] < alvo:\n            inicio = meio + 1\n        else:\n            fim = meio - 1\n    return -1\n```\n\nComplexidade: **O(log n)** — muito mais rápido que a busca linear para listas grandes. Só funciona em listas **ordenadas**!",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `busca_binaria(lista, alvo)` para uma lista já ordenada, retornando o índice do `alvo` ou -1.",
+              "starter_code": "def busca_binaria(lista, alvo):\n    # implemente\n    pass\n",
+              "test_code": "lista = [1, 3, 5, 7, 9, 11]\nassert busca_binaria(lista, 7) == 3, 'deveria achar 7 no índice 3'\nassert busca_binaria(lista, 4) == -1, 'não deveria achar 4'",
+              "solution": "def busca_binaria(lista, alvo):\n    inicio, fim = 0, len(lista) - 1\n    while inicio <= fim:\n        meio = (inicio + fim) // 2\n        if lista[meio] == alvo:\n            return meio\n        elif lista[meio] < alvo:\n            inicio = meio + 1\n        else:\n            fim = meio - 1\n    return -1"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Busca binária exige que a lista esteja:",
+              "options": ["ordenada", "com números pares", "vazia"],
+              "solution": "ordenada"
+            }
+          ]
+        },
+        {
+          "slug": "bubble-sort",
+          "title": "Bubble Sort",
+          "position": 2,
+          "lesson_md": "# Bubble Sort (ordenação por bolha)\n\nCompara pares vizinhos e troca se estiverem fora de ordem, repetindo até a lista estar ordenada — os maiores valores \"borbulham\" para o final.\n\n```python\ndef bubble_sort(lista):\n    n = len(lista)\n    for i in range(n):\n        for j in range(n - i - 1):\n            if lista[j] > lista[j + 1]:\n                lista[j], lista[j + 1] = lista[j + 1], lista[j]\n    return lista\n```\n\nComplexidade: **O(n²)** — simples de entender, mas ineficiente para listas grandes.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `bubble_sort(lista)` que retorna a lista ordenada em ordem crescente.",
+              "starter_code": "def bubble_sort(lista):\n    # implemente\n    pass\n",
+              "test_code": "assert bubble_sort([5, 3, 8, 1, 9]) == [1, 3, 5, 8, 9], 'lista não ficou ordenada'\nassert bubble_sort([1]) == [1], 'falhou com lista de 1 elemento'",
+              "solution": "def bubble_sort(lista):\n    n = len(lista)\n    for i in range(n):\n        for j in range(n - i - 1):\n            if lista[j] > lista[j + 1]:\n                lista[j], lista[j + 1] = lista[j + 1], lista[j]\n    return lista"
+            }
+          ]
+        },
+        {
+          "slug": "insertion-selection-sort",
+          "title": "Insertion Sort e Selection Sort",
+          "position": 3,
+          "lesson_md": "# Insertion Sort e Selection Sort\n\n## Insertion Sort\n\nConstrói a lista ordenada aos poucos, \"inserindo\" cada elemento na posição correta entre os já ordenados:\n\n```python\ndef insertion_sort(lista):\n    for i in range(1, len(lista)):\n        atual = lista[i]\n        j = i - 1\n        while j >= 0 and lista[j] > atual:\n            lista[j + 1] = lista[j]\n            j -= 1\n        lista[j + 1] = atual\n    return lista\n```\n\n## Selection Sort\n\nA cada passo, encontra o **menor** elemento restante e coloca na posição correta:\n\n```python\ndef selection_sort(lista):\n    for i in range(len(lista)):\n        menor = i\n        for j in range(i + 1, len(lista)):\n            if lista[j] < lista[menor]:\n                menor = j\n        lista[i], lista[menor] = lista[menor], lista[i]\n    return lista\n```\n\nAmbos são **O(n²)**, assim como o bubble sort — a diferença está em quantas trocas cada um faz na prática.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `selection_sort(lista)` que retorna a lista ordenada em ordem crescente, seguindo o algoritmo acima.",
+              "starter_code": "def selection_sort(lista):\n    # implemente\n    pass\n",
+              "test_code": "assert selection_sort([5, 3, 8, 1, 9]) == [1, 3, 5, 8, 9], 'lista não ficou ordenada'\nassert selection_sort([2, 1]) == [1, 2], 'falhou com lista de 2 elementos'",
+              "solution": "def selection_sort(lista):\n    for i in range(len(lista)):\n        menor = i\n        for j in range(i + 1, len(lista)):\n            if lista[j] < lista[menor]:\n                menor = j\n        lista[i], lista[menor] = lista[menor], lista[i]\n    return lista"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ordenacao-avancada",
+      "title": "Módulo 7 — Ordenação Avançada",
+      "summary": "Merge sort, quick sort e uma comparação entre todos os algoritmos de ordenação vistos.",
+      "position": 7,
+      "topics": [
+        {
+          "slug": "merge-sort",
+          "title": "Merge Sort",
+          "position": 0,
+          "lesson_md": "# Merge Sort\n\nUsa a estratégia **dividir para conquistar**: divide a lista ao meio recursivamente até sobrar listas de 1 elemento (já ordenadas), depois **mescla** (merge) as metades ordenadas.\n\n```python\ndef merge(a, b):\n    resultado = []\n    i = j = 0\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            resultado.append(a[i]); i += 1\n        else:\n            resultado.append(b[j]); j += 1\n    resultado.extend(a[i:])\n    resultado.extend(b[j:])\n    return resultado\n\ndef merge_sort(lista):\n    if len(lista) <= 1:\n        return lista\n    meio = len(lista) // 2\n    esquerda = merge_sort(lista[:meio])\n    direita = merge_sort(lista[meio:])\n    return merge(esquerda, direita)\n```\n\nComplexidade: **O(n log n)** — bem melhor que os O(n²) do módulo anterior para listas grandes.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "A função `merge(a, b)` (que mescla duas listas já ordenadas em uma só ordenada) já está pronta no starter. Implemente `merge_sort(lista)` usando divisão recursiva + `merge`.",
+              "starter_code": "def merge(a, b):\n    resultado = []\n    i = j = 0\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            resultado.append(a[i]); i += 1\n        else:\n            resultado.append(b[j]); j += 1\n    resultado.extend(a[i:])\n    resultado.extend(b[j:])\n    return resultado\n\ndef merge_sort(lista):\n    # implemente usando merge()\n    pass\n",
+              "test_code": "assert merge_sort([5, 3, 8, 1, 9, 2]) == [1, 2, 3, 5, 8, 9], 'lista não ficou ordenada'\nassert merge_sort([1]) == [1], 'falhou com lista de 1 elemento'\nassert merge_sort([]) == [], 'falhou com lista vazia'",
+              "solution": "def merge(a, b):\n    resultado = []\n    i = j = 0\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            resultado.append(a[i]); i += 1\n        else:\n            resultado.append(b[j]); j += 1\n    resultado.extend(a[i:])\n    resultado.extend(b[j:])\n    return resultado\n\ndef merge_sort(lista):\n    if len(lista) <= 1:\n        return lista\n    meio = len(lista) // 2\n    esquerda = merge_sort(lista[:meio])\n    direita = merge_sort(lista[meio:])\n    return merge(esquerda, direita)"
+            }
+          ]
+        },
+        {
+          "slug": "quick-sort",
+          "title": "Quick Sort",
+          "position": 1,
+          "lesson_md": "# Quick Sort\n\nOutra estratégia de dividir para conquistar: escolhe um **pivô**, separa os menores à esquerda e os maiores à direita, e ordena cada lado recursivamente.\n\n```python\ndef quick_sort(lista):\n    if len(lista) <= 1:\n        return lista\n    pivo = lista[0]\n    menores = [x for x in lista[1:] if x <= pivo]\n    maiores = [x for x in lista[1:] if x > pivo]\n    return quick_sort(menores) + [pivo] + quick_sort(maiores)\n```\n\nComplexidade média: **O(n log n)**; no pior caso (lista já ordenada com esse pivô ingênuo), pode chegar a O(n²) — por isso implementações reais usam estratégias mais espertas para escolher o pivô.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `quick_sort(lista)` seguindo o algoritmo acima (pivô = primeiro elemento).",
+              "starter_code": "def quick_sort(lista):\n    # implemente\n    pass\n",
+              "test_code": "assert quick_sort([5, 3, 8, 1, 9, 2]) == [1, 2, 3, 5, 8, 9], 'lista não ficou ordenada'\nassert quick_sort([]) == [], 'falhou com lista vazia'",
+              "solution": "def quick_sort(lista):\n    if len(lista) <= 1:\n        return lista\n    pivo = lista[0]\n    menores = [x for x in lista[1:] if x <= pivo]\n    maiores = [x for x in lista[1:] if x > pivo]\n    return quick_sort(menores) + [pivo] + quick_sort(maiores)"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual a complexidade MÉDIA do quick sort?",
+              "options": ["O(n)", "O(n log n)", "O(n²)"],
+              "solution": "O(n log n)"
+            }
+          ]
+        },
+        {
+          "slug": "comparando-algoritmos",
+          "title": "Comparando os algoritmos de ordenação",
+          "position": 2,
+          "lesson_md": "# Comparando os algoritmos de ordenação\n\n| Algoritmo | Complexidade média | Complexidade pior caso |\n|---|---|---|\n| Bubble Sort | O(n²) | O(n²) |\n| Insertion Sort | O(n²) | O(n²) |\n| Selection Sort | O(n²) | O(n²) |\n| Merge Sort | O(n log n) | O(n log n) |\n| Quick Sort | O(n log n) | O(n²) |\n\nNa prática, o Python já tem um algoritmo de ordenação embutido (`sorted()`, `.sort()`) chamado **Timsort**, altamente otimizado — no dia a dia, você quase nunca implementa ordenação do zero. Mas entender como funciona por baixo dos panos ajuda a escolher a ferramenta certa e a entender por que alguns códigos ficam lentos.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual desses algoritmos tem a MELHOR complexidade garantida no pior caso?",
+              "options": ["Bubble Sort", "Quick Sort", "Merge Sort"],
+              "solution": "Merge Sort"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pilhas-e-filas",
+      "title": "Módulo 8 — Pilhas e Filas",
+      "summary": "Pilha (LIFO) e fila (FIFO): conceito, implementação e casos de uso do dia a dia.",
+      "position": 8,
+      "topics": [
+        {
+          "slug": "pilhas",
+          "title": "Pilhas (Stack)",
+          "position": 0,
+          "lesson_md": "# Pilhas (Stack)\n\nUma **pilha** segue a regra **LIFO** (*Last In, First Out* — o último que entra é o primeiro que sai). Pense numa pilha de pratos: você só tira o de cima.\n\nEm Python, uma lista já serve como pilha:\n\n```python\npilha = []\npilha.append(1)   # empilha (push)\npilha.append(2)\npilha.append(3)\npilha.pop()        # desempilha (pop) -> 3\n```\n\n## Onde pilhas aparecem no dia a dia\n\n- Botão \"Voltar\" do navegador\n- Ctrl+Z (desfazer)\n- Pilha de chamadas de função (é por isso que existe `RecursionError`!)",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Simule uma pilha: empilhe 10, 20 e 30 na lista `pilha` (nessa ordem), depois desempilhe uma vez e guarde o valor removido em `removido`.",
+              "starter_code": "pilha = []\n# empilhe 10, 20, 30 e depois desempilhe uma vez\n",
+              "test_code": "assert 'pilha' in dir() and 'removido' in dir(), 'Crie pilha e removido'\nassert pilha == [10, 20], f'pilha deveria ser [10, 20], ficou {pilha!r}'\nassert removido == 30, f'removido deveria ser 30, ficou {removido!r}'",
+              "solution": "pilha = []\npilha.append(10)\npilha.append(20)\npilha.append(30)\nremovido = pilha.pop()"
+            },
+            {
+              "position": 1,
+              "prompt": "Implemente `topo(pilha)` que retorna o elemento do topo sem removê-lo (ou `None` se a pilha estiver vazia).",
+              "starter_code": "def topo(pilha):\n    # implemente\n    pass\n",
+              "test_code": "assert topo([1, 2, 3]) == 3, 'deveria retornar o topo (3)'\nassert topo([]) is None, 'pilha vazia deveria retornar None'",
+              "solution": "def topo(pilha):\n    if not pilha:\n        return None\n    return pilha[-1]"
+            }
+          ]
+        },
+        {
+          "slug": "filas",
+          "title": "Filas (Queue)",
+          "position": 1,
+          "lesson_md": "# Filas (Queue)\n\nUma **fila** segue a regra **FIFO** (*First In, First Out* — o primeiro que entra é o primeiro que sai), como uma fila de banco.\n\nUsar uma lista comum como fila é ineficiente (remover do início é O(n)) — o jeito certo em Python é `collections.deque`:\n\n```python\nfrom collections import deque\n\nfila = deque()\nfila.append(1)     # entra no fim\nfila.append(2)\nfila.append(3)\nfila.popleft()      # sai do início -> 1\n```\n\n## Onde filas aparecem no dia a dia\n\n- Fila de impressão\n- Fila de atendimento\n- Processamento de tarefas na ordem de chegada",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Usando `collections.deque`, crie uma fila `fila`, adicione `'a'`, `'b'` e `'c'` (nessa ordem), depois remova um elemento do início e guarde em `atendido`.",
+              "starter_code": "from collections import deque\n\nfila = deque()\n# adicione 'a', 'b', 'c' e depois remova do início\n",
+              "test_code": "assert 'fila' in dir() and 'atendido' in dir(), 'Crie fila e atendido'\nassert atendido == 'a', f'atendido deveria ser \\'a\\', ficou {atendido!r}'\nassert list(fila) == ['b', 'c'], f'fila deveria ser [\\'b\\', \\'c\\'], ficou {list(fila)!r}'",
+              "solution": "from collections import deque\n\nfila = deque()\nfila.append('a')\nfila.append('b')\nfila.append('c')\natendido = fila.popleft()"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "listas-ligadas",
+      "title": "Módulo 9 — Listas Ligadas",
+      "summary": "Nó, lista ligada simples, inserção no início e percurso.",
+      "position": 9,
+      "topics": [
+        {
+          "slug": "no-e-lista-ligada",
+          "title": "Nó e lista ligada",
+          "position": 0,
+          "lesson_md": "# Listas Ligadas (Linked Lists)\n\nDiferente de uma lista Python (que guarda os itens em posições contíguas de memória), uma **lista ligada** é uma sequência de **nós**, cada um apontando para o próximo.\n\n```python\nclass No:\n    def __init__(self, valor):\n        self.valor = valor\n        self.proximo = None\n\n# Criando uma lista ligada: 1 -> 2 -> 3\nno1 = No(1)\nno2 = No(2)\nno3 = No(3)\nno1.proximo = no2\nno2.proximo = no3\n```\n\nPara percorrer, seguimos os ponteiros `proximo` até chegar em `None`:\n\n```python\natual = no1\nwhile atual is not None:\n    print(atual.valor)\n    atual = atual.proximo\n```\n\n> 💡 Diferente de uma lista Python, inserir no início de uma lista ligada é **O(1)** (não precisa deslocar nada) — é uma das vantagens dessa estrutura.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Usando a classe `No` (já definida no starter), monte uma lista ligada `10 -> 20 -> 30` a partir da variável `cabeca` (o primeiro nó).",
+              "starter_code": "class No:\n    def __init__(self, valor):\n        self.valor = valor\n        self.proximo = None\n\n# monte a lista ligada 10 -> 20 -> 30 e guarde o primeiro nó em cabeca\n",
+              "test_code": "assert 'cabeca' in dir(), 'Crie a variável cabeca'\nvalores = []\natual = cabeca\nwhile atual is not None:\n    valores.append(atual.valor)\n    atual = atual.proximo\nassert valores == [10, 20, 30], f'esperava [10, 20, 30], veio {valores!r}'",
+              "solution": "class No:\n    def __init__(self, valor):\n        self.valor = valor\n        self.proximo = None\n\ncabeca = No(10)\nno2 = No(20)\nno3 = No(30)\ncabeca.proximo = no2\nno2.proximo = no3"
+            }
+          ]
+        },
+        {
+          "slug": "insercao-remocao-lista-ligada",
+          "title": "Inserção e percurso em lista ligada",
+          "position": 1,
+          "lesson_md": "# Inserção e percurso em lista ligada\n\n## Inserir no início (O(1))\n\n```python\ndef inserir_inicio(cabeca, valor):\n    novo_no = No(valor)\n    novo_no.proximo = cabeca\n    return novo_no   # novo_no agora é a nova cabeça\n```\n\n## Percorrer para contar elementos\n\n```python\ndef tamanho(cabeca):\n    contador = 0\n    atual = cabeca\n    while atual is not None:\n        contador += 1\n        atual = atual.proximo\n    return contador\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "A classe `No` já está pronta no starter. Implemente `inserir_inicio(cabeca, valor)`, que insere um novo nó no início da lista ligada e retorna a nova cabeça.",
+              "starter_code": "class No:\n    def __init__(self, valor):\n        self.valor = valor\n        self.proximo = None\n\ndef inserir_inicio(cabeca, valor):\n    # implemente\n    pass\n",
+              "test_code": "cabeca = No(2)\ncabeca.proximo = No(3)\nnova_cabeca = inserir_inicio(cabeca, 1)\nvalores = []\natual = nova_cabeca\nwhile atual is not None:\n    valores.append(atual.valor)\n    atual = atual.proximo\nassert valores == [1, 2, 3], f'esperava [1, 2, 3], veio {valores!r}'",
+              "solution": "class No:\n    def __init__(self, valor):\n        self.valor = valor\n        self.proximo = None\n\ndef inserir_inicio(cabeca, valor):\n    novo_no = No(valor)\n    novo_no.proximo = cabeca\n    return novo_no"
+            },
+            {
+              "position": 1,
+              "prompt": "A classe `No` já está pronta no starter. Implemente `tamanho(cabeca)`, que retorna quantos nós existem na lista ligada.",
+              "starter_code": "class No:\n    def __init__(self, valor):\n        self.valor = valor\n        self.proximo = None\n\ndef tamanho(cabeca):\n    # implemente\n    pass\n",
+              "test_code": "cabeca = No(1)\ncabeca.proximo = No(2)\ncabeca.proximo.proximo = No(3)\nassert tamanho(cabeca) == 3, f'esperava 3, veio {tamanho(cabeca)!r}'\nassert tamanho(None) == 0, 'lista vazia deveria ter tamanho 0'",
+              "solution": "class No:\n    def __init__(self, valor):\n        self.valor = valor\n        self.proximo = None\n\ndef tamanho(cabeca):\n    contador = 0\n    atual = cabeca\n    while atual is not None:\n        contador += 1\n        atual = atual.proximo\n    return contador"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "arvores",
+      "title": "Módulo 10 — Árvores",
+      "summary": "Árvore binária, árvore binária de busca (BST) e os três percursos clássicos.",
+      "position": 10,
+      "topics": [
+        {
+          "slug": "arvore-binaria",
+          "title": "Árvores Binárias",
+          "position": 0,
+          "lesson_md": "# Árvores Binárias\n\nUma **árvore** é uma estrutura hierárquica: cada nó tem um valor e (no caso de árvore binária) até **dois filhos** — esquerdo e direito.\n\n```python\nclass NoArvore:\n    def __init__(self, valor):\n        self.valor = valor\n        self.esquerda = None\n        self.direita = None\n```\n\n## Termos importantes\n\n- **Raiz**: o nó do topo (sem pai).\n- **Folha**: um nó sem filhos.\n- **Altura**: o maior caminho da raiz até uma folha.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Usando a classe `NoArvore` (já definida no starter), monte a árvore abaixo a partir da variável `raiz`:\n\n```\n      5\n     / \\\n    3   8\n```",
+              "starter_code": "class NoArvore:\n    def __init__(self, valor):\n        self.valor = valor\n        self.esquerda = None\n        self.direita = None\n\n# monte a árvore com raiz 5, filho esquerdo 3 e filho direito 8\n",
+              "test_code": "assert 'raiz' in dir(), 'Crie a variável raiz'\nassert raiz.valor == 5, 'raiz deveria ter valor 5'\nassert raiz.esquerda is not None and raiz.esquerda.valor == 3, 'filho esquerdo deveria ser 3'\nassert raiz.direita is not None and raiz.direita.valor == 8, 'filho direito deveria ser 8'",
+              "solution": "class NoArvore:\n    def __init__(self, valor):\n        self.valor = valor\n        self.esquerda = None\n        self.direita = None\n\nraiz = NoArvore(5)\nraiz.esquerda = NoArvore(3)\nraiz.direita = NoArvore(8)"
+            }
+          ]
+        },
+        {
+          "slug": "arvore-binaria-de-busca",
+          "title": "Árvore Binária de Busca (BST)",
+          "position": 1,
+          "lesson_md": "# Árvore Binária de Busca (BST)\n\nUma **BST** é uma árvore binária com uma regra extra: para cada nó, tudo à **esquerda é menor** e tudo à **direita é maior**.\n\nIsso permite buscar um valor de forma parecida com a busca binária — O(log n) em árvores balanceadas.\n\n```python\ndef inserir(raiz, valor):\n    if raiz is None:\n        return NoArvore(valor)\n    if valor < raiz.valor:\n        raiz.esquerda = inserir(raiz.esquerda, valor)\n    else:\n        raiz.direita = inserir(raiz.direita, valor)\n    return raiz\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "A classe `NoArvore` já está pronta no starter. Implemente `inserir(raiz, valor)` para uma árvore binária de busca, seguindo o algoritmo acima.",
+              "starter_code": "class NoArvore:\n    def __init__(self, valor):\n        self.valor = valor\n        self.esquerda = None\n        self.direita = None\n\ndef inserir(raiz, valor):\n    # implemente\n    pass\n",
+              "test_code": "raiz = None\nfor v in [5, 3, 8, 1, 4]:\n    raiz = inserir(raiz, v)\nassert raiz.valor == 5, 'raiz deveria ser 5'\nassert raiz.esquerda.valor == 3, 'esquerda da raiz deveria ser 3'\nassert raiz.direita.valor == 8, 'direita da raiz deveria ser 8'\nassert raiz.esquerda.esquerda.valor == 1, 'esquerda de 3 deveria ser 1'\nassert raiz.esquerda.direita.valor == 4, 'direita de 3 deveria ser 4'",
+              "solution": "class NoArvore:\n    def __init__(self, valor):\n        self.valor = valor\n        self.esquerda = None\n        self.direita = None\n\ndef inserir(raiz, valor):\n    if raiz is None:\n        return NoArvore(valor)\n    if valor < raiz.valor:\n        raiz.esquerda = inserir(raiz.esquerda, valor)\n    else:\n        raiz.direita = inserir(raiz.direita, valor)\n    return raiz"
+            }
+          ]
+        },
+        {
+          "slug": "percursos-em-arvore",
+          "title": "Percursos em árvore: pré-ordem, em ordem, pós-ordem",
+          "position": 2,
+          "lesson_md": "# Percursos em árvore\n\nExistem três formas clássicas de percorrer uma árvore binária:\n\n- **Pré-ordem**: raiz, esquerda, direita\n- **Em ordem**: esquerda, raiz, direita (numa BST, isso visita os valores em ordem crescente!)\n- **Pós-ordem**: esquerda, direita, raiz\n\n```python\ndef em_ordem(raiz, resultado):\n    if raiz is not None:\n        em_ordem(raiz.esquerda, resultado)\n        resultado.append(raiz.valor)\n        em_ordem(raiz.direita, resultado)\n    return resultado\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "A classe `NoArvore` e a árvore de exemplo já estão no starter. Implemente `pre_ordem(raiz, resultado)`, que preenche a lista `resultado` visitando raiz, esquerda, depois direita (retorne `resultado`).",
+              "starter_code": "class NoArvore:\n    def __init__(self, valor):\n        self.valor = valor\n        self.esquerda = None\n        self.direita = None\n\ndef pre_ordem(raiz, resultado):\n    # implemente\n    pass\n\nraiz = NoArvore(5)\nraiz.esquerda = NoArvore(3)\nraiz.direita = NoArvore(8)\nraiz.esquerda.esquerda = NoArvore(1)\n",
+              "test_code": "assert pre_ordem(raiz, []) == [5, 3, 1, 8], f'esperava [5, 3, 1, 8], veio {pre_ordem(raiz, [])!r}'",
+              "solution": "class NoArvore:\n    def __init__(self, valor):\n        self.valor = valor\n        self.esquerda = None\n        self.direita = None\n\ndef pre_ordem(raiz, resultado):\n    if raiz is not None:\n        resultado.append(raiz.valor)\n        pre_ordem(raiz.esquerda, resultado)\n        pre_ordem(raiz.direita, resultado)\n    return resultado\n\nraiz = NoArvore(5)\nraiz.esquerda = NoArvore(3)\nraiz.direita = NoArvore(8)\nraiz.esquerda.esquerda = NoArvore(1)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tabelas-hash",
+      "title": "Módulo 11 — Tabelas Hash",
+      "summary": "Hashing, colisões e a implementação de uma tabela hash simplificada.",
+      "position": 11,
+      "topics": [
+        {
+          "slug": "hashing-e-colisoes",
+          "title": "Hashing e colisões",
+          "position": 0,
+          "lesson_md": "# Hashing e colisões\n\nUma **tabela hash** guarda pares chave→valor (é assim que o `dict` do Python funciona por baixo dos panos!). Uma **função hash** transforma a chave num número (índice) de forma rápida.\n\n```python\nhash(\"banana\")   # um número grande (varia a cada execução do Python)\n```\n\n## Colisões\n\nDuas chaves diferentes podem gerar o mesmo índice — isso é uma **colisão**. Uma forma comum de resolver é **encadeamento** (chaining): cada posição da tabela guarda uma lista de pares que colidiram naquele índice.\n\n> 💡 Por isso o dicionário do Python é tão rápido para buscar (O(1) em média): ele usa hashing por trás, em vez de percorrer item por item como uma lista.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "O que é uma \"colisão\" numa tabela hash?",
+              "options": ["Duas chaves diferentes gerando o mesmo índice", "Um erro de sintaxe", "Uma chave que não existe"],
+              "solution": "Duas chaves diferentes gerando o mesmo índice"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual a complexidade média de busca em uma tabela hash?",
+              "options": ["O(1)", "O(n)", "O(n²)"],
+              "solution": "O(1)"
+            }
+          ]
+        },
+        {
+          "slug": "implementando-um-dicionario-simples",
+          "title": "Implementando uma tabela hash simplificada",
+          "position": 1,
+          "lesson_md": "# Implementando uma tabela hash simplificada\n\nVamos construir uma versão simples de tabela hash, usando uma lista de \"baldes\" (buckets), cada um sendo uma lista de pares `[chave, valor]`.\n\n```python\nclass TabelaHash:\n    def __init__(self, tamanho=10):\n        self.tamanho = tamanho\n        self.baldes = [[] for _ in range(tamanho)]\n\n    def _indice(self, chave):\n        return sum(ord(c) for c in chave) % self.tamanho\n\n    def inserir(self, chave, valor):\n        i = self._indice(chave)\n        for par in self.baldes[i]:\n            if par[0] == chave:\n                par[1] = valor   # atualiza se já existe\n                return\n        self.baldes[i].append([chave, valor])\n```\n\nRepare que, quando duas chaves caem no mesmo balde (colisão), simplesmente **adicionamos à lista daquele balde** — isso é encadeamento na prática.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Complete o método `buscar(self, chave)` da classe `TabelaHash` (o resto já está pronto no starter), retornando o valor associado à chave, ou `None` se não existir.",
+              "starter_code": "class TabelaHash:\n    def __init__(self, tamanho=10):\n        self.tamanho = tamanho\n        self.baldes = [[] for _ in range(tamanho)]\n\n    def _indice(self, chave):\n        return sum(ord(c) for c in chave) % self.tamanho\n\n    def inserir(self, chave, valor):\n        i = self._indice(chave)\n        for par in self.baldes[i]:\n            if par[0] == chave:\n                par[1] = valor\n                return\n        self.baldes[i].append([chave, valor])\n\n    def buscar(self, chave):\n        # implemente\n        pass\n",
+              "test_code": "t = TabelaHash()\nt.inserir('nome', 'Ana')\nt.inserir('idade', 25)\nassert t.buscar('nome') == 'Ana', \"buscar('nome') deveria retornar 'Ana'\"\nassert t.buscar('idade') == 25, \"buscar('idade') deveria retornar 25\"\nassert t.buscar('cidade') is None, \"chave inexistente deveria retornar None\"",
+              "solution": "class TabelaHash:\n    def __init__(self, tamanho=10):\n        self.tamanho = tamanho\n        self.baldes = [[] for _ in range(tamanho)]\n\n    def _indice(self, chave):\n        return sum(ord(c) for c in chave) % self.tamanho\n\n    def inserir(self, chave, valor):\n        i = self._indice(chave)\n        for par in self.baldes[i]:\n            if par[0] == chave:\n                par[1] = valor\n                return\n        self.baldes[i].append([chave, valor])\n\n    def buscar(self, chave):\n        i = self._indice(chave)\n        for par in self.baldes[i]:\n            if par[0] == chave:\n                return par[1]\n        return None"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "grafos",
+      "title": "Módulo 12 — Grafos",
+      "summary": "Representação de grafos com lista de adjacência, busca em largura (BFS) e busca em profundidade (DFS).",
+      "position": 12,
+      "topics": [
+        {
+          "slug": "representando-grafos",
+          "title": "Representando grafos",
+          "position": 0,
+          "lesson_md": "# Representando grafos\n\nUm **grafo** é um conjunto de **vértices** (nós) conectados por **arestas**. Redes sociais, mapas de rotas e o próprio grafo de \"amigos de amigos\" são exemplos.\n\n## Lista de adjacência\n\nA forma mais comum de representar um grafo em código é um dicionário onde cada chave é um vértice, e o valor é a lista de vizinhos:\n\n```python\ngrafo = {\n    \"A\": [\"B\", \"C\"],\n    \"B\": [\"A\", \"D\"],\n    \"C\": [\"A\", \"D\"],\n    \"D\": [\"B\", \"C\"]\n}\n```\n\nIsso representa um grafo **não-direcionado** (a aresta A-B funciona nos dois sentidos). Num grafo **direcionado**, `\"A\": [\"B\"]` significa que dá pra ir de A para B, mas não necessariamente o contrário.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Monte um grafo não-direcionado (dicionário `grafo`) representando: A conectado com B e C; B conectado só com A; C conectado só com A.",
+              "starter_code": "# crie o dicionário grafo\n",
+              "test_code": "assert 'grafo' in dir(), 'Crie a variável grafo'\nassert set(grafo['A']) == {'B', 'C'}, \"A deveria estar conectado com B e C\"\nassert set(grafo['B']) == {'A'}, \"B deveria estar conectado só com A\"\nassert set(grafo['C']) == {'A'}, \"C deveria estar conectado só com A\"",
+              "solution": "grafo = {\n    \"A\": [\"B\", \"C\"],\n    \"B\": [\"A\"],\n    \"C\": [\"A\"]\n}"
+            }
+          ]
+        },
+        {
+          "slug": "bfs",
+          "title": "Busca em Largura (BFS)",
+          "position": 1,
+          "lesson_md": "# Busca em Largura (BFS)\n\nA **BFS** (*Breadth-First Search*) explora o grafo \"em camadas\", visitando primeiro todos os vizinhos diretos, depois os vizinhos dos vizinhos, e assim por diante — usando uma **fila**.\n\n```python\nfrom collections import deque\n\ndef bfs(grafo, inicio):\n    visitados = [inicio]\n    fila = deque([inicio])\n    while fila:\n        atual = fila.popleft()\n        for vizinho in grafo[atual]:\n            if vizinho not in visitados:\n                visitados.append(vizinho)\n                fila.append(vizinho)\n    return visitados\n```\n\nBFS é ótima para encontrar o **caminho mais curto** em grafos sem peso nas arestas.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `bfs(grafo, inicio)` seguindo o algoritmo acima, retornando a lista de vértices na ordem visitada.",
+              "starter_code": "from collections import deque\n\ndef bfs(grafo, inicio):\n    # implemente\n    pass\n",
+              "test_code": "grafo = {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'D'], 'D': ['B', 'C']}\nassert bfs(grafo, 'A') == ['A', 'B', 'C', 'D'], f'esperava [A, B, C, D], veio {bfs(grafo, \"A\")!r}'",
+              "solution": "from collections import deque\n\ndef bfs(grafo, inicio):\n    visitados = [inicio]\n    fila = deque([inicio])\n    while fila:\n        atual = fila.popleft()\n        for vizinho in grafo[atual]:\n            if vizinho not in visitados:\n                visitados.append(vizinho)\n                fila.append(vizinho)\n    return visitados"
+            }
+          ]
+        },
+        {
+          "slug": "dfs",
+          "title": "Busca em Profundidade (DFS)",
+          "position": 2,
+          "lesson_md": "# Busca em Profundidade (DFS)\n\nA **DFS** (*Depth-First Search*) vai o mais fundo possível por um caminho antes de voltar (\"backtrack\") e tentar outro — pode ser implementada com recursão ou uma pilha.\n\n```python\ndef dfs(grafo, inicio, visitados=None):\n    if visitados is None:\n        visitados = []\n    visitados.append(inicio)\n    for vizinho in grafo[inicio]:\n        if vizinho not in visitados:\n            dfs(grafo, vizinho, visitados)\n    return visitados\n```\n\n## BFS vs DFS\n\n| | BFS | DFS |\n|---|---|---|\n| Estrutura | Fila | Pilha (ou recursão) |\n| Explora | Em camadas | Em profundidade |\n| Bom para | Caminho mais curto | Explorar todas as possibilidades |",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `dfs(grafo, inicio, visitados=None)` seguindo o algoritmo acima, retornando a lista de vértices na ordem visitada.",
+              "starter_code": "def dfs(grafo, inicio, visitados=None):\n    # implemente\n    pass\n",
+              "test_code": "grafo = {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'D'], 'D': ['B', 'C']}\nassert dfs(grafo, 'A') == ['A', 'B', 'D', 'C'], f'esperava [A, B, D, C], veio {dfs(grafo, \"A\")!r}'",
+              "solution": "def dfs(grafo, inicio, visitados=None):\n    if visitados is None:\n        visitados = []\n    visitados.append(inicio)\n    for vizinho in grafo[inicio]:\n        if vizinho not in visitados:\n            dfs(grafo, vizinho, visitados)\n    return visitados"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual estrutura de dados a BFS usa naturalmente?",
+              "options": ["Fila", "Pilha", "Árvore binária"],
+              "solution": "Fila"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "programacao-dinamica",
+      "title": "Módulo 13 — Programação Dinâmica",
+      "summary": "Memoização e o clássico problema das moedas resolvido com programação dinâmica.",
+      "position": 13,
+      "topics": [
+        {
+          "slug": "memoizacao",
+          "title": "Memoização",
+          "position": 0,
+          "lesson_md": "# Memoização\n\n**Memoização** é uma técnica de otimização: guardamos (\"cacheamos\") o resultado de chamadas já calculadas, para não repetir o mesmo cálculo.\n\nLembra do Fibonacci recursivo lento (módulo de Recursão)? Com memoização, ele fica muito mais rápido:\n\n```python\ndef fib_memo(n, cache=None):\n    if cache is None:\n        cache = {}\n    if n in cache:\n        return cache[n]\n    if n <= 1:\n        return n\n    resultado = fib_memo(n - 1, cache) + fib_memo(n - 2, cache)\n    cache[n] = resultado\n    return resultado\n```\n\nIsso transforma a complexidade de **O(2ⁿ)** (exponencial, péssima) para **O(n)** — uma melhoria enorme.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `fib_memo(n, cache=None)` usando memoização, seguindo o exemplo acima.",
+              "starter_code": "def fib_memo(n, cache=None):\n    # implemente usando memoização\n    pass\n",
+              "test_code": "assert fib_memo(0) == 0, 'fib_memo(0) deveria ser 0'\nassert fib_memo(1) == 1, 'fib_memo(1) deveria ser 1'\nassert fib_memo(10) == 55, f'fib_memo(10) deveria ser 55, veio {fib_memo(10)!r}'\nassert fib_memo(20) == 6765, f'fib_memo(20) deveria ser 6765, veio {fib_memo(20)!r}'",
+              "solution": "def fib_memo(n, cache=None):\n    if cache is None:\n        cache = {}\n    if n in cache:\n        return cache[n]\n    if n <= 1:\n        return n\n    resultado = fib_memo(n - 1, cache) + fib_memo(n - 2, cache)\n    cache[n] = resultado\n    return resultado"
+            }
+          ]
+        },
+        {
+          "slug": "problema-classico-moedas",
+          "title": "Problema clássico: o menor número de moedas",
+          "position": 1,
+          "lesson_md": "# Programação Dinâmica: problema das moedas\n\nUm problema clássico de PD: dado um conjunto de moedas e um valor alvo, qual o **menor número de moedas** para formar esse valor?\n\n## Abordagem bottom-up\n\n```python\ndef menor_numero_moedas(moedas, valor):\n    # dp[v] = menor número de moedas para formar o valor v\n    dp = [0] + [float('inf')] * valor\n    for v in range(1, valor + 1):\n        for moeda in moedas:\n            if moeda <= v:\n                dp[v] = min(dp[v], dp[v - moeda] + 1)\n    return dp[valor]\n```\n\nA ideia central de PD: resolver **subproblemas menores primeiro** (formar valores pequenos) e reaproveitar esses resultados para montar a solução do problema maior — em vez de recalcular tudo do zero a cada combinação possível.",
+          "exercises": [
+            {
+              "position": 0,
+              "prompt": "Implemente `menor_numero_moedas(moedas, valor)` seguindo o algoritmo acima, retornando o menor número de moedas necessário para formar `valor`.",
+              "starter_code": "def menor_numero_moedas(moedas, valor):\n    # implemente\n    pass\n",
+              "test_code": "assert menor_numero_moedas([1, 5, 10], 12) == 3, 'esperava 3 (10+1+1)'\nassert menor_numero_moedas([1, 5, 10], 0) == 0, 'valor 0 deveria precisar de 0 moedas'\nassert menor_numero_moedas([2, 5], 8) == 4, 'esperava 4 (2+2+2+2)'",
+              "solution": "def menor_numero_moedas(moedas, valor):\n    dp = [0] + [float('inf')] * valor\n    for v in range(1, valor + 1):\n        for moeda in moedas:\n            if moeda <= v:\n                dp[v] = min(dp[v], dp[v - moeda] + 1)\n    return dp[valor]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

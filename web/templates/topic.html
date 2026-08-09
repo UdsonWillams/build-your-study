@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ topic.title }} — Python do Zero{% endblock %}
+{% block title %}{{ topic.title }} — BuildYourStudy{% endblock %}
 
 {% block head %}
 <!-- Markdown -->
@@ -12,11 +12,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
 <!-- Pyodide -->
 <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+{% if topic.exercises|selectattr('type', 'equalto', 'sql')|list %}
+<!-- sql.js (só carregado em tópicos com exercício sql) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.1/dist/sql-wasm.js"></script>
+{% endif %}
 {% endblock %}
 
 {% block content %}
 <nav class="breadcrumb">
-  <a href="/">Roadmap</a> <span>/</span> {{ module.title }}
+  <a href="/">Catálogo</a> <span>/</span> <a href="/roadmap/{{ roadmap.slug }}">{{ roadmap.title }}</a> <span>/</span> {{ topic.title }}
 </nav>
 
 <article class="lesson">
@@ -28,20 +33,58 @@
 <section class="exercises">
   <h2>Exercícios</h2>
   <p id="pyodide-status" class="pyodide-status">⏳ Preparando o ambiente Python…</p>
+  <script type="text/plain" id="topic-setup-sql">{{ topic.setup_sql | safe }}</script>
 
   {% for ex in topic.exercises %}
-  <div class="exercise" data-exercise-id="{{ ex.id }}">
+  <div class="exercise" data-exercise-id="{{ ex.id }}" data-type="{{ ex.type }}">
     <div class="exercise-prompt markdown-body" data-prompt></div>
     <script type="text/plain" data-prompt-md>{{ ex.prompt | safe }}</script>
 
-    <textarea class="code-editor">{{ ex.starter_code }}</textarea>
+    {% if ex.type == 'code' or not ex.type %}
+      <textarea class="code-editor">{{ ex.starter_code }}</textarea>
+    {% elif ex.type == 'text' %}
+      <input type="text" class="text-input" placeholder="Digite sua resposta..." autocomplete="off">
+      {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
+      <div class="cyrillic-keyboard" data-cyrillic-keyboard></div>
+      {% endif %}
+    {% elif ex.type == 'audio' %}
+      <div class="audio-controls">
+        <button class="btn btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="1">🔊 Ouvir</button>
+        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5">🐢 Lento</button>
+      </div>
+      <input type="text" class="text-input" placeholder="O que você ouviu?" autocomplete="off">
+      {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
+      <div class="cyrillic-keyboard" data-cyrillic-keyboard></div>
+      {% endif %}
+    {% elif ex.type == 'speak' %}
+      <div class="speak-target">
+        <span class="speak-label">📢 Diga em voz alta:</span>
+        <span class="speak-phrase">{{ ex.audio_text }}</span>
+      </div>
+      <div class="audio-controls">
+        <button class="btn btn-speak" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}">🎤 Gravar Fala</button>
+        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5">🔊 Ouvir exemplo</button>
+      </div>
+      <div class="speak-result" hidden></div>
+    {% elif ex.type == 'quiz' %}
+      <div class="quiz-options" data-quiz-options></div>
+      <script type="text/plain" data-quiz-options-data>{{ ex.options | safe }}</script>
+    {% elif ex.type == 'sql' %}
+      <textarea class="code-editor" data-lang="sql">{{ ex.starter_code }}</textarea>
+      <script type="text/plain" data-exercise-options>{{ ex.options | safe }}</script>
+    {% endif %}
 
     <div class="exercise-actions">
+      {% if ex.type != 'speak' %}
       <button class="btn btn-run" data-run>▶ Verificar</button>
+      {% endif %}
       <button class="btn btn-ghost" data-solution>Ver solução</button>
     </div>
 
     <pre class="output" data-output hidden></pre>
+    {% if ex.type == 'sql' %}
+    <div class="sql-result" data-sql-result hidden></div>
+    {% endif %}
     <script type="text/plain" data-test-code>{{ ex.test_code | safe }}</script>
     <script type="text/plain" data-solution-code>{{ ex.solution | safe }}</script>
   </div>
@@ -50,11 +93,17 @@
 {% endif %}
 
 <section class="topic-footer">
-  <button id="complete-btn" class="btn btn-primary {% if is_done %}is-done{% endif %}"
-          data-topic-id="{{ topic.id }}"
-          data-has-exercises="{{ 'true' if topic.exercises else 'false' }}">
-    {% if is_done %}✓ Concluído{% elif topic.exercises %}Conclua os exercícios para liberar{% else %}Marcar como lido{% endif %}
-  </button>
+  <div class="footer-left">
+    <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-ghost">← Voltar ao curso</a>
+  </div>
+
+  <div class="footer-center">
+    <button id="complete-btn" class="btn btn-primary {% if is_done %}is-done{% endif %}"
+            data-topic-id="{{ topic.id }}"
+            data-has-exercises="{{ 'true' if topic.exercises else 'false' }}">
+      {% if is_done %}✓ Concluído{% elif topic.exercises %}Conclua os exercícios para liberar{% else %}Marcar como lido{% endif %}
+    </button>
+  </div>
 
   <div class="nav-buttons">
     {% if prev_topic %}<a class="btn btn-ghost" href="/topic/{{ prev_topic.slug }}">← Anterior</a>{% endif %}

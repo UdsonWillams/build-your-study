@@ -1,0 +1,463 @@
+{
+  "slug": "sql-do-zero",
+  "title": "SQL & Banco de Dados",
+  "description": "Aprenda a consultar, filtrar, agregar e modificar bancos de dados relacionais com SQL — do primeiro SELECT a JOINs e subconsultas. As consultas rodam de verdade no seu navegador, comparando o resultado com o esperado.",
+  "category": "Banco de Dados",
+  "icon": "🛢️",
+  "level": "Iniciante ao Intermediário",
+  "position": 1,
+  "modules": [
+    {
+      "slug": "introducao-sql",
+      "title": "Módulo 0 — Introdução aos Bancos de Dados",
+      "summary": "O que são bancos de dados relacionais, SELECT, apelidos (AS) e LIMIT.",
+      "position": 0,
+      "topics": [
+        {
+          "slug": "o-que-e-sql",
+          "title": "O que é SQL e Banco de Dados Relacional?",
+          "position": 0,
+          "lesson_md": "# O que é SQL e Banco de Dados Relacional?\n\nUm **Banco de Dados Relacional** guarda informações organizadas em **tabelas** (com linhas e colunas), muito parecido com planilhas interligadas.\n\n**SQL** (*Structured Query Language*) é a linguagem padrão usada para conversar com bancos de dados. Com SQL você pode:\n\n- **Consultar** dados (`SELECT`)\n- **Filtrar** informações de interesse (`WHERE`)\n- **Inserir** novos registros (`INSERT`)\n- **Atualizar** e **Remover** dados (`UPDATE`, `DELETE`)\n\n## Por que aprender SQL?\n\nPraticamente todo aplicativo web, app mobile ou sistema corporativo usa um banco de dados relacional (como SQLite, PostgreSQL, MySQL ou SQL Server). Se você quer trabalhar com **Desenvolvimento**, **Análise de Dados** ou **Inteligência Artificial**, saber SQL é indispensável.\n\n## A tabela que vamos usar neste módulo\n\nNos próximos exercícios você vai consultar uma tabela `produtos` de uma lojinha:\n\n| id | nome | preco | categoria | estoque |\n|---|---|---|---|---|\n| 1 | Caneta | 2.5 | Papelaria | 100 |\n| 2 | Caderno | 15.0 | Papelaria | 50 |\n| 3 | Mochila | 120.0 | Acessórios | 20 |\n| 4 | Mouse | 45.0 | Eletrônicos | 30 |\n| 5 | Teclado | 90.0 | Eletrônicos | 15 |\n| 6 | Cadeira Gamer | 850.0 | Móveis | 5 |\n\n> 💡 A partir de agora, os exercícios rodam **SQL de verdade** no seu navegador — sua consulta é executada contra essa tabela e o resultado é comparado com o esperado."
+        },
+        {
+          "slug": "comando-select",
+          "title": "Consultando dados com SELECT",
+          "position": 1,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# Consultando dados com SELECT\n\nO comando `SELECT` é o mais famoso e utilizado do SQL. Ele busca informações em uma ou mais tabelas.\n\n## Sintaxe Básica\n\n```sql\nSELECT coluna1, coluna2 FROM tabela;\n```\n\nPara selecionar **todas as colunas** de uma tabela, usamos o asterisco (`*`):\n\n```sql\nSELECT * FROM produtos;\n```\n\n## Exemplo\n\n```sql\nSELECT nome, preco FROM produtos;\n```\n\nIsso retorna apenas o nome e o preço de todos os produtos cadastrados! Repare que a **ordem das colunas** no `SELECT` é a ordem que elas aparecem no resultado.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Selecione o nome e o preço de todos os produtos (nessa ordem: nome, depois preço).",
+              "solution": "SELECT nome, preco FROM produtos;"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Selecione todas as colunas de todos os produtos (use `*`).",
+              "solution": "SELECT * FROM produtos;"
+            }
+          ]
+        },
+        {
+          "slug": "select-as-e-limit",
+          "title": "Apelidos (AS) e limitando resultados (LIMIT)",
+          "position": 2,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# Apelidos (AS) e LIMIT\n\n## Apelidando colunas com AS\n\nÀs vezes queremos que uma coluna apareça com outro nome no resultado:\n\n```sql\nSELECT preco AS valor FROM produtos;\n```\n\nIsso não muda a tabela — só o **nome exibido** no resultado da consulta.\n\n## Limitando quantas linhas voltam com LIMIT\n\n```sql\nSELECT nome, preco FROM produtos LIMIT 3;\n```\n\nRetorna só as **3 primeiras** linhas. Combinado com `ORDER BY`, é ótimo para \"top N\":\n\n```sql\nSELECT nome, preco FROM produtos ORDER BY preco LIMIT 3;   -- os 3 mais baratos\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual palavra-chave limita o número de linhas retornadas por uma consulta?",
+              "options": ["LIMIT", "WHERE", "AS"],
+              "solution": "LIMIT"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Selecione nome e preço de todos os produtos, mostrando a coluna de preço com o apelido `valor`.",
+              "solution": "SELECT nome, preco AS valor FROM produtos;"
+            },
+            {
+              "position": 2,
+              "type": "sql",
+              "prompt": "Selecione os 3 produtos mais baratos, do mais barato para o mais caro (use ORDER BY e LIMIT).",
+              "solution": "SELECT nome, preco FROM produtos ORDER BY preco LIMIT 3;",
+              "options": {"order_matters": true}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "filtrando-dados",
+      "title": "Módulo 1 — Filtragem e Ordenação",
+      "summary": "WHERE, ORDER BY, operadores lógicos, BETWEEN, LIKE, IN e IS NULL.",
+      "position": 1,
+      "topics": [
+        {
+          "slug": "comando-where",
+          "title": "Filtrando registros com WHERE",
+          "position": 0,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# Filtrando registros com WHERE\n\nPara trazer apenas as linhas que atendem a um determinado critério, adicionamos a cláusula `WHERE`.\n\n```sql\nSELECT * FROM produtos WHERE preco > 100;\n```\n\n## Operadores comuns\n\n- `=` Igual\n- `<>` ou `!=` Diferente\n- `>` Maior que\n- `<` Menor que\n- `>=` Maior ou igual\n- `<=` Menor ou igual\n- `LIKE` Para busca de textos\n- `IN` Para verificar valores em uma lista",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Selecione nome e preço dos produtos com preço maior que 50.",
+              "solution": "SELECT nome, preco FROM produtos WHERE preco > 50;"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Selecione nome e preço dos produtos da categoria 'Eletrônicos'.",
+              "solution": "SELECT nome, preco FROM produtos WHERE categoria = 'Eletrônicos';"
+            }
+          ]
+        },
+        {
+          "slug": "order-by",
+          "title": "Ordenando resultados com ORDER BY",
+          "position": 1,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# Ordenando resultados com ORDER BY\n\n```sql\nSELECT nome, preco FROM produtos ORDER BY preco;        -- crescente (padrão)\nSELECT nome, preco FROM produtos ORDER BY preco DESC;   -- decrescente\n```\n\n- `ASC` = crescente (é o padrão, não precisa escrever)\n- `DESC` = decrescente\n\nDá para ordenar por mais de uma coluna: `ORDER BY categoria, preco` ordena primeiro por categoria e, dentro de cada categoria, por preço.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Liste nome e preço de todos os produtos, do mais caro para o mais barato.",
+              "solution": "SELECT nome, preco FROM produtos ORDER BY preco DESC;",
+              "options": {"order_matters": true}
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual palavra-chave ordena do maior para o menor?",
+              "options": ["DESC", "ASC", "LIMIT"],
+              "solution": "DESC"
+            }
+          ]
+        },
+        {
+          "slug": "and-or-not-between",
+          "title": "Combinando condições: AND, OR, NOT, BETWEEN",
+          "position": 2,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# Combinando condições\n\n- `AND` — as duas condições precisam ser verdadeiras\n- `OR` — pelo menos uma condição precisa ser verdadeira\n- `NOT` — inverte a condição\n- `BETWEEN x AND y` — atalho para \"entre x e y\" (inclusive nas pontas)\n\n```sql\nSELECT * FROM produtos WHERE preco > 10 AND categoria = 'Papelaria';\nSELECT * FROM produtos WHERE categoria = 'Papelaria' OR categoria = 'Móveis';\nSELECT * FROM produtos WHERE preco BETWEEN 10 AND 100;   -- equivale a preco >= 10 AND preco <= 100\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Selecione nome e preço dos produtos com preço entre 10 e 100 (inclusive).",
+              "solution": "SELECT nome, preco FROM produtos WHERE preco BETWEEN 10 AND 100;"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Selecione nome e categoria dos produtos da categoria 'Papelaria' OU 'Móveis'.",
+              "solution": "SELECT nome, categoria FROM produtos WHERE categoria = 'Papelaria' OR categoria = 'Móveis';"
+            }
+          ]
+        },
+        {
+          "slug": "like-in-is-null",
+          "title": "Busca por padrão: LIKE, IN e IS NULL",
+          "position": 3,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# LIKE, IN e IS NULL\n\n## LIKE — busca por padrão de texto\n\n```sql\nSELECT * FROM produtos WHERE nome LIKE 'C%';    -- começa com C\nSELECT * FROM produtos WHERE nome LIKE '%s';    -- termina com s\nSELECT * FROM produtos WHERE nome LIKE '%aden%'; -- contém \"aden\" em qualquer posição\n```\n\n`%` substitui **qualquer sequência** de caracteres (inclusive vazia).\n\n## IN — está dentro de uma lista\n\n```sql\nSELECT * FROM produtos WHERE categoria IN ('Papelaria', 'Acessórios');\n```\n\nEquivale a `categoria = 'Papelaria' OR categoria = 'Acessórios'`, só que mais curto.\n\n## IS NULL — verificando valores ausentes\n\nEm SQL, um valor ausente/desconhecido é `NULL` — e **não dá pra comparar com `=`**. Usamos `IS NULL` / `IS NOT NULL`:\n\n```sql\nSELECT * FROM produtos WHERE categoria IS NULL;\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Selecione o nome dos produtos cujo nome começa com a letra 'C' (use LIKE).",
+              "solution": "SELECT nome FROM produtos WHERE nome LIKE 'C%';"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Selecione nome e categoria dos produtos cuja categoria é 'Papelaria' ou 'Acessórios' (use IN).",
+              "solution": "SELECT nome, categoria FROM produtos WHERE categoria IN ('Papelaria', 'Acessórios');"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual operador verifica se um valor está dentro de uma lista de opções?",
+              "options": ["IN", "LIKE", "BETWEEN"],
+              "solution": "IN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agregacao-sql",
+      "title": "Módulo 2 — Agregação",
+      "summary": "Funções agregadas (COUNT, SUM, AVG, MIN, MAX), GROUP BY e HAVING.",
+      "position": 2,
+      "topics": [
+        {
+          "slug": "funcoes-agregadas",
+          "title": "Funções agregadas: COUNT, SUM, AVG, MIN, MAX",
+          "position": 0,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# Funções agregadas\n\nCalculam um valor **resumido** a partir de várias linhas:\n\n| Função | O que faz |\n|---|---|\n| `COUNT(*)` | conta quantas linhas |\n| `SUM(coluna)` | soma os valores |\n| `AVG(coluna)` | calcula a média |\n| `MIN(coluna)` | menor valor |\n| `MAX(coluna)` | maior valor |\n\n```sql\nSELECT COUNT(*) AS total FROM produtos;\nSELECT AVG(preco) AS media FROM produtos;\n```\n\n> 💡 Sem `GROUP BY`, uma função agregada resume a **tabela inteira** numa única linha de resultado.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Conte quantos produtos existem no total. Chame a coluna resultante de `total`.",
+              "solution": "SELECT COUNT(*) AS total FROM produtos;"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Calcule o preço médio dos produtos. Chame a coluna resultante de `media`.",
+              "solution": "SELECT AVG(preco) AS media FROM produtos;"
+            },
+            {
+              "position": 2,
+              "type": "sql",
+              "prompt": "Encontre o preço do produto mais caro. Chame a coluna resultante de `maior_preco`.",
+              "solution": "SELECT MAX(preco) AS maior_preco FROM produtos;"
+            }
+          ]
+        },
+        {
+          "slug": "group-by",
+          "title": "Agrupando resultados com GROUP BY",
+          "position": 1,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# GROUP BY\n\n`GROUP BY` divide as linhas em **grupos** (um por valor distinto de uma coluna) e aplica a função agregada **dentro de cada grupo**:\n\n```sql\nSELECT categoria, COUNT(*) AS total\nFROM produtos\nGROUP BY categoria;\n```\n\nIsso retorna uma linha **por categoria**, com a contagem de produtos daquela categoria — bem diferente de `COUNT(*)` sozinho, que dá só um número para a tabela inteira.\n\n> ⚠️ Toda coluna no `SELECT` que não é uma função agregada precisa aparecer no `GROUP BY`.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Conte quantos produtos existem em cada categoria. Colunas: `categoria`, `total`.",
+              "solution": "SELECT categoria, COUNT(*) AS total FROM produtos GROUP BY categoria;"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Calcule o preço médio por categoria. Colunas: `categoria`, `media`.",
+              "solution": "SELECT categoria, AVG(preco) AS media FROM produtos GROUP BY categoria;"
+            }
+          ]
+        },
+        {
+          "slug": "having",
+          "title": "Filtrando grupos com HAVING",
+          "position": 2,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos (id, nome, preco, categoria, estoque) VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15), (6, 'Cadeira Gamer', 850.0, 'Móveis', 5);",
+          "lesson_md": "# HAVING\n\n`WHERE` filtra **linhas antes** de agrupar. `HAVING` filtra **grupos depois** de agrupar — por isso `HAVING` pode usar funções agregadas e `WHERE` não pode.\n\n```sql\nSELECT categoria, COUNT(*) AS total\nFROM produtos\nGROUP BY categoria\nHAVING COUNT(*) > 1;\n```\n\nIsso mostra só as categorias com **mais de um** produto.\n\n> 💡 Ordem das cláusulas: `SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY ...`",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Mostre apenas as categorias que têm mais de 1 produto. Colunas: `categoria`, `total`.",
+              "solution": "SELECT categoria, COUNT(*) AS total FROM produtos GROUP BY categoria HAVING COUNT(*) > 1;"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual cláusula filtra grupos DEPOIS do GROUP BY (diferente do WHERE, que filtra antes)?",
+              "options": ["HAVING", "WHERE", "LIMIT"],
+              "solution": "HAVING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "joins-sql",
+      "title": "Módulo 3 — JOINs",
+      "summary": "Chave primária/estrangeira, INNER JOIN, LEFT JOIN e JOIN combinado com agregação.",
+      "position": 3,
+      "topics": [
+        {
+          "slug": "chaves-primaria-estrangeira",
+          "title": "Relacionando tabelas: chave primária e estrangeira",
+          "position": 0,
+          "lesson_md": "# Relacionando tabelas\n\nAté aqui usamos só a tabela `produtos`. A partir de agora vamos trabalhar com uma \"lojinha\" completa, com 4 tabelas relacionadas:\n\n- **clientes** `(id, nome, cidade, email)`\n- **produtos** `(id, nome, preco, categoria, estoque)`\n- **pedidos** `(id, cliente_id, data_pedido)` — cada pedido pertence a um cliente\n- **itens_pedido** `(id, pedido_id, produto_id, quantidade)` — cada item pertence a um pedido e a um produto\n\n## Chave primária (PRIMARY KEY)\n\nA coluna `id` de cada tabela identifica **de forma única** cada linha — é a chave primária.\n\n## Chave estrangeira (FOREIGN KEY)\n\nColunas como `pedidos.cliente_id` **apontam** para o `id` de outra tabela (`clientes`). É assim que o banco sabe qual cliente fez qual pedido, sem repetir todos os dados do cliente em cada pedido.\n\n```\nclientes.id  <---  pedidos.cliente_id\npedidos.id   <---  itens_pedido.pedido_id\nprodutos.id  <---  itens_pedido.produto_id\n```\n\n> 🎯 Nos próximos tópicos vamos usar `JOIN` para \"juntar\" essas tabelas numa consulta só.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "O campo `cliente_id` na tabela `pedidos` é um exemplo de:",
+              "options": ["chave primária", "chave estrangeira", "índice"],
+              "solution": "chave estrangeira"
+            }
+          ]
+        },
+        {
+          "slug": "inner-join",
+          "title": "Juntando tabelas com INNER JOIN",
+          "position": 1,
+          "setup_sql": "CREATE TABLE clientes (id INTEGER PRIMARY KEY, nome TEXT, cidade TEXT, email TEXT); INSERT INTO clientes VALUES (1, 'Ana Silva', 'São Paulo', 'ana@email.com'), (2, 'Bruno Costa', 'Rio de Janeiro', 'bruno@email.com'), (3, 'Carla Souza', 'São Paulo', 'carla@email.com'), (4, 'Diego Lima', 'Belo Horizonte', 'diego@email.com'); CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15); CREATE TABLE pedidos (id INTEGER PRIMARY KEY, cliente_id INTEGER, data_pedido TEXT); INSERT INTO pedidos VALUES (1, 1, '2024-01-10'), (2, 2, '2024-01-12'), (3, 1, '2024-02-01'), (4, 3, '2024-02-05'); CREATE TABLE itens_pedido (id INTEGER PRIMARY KEY, pedido_id INTEGER, produto_id INTEGER, quantidade INTEGER); INSERT INTO itens_pedido VALUES (1, 1, 1, 10), (2, 1, 2, 2), (3, 2, 4, 1), (4, 3, 3, 1), (5, 4, 5, 2), (6, 4, 1, 5);",
+          "lesson_md": "# INNER JOIN\n\n`INNER JOIN` junta linhas de duas tabelas onde a condição de ligação é satisfeita — só aparecem linhas que **têm correspondência nas duas tabelas**.\n\n```sql\nSELECT clientes.nome, pedidos.data_pedido\nFROM pedidos\nINNER JOIN clientes ON pedidos.cliente_id = clientes.id;\n```\n\nIsso lê como: \"para cada pedido, junte os dados do cliente correspondente\". Clientes que nunca fizeram pedido **não aparecem** no resultado — é essa a natureza do INNER JOIN.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Liste o nome do cliente e a data de cada pedido (colunas: nome, data_pedido).",
+              "solution": "SELECT clientes.nome, pedidos.data_pedido FROM pedidos INNER JOIN clientes ON pedidos.cliente_id = clientes.id;"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Liste o nome do produto e a quantidade de cada item de pedido (colunas: nome, quantidade).",
+              "solution": "SELECT produtos.nome, itens_pedido.quantidade FROM itens_pedido INNER JOIN produtos ON itens_pedido.produto_id = produtos.id;"
+            }
+          ]
+        },
+        {
+          "slug": "left-join",
+          "title": "Incluindo tudo com LEFT JOIN",
+          "position": 2,
+          "setup_sql": "CREATE TABLE clientes (id INTEGER PRIMARY KEY, nome TEXT, cidade TEXT, email TEXT); INSERT INTO clientes VALUES (1, 'Ana Silva', 'São Paulo', 'ana@email.com'), (2, 'Bruno Costa', 'Rio de Janeiro', 'bruno@email.com'), (3, 'Carla Souza', 'São Paulo', 'carla@email.com'), (4, 'Diego Lima', 'Belo Horizonte', 'diego@email.com'); CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15); CREATE TABLE pedidos (id INTEGER PRIMARY KEY, cliente_id INTEGER, data_pedido TEXT); INSERT INTO pedidos VALUES (1, 1, '2024-01-10'), (2, 2, '2024-01-12'), (3, 1, '2024-02-01'), (4, 3, '2024-02-05'); CREATE TABLE itens_pedido (id INTEGER PRIMARY KEY, pedido_id INTEGER, produto_id INTEGER, quantidade INTEGER); INSERT INTO itens_pedido VALUES (1, 1, 1, 10), (2, 1, 2, 2), (3, 2, 4, 1), (4, 3, 3, 1), (5, 4, 5, 2), (6, 4, 1, 5);",
+          "lesson_md": "# LEFT JOIN\n\n`LEFT JOIN` mantém **todas as linhas da tabela da esquerda**, mesmo quando não há correspondência na tabela da direita (nesse caso, as colunas da direita vêm como `NULL`).\n\n```sql\nSELECT clientes.nome, pedidos.data_pedido\nFROM clientes\nLEFT JOIN pedidos ON clientes.id = pedidos.cliente_id;\n```\n\nAgora clientes que **nunca fizeram pedido** também aparecem, com `data_pedido` igual a `NULL`.\n\n## Achando o que \"não existe\" com LEFT JOIN + IS NULL\n\nUm truque clássico: para achar clientes **sem nenhum pedido**, faça o LEFT JOIN e filtre onde o lado direito é `NULL`:\n\n```sql\nSELECT clientes.nome\nFROM clientes\nLEFT JOIN pedidos ON clientes.id = pedidos.cliente_id\nWHERE pedidos.id IS NULL;\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Liste o nome de todos os clientes e a data de seus pedidos (mesmo os que nunca compraram) — colunas: nome, data_pedido.",
+              "solution": "SELECT clientes.nome, pedidos.data_pedido FROM clientes LEFT JOIN pedidos ON clientes.id = pedidos.cliente_id;"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Liste o nome dos clientes que NUNCA fizeram um pedido.",
+              "solution": "SELECT clientes.nome FROM clientes LEFT JOIN pedidos ON clientes.id = pedidos.cliente_id WHERE pedidos.id IS NULL;"
+            }
+          ]
+        },
+        {
+          "slug": "join-com-agregacao",
+          "title": "JOIN + GROUP BY na prática",
+          "position": 3,
+          "setup_sql": "CREATE TABLE clientes (id INTEGER PRIMARY KEY, nome TEXT, cidade TEXT, email TEXT); INSERT INTO clientes VALUES (1, 'Ana Silva', 'São Paulo', 'ana@email.com'), (2, 'Bruno Costa', 'Rio de Janeiro', 'bruno@email.com'), (3, 'Carla Souza', 'São Paulo', 'carla@email.com'), (4, 'Diego Lima', 'Belo Horizonte', 'diego@email.com'); CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15); CREATE TABLE pedidos (id INTEGER PRIMARY KEY, cliente_id INTEGER, data_pedido TEXT); INSERT INTO pedidos VALUES (1, 1, '2024-01-10'), (2, 2, '2024-01-12'), (3, 1, '2024-02-01'), (4, 3, '2024-02-05'); CREATE TABLE itens_pedido (id INTEGER PRIMARY KEY, pedido_id INTEGER, produto_id INTEGER, quantidade INTEGER); INSERT INTO itens_pedido VALUES (1, 1, 1, 10), (2, 1, 2, 2), (3, 2, 4, 1), (4, 3, 3, 1), (5, 4, 5, 2), (6, 4, 1, 5);",
+          "lesson_md": "# Combinando JOIN com GROUP BY\n\nJOIN e GROUP BY se combinam o tempo todo em consultas do dia a dia — por exemplo, \"quantos pedidos cada cliente fez\":\n\n```sql\nSELECT clientes.nome, COUNT(pedidos.id) AS total_pedidos\nFROM clientes\nLEFT JOIN pedidos ON clientes.id = pedidos.cliente_id\nGROUP BY clientes.nome;\n```\n\n> 💡 Usamos `LEFT JOIN` (não `INNER JOIN`) para que clientes sem nenhum pedido apareçam com `total_pedidos = 0`, em vez de sumirem do resultado. Repare também que usamos `COUNT(pedidos.id)` — contar uma coluna específica ignora os `NULL`, diferente de `COUNT(*)`.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Conte quantos pedidos cada cliente fez, incluindo clientes com 0 pedidos. Colunas: nome, total_pedidos.",
+              "solution": "SELECT clientes.nome, COUNT(pedidos.id) AS total_pedidos FROM clientes LEFT JOIN pedidos ON clientes.id = pedidos.cliente_id GROUP BY clientes.nome;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "modificando-dados-sql",
+      "title": "Módulo 4 — Modificando Dados",
+      "summary": "INSERT, UPDATE e DELETE — os comandos que alteram o conteúdo das tabelas.",
+      "position": 4,
+      "topics": [
+        {
+          "slug": "comando-insert",
+          "title": "Inserindo dados com INSERT",
+          "position": 0,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 100), (2, 'Caderno', 15.0, 50), (3, 'Mochila', 120.0, 20);",
+          "lesson_md": "# Inserindo dados com INSERT\n\n```sql\nINSERT INTO produtos (id, nome, preco, estoque) VALUES (4, 'Mouse', 45.0, 30);\n```\n\nSe você informar os valores **na mesma ordem das colunas da tabela**, pode omitir os nomes das colunas:\n\n```sql\nINSERT INTO produtos VALUES (4, 'Mouse', 45.0, 30);\n```\n\nA tabela `produtos` deste tópico tem as colunas `(id, nome, preco, estoque)` e já vem com 3 produtos cadastrados.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Insira um novo produto: id 4, nome 'Mouse', preço 45.0, estoque 30.",
+              "solution": "INSERT INTO produtos VALUES (4, 'Mouse', 45.0, 30);",
+              "options": {"verify_query": "SELECT id, nome, preco, estoque FROM produtos ORDER BY id;"}
+            }
+          ]
+        },
+        {
+          "slug": "comando-update",
+          "title": "Atualizando dados com UPDATE",
+          "position": 1,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 100), (2, 'Caderno', 15.0, 50), (3, 'Mochila', 120.0, 20);",
+          "lesson_md": "# Atualizando dados com UPDATE\n\n```sql\nUPDATE produtos SET preco = 99.90 WHERE nome = 'Mochila';\n```\n\n> ⚠️ **Cuidado com o WHERE!** Se você esquecer, o `UPDATE` altera **todas as linhas** da tabela — um dos erros mais perigosos (e mais comuns) do SQL.\n\nDá para atualizar mais de uma coluna de uma vez, separando por vírgula: `SET preco = 99.90, estoque = 15`.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Atualize o preço da 'Mochila' para 99.90.",
+              "solution": "UPDATE produtos SET preco = 99.90 WHERE nome = 'Mochila';",
+              "options": {"verify_query": "SELECT id, nome, preco, estoque FROM produtos ORDER BY id;"}
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "O que acontece se você executar um UPDATE sem cláusula WHERE?",
+              "options": ["Nada muda", "Todas as linhas da tabela são atualizadas", "O comando sempre dá erro"],
+              "solution": "Todas as linhas da tabela são atualizadas"
+            }
+          ]
+        },
+        {
+          "slug": "comando-delete",
+          "title": "Removendo dados com DELETE",
+          "position": 2,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 100), (2, 'Caderno', 15.0, 50), (3, 'Mochila', 120.0, 20);",
+          "lesson_md": "# Removendo dados com DELETE\n\n```sql\nDELETE FROM produtos WHERE nome = 'Caneta';\n```\n\n> ⚠️ Assim como o `UPDATE`, um `DELETE` **sem WHERE** apaga **todas as linhas** da tabela (a tabela continua existindo, só fica vazia). Para apagar a tabela inteira, o comando é outro: `DROP TABLE`.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Remova o produto 'Caneta' da tabela.",
+              "solution": "DELETE FROM produtos WHERE nome = 'Caneta';",
+              "options": {"verify_query": "SELECT id, nome, preco, estoque FROM produtos ORDER BY id;"}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "topicos-avancados-sql",
+      "title": "Módulo 5 — Tópicos Avançados",
+      "summary": "Subconsultas, CASE WHEN, e uma introdução conceitual a views e índices.",
+      "position": 5,
+      "topics": [
+        {
+          "slug": "subconsultas",
+          "title": "Subconsultas (query dentro de query)",
+          "position": 0,
+          "setup_sql": "CREATE TABLE clientes (id INTEGER PRIMARY KEY, nome TEXT, cidade TEXT, email TEXT); INSERT INTO clientes VALUES (1, 'Ana Silva', 'São Paulo', 'ana@email.com'), (2, 'Bruno Costa', 'Rio de Janeiro', 'bruno@email.com'), (3, 'Carla Souza', 'São Paulo', 'carla@email.com'), (4, 'Diego Lima', 'Belo Horizonte', 'diego@email.com'); CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15); CREATE TABLE pedidos (id INTEGER PRIMARY KEY, cliente_id INTEGER, data_pedido TEXT); INSERT INTO pedidos VALUES (1, 1, '2024-01-10'), (2, 2, '2024-01-12'), (3, 1, '2024-02-01'), (4, 3, '2024-02-05');",
+          "lesson_md": "# Subconsultas\n\nUma **subconsulta** é um `SELECT` dentro de outro `SELECT` — útil quando o critério de filtro depende de um cálculo feito em outra consulta.\n\n## Comparando com um valor calculado\n\n```sql\nSELECT nome, preco FROM produtos\nWHERE preco > (SELECT AVG(preco) FROM produtos);\n```\n\nAqui, a subconsulta `(SELECT AVG(preco) FROM produtos)` calcula a média **antes**, e a consulta externa usa esse número no `WHERE`.\n\n## Filtrando com IN + subconsulta\n\n```sql\nSELECT nome FROM clientes\nWHERE id IN (SELECT cliente_id FROM pedidos);\n```\n\nIsso retorna os clientes cujo `id` aparece na lista de `cliente_id` de `pedidos` — ou seja, clientes que já fizeram pelo menos um pedido.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Selecione nome e preço dos produtos com preço acima da média de todos os produtos.",
+              "solution": "SELECT nome, preco FROM produtos WHERE preco > (SELECT AVG(preco) FROM produtos);"
+            },
+            {
+              "position": 1,
+              "type": "sql",
+              "prompt": "Selecione o nome dos clientes que já fizeram pelo menos um pedido (use uma subconsulta com IN).",
+              "solution": "SELECT nome FROM clientes WHERE id IN (SELECT cliente_id FROM pedidos);"
+            }
+          ]
+        },
+        {
+          "slug": "case-when",
+          "title": "Lógica condicional com CASE WHEN",
+          "position": 1,
+          "setup_sql": "CREATE TABLE produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL, categoria TEXT, estoque INTEGER); INSERT INTO produtos VALUES (1, 'Caneta', 2.5, 'Papelaria', 100), (2, 'Caderno', 15.0, 'Papelaria', 50), (3, 'Mochila', 120.0, 'Acessórios', 20), (4, 'Mouse', 45.0, 'Eletrônicos', 30), (5, 'Teclado', 90.0, 'Eletrônicos', 15);",
+          "lesson_md": "# CASE WHEN\n\n`CASE WHEN` é o \"if/elif/else\" do SQL — cria uma coluna com valores diferentes dependendo de uma condição:\n\n```sql\nSELECT nome,\n  CASE\n    WHEN preco > 100 THEN 'caro'\n    ELSE 'barato'\n  END AS classificacao\nFROM produtos;\n```\n\nDá para encadear vários `WHEN`:\n\n```sql\nCASE\n  WHEN preco > 500 THEN 'premium'\n  WHEN preco > 50 THEN 'intermediário'\n  ELSE 'básico'\nEND\n```\n\nO SQL testa de cima para baixo e usa o **primeiro** `WHEN` que for verdadeiro.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "sql",
+              "prompt": "Classifique cada produto como 'caro' (preço maior que 100) ou 'barato' (caso contrário). Colunas: nome, classificacao.",
+              "solution": "SELECT nome, CASE WHEN preco > 100 THEN 'caro' ELSE 'barato' END AS classificacao FROM produtos;"
+            }
+          ]
+        },
+        {
+          "slug": "views-e-indices",
+          "title": "Views e índices (visão geral)",
+          "position": 2,
+          "lesson_md": "# Views e índices\n\nEsses dois conceitos são mais avançados e geralmente aparecem quando um banco de dados cresce — vale conhecer, mesmo sem praticar em profundidade aqui.\n\n## Views\n\nUma **view** é uma consulta salva com um nome, que pode ser usada como se fosse uma tabela:\n\n```sql\nCREATE VIEW produtos_caros AS\nSELECT nome, preco FROM produtos WHERE preco > 100;\n\nSELECT * FROM produtos_caros;\n```\n\nEla não guarda os dados duplicados — toda vez que você consulta a view, a query original roda de novo por trás dos panos.\n\n## Índices\n\nUm **índice** é uma estrutura extra que o banco mantém para **acelerar buscas** em uma coluna (parecido com o índice de um livro):\n\n```sql\nCREATE INDEX idx_produtos_categoria ON produtos (categoria);\n```\n\nCom um índice em `categoria`, filtrar `WHERE categoria = 'Eletrônicos'` fica muito mais rápido em tabelas grandes — o banco não precisa mais olhar linha por linha.\n\n> 🎯 Índices aceleram leitura, mas têm um custo: toda escrita (INSERT/UPDATE/DELETE) fica um pouco mais lenta, porque o índice também precisa ser atualizado. Por isso não se cria índice em tudo, só nas colunas mais consultadas.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Uma VIEW no banco de dados é basicamente:",
+              "options": ["uma tabela física duplicada", "uma consulta salva que pode ser usada como se fosse uma tabela", "um tipo de índice"],
+              "solution": "uma consulta salva que pode ser usada como se fosse uma tabela"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Um ÍNDICE serve principalmente para:",
+              "options": ["armazenar dados duplicados", "acelerar buscas em colunas específicas", "impedir comandos UPDATE"],
+              "solution": "acelerar buscas em colunas específicas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

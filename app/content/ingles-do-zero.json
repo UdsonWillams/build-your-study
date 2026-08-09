@@ -1,0 +1,1338 @@
+{
+  "slug": "ingles-do-zero",
+  "title": "Inglês do Zero",
+  "description": "Uma trilha completa de gramática inglesa, do absoluto zero (A1) até um nível avançado (C1). Cada tópico explica a regra em português, com exemplos em inglês, e você pratica digitando, ouvindo, falando e respondendo quizzes direto no navegador.",
+  "category": "Idiomas",
+  "icon": "🇬🇧",
+  "level": "Do zero ao avançado (A1–C1)",
+  "position": 3,
+  "modules": [
+    {
+      "slug": "primeiros-passos-ingles",
+      "title": "Módulo 0 — Primeiros Passos (A1 · iniciante total)",
+      "summary": "Como funciona o curso, alfabeto e pronúncia, pronomes, o verbo to be, saudações e os primeiros números.",
+      "position": 0,
+      "topics": [
+        {
+          "slug": "o-que-e-o-cefr",
+          "title": "Como este curso funciona: os níveis A1 a C1",
+          "position": 0,
+          "lesson_md": "# Como este curso funciona: os níveis A1 a C1\n\nEste curso segue o **CEFR** (Common European Framework of Reference for Languages) — a escala mais usada no mundo para medir o nível de um idioma. Você vai ver essas siglas nos títulos dos módulos:\n\n| Nível | Nome | Você já consegue... |\n|---|---|---|\n| **A1** | Iniciante | Frases simples, se apresentar, pedir informações básicas |\n| **A2** | Básico | Conversas do dia a dia, falar da rotina, do passado |\n| **B1** | Intermediário | Contar histórias, dar opiniões, viajar sem depender de tradutor |\n| **B2** | Intermediário avançado | Discutir temas variados, entender filmes/séries sem legenda |\n| **C1** | Avançado | Se expressar com fluência, nuance e naturalidade |\n\n## Como o curso está organizado\n\n- Cada **módulo** traz uma sigla no título (ex.: *A1*, *B1*) indicando o nível daquele conteúdo — do mais simples ao mais avançado.\n- Cada **tópico** explica uma regra de gramática em português, com bastante exemplo em inglês.\n- Os **exercícios** variam: digitar a resposta, escolher a opção certa (quiz), ouvir uma frase em inglês e transcrever, ou falar em voz alta no microfone e receber feedback de pronúncia.\n\n> 💡 Não se preocupe em decorar a sigla do nível — ela é só um mapa para você saber onde está. O importante é praticar um pouco todos os dias."
+        },
+        {
+          "slug": "alfabeto-e-pronuncia",
+          "title": "Alfabeto e pronúncia em inglês",
+          "position": 1,
+          "lesson_md": "# Alfabeto e pronúncia em inglês\n\nAntes de montar frases, vale ouvir como soam as letras e alguns sons do inglês — muitos são bem diferentes do português.\n\n## O alfabeto (26 letras)\n\nA, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z\n\nAlgumas pronúncias que costumam surpreender:\n\n| Letra | Soa como (aproximado) |\n|---|---|\n| **H** | \"eitch\" — o H é pronunciado, diferente do português |\n| **J** | \"djêi\" |\n| **R** | som mais \"enrolado\", puxado para trás |\n| **W** | \"dâbliu\" |\n| **Y** | \"uái\" |\n\n## Sons de vogais\n\nO inglês tem muito mais sons vocálicos do que letras vogais — por isso a mesma letra soa diferente em palavras diferentes: compare `cat` (o \"a\" curto), `car` (o \"a\" longo) e `cake` (o \"a\" que soa como \"ei\").\n\n> 🎧 A melhor forma de treinar pronúncia é **ouvir muito** e repetir em voz alta. Os exercícios abaixo já começam esse treino — clique em 🔊 para ouvir e 🎤 para tentar falar.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "audio",
+              "prompt": "Escute a frase e transcreva o que você ouviu:",
+              "audio_text": "My name is Anna.",
+              "audio_lang": "en-US",
+              "solution": "my name is anna"
+            },
+            {
+              "position": 1,
+              "type": "speak",
+              "prompt": "Repita a frase em voz alta:",
+              "audio_text": "Hello, how are you?",
+              "audio_lang": "en-US",
+              "solution": "hello how are you"
+            }
+          ]
+        },
+        {
+          "slug": "pronomes-pessoais",
+          "title": "Pronomes pessoais (I, you, he, she...)",
+          "position": 2,
+          "lesson_md": "# Pronomes pessoais\n\nOs pronomes pessoais (sujeito) substituem nomes de pessoas ou coisas:\n\n| Inglês | Português | Uso |\n|---|---|---|\n| **I** | eu | sempre maiúsculo, mesmo no meio da frase |\n| **you** | você / vocês | serve tanto para singular quanto plural |\n| **he** | ele | pessoa do sexo masculino |\n| **she** | ela | pessoa do sexo feminino |\n| **it** | ele/ela (coisa, animal) | objetos, animais, ideias |\n| **we** | nós | |\n| **they** | eles/elas | pessoas, coisas ou animais no plural |\n\n## Exemplos\n\n```\nI am a student.        (Eu sou um estudante.)\nShe is my sister.      (Ela é minha irmã.)\nIt is a nice city.     (É/Ela é uma cidade legal.)\nThey are my friends.   (Eles são meus amigos.)\n```\n\n> 💡 Diferente do português, o inglês **quase sempre** precisa do pronome antes do verbo — não dá para simplesmente omitir.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual pronome substitui **\"my brother\"** (meu irmão)?",
+              "options": ["he", "she", "it", "they"],
+              "solution": "he"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual pronome substitui **\"the book\"** (o livro)?",
+              "options": ["he", "she", "it", "we"],
+              "solution": "it"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Complete em inglês: ___ am a student. (Eu sou um estudante.)",
+              "solution": "i"
+            }
+          ]
+        },
+        {
+          "slug": "verbo-to-be",
+          "title": "Verbo to be (am / is / are)",
+          "position": 3,
+          "lesson_md": "# Verbo to be (am / is / are)\n\nO verbo **to be** (\"ser/estar\") é o primeiro verbo que todo estudante de inglês aprende — ele muda de acordo com o pronome:\n\n| Pronome | to be | Contração |\n|---|---|---|\n| I | am | I'm |\n| you | are | you're |\n| he / she / it | is | he's / she's / it's |\n| we | are | we're |\n| they | are | they're |\n\n## Afirmativo, negativo e interrogativo\n\n```\nI am happy.          ->  I'm not happy.          ->  Am I happy?\nShe is a doctor.     ->  She is not a doctor.    ->  Is she a doctor?\nThey are ready.      ->  They are not ready.     ->  Are they ready?\n```\n\nNa negativa, \"is not\" vira **isn't** e \"are not\" vira **aren't** (só \"am not\" não tem contração curta).\n\n> ⚠️ Cuidado: verbo **to be** não é para ações, é para estados, características e identidade (\"eu **sou**\", \"ela **está**\", \"isso **é**\").",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Escolha a forma correta: \"She ___ a doctor.\"",
+              "options": ["am", "is", "are"],
+              "solution": "is"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Nós somos estudantes.",
+              "solution": "we are students"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "I am from Brazil.",
+              "audio_lang": "en-US",
+              "solution": "i am from brazil"
+            }
+          ]
+        },
+        {
+          "slug": "saudacoes-e-apresentacoes",
+          "title": "Saudações e apresentações",
+          "position": 4,
+          "lesson_md": "# Saudações e apresentações\n\n## Cumprimentos comuns\n\n- **Hi!** / **Hello!** — Oi! / Olá!\n- **Good morning** — Bom dia\n- **Good afternoon** — Boa tarde\n- **Good evening** — Boa noite (ao chegar)\n- **Good night** — Boa noite (ao se despedir para dormir)\n\n## Perguntando como a pessoa está\n\n```\nHow are you?          Como você está?\nI'm fine, thanks.     Estou bem, obrigado(a).\nAnd you?              E você?\n```\n\n## Se apresentando\n\n```\nMy name is Ana.           Meu nome é Ana.\nI'm from Brazil.          Eu sou do Brasil.\nNice to meet you.         Prazer em conhecê-lo(a).\n```\n\n> 💡 \"Nice to meet you\" só se usa no **primeiro encontro** com alguém. Se já se conhecem, o correto é \"Nice to see you\" (Bom te ver).",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "speak",
+              "prompt": "Diga em voz alta:",
+              "audio_text": "Nice to meet you.",
+              "audio_lang": "en-US",
+              "solution": "nice to meet you"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Muito prazer, eu sou a Ana.",
+              "solution": "nice to meet you i am ana"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual a resposta mais natural para \"How are you?\"",
+              "options": ["I'm fine, thanks.", "Nice to meet you.", "Good night.", "My name is Ana."],
+              "solution": "I'm fine, thanks."
+            }
+          ]
+        },
+        {
+          "slug": "numeros-e-there-is-are",
+          "title": "Números e There is / There are",
+          "position": 5,
+          "lesson_md": "# Números e There is / There are\n\n## Números de 0 a 20\n\n0 zero · 1 one · 2 two · 3 three · 4 four · 5 five · 6 six · 7 seven · 8 eight · 9 nine · 10 ten · 11 eleven · 12 twelve · 13 thirteen · 14 fourteen · 15 fifteen · 16 sixteen · 17 seventeen · 18 eighteen · 19 nineteen · 20 twenty\n\n## There is / There are\n\nUsamos para dizer que algo \"existe\" ou \"há\" em algum lugar:\n\n- **There is** + singular: `There is a book on the table.` (Há um livro na mesa.)\n- **There are** + plural: `There are two cats in the garden.` (Há dois gatos no jardim.)\n\nNa negativa: `There isn't a book here.` / `There aren't any cats here.`\nNa pergunta: `Is there a book here?` / `Are there any cats here?`",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Escolha a forma correta: \"There ___ two cats in the garden.\"",
+              "options": ["is", "are", "am"],
+              "solution": "are"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Há um livro na mesa.",
+              "solution": "there is a book on the table"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "There are twenty students in the class.",
+              "audio_lang": "en-US",
+              "solution": "there are twenty students in the class"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "presente-ingles",
+      "title": "Módulo 1 — Presente (A1–A2)",
+      "summary": "Simple present (afirmativo, negativo, interrogativo), artigos a/an/the, plural dos substantivos, present continuous e advérbios de frequência.",
+      "position": 1,
+      "topics": [
+        {
+          "slug": "simple-present-afirmativo",
+          "title": "Simple Present — afirmativo",
+          "position": 0,
+          "lesson_md": "# Simple Present — afirmativo\n\nUsamos o **simple present** para hábitos, rotinas e verdades gerais.\n\n## Estrutura\n\n```\nI / You / We / They  +  verbo (forma base)\nHe / She / It        +  verbo + s\n```\n\n## Exemplos\n\n```\nI work in an office.        (Eu trabalho em um escritório.)\nYou play tennis.            (Você joga tênis.)\nShe works in an office.     (Ela trabalha em um escritório.)\nHe plays tennis.            (Ele joga tênis.)\n```\n\n## Regras de ortografia do -s na 3ª pessoa\n\n| Terminação do verbo | Regra | Exemplo |\n|---|---|---|\n| a maioria | + s | play -> plays |\n| -o, -ch, -sh, -ss, -x | + es | go -> goes, watch -> watches |\n| consoante + y | tira o y, + ies | study -> studies |\n\n> 💡 \"He / She / It\" **sempre** leva o -s (ou -es) no simple present afirmativo — é o erro mais comum de quem está começando.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Escolha a forma correta: \"She ___ (work) in a bank.\"",
+              "options": ["work", "works", "working"],
+              "solution": "works"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Eles moram em São Paulo.",
+              "solution": "they live in sao paulo"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "He plays tennis on Saturdays.",
+              "audio_lang": "en-US",
+              "solution": "he plays tennis on saturdays"
+            }
+          ]
+        },
+        {
+          "slug": "simple-present-negativo-interrogativo",
+          "title": "Simple Present — negativo e interrogativo",
+          "position": 1,
+          "lesson_md": "# Simple Present — negativo e interrogativo\n\nPara negar ou perguntar no simple present, usamos o verbo auxiliar **do** (ou **does** para he/she/it) + o verbo principal na forma base (sem -s!).\n\n## Negativo\n\n```\nI do not (don't) like coffee.\nShe does not (doesn't) like coffee.\n```\n\n## Interrogativo\n\n```\nDo you like coffee?          Yes, I do. / No, I don't.\nDoes she like coffee?        Yes, she does. / No, she doesn't.\n```\n\n> ⚠️ Repare: quando usamos **does**, o verbo principal **perde o -s** (\"Does she like...?\" e não \"Does she likes...?\").",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"___ you speak English?\"",
+              "options": ["Do", "Does", "Are"],
+              "solution": "Do"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Ela não gosta de café.",
+              "solution": "she doesn't like coffee"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "Does he work on Sundays?",
+              "audio_lang": "en-US",
+              "solution": "does he work on sundays"
+            }
+          ]
+        },
+        {
+          "slug": "artigos-a-an-the",
+          "title": "Artigos: a / an / the",
+          "position": 2,
+          "lesson_md": "# Artigos: a / an / the\n\n## a vs an\n\nUsamos **a** antes de som de consoante e **an** antes de som de vogal (é o **som**, não a letra escrita):\n\n```\na car, a university      (\"university\" começa com som de \"iú\", consoante)\nan apple, an hour        (o H de \"hour\" é mudo, então soa como vogal)\n```\n\n## the\n\nUsamos **the** quando falamos de algo **específico**, já mencionado ou único:\n\n```\nI have a dog. The dog is brown.   (Tenho um cachorro. O cachorro é marrom.)\nThe sun is hot.                   (O sol é quente — só existe um sol.)\n```\n\n## Sem artigo\n\nPara ideias gerais no plural, sem especificar: `I like dogs.` (não `I like the dogs`, a menos que fale de cães específicos).",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Escolha o artigo correto: \"___ hour\"",
+              "options": ["a", "an", "the"],
+              "solution": "an"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Escolha o artigo correto: \"___ apple a day\"",
+              "options": ["a", "an", "the"],
+              "solution": "an"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Traduza: O sol é quente.",
+              "solution": "the sun is hot"
+            }
+          ]
+        },
+        {
+          "slug": "plural-dos-substantivos",
+          "title": "Plural dos substantivos",
+          "position": 3,
+          "lesson_md": "# Plural dos substantivos\n\n## Regra geral\n\n`book -> books`, `car -> cars` (só adiciona **s**)\n\n## Terminações especiais\n\n| Terminação | Regra | Exemplo |\n|---|---|---|\n| -s, -x, -z, -ch, -sh | + es | bus -> buses, box -> boxes |\n| consoante + y | tira o y, + ies | city -> cities |\n| -f / -fe (alguns casos) | tira f/fe, + ves | knife -> knives, leaf -> leaves |\n\n## Plurais irregulares (vale decorar)\n\n| Singular | Plural |\n|---|---|\n| man | men |\n| woman | women |\n| child | children |\n| person | people |\n| foot | feet |\n| tooth | teeth |\n| mouse | mice |",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual o plural de \"child\"?",
+              "options": ["childs", "childes", "children"],
+              "solution": "children"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Escreva o plural de \"city\".",
+              "solution": "cities"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual o plural de \"man\"?",
+              "options": ["mans", "men", "manes"],
+              "solution": "men"
+            }
+          ]
+        },
+        {
+          "slug": "present-continuous",
+          "title": "Present Continuous (be + verbo-ing)",
+          "position": 4,
+          "lesson_md": "# Present Continuous (be + verbo-ing)\n\nUsamos para ações acontecendo **agora**, neste exato momento, ou planos já combinados para o futuro próximo.\n\n## Estrutura\n\n```\nsujeito + am/is/are + verbo-ing\n```\n\n## Exemplos\n\n```\nI am studying English now.       (Estou estudando inglês agora.)\nShe is watching TV.              (Ela está assistindo TV.)\nThey are traveling next week.    (Eles vão viajar semana que vem — plano já combinado.)\n```\n\n## Regras de ortografia do -ing\n\n| Terminação | Regra | Exemplo |\n|---|---|---|\n| -e mudo no final | tira o e, + ing | make -> making |\n| consoante-vogal-consoante (sílaba tônica) | dobra a última consoante | run -> running, stop -> stopping |\n| a maioria | + ing | play -> playing |\n\n> 💡 Simple present = hábito (\"I play tennis every week\"). Present continuous = acontecendo agora (\"I am playing tennis right now\").",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"She ___ (study) right now.\"",
+              "options": ["studies", "is studying", "study"],
+              "solution": "is studying"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Eles estão viajando agora.",
+              "solution": "they are traveling now"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "I am learning English.",
+              "audio_lang": "en-US",
+              "solution": "i am learning english"
+            }
+          ]
+        },
+        {
+          "slug": "adverbios-de-frequencia",
+          "title": "Advérbios de frequência",
+          "position": 5,
+          "lesson_md": "# Advérbios de frequência\n\nIndicam com que frequência algo acontece — combinam muito com o **simple present**.\n\n| Advérbio | Frequência aproximada | Português |\n|---|---|---|\n| always | 100% | sempre |\n| usually | ~80% | geralmente |\n| often | ~60% | frequentemente |\n| sometimes | ~40% | às vezes |\n| rarely / seldom | ~10% | raramente |\n| never | 0% | nunca |\n\n## Onde colocar na frase\n\n- **Antes** do verbo principal: `I always drink coffee in the morning.`\n- **Depois** do verbo **to be**: `She is never late.`",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Como se diz \"às vezes\" em inglês?",
+              "options": ["always", "sometimes", "never", "often"],
+              "solution": "sometimes"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Eu sempre bebo café de manhã.",
+              "solution": "i always drink coffee in the morning"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Escolha a frase com a posição correta do advérbio:",
+              "options": ["She is never late.", "She never is late.", "Never she is late."],
+              "solution": "She is never late."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "passado-ingles",
+      "title": "Módulo 2 — Passado (A2)",
+      "summary": "Simple past com verbos regulares e irregulares, negativo/interrogativo com did, past continuous e there was/were.",
+      "position": 2,
+      "topics": [
+        {
+          "slug": "simple-past-verbos-regulares",
+          "title": "Simple Past — verbos regulares",
+          "position": 0,
+          "lesson_md": "# Simple Past — verbos regulares\n\nUsamos o **simple past** para ações completamente terminadas no passado.\n\n## Verbos regulares: + ed\n\n```\nwork  -> worked\nplay  -> played\nstudy -> studied   (consoante + y: tira o y, + ied)\nstop  -> stopped   (consoante-vogal-consoante: dobra a consoante)\n```\n\n## Exemplos\n\n```\nI worked yesterday.          (Eu trabalhei ontem.)\nShe studied for the exam.    (Ela estudou para a prova.)\nThey played football.        (Eles jogaram futebol.)\n```\n\n> 💡 No simple past afirmativo, **todos os sujeitos usam a mesma forma** — não existe -s de 3ª pessoa como no presente.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "text",
+              "prompt": "Traduza: Eu trabalhei ontem.",
+              "solution": "i worked yesterday"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual o passado de \"study\"?",
+              "options": ["studyed", "studied", "studed"],
+              "solution": "studied"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "They played football yesterday.",
+              "audio_lang": "en-US",
+              "solution": "they played football yesterday"
+            }
+          ]
+        },
+        {
+          "slug": "simple-past-verbos-irregulares",
+          "title": "Simple Past — verbos irregulares",
+          "position": 1,
+          "lesson_md": "# Simple Past — verbos irregulares\n\nMuitos verbos comuns em inglês **não seguem a regra do -ed** — precisam ser decorados aos poucos.\n\n| Base | Passado | Português |\n|---|---|---|\n| go | went | ir |\n| have | had | ter |\n| do | did | fazer |\n| see | saw | ver |\n| eat | ate | comer |\n| make | made | fazer/criar |\n| come | came | vir |\n| take | took | pegar/levar |\n| write | wrote | escrever |\n| be | was/were | ser/estar |\n\n## Exemplos\n\n```\nI went to the party.        (Eu fui à festa.)\nShe had a great time.       (Ela se divertiu muito.)\nThey ate pizza last night.  (Eles comeram pizza ontem à noite.)\n```\n\n> 🎯 Dica: aprenda os irregulares mais comuns em pequenos grupos, junto com frases de exemplo — decorar a lista toda de uma vez raramente funciona.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual o passado de \"go\"?",
+              "options": ["goed", "went", "gone"],
+              "solution": "went"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Ela comeu pizza ontem.",
+              "solution": "she ate pizza yesterday"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual o passado de \"see\"?",
+              "options": ["saw", "seed", "seen"],
+              "solution": "saw"
+            }
+          ]
+        },
+        {
+          "slug": "simple-past-negativo-interrogativo",
+          "title": "Simple Past — negativo e interrogativo",
+          "position": 2,
+          "lesson_md": "# Simple Past — negativo e interrogativo\n\nAssim como no presente, usamos um auxiliar — no passado, é sempre **did** (para todos os sujeitos), e o verbo principal volta para a forma base.\n\n## Negativo\n\n```\nI did not (didn't) go to the party.\nShe did not (didn't) see the movie.\n```\n\n## Interrogativo\n\n```\nDid you go to the party?      Yes, I did. / No, I didn't.\nDid she see the movie?        Yes, she did. / No, she didn't.\n```\n\n> ⚠️ Com **did**, o verbo principal **não muda** — nem regular (\"did not worked\" está errado; o certo é \"did not work\") nem irregular (\"did not went\" está errado; o certo é \"did not go\").",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"___ you go to the party?\"",
+              "options": ["Did", "Do", "Does"],
+              "solution": "Did"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Ela não viu o filme.",
+              "solution": "she didn't see the movie"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Escolha a frase correta:",
+              "options": ["She didn't went home.", "She didn't go home.", "She don't went home."],
+              "solution": "She didn't go home."
+            }
+          ]
+        },
+        {
+          "slug": "past-continuous",
+          "title": "Past Continuous (was/were + verbo-ing)",
+          "position": 3,
+          "lesson_md": "# Past Continuous (was/were + verbo-ing)\n\nUsamos para descrever uma ação **em andamento** em um momento específico do passado — muitas vezes interrompida por outra ação.\n\n## Estrutura\n\n```\nI / he / she / it  + was  + verbo-ing\nyou / we / they     + were + verbo-ing\n```\n\n## Exemplos\n\n```\nI was studying when you called.     (Eu estava estudando quando você ligou.)\nThey were watching TV at 9 pm.      (Eles estavam assistindo TV às 21h.)\n```\n\nÉ muito comum combinar **past continuous** (ação longa, em andamento) com **simple past** (ação curta, que interrompe) usando **when**:\n\n```\nI was sleeping when the phone rang.\n(Eu estava dormindo quando o telefone tocou.)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"I ___ (study) when you called.\"",
+              "options": ["studied", "was studying", "am studying"],
+              "solution": "was studying"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Eles estavam assistindo TV.",
+              "solution": "they were watching tv"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "I was sleeping when the phone rang.",
+              "audio_lang": "en-US",
+              "solution": "i was sleeping when the phone rang"
+            }
+          ]
+        },
+        {
+          "slug": "there-was-were-e-marcadores-de-passado",
+          "title": "There was / there were e marcadores de tempo",
+          "position": 4,
+          "lesson_md": "# There was / there were e marcadores de tempo\n\n## There was / there were\n\nVersão no passado de \"there is/are\":\n\n```\nThere was a party last night.        (Houve uma festa ontem à noite.) — singular\nThere were many people there.        (Havia muitas pessoas lá.) — plural\n```\n\n## Marcadores de tempo comuns no passado\n\n- **yesterday** — ontem\n- **last night / last week / last year** — ontem à noite / semana passada / ano passado\n- **... ago** — atrás (`two days ago` = dois dias atrás)\n- **in 2010** — em 2010\n\n> 💡 Esses marcadores são uma ótima pista para saber que a frase deve estar no passado.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"There ___ many people at the party.\"",
+              "options": ["was", "were"],
+              "solution": "were"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Havia uma festa ontem à noite.",
+              "solution": "there was a party last night"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Como se diz \"dois dias atrás\"?",
+              "options": ["two days ago", "two days last", "ago two days"],
+              "solution": "two days ago"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "futuro-e-modais-ingles",
+      "title": "Módulo 3 — Futuro e Modais (A2–B1)",
+      "summary": "Going to e will para o futuro, e os verbos modais can/could, must/have to, should e may/might.",
+      "position": 3,
+      "topics": [
+        {
+          "slug": "futuro-going-to",
+          "title": "Futuro com going to",
+          "position": 0,
+          "lesson_md": "# Futuro com going to\n\nUsamos **going to** para planos e intenções já decididas, ou previsões baseadas em algo que vemos agora.\n\n## Estrutura\n\n```\nsujeito + am/is/are + going to + verbo (forma base)\n```\n\n## Exemplos\n\n```\nI am going to travel next month.            (Eu vou viajar mês que vem — já é um plano.)\nLook at those clouds! It's going to rain.   (Vai chover — dá para ver pelas nuvens agora.)\n```\n\nNegativo: `I am not going to travel.` Interrogativo: `Are you going to travel?`",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"Look at the sky! It ___ to rain.\"",
+              "options": ["is going", "will", "goes"],
+              "solution": "is going"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Eu vou estudar inglês amanhã.",
+              "solution": "i am going to study english tomorrow"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "We are going to visit my grandmother.",
+              "audio_lang": "en-US",
+              "solution": "we are going to visit my grandmother"
+            }
+          ]
+        },
+        {
+          "slug": "futuro-will",
+          "title": "Futuro com will",
+          "position": 1,
+          "lesson_md": "# Futuro com will\n\nUsamos **will** para decisões espontâneas (tomadas na hora), promessas, previsões sem evidência concreta, e ofertas.\n\n## Estrutura\n\n```\nsujeito + will + verbo (forma base)      (will não muda com a pessoa)\n```\n\n## Exemplos\n\n```\nI think it will rain tomorrow.     (previsão/opinião, sem evidência)\nI'll help you with that.           (decisão espontânea / oferta)\nShe will call you later.           (promessa)\n```\n\nContração: **will -> 'll** (`I'll`, `she'll`, `they'll`). Negativo: **will not -> won't**.\n\n## going to vs will\n\n| going to | will |\n|---|---|\n| plano já decidido | decisão tomada na hora |\n| evidência visível agora | opinião/previsão sem evidência |",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Escolha a frase de uma decisão espontânea, tomada na hora:",
+              "options": ["I'll answer the phone.", "I am going to answer the phone.", "I answer the phone."],
+              "solution": "I'll answer the phone."
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Ela vai te ligar mais tarde.",
+              "solution": "she will call you later"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual é a contração de \"will not\"?",
+              "options": ["willn't", "won't", "wont"],
+              "solution": "won't"
+            }
+          ]
+        },
+        {
+          "slug": "modais-can-could",
+          "title": "Modais: can e could",
+          "position": 2,
+          "lesson_md": "# Modais: can e could\n\n## can\n\nIndica **habilidade** (saber fazer) ou **permissão informal**:\n\n```\nI can swim.               (Eu sei nadar / consigo nadar.)\nCan I open the window?    (Posso abrir a janela?)\n```\n\n## could\n\nÉ o passado de \"can\" (habilidade no passado) e também uma forma **mais educada** de pedir algo:\n\n```\nWhen I was a child, I could run very fast.   (habilidade no passado)\nCould you help me, please?                   (pedido educado)\n```\n\n> 💡 Verbos modais (can, could, will, must...) **nunca** levam -s na 3ª pessoa e são sempre seguidos do verbo na forma base, sem \"to\": `She can swim` (não `She can to swim` nem `She cans swim`).",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"She ___ speak three languages.\"",
+              "options": ["can", "cans", "canning"],
+              "solution": "can"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Você poderia me ajudar, por favor?",
+              "solution": "could you help me please"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual modal indica habilidade no PASSADO?",
+              "options": ["can", "could", "will"],
+              "solution": "could"
+            }
+          ]
+        },
+        {
+          "slug": "modais-must-have-to",
+          "title": "Modais: must e have to",
+          "position": 3,
+          "lesson_md": "# Modais: must e have to\n\nAmbos expressam **obrigação**, mas com uma diferença sutil:\n\n- **must**: obrigação que vem de quem fala (opinião pessoal) ou regra muito forte: `You must wear a seatbelt.` (é lei/regra)\n- **have to**: obrigação que vem de fora (regras, circunstâncias externas): `I have to work on Saturday.` (meu chefe pediu, não é minha opinião)\n\n## Negativo — atenção, o significado muda!\n\n- **must not (mustn't)**: proibição, \"não pode\": `You mustn't smoke here.` (é proibido)\n- **don't have to**: não é necessário, mas pode se quiser: `You don't have to come if you're tired.` (você não é obrigado)\n\n> ⚠️ Esse é um dos erros mais comuns de quem estuda inglês: \"mustn't\" e \"don't have to\" **não** são sinônimos!",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual frase significa \"é proibido\"?",
+              "options": ["You mustn't smoke here.", "You don't have to smoke here.", "You can smoke here."],
+              "solution": "You mustn't smoke here."
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Eu tenho que trabalhar no sábado.",
+              "solution": "i have to work on saturday"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual frase significa \"não é obrigatório, mas pode se quiser\"?",
+              "options": ["You mustn't come.", "You don't have to come.", "You must come."],
+              "solution": "You don't have to come."
+            }
+          ]
+        },
+        {
+          "slug": "modais-should-may-might",
+          "title": "Modais: should, may e might",
+          "position": 4,
+          "lesson_md": "# Modais: should, may e might\n\n## should\n\nUsado para **conselhos e recomendações** (\"deveria\"):\n\n```\nYou should study more.             (Você deveria estudar mais.)\nYou shouldn't eat so much sugar.   (Você não deveria comer tanto açúcar.)\n```\n\n## may / might\n\nUsados para **possibilidade** (\"pode ser que\"), sendo *might* uma possibilidade um pouco menor que *may*:\n\n```\nIt may rain later.        (Pode ser que chova mais tarde.)\nShe might be at home.     (Ela pode estar em casa — não tenho certeza.)\n```\n\n**may** também é usado para pedir permissão de forma bem formal: `May I come in?` (Posso entrar?)",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual modal expressa um CONSELHO?",
+              "options": ["can", "should", "must"],
+              "solution": "should"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Pode ser que chova mais tarde.",
+              "solution": "it may rain later"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Complete de forma educada e formal: \"___ I come in?\"",
+              "options": ["Can", "May", "Must"],
+              "solution": "May"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "comparacoes-e-preposicoes-ingles",
+      "title": "Módulo 4 — Comparações e Preposições (B1)",
+      "summary": "Comparativo e superlativo, comparações de igualdade, preposições de tempo e lugar, e quantificadores.",
+      "position": 4,
+      "topics": [
+        {
+          "slug": "comparativo-e-superlativo",
+          "title": "Comparativo e superlativo",
+          "position": 0,
+          "lesson_md": "# Comparativo e superlativo\n\n## Adjetivos curtos (geralmente 1 sílaba)\n\n```\ntall -> taller (comparativo) -> the tallest (superlativo)\nbig  -> bigger  -> the biggest    (dobra a consoante final)\n```\n\n## Adjetivos longos (geralmente 2+ sílabas)\n\n```\nexpensive   -> more expensive   -> the most expensive\ninteresting -> more interesting -> the most interesting\n```\n\n## Irregulares (vale decorar)\n\n| Adjetivo | Comparativo | Superlativo |\n|---|---|---|\n| good | better | the best |\n| bad | worse | the worst |\n| far | farther/further | the farthest/furthest |\n\n## Exemplos\n\n```\nThis car is faster than that one.                 (comparativo: + than)\nThis is the most expensive restaurant in town.    (superlativo: the + most/-est)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual o comparativo de \"big\"?",
+              "options": ["bigger", "more big", "biggest"],
+              "solution": "bigger"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Este carro é mais rápido que aquele.",
+              "solution": "this car is faster than that one"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual o superlativo de \"good\"?",
+              "options": ["goodest", "the best", "more good"],
+              "solution": "the best"
+            }
+          ]
+        },
+        {
+          "slug": "as-as-comparacoes-de-igualdade",
+          "title": "Comparações de igualdade: as...as",
+          "position": 1,
+          "lesson_md": "# Comparações de igualdade: as...as\n\nUsamos **as + adjetivo + as** para dizer que duas coisas são iguais em alguma característica:\n\n```\nShe is as tall as her brother.              (Ela é tão alta quanto o irmão.)\nThis book is as interesting as the movie.   (Este livro é tão interessante quanto o filme.)\n```\n\nNa negativa, **not as...as** indica que uma coisa é menos do que a outra:\n\n```\nThis city is not as big as São Paulo.   (Esta cidade não é tão grande quanto São Paulo.)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "text",
+              "prompt": "Traduza: Ela é tão alta quanto o irmão.",
+              "solution": "she is as tall as her brother"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Complete: \"This city is not ___ big as São Paulo.\"",
+              "options": ["as", "than", "so"],
+              "solution": "as"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "This book is as interesting as the movie.",
+              "audio_lang": "en-US",
+              "solution": "this book is as interesting as the movie"
+            }
+          ]
+        },
+        {
+          "slug": "preposicoes-de-tempo-in-on-at",
+          "title": "Preposições de tempo: in, on, at",
+          "position": 2,
+          "lesson_md": "# Preposições de tempo: in, on, at\n\n| Preposição | Uso | Exemplo |\n|---|---|---|\n| **in** | meses, anos, estações, períodos longos | in July, in 2024, in the morning |\n| **on** | dias e datas | on Monday, on July 4th |\n| **at** | horários específicos | at 7 pm, at noon |\n\n## Exemplos\n\n```\nMy birthday is in July.\nI have a meeting on Monday.\nThe class starts at 8 am.\n```\n\n> 💡 Truque para lembrar: **in** (período mais vago/longo) -> **on** (dia específico) -> **at** (hora exata) — do mais geral para o mais específico.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"My birthday is ___ July.\"",
+              "options": ["in", "on", "at"],
+              "solution": "in"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Complete: \"The meeting is ___ Monday.\"",
+              "options": ["in", "on", "at"],
+              "solution": "on"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Traduza: A aula começa às 8 da manhã.",
+              "solution": "the class starts at 8 am"
+            }
+          ]
+        },
+        {
+          "slug": "preposicoes-de-lugar",
+          "title": "Preposições de lugar: in, on, at",
+          "position": 3,
+          "lesson_md": "# Preposições de lugar: in, on, at\n\n| Preposição | Uso | Exemplo |\n|---|---|---|\n| **in** | dentro de um espaço/área | in the box, in London, in the room |\n| **on** | sobre uma superfície | on the table, on the wall |\n| **at** | um ponto/local específico | at the door, at the bus stop, at home |\n\n## Exemplos\n\n```\nThe keys are in the box.\nThe picture is on the wall.\nShe is waiting at the bus stop.\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"The keys are ___ the box.\"",
+              "options": ["in", "on", "at"],
+              "solution": "in"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Complete: \"The picture is ___ the wall.\"",
+              "options": ["in", "on", "at"],
+              "solution": "on"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Traduza: Ela está esperando no ponto de ônibus.",
+              "solution": "she is waiting at the bus stop"
+            }
+          ]
+        },
+        {
+          "slug": "quantificadores-some-any-much-many",
+          "title": "Quantificadores: some, any, much, many",
+          "position": 4,
+          "lesson_md": "# Quantificadores: some, any, much, many, a lot of\n\n## some e any\n\n- **some**: frases afirmativas — `I have some money.`\n- **any**: frases negativas e perguntas — `I don't have any money.` / `Do you have any money?`\n\n## much e many\n\n- **much**: substantivos incontáveis (água, dinheiro, tempo) — `How much water do you drink?`\n- **many**: substantivos contáveis (carros, livros, amigos) — `How many books do you have?`\n\n## a lot of\n\nFunciona para os dois casos, principalmente em frases afirmativas: `I have a lot of friends.` / `I have a lot of money.`\n\n> 💡 Pergunta rápida para saber se é contável: dá para colocar um número na frente? \"three books\" sim (contável -> many); \"three waters\" não (incontável -> much).",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"How ___ water do you drink?\"",
+              "options": ["much", "many"],
+              "solution": "much"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Complete: \"How ___ books do you have?\"",
+              "options": ["much", "many"],
+              "solution": "many"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Traduza: Eu tenho muitos amigos.",
+              "solution": "i have a lot of friends"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "perfect-tenses-ingles",
+      "title": "Módulo 5 — Perfect Tenses (B1–B2)",
+      "summary": "Present perfect (ever/never/already/yet/just), present perfect vs simple past, present perfect continuous e past perfect.",
+      "position": 5,
+      "topics": [
+        {
+          "slug": "present-perfect-ever-never",
+          "title": "Present Perfect: ever e never",
+          "position": 0,
+          "lesson_md": "# Present Perfect (have/has + particípio)\n\nUsamos o **present perfect** para falar de experiências de vida, sem dizer exatamente quando aconteceram — o foco é no resultado/experiência, não no momento exato.\n\n## Estrutura\n\n```\nI / you / we / they  +  have  +  particípio\nhe / she / it         +  has   +  particípio\n```\n\n`have` -> `'ve`, `has` -> `'s` nas contrações.\n\n## ever e never\n\n- **ever** (\"alguma vez\"): usado em perguntas — `Have you ever been to Japan?`\n- **never** (\"nunca\"): usado em afirmações negativas — `I have never been to Japan.`\n\n## Exemplos\n\n```\nHave you ever eaten sushi?        Yes, I have. / No, I haven't.\nShe has never seen snow.\n```\n\n> 💡 O particípio de verbos regulares é igual ao passado (+ed): `worked`. Verbos irregulares têm uma 3ª forma própria: `go -> went -> gone`, `see -> saw -> seen`, `eat -> ate -> eaten`.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"Have you ___ been to Japan?\"",
+              "options": ["ever", "never", "yet"],
+              "solution": "ever"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Ela nunca viu neve.",
+              "solution": "she has never seen snow"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "Have you ever eaten sushi?",
+              "audio_lang": "en-US",
+              "solution": "have you ever eaten sushi"
+            }
+          ]
+        },
+        {
+          "slug": "present-perfect-already-yet-just",
+          "title": "Present Perfect: already, yet e just",
+          "position": 1,
+          "lesson_md": "# Present Perfect: already, yet e just\n\n## already (\"já\")\n\nUsado em frases **afirmativas**, geralmente indicando que algo aconteceu antes do esperado:\n\n```\nI have already finished my homework.   (Eu já terminei minha lição de casa.)\n```\n\n## yet (\"ainda\"/\"já\")\n\nUsado em **negativas** (\"ainda não\") e **perguntas** (\"já...?\"), sempre no final da frase:\n\n```\nI haven't finished my homework yet.    (Eu ainda não terminei.)\nHave you finished your homework yet?   (Você já terminou?)\n```\n\n## just (\"acabou de\")\n\nIndica que algo aconteceu há muito pouco tempo:\n\n```\nShe has just arrived.    (Ela acabou de chegar.)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual palavra vai em frases NEGATIVAS/perguntas, sempre no final?",
+              "options": ["already", "yet", "just"],
+              "solution": "yet"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Eu já terminei minha lição de casa.",
+              "solution": "i have already finished my homework"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Complete: \"She has ___ arrived.\" (acabou de)",
+              "options": ["already", "yet", "just"],
+              "solution": "just"
+            }
+          ]
+        },
+        {
+          "slug": "present-perfect-vs-simple-past",
+          "title": "Present Perfect vs Simple Past",
+          "position": 2,
+          "lesson_md": "# Present Perfect vs Simple Past\n\nEsse é um dos pontos que mais confunde quem fala português, porque no Brasil costumamos usar só uma forma de passado.\n\n| Simple Past | Present Perfect |\n|---|---|\n| tempo específico e terminado | experiência, sem tempo específico |\n| `I visited Paris in 2019.` | `I have visited Paris.` (alguma vez, não importa quando) |\n| usa marcadores como *yesterday*, *last year*, *in 2019* | usa marcadores como *ever*, *never*, *already*, *yet*, *just* |\n\n## Exemplos lado a lado\n\n```\nI saw that movie last week.       (passado específico -> simple past)\nI have seen that movie.           (experiência, sem dizer quando -> present perfect)\n```\n\n> ⚠️ Se a frase tem uma data ou tempo específico (yesterday, in 2020, last week), use **simple past**. Se fala de experiência de vida sem hora marcada, use **present perfect**.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"I ___ that movie last week.\"",
+              "options": ["saw", "have seen"],
+              "solution": "saw"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Complete (experiência, sem dizer quando): \"I ___ that movie.\"",
+              "options": ["saw", "have seen"],
+              "solution": "have seen"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Traduza: Eu visitei Paris em 2019.",
+              "solution": "i visited paris in 2019"
+            }
+          ]
+        },
+        {
+          "slug": "present-perfect-continuous",
+          "title": "Present Perfect Continuous",
+          "position": 3,
+          "lesson_md": "# Present Perfect Continuous\n\nUsamos para enfatizar a **duração** de uma ação que começou no passado e continua até agora.\n\n## Estrutura\n\n```\nsujeito + have/has + been + verbo-ing\n```\n\n## Exemplos\n\n```\nI have been studying English for two years.     (Estudo inglês há dois anos — e continuo.)\nShe has been working here since 2020.           (Ela trabalha aqui desde 2020.)\n```\n\n## for vs since\n\n- **for** + duração: `for two years`, `for a week`\n- **since** + ponto no tempo: `since 2020`, `since Monday`",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"I have been studying English ___ two years.\"",
+              "options": ["for", "since"],
+              "solution": "for"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Complete: \"She has worked here ___ 2020.\"",
+              "options": ["for", "since"],
+              "solution": "since"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Traduza: Ela trabalha aqui desde 2020.",
+              "solution": "she has been working here since 2020"
+            }
+          ]
+        },
+        {
+          "slug": "past-perfect",
+          "title": "Past Perfect (had + particípio)",
+          "position": 4,
+          "lesson_md": "# Past Perfect (had + particípio)\n\nUsamos para indicar que uma ação aconteceu **antes de outra ação no passado** — é o \"passado do passado\".\n\n## Estrutura\n\n```\nsujeito + had + particípio\n```\n\n## Exemplo\n\n```\nWhen I arrived, the movie had already started.\n(Quando eu cheguei, o filme já tinha começado.)\n```\n\nRepare na ordem dos eventos: **1)** o filme começou, **2)** depois eu cheguei. A ação que aconteceu primeiro (começar o filme) usa **had + particípio**; a segunda usa **simple past** (`arrived`).\n\n> 💡 Se só há uma ação no passado, geralmente o simple past já basta. Use o past perfect quando precisar deixar claro **qual ação aconteceu primeiro**, entre duas.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "text",
+              "prompt": "Traduza: Quando eu cheguei, o filme já tinha começado.",
+              "solution": "when i arrived the movie had already started"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Qual forma verbal indica a ação que aconteceu PRIMEIRO, entre duas no passado?",
+              "options": ["simple past", "had + particípio"],
+              "solution": "had + particípio"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "She had already left when I called.",
+              "audio_lang": "en-US",
+              "solution": "she had already left when i called"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "voz-passiva-e-condicionais-ingles",
+      "title": "Módulo 6 — Voz Passiva e Condicionais (B2)",
+      "summary": "Voz passiva no presente e no passado, e os condicionais tipo 0, 1, 2 e 3.",
+      "position": 6,
+      "topics": [
+        {
+          "slug": "voz-passiva-presente",
+          "title": "Voz Passiva no presente",
+          "position": 0,
+          "lesson_md": "# Voz Passiva no presente\n\nUsamos a voz passiva quando o **foco é na ação ou em quem recebe a ação**, não em quem a pratica.\n\n## Estrutura\n\n```\nsujeito + am/is/are + particípio  (+ by + agente, opcional)\n```\n\n## Ativa vs Passiva\n\n```\nAtiva:   The company makes these cars.         (A empresa faz esses carros.)\nPassiva: These cars are made by the company.   (Esses carros são feitos pela empresa.)\n```\n\nQuando não importa (ou não se sabe) quem pratica a ação, o \"by + agente\" pode ser omitido:\n\n```\nEnglish is spoken in many countries.   (O inglês é falado em muitos países.)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"These cars ___ made in Germany.\"",
+              "options": ["is", "are", "am"],
+              "solution": "are"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: O inglês é falado em muitos países.",
+              "solution": "english is spoken in many countries"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "This coffee is grown in Brazil.",
+              "audio_lang": "en-US",
+              "solution": "this coffee is grown in brazil"
+            }
+          ]
+        },
+        {
+          "slug": "voz-passiva-passado",
+          "title": "Voz Passiva no passado",
+          "position": 1,
+          "lesson_md": "# Voz Passiva no passado\n\n## Estrutura\n\n```\nsujeito + was/were + particípio\n```\n\n## Exemplos\n\n```\nAtiva:   Shakespeare wrote this play.            (Shakespeare escreveu esta peça.)\nPassiva: This play was written by Shakespeare.   (Esta peça foi escrita por Shakespeare.)\n```\n\n```\nThe windows were broken last night.   (As janelas foram quebradas ontem à noite.)\n```\n\n> 💡 A voz passiva é muito usada em notícias, relatórios científicos e textos formais — quando o importante é o fato, não quem fez.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"This play ___ written by Shakespeare.\"",
+              "options": ["was", "were"],
+              "solution": "was"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: As janelas foram quebradas ontem à noite.",
+              "solution": "the windows were broken last night"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Escolha a versão passiva de \"Someone stole my bike.\"",
+              "options": ["My bike was stolen.", "My bike stole.", "My bike is stole."],
+              "solution": "My bike was stolen."
+            }
+          ]
+        },
+        {
+          "slug": "condicional-zero-e-primeiro",
+          "title": "Condicionais tipo 0 e tipo 1",
+          "position": 2,
+          "lesson_md": "# Condicionais: tipo 0 e tipo 1\n\n## Condicional tipo 0 — verdades gerais\n\n```\nIf + simple present, simple present\n```\n\n```\nIf you heat water to 100°C, it boils.\n(Se você aquece a água a 100°C, ela ferve — sempre verdade.)\n```\n\n## Condicional tipo 1 — situações reais/possíveis no futuro\n\n```\nIf + simple present, will + verbo\n```\n\n```\nIf it rains tomorrow, I will stay home.\n(Se chover amanhã, eu vou ficar em casa.)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Condicional tipo 0: \"If you heat water to 100°C, it ___.\"",
+              "options": ["boils", "will boil", "boiled"],
+              "solution": "boils"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Se chover amanhã, eu vou ficar em casa.",
+              "solution": "if it rains tomorrow i will stay home"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual condicional descreve uma verdade geral/científica?",
+              "options": ["tipo 0", "tipo 1"],
+              "solution": "tipo 0"
+            }
+          ]
+        },
+        {
+          "slug": "condicional-segundo",
+          "title": "Condicional tipo 2",
+          "position": 3,
+          "lesson_md": "# Condicional tipo 2 — situações hipotéticas/improváveis\n\n## Estrutura\n\n```\nIf + simple past, would + verbo\n```\n\n## Exemplo\n\n```\nIf I won the lottery, I would travel around the world.\n(Se eu ganhasse na loteria, eu viajaria pelo mundo — hipotético, pouco provável.)\n```\n\n> ⚠️ Repare: apesar de usar o \"simple past\" (`won`), a frase **não fala do passado** — é uma situação hipotética no presente/futuro. Isso confunde muita gente!\n\nCom o verbo **to be**, o mais comum (e mais formal) é usar **were** para todos os sujeitos: `If I were you, I would study more.` (Se eu fosse você, estudaria mais.)",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"If I ___ you, I would study more.\"",
+              "options": ["was", "were"],
+              "solution": "were"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Se eu ganhasse na loteria, eu viajaria pelo mundo.",
+              "solution": "if i won the lottery i would travel around the world"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual condicional descreve uma situação hipotética/pouco provável no presente?",
+              "options": ["tipo 1", "tipo 2", "tipo 3"],
+              "solution": "tipo 2"
+            }
+          ]
+        },
+        {
+          "slug": "condicional-terceiro",
+          "title": "Condicional tipo 3",
+          "position": 4,
+          "lesson_md": "# Condicional tipo 3 — passado hipotético (arrependimento)\n\nUsado para falar de situações que **não aconteceram no passado** — muito comum para expressar arrependimento ou críticas.\n\n## Estrutura\n\n```\nIf + past perfect, would have + particípio\n```\n\n## Exemplo\n\n```\nIf I had studied more, I would have passed the exam.\n(Se eu tivesse estudado mais, eu teria passado na prova.)\n```\n\nA realidade é o oposto: eu **não estudei** e **não passei**. O condicional tipo 3 sempre fala de algo que já não tem mais solução — só serve para refletir sobre o passado.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "text",
+              "prompt": "Traduza: Se eu tivesse estudado mais, eu teria passado na prova.",
+              "solution": "if i had studied more i would have passed the exam"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "O condicional tipo 3 fala de:",
+              "options": ["futuro possível", "situação hipotética no presente", "passado que não aconteceu (arrependimento)"],
+              "solution": "passado que não aconteceu (arrependimento)"
+            },
+            {
+              "position": 2,
+              "type": "audio",
+              "prompt": "Escute e transcreva:",
+              "audio_text": "If I had known, I would have called you.",
+              "audio_lang": "en-US",
+              "solution": "if i had known i would have called you"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "discurso-indireto-e-coesao-ingles",
+      "title": "Módulo 7 — Discurso Indireto e Coesão (B2–C1)",
+      "summary": "Reported speech (afirmações e perguntas), phrasal verbs comuns e linking words para textos coesos.",
+      "position": 7,
+      "topics": [
+        {
+          "slug": "reported-speech-afirmacoes",
+          "title": "Reported Speech — afirmações",
+          "position": 0,
+          "lesson_md": "# Reported Speech — afirmações\n\nUsamos o **discurso indireto** (reported speech) para contar o que outra pessoa disse, sem citar as palavras exatas entre aspas. Quando o verbo introdutório está no passado (`said`), os tempos verbais da frase original geralmente **voltam um passo** (backshift):\n\n| Discurso direto | Discurso indireto |\n|---|---|\n| \"I am tired,\" she said. | She said (that) she was tired. |\n| \"I work here,\" he said. | He said (that) he worked here. |\n| \"I will call you,\" she said. | She said (that) she would call me. |\n| \"I have finished,\" he said. | He said (that) he had finished. |\n\n## Outras mudanças comuns\n\n- Pronomes mudam de acordo com quem conta a história: `I` -> `she/he`.\n- Expressões de tempo/lugar também mudam: `today` -> `that day`, `here` -> `there`, `tomorrow` -> `the next day`.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "\"I am tired,\" she said. -> She said (that) she ___ tired.",
+              "options": ["is", "was", "were"],
+              "solution": "was"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Transforme para o discurso indireto: \"I work here,\" he said.",
+              "solution": "he said that he worked here"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual é a versão em discurso indireto de: \"I have finished,\" he said?",
+              "options": ["He said that he has finished.", "He said that he had finished.", "He said that he finished."],
+              "solution": "He said that he had finished."
+            }
+          ]
+        },
+        {
+          "slug": "reported-speech-perguntas",
+          "title": "Reported Speech — perguntas",
+          "position": 1,
+          "lesson_md": "# Reported Speech — perguntas\n\nPara relatar perguntas, também aplicamos o backshift dos tempos verbais, mas a estrutura da frase muda: **não usamos a ordem de pergunta** (sem inverter o auxiliar) e não usamos ponto de interrogação.\n\n## Perguntas com palavra interrogativa (what, where, when...)\n\n```\n\"Where do you live?\" she asked.  ->  She asked where I lived.\n```\n\n## Perguntas de sim/não (yes/no questions)\n\nUsamos **if** ou **whether**:\n\n```\n\"Do you like coffee?\" he asked.  ->  He asked if I liked coffee.\n```\n\n> ⚠️ Repare: a ordem volta a ser afirmativa (\"I lived\", não \"did I live\") — manter a estrutura de pergunta no discurso indireto é um erro muito comum.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "\"Where do you live?\" she asked. -> She asked ___ I lived.",
+              "options": ["where", "if", "that"],
+              "solution": "where"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Transforme: \"Do you like coffee?\" he asked.",
+              "solution": "he asked if i liked coffee"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Qual estrutura é usada para perguntas de sim/não no discurso indireto?",
+              "options": ["what/where + ordem afirmativa", "if/whether + ordem afirmativa", "ordem de pergunta normal"],
+              "solution": "if/whether + ordem afirmativa"
+            }
+          ]
+        },
+        {
+          "slug": "phrasal-verbs-comuns",
+          "title": "Phrasal Verbs comuns",
+          "position": 2,
+          "lesson_md": "# Phrasal Verbs comuns\n\nPhrasal verbs são combinações de verbo + partícula (preposição/advérbio) que criam um significado próprio — muitas vezes bem diferente do verbo sozinho.\n\n| Phrasal verb | Significado | Exemplo |\n|---|---|---|\n| give up | desistir | Don't give up! |\n| look for | procurar | I'm looking for my keys. |\n| find out | descobrir | I found out the truth. |\n| get up | levantar (da cama) | I get up at 7 am. |\n| turn off/on | desligar/ligar | Turn off the lights. |\n| come up with | ter uma ideia | She came up with a great idea. |\n| run out of | ficar sem | We ran out of milk. |\n\n> 🎯 Não dá para \"traduzir palavra por palavra\" um phrasal verb — o jeito é aprender como uma expressão só, com exemplos.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "\"I'm ___ my keys.\" (procurando)",
+              "options": ["looking for", "looking at", "looking up"],
+              "solution": "looking for"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Não desista!",
+              "solution": "don't give up"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "\"We ___ milk.\" (ficamos sem)",
+              "options": ["ran out of", "ran out", "ran off"],
+              "solution": "ran out of"
+            }
+          ]
+        },
+        {
+          "slug": "linking-words-conectores",
+          "title": "Linking words (conectores)",
+          "position": 3,
+          "lesson_md": "# Linking words (conectores)\n\nConectores deixam o texto mais **coeso**, ligando ideias de contraste, adição, causa e consequência.\n\n| Conector | Função | Exemplo |\n|---|---|---|\n| **however** | contraste (mais formal que \"but\") | The plan was good. However, it failed. |\n| **although** | contraste, no meio da frase | Although it was raining, we went out. |\n| **moreover / furthermore** | adição | The hotel is cheap. Moreover, it's close to the beach. |\n| **therefore / so** | consequência | It was raining, so we stayed home. |\n| **because / since** | causa | I stayed home because it was raining. |\n\n> 💡 Usar conectores variados (em vez de só \"and\"/\"but\") é um dos jeitos mais rápidos de deixar sua escrita em inglês com nível mais avançado (B2/C1).",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual conector expressa contraste de forma mais formal?",
+              "options": ["however", "because", "so"],
+              "solution": "however"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Estava chovendo, então ficamos em casa.",
+              "solution": "it was raining so we stayed home"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Complete: \"Although it was raining, ___.\"",
+              "options": ["we went out", "so we went out", "because we went out"],
+              "solution": "we went out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "estruturas-avancadas-ingles",
+      "title": "Módulo 8 — Estruturas Avançadas (C1)",
+      "summary": "Relative clauses, inversão para ênfase, subjuntivo em estruturas formais e uma revisão integrada do curso.",
+      "position": 8,
+      "topics": [
+        {
+          "slug": "relative-clauses",
+          "title": "Relative Clauses (orações relativas)",
+          "position": 0,
+          "lesson_md": "# Relative Clauses (orações relativas)\n\nOrações relativas dão mais informação sobre um substantivo, usando pronomes relativos:\n\n| Pronome | Uso | Exemplo |\n|---|---|---|\n| **who** | pessoas | The man who called you is my brother. |\n| **which** | coisas/animais | The book which I read was great. |\n| **that** | pessoas ou coisas (mais informal) | The book that I read was great. |\n| **whose** | posse | The woman whose car was stolen called the police. |\n| **where** | lugares | The city where I was born is small. |\n\n## Restritivas vs não restritivas\n\n- **Restritiva** (sem vírgula): informação essencial para identificar do que se fala — `The man who called you is my brother.`\n- **Não restritiva** (com vírgulas): informação extra, que poderia ser removida — `My brother, who lives in London, called me.`",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"The man ___ called you is my brother.\"",
+              "options": ["who", "which", "where"],
+              "solution": "who"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: O livro que eu li foi ótimo.",
+              "solution": "the book that i read was great"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Complete: \"The city ___ I was born is small.\"",
+              "options": ["who", "which", "where"],
+              "solution": "where"
+            }
+          ]
+        },
+        {
+          "slug": "inversao-para-enfase",
+          "title": "Inversão para ênfase",
+          "position": 1,
+          "lesson_md": "# Inversão para ênfase (nível avançado)\n\nEm inglês formal/literário, é possível **inverter** a ordem sujeito-verbo para dar ênfase, geralmente começando a frase com um advérbio negativo.\n\n## Exemplos\n\n```\nNever have I seen such a beautiful sunset.\n(Nunca vi um pôr do sol tão bonito.)\n\nNot only did she finish the project, but she also presented it.\n(Ela não só terminou o projeto, como também o apresentou.)\n\nRarely do we see such dedication.\n(Raramente vemos tanta dedicação.)\n```\n\nRepare que, depois da expressão negativa no início, a estrutura vira **de pergunta** (auxiliar antes do sujeito): `Never have I...`, `Rarely do we...`.\n\n> 🎯 Essa estrutura é opcional e usada para dar ênfase em textos mais formais ou discursos — na fala do dia a dia, a ordem normal (`I have never seen...`) é perfeitamente natural e muito mais comum.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Qual frase usa a inversão para ênfase corretamente?",
+              "options": ["Never I have seen such a sunset.", "Never have I seen such a sunset.", "I never have seen such a sunset."],
+              "solution": "Never have I seen such a sunset."
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza (com inversão): Raramente vemos tanta dedicação.",
+              "solution": "rarely do we see such dedication"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Depois de uma expressão negativa no início da frase (Never, Rarely...), a estrutura vira:",
+              "options": ["afirmativa normal", "de pergunta (auxiliar antes do sujeito)", "imperativa"],
+              "solution": "de pergunta (auxiliar antes do sujeito)"
+            }
+          ]
+        },
+        {
+          "slug": "subjunctive-e-estruturas-formais",
+          "title": "Subjunctive e estruturas formais",
+          "position": 2,
+          "lesson_md": "# Subjunctive e estruturas formais\n\nO **subjunctive** (subjuntivo) aparece em inglês formal, geralmente depois de verbos como *suggest*, *recommend*, *insist*, *demand* — usando o verbo na forma base, mesmo com he/she/it:\n\n```\nThe doctor recommended that he rest for a week.\n(O médico recomendou que ele descansasse por uma semana.)\n\nI suggest that she call him immediately.\n(Sugiro que ela ligue para ele imediatamente.)\n```\n\nRepare: não é \"he rests\" nem \"she calls\" — no subjuntivo, o verbo fica na forma base, mesmo na 3ª pessoa.\n\n## It's important that...\n\nA mesma estrutura aparece depois de expressões como *it's important/essential/vital that*:\n\n```\nIt is essential that everyone arrive on time.\n(É essencial que todos cheguem na hora.)\n```",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete: \"The doctor recommended that he ___ for a week.\"",
+              "options": ["rests", "rest", "rested"],
+              "solution": "rest"
+            },
+            {
+              "position": 1,
+              "type": "text",
+              "prompt": "Traduza: Sugiro que ela ligue para ele imediatamente.",
+              "solution": "i suggest that she call him immediately"
+            },
+            {
+              "position": 2,
+              "type": "quiz",
+              "prompt": "Complete: \"It is essential that everyone ___ on time.\"",
+              "options": ["arrives", "arrive", "arrived"],
+              "solution": "arrive"
+            }
+          ]
+        },
+        {
+          "slug": "revisao-integrada",
+          "title": "Revisão integrada: do A1 ao C1",
+          "position": 3,
+          "lesson_md": "# Revisão integrada: dos tempos verbais ao discurso formal\n\nChegou a hora de juntar tudo o que você aprendeu, do módulo 0 ao módulo 8. Os exercícios abaixo misturam vários pontos do curso — se você errar algum, vale voltar ao módulo correspondente para revisar.\n\n## Panorama rápido\n\n| Nível | O que você aprendeu |\n|---|---|\n| A1 | to be, pronomes, saudações |\n| A2 | simple present/past, artigos, plural |\n| B1 | futuro, modais, comparativos, preposições |\n| B2 | perfect tenses, voz passiva, condicionais |\n| C1 | discurso indireto, phrasal verbs, inversão, subjuntivo |\n\n> 🏆 Parabéns por chegar até aqui! Gramática é só uma parte do idioma — o próximo passo é praticar bastante com leitura, áudio e conversação no dia a dia.",
+          "exercises": [
+            {
+              "position": 0,
+              "type": "quiz",
+              "prompt": "Complete (present perfect continuous): \"She ___ in Brazil for ten years.\"",
+              "options": ["has been living", "lived", "is living"],
+              "solution": "has been living"
+            },
+            {
+              "position": 1,
+              "type": "quiz",
+              "prompt": "Complete (condicional tipo 2): \"If I ___ more time, I would travel more.\"",
+              "options": ["have", "had", "will have"],
+              "solution": "had"
+            },
+            {
+              "position": 2,
+              "type": "text",
+              "prompt": "Traduza (condicional tipo 3): Se eu tivesse sabido, eu teria ligado.",
+              "solution": "if i had known i would have called"
+            },
+            {
+              "position": 3,
+              "type": "quiz",
+              "prompt": "Qual é o discurso indireto correto de: \"I am busy,\" she said?",
+              "options": ["She said that she is busy.", "She said that she was busy.", "She said she busy."],
+              "solution": "She said that she was busy."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

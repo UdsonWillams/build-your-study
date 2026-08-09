@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Lixeira — BuildYourStudy{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb">
+  <a href="/">Catálogo</a>
+  <span>/</span>
+  <strong>Lixeira</strong>
+</nav>
+
+<section class="catalog-header">
+  <h1>🗑️ Lixeira</h1>
+  <p class="roadmap-desc">Cursos desativados ficam aqui. Nada é apagado automaticamente — você pode reativar a qualquer momento, ou excluir definitivamente quando tiver certeza.</p>
+</section>
+
+{% if roadmaps %}
+<section class="trash-list">
+  {% for rm in roadmaps %}
+  <article class="trash-item">
+    <div class="trash-item-info">
+      <span class="course-icon">{{ rm.icon }}</span>
+      <div>
+        <div class="course-badges">
+          <span class="badge badge-category">{{ rm.category }}</span>
+          <span class="badge badge-level">{{ rm.level }}</span>
+        </div>
+        <h3>{{ rm.title }}</h3>
+        <p class="trash-item-desc">{{ rm.description }}</p>
+        <span class="trash-item-meta">{{ rm.modules|length }} módulos · {{ stats[rm.id].total }} lições</span>
+      </div>
+    </div>
+    <div class="trash-item-actions">
+      <form method="post" action="/roadmap/{{ rm.slug }}/enable">
+        <button type="submit" class="btn btn-primary btn-sm">↩️ Reativar</button>
+      </form>
+      <form method="post" action="/roadmap/{{ rm.slug }}/delete"
+            onsubmit="return confirm('Excluir \'{{ rm.title }}\' definitivamente? Todo o progresso e conteúdo desse curso serão apagados do banco de dados. Essa ação não pode ser desfeita.');">
+        <button type="submit" class="btn btn-danger btn-sm">Excluir definitivamente</button>
+      </form>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% else %}
+<p class="empty-trash">A lixeira está vazia. 🎉</p>
+{% endif %}
+{% endblock %}

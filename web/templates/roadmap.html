@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ roadmap.title }} — BuildYourStudy{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb">
+  <a href="/">Catálogo</a>
+  <span>/</span>
+  <strong>{{ roadmap.title }}</strong>
+</nav>
+
+<section class="roadmap-detail-header">
+  <div class="roadmap-title-row">
+    <span class="roadmap-icon-lg">{{ roadmap.icon }}</span>
+    <div>
+      <div class="course-badges">
+        <span class="badge badge-category">{{ roadmap.category }}</span>
+        <span class="badge badge-level">{{ roadmap.level }}</span>
+      </div>
+      <h1>{{ roadmap.title }}</h1>
+    </div>
+  </div>
+  <p class="roadmap-desc">{{ roadmap.description }}</p>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><span style="width: {{ pct }}%"></span></div>
+    <span class="progress-label">{{ done }}/{{ total }} lições concluídas ({{ pct }}%)</span>
+  </div>
+
+  {% if roadmap.active %}
+  <form method="post" action="/roadmap/{{ roadmap.slug }}/disable" class="roadmap-admin-form"
+        onsubmit="return confirm('Desativar este curso? Ele sai do catálogo, mas nada é apagado — dá para reativar na Lixeira.');">
+    <button type="submit" class="btn btn-ghost btn-sm">🗑️ Desativar curso</button>
+  </form>
+  {% else %}
+  <div class="disabled-banner">
+    <span>⚠️ Este curso está desativado e não aparece no catálogo.</span>
+    <form method="post" action="/roadmap/{{ roadmap.slug }}/enable">
+      <button type="submit" class="btn btn-primary btn-sm">↩️ Reativar</button>
+    </form>
+  </div>
+  {% endif %}
+</section>
+
+<section class="modules-container">
+  {% for module in roadmap.modules %}
+  <article class="module-card">
+    <header class="module-header">
+      <h2>{{ module.title }}</h2>
+      {% if module.summary %}<p class="module-summary">{{ module.summary }}</p>{% endif %}
+    </header>
+    <ol class="topic-list">
+      {% for topic in module.topics %}
+      <li class="topic-item {% if topic.id in completed %}is-done{% endif %}">
+        <a href="/topic/{{ topic.slug }}">
+          <span class="check">{% if topic.id in completed %}✓{% else %}○{% endif %}</span>
+          <span class="topic-title">{{ topic.title }}</span>
+          {% if topic.exercises %}
+            <span class="badge badge-ex">{{ topic.exercises|length }} ex.</span>
+          {% else %}
+            <span class="badge badge-reading">📖 Leitura</span>
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

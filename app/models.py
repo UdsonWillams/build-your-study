@@ -10,7 +10,7 @@ E o progresso do aluno (uso local single-user): a presença de uma linha em
 
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .database import Base
@@ -27,7 +27,11 @@ class Roadmap(Base):
     slug: Mapped[str] = mapped_column(String(80), unique=True, index=True)
     title: Mapped[str] = mapped_column(String(160))
     description: Mapped[str] = mapped_column(Text, default="")
+    category: Mapped[str] = mapped_column(String(80), default="Geral")
+    icon: Mapped[str] = mapped_column(String(10), default="📚")
+    level: Mapped[str] = mapped_column(String(50), default="Iniciante")
     position: Mapped[int] = mapped_column(Integer, default=0)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     modules: Mapped[list["Module"]] = relationship(
         back_populates="roadmap",
@@ -63,6 +67,7 @@ class Topic(Base):
     title: Mapped[str] = mapped_column(String(160))
     lesson_md: Mapped[str] = mapped_column(Text, default="")
     position: Mapped[int] = mapped_column(Integer, default=0)
+    setup_sql: Mapped[str] = mapped_column(Text, default="")
 
     module: Mapped["Module"] = relationship(back_populates="topics")
     exercises: Mapped[list["Exercise"]] = relationship(
@@ -83,10 +88,14 @@ class Exercise(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"))
     position: Mapped[int] = mapped_column(Integer, default=0)
+    type: Mapped[str] = mapped_column(String(20), default="code")
     prompt: Mapped[str] = mapped_column(Text)
     starter_code: Mapped[str] = mapped_column(Text, default="")
     test_code: Mapped[str] = mapped_column(Text, default="")
     solution: Mapped[str] = mapped_column(Text, default="")
+    audio_text: Mapped[str] = mapped_column(Text, default="")
+    audio_lang: Mapped[str] = mapped_column(String(20), default="en-US")
+    options: Mapped[str] = mapped_column(Text, default="")
 
     topic: Mapped["Topic"] = relationship(back_populates="exercises")
 
@@ -104,3 +113,18 @@ class Progress(Base):
     )
 
     topic: Mapped["Topic"] = relationship(back_populates="progress")
+
+
+class DeletedRoadmap(Base):
+    """Lápide de um curso excluído definitivamente pela Lixeira.
+
+    Existe para que a exclusão seja definitiva de verdade: sem isso, o `seed()`
+    recriaria o roadmap no próximo restart sempre que o arquivo .json dele ainda
+    existir em `app/content/`. Enquanto o slug estiver aqui, o arquivo é ignorado.
+    """
+
+    __tablename__ = "deleted_roadmaps"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    slug: Mapped[str] = mapped_column(String(80), unique=True, index=True)
+    deleted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)

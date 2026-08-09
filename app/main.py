@@ -7,14 +7,14 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
 from .database import get_db
-from .models import Module, Progress, Roadmap, Topic
+from .models import DeletedRoadmap, Module, Progress, Roadmap, Topic
 from .schemas import ProgressIn, ProgressOut
 from .seed import seed
 
@@ -29,7 +29,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="Python do Zero", lifespan=lifespan)
+app = FastAPI(title="BuildYourStudy", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=WEB_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=str(WEB_DIR / "templates"))
 
@@ -42,21 +42,36 @@ def _completed_topic_ids(db: Session) -> set[int]:
 def index(request: Request, db: Session = Depends(get_db)):
     roadmaps = db.scalars(
         select(Roadmap)
+        .where(Roadmap.active.is_(True))
         .options(selectinload(Roadmap.modules).selectinload(Module.topics))
         .order_by(Roadmap.position)
     ).all()
     completed = _completed_topic_ids(db)
 
-    # Calcula progresso por roadmap para a barra.
+    # Lista de categorias únicas
+    categories = list(dict.fromkeys([rm.category for rm in roadmaps if rm.category]))
+
+    # Progresso individual e global
     stats = {}
+    total_all_topics = 0
+    total_done_topics = 0
+
     for rm in roadmaps:
         topics = [t for m in rm.modules for t in m.topics]
         done = sum(1 for t in topics if t.id in completed)
+        total_all_topics += len(topics)
+        total_done_topics += done
         stats[rm.id] = {
             "total": len(topics),
             "done": done,
             "pct": round(100 * done / len(topics)) if topics else 0,
         }
+
+    global_pct = (
+        round(100 * total_done_topics / total_all_topics)
+        if total_all_topics > 0
+        else 0
+    )
 
     return templates.TemplateResponse(
         "index.html",
@@ -65,8 +80,97 @@ def index(request: Request, db: Session = Depends(get_db)):
             "roadmaps": roadmaps,
             "completed": completed,
             "stats": stats,
+            "categories": categories,
+            "total_all_topics": total_all_topics,
+            "total_done_topics": total_done_topics,
+            "global_pct": global_pct,
         },
     )
+
+
+@app.get("/roadmap/{slug}", response_class=HTMLResponse)
+def roadmap_page(slug: str, request: Request, db: Session = Depends(get_db)):
+    roadmap = db.scalar(
+        select(Roadmap)
+        .where(Roadmap.slug == slug)
+        .options(selectinload(Roadmap.modules).selectinload(Module.topics))
+    )
+    if roadmap is None:
+        raise HTTPException(status_code=404, detail="Curso não encontrado")
+
+    completed = _completed_topic_ids(db)
+    topics = [t for m in roadmap.modules for t in m.topics]
+    done = sum(1 for t in topics if t.id in completed)
+    pct = round(100 * done / len(topics)) if topics else 0
+
+    return templates.TemplateResponse(
+        "roadmap.html",
+        {
+            "request": request,
+            "roadmap": roadmap,
+            "completed": completed,
+            "done": done,
+            "total": len(topics),
+            "pct": pct,
+        },
+    )
+
+
+@app.get("/lixeira", response_class=HTMLResponse)
+def lixeira_page(request: Request, db: Session = Depends(get_db)):
+    roadmaps = db.scalars(
+        select(Roadmap)
+        .where(Roadmap.active.is_(False))
+        .options(selectinload(Roadmap.modules).selectinload(Module.topics))
+        .order_by(Roadmap.position)
+    ).all()
+
+    stats = {
+        rm.id: {"total": sum(len(m.topics) for m in rm.modules)}
+        for rm in roadmaps
+    }
+
+    return templates.TemplateResponse(
+        "lixeira.html",
+        {"request": request, "roadmaps": roadmaps, "stats": stats},
+    )
+
+
+@app.post("/roadmap/{slug}/disable")
+def disable_roadmap(slug: str, db: Session = Depends(get_db)):
+    roadmap = db.scalar(select(Roadmap).where(Roadmap.slug == slug))
+    if roadmap is None:
+        raise HTTPException(status_code=404, detail="Curso não encontrado")
+    roadmap.active = False
+    db.commit()
+    return RedirectResponse(url="/", status_code=303)
+
+
+@app.post("/roadmap/{slug}/enable")
+def enable_roadmap(slug: str, db: Session = Depends(get_db)):
+    roadmap = db.scalar(select(Roadmap).where(Roadmap.slug == slug))
+    if roadmap is None:
+        raise HTTPException(status_code=404, detail="Curso não encontrado")
+    roadmap.active = True
+    db.commit()
+    return RedirectResponse(url="/", status_code=303)
+
+
+@app.post("/roadmap/{slug}/delete")
+def delete_roadmap(slug: str, db: Session = Depends(get_db)):
+    roadmap = db.scalar(select(Roadmap).where(Roadmap.slug == slug))
+    if roadmap is None:
+        raise HTTPException(status_code=404, detail="Curso não encontrado")
+    if roadmap.active:
+        raise HTTPException(
+            status_code=400,
+            detail="Desative o curso antes de excluí-lo definitivamente.",
+        )
+    db.delete(roadmap)
+    if db.scalar(select(DeletedRoadmap).where(DeletedRoadmap.slug == slug)) is None:
+        db.add(DeletedRoadmap(slug=slug))
+    db.commit()
+    return RedirectResponse(url="/lixeira", status_code=303)
 
 
 @app.get("/topic/{slug}", response_class=HTMLResponse)
