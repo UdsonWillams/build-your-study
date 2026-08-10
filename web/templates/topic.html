@@ -24,7 +24,7 @@
   <a href="/">Catálogo</a> <span>/</span> <a href="/roadmap/{{ roadmap.slug }}">{{ roadmap.title }}</a> <span>/</span> {{ topic.title }}
 </nav>
 
-<article class="lesson">
+<article class="lesson" data-category="{{ roadmap.category }}">
   <div id="lesson-content" class="markdown-body"></div>
   <script id="lesson-md" type="text/plain">{{ topic.lesson_md | safe }}</script>
 </article>
@@ -33,6 +33,14 @@
 <section class="exercises">
   <h2>Exercícios</h2>
   <p id="pyodide-status" class="pyodide-status"><i class="ph-duotone ph-hourglass-simple"></i> Preparando o ambiente Python…</p>
+
+  <div id="score-panel" class="score-panel" data-saved-score="{{ score if score is not none else '' }}" hidden>
+    <div class="score-value"><strong data-score>—</strong><span>/ 10</span></div>
+    <div class="score-text">
+      <p class="score-detail" data-score-detail></p>
+      <p class="score-rule">Cada exercício vale 1 ponto acertando de primeira, 0,5 acertando depois de errar e 0 se você vir a solução.</p>
+    </div>
+  </div>
   <script type="text/plain" id="topic-setup-sql">{{ topic.setup_sql | safe }}</script>
 
   {% for ex in topic.exercises %}

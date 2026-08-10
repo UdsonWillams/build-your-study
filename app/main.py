@@ -38,6 +38,16 @@ def _completed_topic_ids(db: Session) -> set[int]:
     return set(db.scalars(select(Progress.topic_id)).all())
 
 
+def _scores_by_topic_id(db: Session) -> dict[int, float]:
+    """Nota de cada tópico já avaliado (tópicos só de leitura não entram)."""
+    return {
+        topic_id: score
+        for topic_id, score in db.execute(
+            select(Progress.topic_id, Progress.score).where(Progress.score.is_not(None))
+        ).all()
+    }
+
+
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):
     roadmaps = db.scalars(
@@ -103,6 +113,10 @@ def roadmap_page(slug: str, request: Request, db: Session = Depends(get_db)):
     done = sum(1 for t in topics if t.id in completed)
     pct = round(100 * done / len(topics)) if topics else 0
 
+    scores = _scores_by_topic_id(db)
+    graded = [scores[t.id] for t in topics if t.id in scores]
+    average = round(sum(graded) / len(graded), 1) if graded else None
+
     return templates.TemplateResponse(
         "roadmap.html",
         {
@@ -112,6 +126,9 @@ def roadmap_page(slug: str, request: Request, db: Session = Depends(get_db)):
             "done": done,
             "total": len(topics),
             "pct": pct,
+            "scores": scores,
+            "average": average,
+            "graded_count": len(graded),
         },
     )
 
@@ -202,13 +219,21 @@ def topic_page(slug: str, request: Request, db: Session = Depends(get_db)):
             "prev_topic": prev_topic,
             "next_topic": next_topic,
             "is_done": topic.id in completed,
+            "score": _scores_by_topic_id(db).get(topic.id),
         },
+    )
+
+
+def _progress_out(db: Session) -> ProgressOut:
+    return ProgressOut(
+        completed_topic_ids=sorted(_completed_topic_ids(db)),
+        scores=_scores_by_topic_id(db),
     )
 
 
 @app.get("/api/progress", response_model=ProgressOut)
 def get_progress(db: Session = Depends(get_db)):
-    return ProgressOut(completed_topic_ids=sorted(_completed_topic_ids(db)))
+    return _progress_out(db)
 
 
 @app.post("/api/progress", response_model=ProgressOut)
@@ -219,10 +244,16 @@ def mark_progress(payload: ProgressIn, db: Session = Depends(get_db)):
 
     existing = db.scalar(select(Progress).where(Progress.topic_id == topic.id))
     if existing is None:
-        db.add(Progress(topic_id=topic.id))
+        db.add(Progress(topic_id=topic.id, score=payload.score))
+        db.commit()
+    elif payload.score is not None and (
+        existing.score is None or payload.score > existing.score
+    ):
+        # Refazer o tópico só melhora a nota — nunca apaga um resultado melhor.
+        existing.score = payload.score
         db.commit()
 
-    return ProgressOut(completed_topic_ids=sorted(_completed_topic_ids(db)))
+    return _progress_out(db)
 
 
 @app.delete("/api/progress/{topic_id}", response_model=ProgressOut)
@@ -231,4 +262,4 @@ def unmark_progress(topic_id: int, db: Session = Depends(get_db)):
     if existing is not None:
         db.delete(existing)
         db.commit()
-    return ProgressOut(completed_topic_ids=sorted(_completed_topic_ids(db)))
+    return _progress_out(db)

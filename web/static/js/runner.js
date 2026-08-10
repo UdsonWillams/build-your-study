@@ -2,17 +2,177 @@
 // e libera a conclusão do tópico quando todos os exercícios passam.
 
 (function () {
+  // --- 0. TTS central + "clique para ouvir" no texto do idioma estudado ---
+  function speak(text, lang, speed) {
+    if (!text || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang || "en-US";
+    utterance.rate = speed || 1;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest(".listen-word");
+    if (el) speak(el.dataset.audioText, el.dataset.audioLang, 1);
+  });
+
+  function listenSpan(text, lang) {
+    const span = document.createElement("span");
+    span.className = "listen-word";
+    span.textContent = text;
+    // O que é falado descarta pontuação de borda e rótulos ("Passiva: ...").
+    span.dataset.audioText =
+      text.replace(/^[^\p{L}]+/u, "").replace(/^\p{L}+:\s*/u, "") || text;
+    span.dataset.audioLang = lang;
+    span.title = "Clique para ouvir";
+    return span;
+  }
+
+  // Percorre os nós de texto de `root` e deixa clicável o que o `splitter`
+  // marcar como sendo do idioma estudado.
+  function wireListen(root, splitter) {
+    if (!root) return;
+    const nodes = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent || !node.nodeValue) return NodeFilter.FILTER_REJECT;
+        if (parent.tagName === "SCRIPT" || parent.tagName === "STYLE") return NodeFilter.FILTER_REJECT;
+        if (parent.closest(".listen-word")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    let node;
+    while ((node = walker.nextNode())) nodes.push(node);
+
+    nodes.forEach((textNode) => {
+      const parts = splitter(textNode);
+      if (!parts) return;
+      const frag = document.createDocumentFragment();
+      parts.forEach((part) => {
+        frag.appendChild(part.lang ? listenSpan(part.text, part.lang) : document.createTextNode(part.text));
+      });
+      textNode.parentNode.replaceChild(frag, textNode);
+    });
+  }
+
+  // Russo: o cirílico identifica sozinho o que é do idioma, em qualquer lugar
+  // da página (lição, tabelas, blocos de exemplo, enunciados).
+  const CYRILLIC_RUN = /[А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)*/g;
+
+  function cyrillicSplitter(textNode) {
+    const text = textNode.nodeValue;
+    CYRILLIC_RUN.lastIndex = 0;
+    if (!CYRILLIC_RUN.test(text)) return null;
+    CYRILLIC_RUN.lastIndex = 0;
+    const parts = [];
+    let last = 0;
+    let match;
+    while ((match = CYRILLIC_RUN.exec(text))) {
+      if (match.index > last) parts.push({ text: text.slice(last, match.index) });
+      parts.push({ text: match[0], lang: "ru-RU" });
+      last = match.index + match[0].length;
+    }
+    if (last < text.length) parts.push({ text: text.slice(last) });
+    return parts;
+  }
+
+  // Idiomas em alfabeto latino (inglês) não se distinguem por caractere, então
+  // vale a estrutura da lição: o idioma estudado aparece nos blocos de exemplo
+  // e nas células das tabelas, enquanto a tradução vem entre parênteses ou
+  // depois de um recuo de 2+ espaços. Cabeçalhos (th) são rótulos em português.
+  const SEGMENT_SEP = /(\n+|\s{2,}|\([^)]*\))/;
+  const LABEL_ONLY = /^\p{L}+:$/u;
+  const PT_HINT = new RegExp(
+    "[áàâãéêíóôõúüç]|\\w+mente\\b|\\b(" +
+    "não|você|vocês|está|estão|estou|estamos|estava|são|sou|seja|eu|uma|umas|uns|com|para|pelo|pela|pelos|pelas|" +
+    "que|isso|isto|aqui|ali|quando|também|então|mais|menos|muito|pouco|todos|todas|tudo|nada|porque|porém|mas|" +
+    "como|onde|quem|qual|quais|sobre|entre|depois|antes|sempre|nunca|ainda|cada|mesmo|mesma|seu|sua|seus|suas|" +
+    "nós|eles|elas|ele|ela|dos|das|nas|nos|faz|fazem|fazer|ser|ter|foi|era|eram|esse|essa|esses|essas|este|esta|" +
+    "aquele|aquela|frase|verbo|verbos|palavra|forma|passado|futuro|presente|ação|hábito|pessoa|pessoas|coisa|coisas|" +
+    "exemplo|regra|oração|sujeito|objeto|objetos|tempo|bem|obrigado|obrigada|sim|agora|hoje|ontem|meu|minha|nome|" +
+    "gosto|quero|tenho|vou|vai|vamos|dizer|falar|ver|saber|jogar|mora|casa|livro|dia|dias|noite|ir|vir|comer|" +
+    "escrever|pegar|levar|desistir|procurar|descobrir|levantar|desligar|ligar|adiar|entender|resolver|lidar|" +
+    "contraste|causa|iniciante|básico|maioria|tira|mudo|consoante|vogal|ideias|animais|posse|lugares|datas|" +
+    "artigos|voz|passiva|condicionais|ficar|alguns|casos|final|masculino|feminino|singular|plural|nível|letra|uso" +
+    ")\\b", "i");
+
+  function looksTargetLanguage(s) {
+    return /[A-Za-z]/.test(s) && !PT_HINT.test(s);
+  }
+
+  function makeLatinSplitter(lang) {
+    return function (textNode) {
+      const host = textNode.parentElement.closest("pre, code, td, th");
+      if (!host || host.tagName === "TH") return null;
+      const text = textNode.nodeValue;
+      if (!/[A-Za-z]/.test(text)) return null;
+
+      const parts = [];
+      let changed = false;
+      // split com grupo de captura: índices ímpares são os separadores.
+      text.split(SEGMENT_SEP).forEach((chunk, i) => {
+        if (!chunk) return;
+        const core = chunk.trim();
+        if (i % 2 === 1 || !core || LABEL_ONLY.test(core) || !looksTargetLanguage(core)) {
+          parts.push({ text: chunk });
+          return;
+        }
+        changed = true;
+        const lead = chunk.slice(0, chunk.indexOf(core));
+        const trail = chunk.slice(lead.length + core.length);
+        if (lead) parts.push({ text: lead });
+        parts.push({ text: core, lang });
+        if (trail) parts.push({ text: trail });
+      });
+      return changed ? parts : null;
+    };
+  }
+
+  // Só cursos de idiomas ganham o "clique para ouvir" na lição. O idioma
+  // estudado vem dos exercícios — pt-BR marca alternativas em português.
+  function detectTargetLang() {
+    const lesson = document.querySelector(".lesson");
+    if (!lesson || lesson.dataset.category !== "Idiomas") return null;
+    const counts = new Map();
+    document.querySelectorAll(".exercise[data-audio-lang]").forEach((ex) => {
+      const lang = ex.dataset.audioLang;
+      if (!lang || lang.startsWith("pt")) return;
+      counts.set(lang, (counts.get(lang) || 0) + 1);
+    });
+    let best = null;
+    counts.forEach((n, lang) => {
+      if (!best || n > counts.get(best)) best = lang;
+    });
+    return best;
+  }
+
   // --- 1. Renderizar markdown da lição e dos enunciados ---
   function renderMarkdown() {
+    const targetLang = detectTargetLang();
+    const latinSplitter =
+      targetLang && !targetLang.startsWith("ru") ? makeLatinSplitter(targetLang) : null;
+
+    const roots = [];
     const lessonEl = document.getElementById("lesson-content");
     const lessonMd = document.getElementById("lesson-md");
     if (lessonEl && lessonMd) {
       lessonEl.innerHTML = marked.parse(lessonMd.textContent);
+      roots.push(lessonEl);
     }
     document.querySelectorAll(".exercise").forEach((ex) => {
       const target = ex.querySelector("[data-prompt]");
       const src = ex.querySelector("[data-prompt-md]");
-      if (target && src) target.innerHTML = marked.parse(src.textContent);
+      if (target && src) {
+        target.innerHTML = marked.parse(src.textContent);
+        roots.push(target);
+      }
+    });
+
+    roots.forEach((root) => {
+      wireListen(root, cyrillicSplitter);
+      if (latinSplitter) wireListen(root, latinSplitter);
     });
   }
 
@@ -102,7 +262,11 @@
         btn.type = "button";
         btn.className = "kb-key";
         btn.textContent = letra;
-        btn.addEventListener("click", () => insertAtCursor(input, letra));
+        btn.title = "Clique para ouvir e inserir";
+        btn.addEventListener("click", () => {
+          insertAtCursor(input, letra);
+          speak(letra, "ru-RU", 0.8);
+        });
         kb.appendChild(btn);
       });
 
@@ -318,6 +482,60 @@
     }
   }
 
+  // --- 4b. Nota do tópico (0 a 10) ---
+  // Cada exercício vale 1 ponto se acertado de primeira, 0,5 se acertado depois
+  // de errar e 0 se a solução foi revelada antes de acertar. Sem isso a nota não
+  // diria nada: dá para tentar de novo à vontade até tudo passar.
+  const wrongTries = new Map(); // exId -> erros antes de acertar
+  const revealed = new Set(); // exId cuja solução foi vista antes de acertar
+  const scorePanel = document.getElementById("score-panel");
+
+  function registerMiss(exId) {
+    if (!passed.has(exId)) wrongTries.set(exId, (wrongTries.get(exId) || 0) + 1);
+  }
+
+  function exercisePoints(exId) {
+    if (!passed.has(exId) || revealed.has(exId)) return 0;
+    return wrongTries.get(exId) ? 0.5 : 1;
+  }
+
+  function currentScore() {
+    if (totalExercises === 0) return null;
+    let points = 0;
+    document.querySelectorAll(".exercise").forEach((ex) => {
+      points += exercisePoints(parseInt(ex.dataset.exerciseId, 10));
+    });
+    // nota = pontos/total * 10, arredondada a 1 casa decimal.
+    return Math.round((100 * points) / totalExercises) / 10;
+  }
+
+  function refreshScorePanel() {
+    if (!scorePanel || totalExercises === 0) return;
+    const score = currentScore();
+    const firstTry = [...passed].filter(
+      (id) => !revealed.has(id) && !wrongTries.get(id)
+    ).length;
+    scorePanel.hidden = false;
+    scorePanel.querySelector("[data-score]").textContent = score.toFixed(1).replace(".", ",");
+    scorePanel.querySelector("[data-score-detail]").textContent =
+      `${passed.size} de ${totalExercises} resolvidos · ${firstTry} de primeira`;
+    scorePanel.classList.toggle("is-full", score === 10);
+  }
+
+  // Se o tópico já estava concluído e o aluno refez os exercícios, guarda a nota
+  // nova sem precisar de clique — o servidor só troca se for melhor que a antiga.
+  function autoSaveScore() {
+    if (!completeBtn || !completeBtn.classList.contains("is-done")) return;
+    if (totalExercises === 0 || passed.size < totalExercises) return;
+    Progress.markDone(parseInt(completeBtn.dataset.topicId, 10), currentScore()).catch(() => {});
+  }
+
+  function onAnswerChecked() {
+    refreshCompleteButton();
+    refreshScorePanel();
+    autoSaveScore();
+  }
+
   // --- 5. Normalização de texto para exercícios de idioma ---
   function normalize(s) {
     return s.toLowerCase()
@@ -369,11 +587,13 @@
         output.classList.add("ok");
         output.textContent = "Correto! Muito bem.";
         passed.add(exId);
-        refreshCompleteButton();
       } else {
         output.classList.add("err");
         output.textContent = buildTextErrorFeedback(studentAnswer, solution);
+        // Campo vazio é distração, não erro de conteúdo — não conta na nota.
+        if (studentAnswer.trim()) registerMiss(exId);
       }
+      onAnswerChecked();
       return;
     }
 
@@ -393,7 +613,6 @@
         output.classList.add("ok");
         output.textContent = "Correto! Muito bem.";
         passed.add(exId);
-        refreshCompleteButton();
       } else {
         selected.classList.add("is-wrong");
         options.forEach((b) => {
@@ -401,7 +620,9 @@
         });
         output.classList.add("err");
         output.textContent = "Não foi dessa vez. A opção correta está destacada.";
+        registerMiss(exId);
       }
+      onAnswerChecked();
       return;
     }
 
@@ -435,6 +656,8 @@
           output.textContent = err && err.raw ? err.raw.message : "Erro ao executar seu comando.";
         }
         if (resultEl) resultEl.hidden = true;
+        registerMiss(exId);
+        refreshScorePanel();
         return;
       }
 
@@ -455,13 +678,14 @@
           ? "Correto! O estado da tabela depois do seu comando bate com o esperado."
           : "Correto! O resultado da sua consulta bate com o esperado.";
         passed.add(exId);
-        refreshCompleteButton();
       } else {
         output.classList.add("err");
         output.textContent = verifyQuery
           ? "Seu comando rodou, mas o estado da tabela depois não é o esperado. Veja a tabela acima e compare."
           : "Sua consulta rodou, mas o resultado não é o esperado. Veja a tabela acima e compare.";
+        registerMiss(exId);
       }
+      onAnswerChecked();
       return;
     }
 
@@ -493,10 +717,12 @@ exec(_test_src, _ns)
       output.classList.add("ok");
       output.textContent = "Correto! Muito bem.";
       passed.add(exId);
-      refreshCompleteButton();
+      onAnswerChecked();
     } catch (err) {
       output.classList.add("err");
       output.textContent = formatPyError(err.message);
+      registerMiss(exId);
+      refreshScorePanel();
     } finally {
       py.globals.delete("_student_src");
       py.globals.delete("_test_src");
@@ -552,10 +778,12 @@ exec(_test_src, _ns)
         resultEl.className = "speak-result ok";
         resultEl.textContent = `Perfeito! Você disse: "${best}"`;
         passed.add(exId);
-        refreshCompleteButton();
+        onAnswerChecked();
       } else {
         resultEl.className = "speak-result err";
         resultEl.textContent = `Ouvi: "${best}". A pronúncia esperada era: "${solution}". Tente novamente!`;
+        registerMiss(exId);
+        refreshScorePanel();
       }
     };
 
@@ -594,6 +822,11 @@ exec(_test_src, _ns)
         const hasAttempted = attempted.has(exId);
         const showSolution = hasAttempted || confirm("Mostrar a solução? Tente resolver sozinho primeiro 🙂");
         if (showSolution) {
+          // Ver a resposta zera o ponto — mas só se ainda não tinha acertado.
+          if (!passed.has(exId)) {
+            revealed.add(exId);
+            refreshScorePanel();
+          }
           if (type === "code" || type === "sql") {
             editors.get(ex).setValue(solution);
           } else if (type === "speak") {
@@ -617,15 +850,7 @@ exec(_test_src, _ns)
       const audioBtns = ex.querySelectorAll(".btn-audio");
       audioBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-          const text = btn.dataset.audioText;
-          const lang = btn.dataset.audioLang || "en-US";
-          const speed = parseFloat(btn.dataset.speed || "1");
-          if (!text) return;
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.lang = lang;
-          utterance.rate = speed;
-          window.speechSynthesis.speak(utterance);
+          speak(btn.dataset.audioText, btn.dataset.audioLang || "en-US", parseFloat(btn.dataset.speed || "1"));
         });
       });
 
@@ -641,7 +866,7 @@ exec(_test_src, _ns)
         if (completeBtn.classList.contains("is-done")) return;
         const topicId = parseInt(completeBtn.dataset.topicId, 10);
         try {
-          await Progress.markDone(topicId);
+          await Progress.markDone(topicId, currentScore());
           completeBtn.classList.add("is-done");
           completeBtn.innerHTML = '<i class="ph-duotone ph-check"></i> Concluído';
           completeBtn.disabled = false;
@@ -652,6 +877,18 @@ exec(_test_src, _ns)
     }
   }
 
+  // Ao reabrir um tópico já feito, mostra a nota guardada até o aluno responder
+  // algo de novo — aí o painel passa a refletir a tentativa atual.
+  function showSavedScore() {
+    if (!scorePanel || totalExercises === 0) return;
+    const saved = scorePanel.dataset.savedScore;
+    if (saved === "") return;
+    scorePanel.hidden = false;
+    scorePanel.querySelector("[data-score]").textContent = Number(saved).toFixed(1).replace(".", ",");
+    scorePanel.querySelector("[data-score-detail]").textContent = "Sua melhor nota neste tópico";
+    scorePanel.classList.toggle("is-full", Number(saved) === 10);
+  }
+
   // --- Inicialização ---
   document.addEventListener("DOMContentLoaded", () => {
     renderMarkdown();
@@ -660,6 +897,7 @@ exec(_test_src, _ns)
     setupCyrillicKeyboards();
     wireButtons();
     refreshCompleteButton();
+    showSavedScore();
     if (codeExercisesCount > 0) ensurePyodide();
   });
 })();

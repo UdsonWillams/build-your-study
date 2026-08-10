@@ -24,7 +24,7 @@
 
   <div class="progress-wrap">
     <div class="progress-bar"><span style="width: {{ pct }}%"></span></div>
-    <span class="progress-label">{{ done }}/{{ total }} lições concluídas ({{ pct }}%)</span>
+    <span class="progress-label">{{ done }}/{{ total }} lições concluídas ({{ pct }}%){% if average is not none %} · média {{ ("%.1f"|format(average))|replace(".", ",") }} em {{ graded_count }} liç{{ "ões" if graded_count != 1 else "ão" }}{% endif %}</span>
   </div>
 
   {% if roadmap.active %}
@@ -56,6 +56,11 @@
         <a href="/topic/{{ topic.slug }}">
           <span class="check">{% if topic.id in completed %}<i class="ph-duotone ph-check-circle"></i>{% else %}<i class="ph-duotone ph-circle"></i>{% endif %}</span>
           <span class="topic-title">{{ topic.title }}</span>
+          {% if topic.id in scores %}
+            <span class="tag badge score-badge {% if scores[topic.id] == 10 %}is-full{% endif %}">
+              <i class="ph-duotone ph-medal"></i> {{ ("%.1f"|format(scores[topic.id]))|replace(".", ",") }}
+            </span>
+          {% endif %}
           {% if topic.exercises %}
             <span class="tag tag-accent-2 badge">{{ topic.exercises|length }} ex.</span>
           {% else %}

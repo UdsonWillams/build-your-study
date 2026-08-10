@@ -178,6 +178,12 @@ def _ensure_schema() -> None:
             if cols_topics and "setup_sql" not in cols_topics:
                 conn.execute(text("ALTER TABLE topics ADD COLUMN setup_sql TEXT DEFAULT ''"))
                 conn.commit()
+
+            res_progress = conn.execute(text("PRAGMA table_info(progress);")).fetchall()
+            cols_progress = {row[1] for row in res_progress}
+            if cols_progress and "score" not in cols_progress:
+                conn.execute(text("ALTER TABLE progress ADD COLUMN score REAL"))
+                conn.commit()
         except Exception:
             pass
 
@@ -196,12 +202,12 @@ def seed() -> None:
         # depois que os tópicos forem recriados (os ids mudam).
         from .models import DeletedRoadmap, Progress
 
-        completed_slugs = {
-            slug
-            for (slug,) in db.execute(
-                select(Topic.slug).join(Progress, Progress.topic_id == Topic.id)
+        score_by_slug = dict(
+            db.execute(
+                select(Topic.slug, Progress.score).join(Progress, Progress.topic_id == Topic.id)
             ).all()
-        }
+        )
+        completed_slugs = set(score_by_slug)
 
         # Guarda quais roadmaps estão desativados para preservar isso no reload
         # (desativar um curso não pode ser desfeito por um simples restart).
@@ -219,14 +225,14 @@ def seed() -> None:
             _load_roadmap(db, data, active=active_by_slug.get(data["slug"], True))
         db.flush()
 
-        # Religa o progresso pelos slugs preservados.
+        # Religa o progresso (e a nota) pelos slugs preservados.
         db.query(Progress).delete()
         if completed_slugs:
             topics = db.scalars(
                 select(Topic).where(Topic.slug.in_(completed_slugs))
             ).all()
             for topic in topics:
-                db.add(Progress(topic_id=topic.id))
+                db.add(Progress(topic_id=topic.id, score=score_by_slug.get(topic.slug)))
 
         db.commit()
 

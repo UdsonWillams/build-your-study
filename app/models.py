@@ -10,7 +10,7 @@ E o progresso do aluno (uso local single-user): a presença de uma linha em
 
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .database import Base
@@ -111,6 +111,9 @@ class Progress(Base):
     completed_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=_now
     )
+    # Nota de 0 a 10 do tópico, guardando a melhor já obtida. Fica nula em
+    # tópicos sem exercícios (só leitura), que não têm o que avaliar.
+    score: Mapped[float | None] = mapped_column(Float, nullable=True, default=None)
 
     topic: Mapped["Topic"] = relationship(back_populates="progress")
 
