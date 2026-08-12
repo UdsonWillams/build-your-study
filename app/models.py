@@ -113,7 +113,12 @@ class Progress(Base):
     )
     # Nota de 0 a 10 do tópico, guardando a melhor já obtida. Fica nula em
     # tópicos sem exercícios (só leitura), que não têm o que avaliar.
-    score: Mapped[float | None] = mapped_column(Float, nullable=True, default=None)
+    # Anotado sem "| None" de propósito: no Python 3.14, o SQLAlchemy 2.0.35
+    # quebra ao tentar desmontar uma união em Mapped[] (PEP 649 muda como as
+    # anotações são avaliadas). `nullable=True` abaixo já garante que a coluna
+    # aceita NULL — a anotação não precisa (e não pode, nessa combinação de
+    # versões) repetir isso.
+    score: Mapped[float] = mapped_column(Float, nullable=True, default=None)
 
     topic: Mapped["Topic"] = relationship(back_populates="progress")
 
