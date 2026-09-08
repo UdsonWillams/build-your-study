@@ -3,13 +3,71 @@
 
 (function () {
   // --- 0. TTS central + "clique para ouvir" no texto do idioma estudado ---
+  // O Chrome escolhe a voz sozinho a partir do `lang` (e ainda baixa vozes do
+  // Google). O Firefox só usa vozes instaladas no sistema e ignora o `lang`:
+  // sem escolher a voz aqui, ele lê inglês/russo com a voz padrão em português.
+  let voices = [];
+  function loadVoices() {
+    voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  }
+  if (window.speechSynthesis) {
+    // Roda no topo do arquivo: um erro aqui derrubaria o runner inteiro e
+    // nenhum exercício funcionaria — daí o try.
+    try {
+      loadVoices();
+      // getVoices() costuma vir vazio na primeira chamada; o evento avisa quando enche.
+      window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+    } catch (e) {
+      voices = [];
+    }
+  }
+
+  function pickVoice(lang) {
+    if (!voices.length) loadVoices();
+    const wanted = (lang || "en-US").toLowerCase().replace("_", "-");
+    const base = wanted.split("-")[0];
+    const norm = (v) => v.lang.toLowerCase().replace("_", "-");
+    return (
+      voices.find((v) => norm(v) === wanted) ||
+      voices.find((v) => norm(v).split("-")[0] === base) ||
+      null
+    );
+  }
+
+  // Avisa uma vez por idioma em vez de ler a frase com a voz errada.
+  const warnedLangs = new Set();
+  function warnMissingVoice(lang) {
+    const base = (lang || "en-US").split("-")[0];
+    if (warnedLangs.has(base)) return;
+    warnedLangs.add(base);
+    const host = document.querySelector(".exercises") || document.body;
+    const warning = document.createElement("p");
+    warning.className = "voice-warning";
+    warning.innerHTML =
+      '<i class="ph-duotone ph-warning"></i> Seu navegador não tem nenhuma voz de ' +
+      `<strong>${base}</strong> instalada, então o áudio foi desligado para não ` +
+      "ler a frase com sotaque errado. No Chrome/Edge as vozes vêm prontas; no " +
+      "Firefox é preciso instalar a voz do idioma no sistema.";
+    host.insertBefore(warning, host.firstChild);
+  }
+
   function speak(text, lang, speed) {
     if (!text || !window.speechSynthesis) return;
+    const voice = pickVoice(lang);
+    // Lista vazia = vozes ainda carregando; aí vale tentar do jeito antigo.
+    if (!voice && voices.length) {
+      warnMissingVoice(lang);
+      return;
+    }
+    const wasSpeaking = window.speechSynthesis.speaking || window.speechSynthesis.pending;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang || "en-US";
+    if (voice) utterance.voice = voice;
     utterance.rate = speed || 1;
-    window.speechSynthesis.speak(utterance);
+    // No Firefox, falar no mesmo tick de um cancel() às vezes engole a fala.
+    if (wasSpeaking) setTimeout(() => window.speechSynthesis.speak(utterance), 60);
+    else window.speechSynthesis.speak(utterance);
   }
 
   document.addEventListener("click", (e) => {
@@ -463,7 +521,14 @@
   }
 
   // --- 4. Estado de conclusão dos exercícios ---
-  const totalExercises = document.querySelectorAll(".exercise").length;
+  const speechRecognitionSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const allExercises = [...document.querySelectorAll(".exercise")];
+  // Sem reconhecimento de voz (Firefox, Safari) não há como responder um
+  // exercício de fala — ele sai da conta da nota em vez de valer um zero injusto.
+  const gradedExercises = allExercises.filter(
+    (ex) => speechRecognitionSupported || ex.dataset.type !== "speak"
+  );
+  const totalExercises = gradedExercises.length;
   const passed = new Set();
   const attempted = new Set(); // Rastreia exercícios que o aluno já tentou
   const completeBtn = document.getElementById("complete-btn");
@@ -522,7 +587,7 @@
   function currentScore() {
     if (totalExercises === 0) return null;
     let points = 0;
-    document.querySelectorAll(".exercise").forEach((ex) => {
+    gradedExercises.forEach((ex) => {
       points += exercisePoints(parseInt(ex.dataset.exerciseId, 10));
     });
     // nota = pontos/total * 10, arredondada a 1 casa decimal.
@@ -788,11 +853,7 @@ exec(_test_src, _ns)
       const resultEl = ex.querySelector(".speak-result");
       resultEl.hidden = false;
       resultEl.className = "speak-result err";
-      resultEl.textContent = "Seu navegador não suporta reconhecimento de voz. Use o Chrome.";
-      // Sem reconhecimento não há como responder aqui — marca como feito para o
-      // tópico não ficar travado para sempre nesse navegador.
-      attempted.add(exId);
-      refreshCompleteButton();
+      resultEl.textContent = "Seu navegador não suporta reconhecimento de voz. Use o Chrome ou o Edge.";
       return;
     }
 
@@ -850,6 +911,28 @@ exec(_test_src, _ns)
       btn.innerHTML = '<i class="ph-duotone ph-microphone"></i> Gravar fala';
       btn.disabled = false;
     };
+  }
+
+  // Deixa claro, já ao abrir o tópico, que a fala não roda neste navegador —
+  // e que isso não custa nota (esses exercícios saem do total).
+  function markUnsupportedSpeak() {
+    if (speechRecognitionSupported) return;
+    allExercises
+      .filter((ex) => ex.dataset.type === "speak")
+      .forEach((ex) => {
+        const btn = ex.querySelector(".btn-speak");
+        if (btn) {
+          btn.disabled = true;
+          btn.title = "Reconhecimento de voz indisponível neste navegador";
+        }
+        const resultEl = ex.querySelector(".speak-result");
+        if (!resultEl) return;
+        resultEl.hidden = false;
+        resultEl.className = "speak-result";
+        resultEl.textContent =
+          "Este navegador não faz reconhecimento de voz — use o Chrome ou o Edge para " +
+          "praticar a fala. Este exercício não entra na nota do tópico.";
+      });
   }
 
   // --- 9. Ligar os botões ---
@@ -943,6 +1026,7 @@ exec(_test_src, _ns)
     setupEditors();
     setupQuizzes();
     setupCyrillicKeyboards();
+    markUnsupportedSpeak();
     wireButtons();
     refreshCompleteButton();
     showSavedScore();

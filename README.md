@@ -33,11 +33,30 @@ executa nada dos alunos:
 | `sql`   | Consulta SQL real, executada via [sql.js](https://sql.js.org/) (SQLite compilado para WASM). O resultado da consulta do aluno é comparado com o de uma consulta de referência — não é comparação de texto. Suporta `SELECT` e também `INSERT`/`UPDATE`/`DELETE` (verificando o estado da tabela depois do comando). |
 | `text`  | Resposta digitada, comparada de forma tolerante (sem diferenciar maiúsculas/pontuação; para russo, também aceita `е`/`ё` como equivalentes). Exercícios em russo mostram um **teclado cirílico virtual** clicável, e um botão 🔊 toca a pronúncia da resposta certa via TTS.                                        |
 | `audio` | Toca uma frase por TTS (`speechSynthesis`, com opção de velocidade lenta) e o aluno transcreve o que ouviu.                                                                                                                                                                                                         |
-| `speak` | O aluno fala em voz alta e o navegador transcreve via reconhecimento de voz (`SpeechRecognition` — funciona melhor no Chrome/Edge), comparando com a frase alvo.                                                                                                                                                    |
+| `speak` | O aluno fala em voz alta e o navegador transcreve via reconhecimento de voz (`SpeechRecognition`), comparando com a frase alvo. **Só funciona no Chrome/Edge** — ver [Navegadores](#navegadores).                                                                                                                    |
 | `quiz`  | Múltipla escolha, com feedback visual de certo/errado e destaque da opção correta. Cada alternativa tem um botão 🔊 próprio para ouvir a pronúncia daquela opção via TTS.                                                                                                                                            |
 
 Cada página de tópico só carrega os motores (Pyodide/sql.js) que aquele tópico
 realmente usa — um tópico só de quiz, por exemplo, não baixa nem o Python nem o SQL.
+
+## Nota do tópico (0 a 10)
+
+Todo tópico com exercícios recebe uma nota: **cada exercício vale 1 ponto quando fica
+correto**, e a nota é `acertos / total × 10`. Errar não tira ponto — dá para rever a
+lição e tentar de novo quantas vezes quiser.
+
+- A nota aparece num painel acima dos exercícios e num **espelho fixo na lateral**, que
+  acompanha a rolagem para você não perder a pontuação de vista.
+- O servidor guarda só a **melhor nota** já obtida: refazer um tópico nunca piora o que
+  você já tinha.
+- Num tópico já concluído, cada acerto que supera a melhor nota é salvo na hora — não
+  precisa refazer o tópico inteiro nem clicar em nada.
+- Um exercício só entra na conta depois de **respondido**: clicar em "Verificar" com o
+  campo vazio, ou tentar gravar a fala e o microfone falhar, não vale zero.
+- Na página do curso, cada lição avaliada mostra sua nota, e o cabeçalho traz a média
+  das lições avaliadas.
+
+Tópicos só de leitura (sem exercícios) não têm nota — só o "Marcar como lido".
 
 ## Progresso e Lixeira
 
@@ -69,6 +88,41 @@ uvicorn app.main:app --reload
 
 Abra <http://localhost:8000> no navegador.
 
+### Navegadores
+
+**Python, SQL e Lógica funcionam igual em qualquer navegador atual** — Pyodide, sql.js,
+CodeMirror e o CSS são tudo WebAssembly/JS padrão, sem nada específico do Chrome.
+
+A limitação está nos **cursos de idiomas**, e vem da Web Speech API, que os navegadores
+implementam de forma bem diferente:
+
+| Recurso                        | Chrome / Edge | Firefox                                       | Safari         |
+| ------------------------------ | ------------- | --------------------------------------------- | -------------- |
+| `code`, `sql`, `text`, `quiz`  | ✅            | ✅                                            | ✅             |
+| Áudio/TTS (`audio`, botões 🔊) | ✅            | ⚠️ só com a voz do idioma instalada no sistema | ✅             |
+| Exercícios `speak` (falar)     | ✅            | ❌ não implementa `SpeechRecognition`          | ⚠️ parcial      |
+
+Quanto isso pesa: os exercícios `speak` são **7% do curso de inglês** e **16% do de
+russo**. Todo o resto continua utilizável.
+
+**O que o app faz quando o recurso não existe:**
+
+- Sem reconhecimento de voz, os exercícios `speak` já abrem desabilitados, com o motivo
+  explicado, e **saem do cálculo da nota** — um tópico de 10 exercícios vira um tópico de
+  8, e dá para tirar 10,0 normalmente. Ninguém é penalizado pelo navegador que usa.
+- Sem voz do idioma instalada, o app **avisa e não toca o áudio**, em vez de ler a frase
+  em inglês/russo com a voz padrão em português. O Chrome não passa por isso porque traz
+  vozes próprias; o Firefox só usa as vozes do sistema operacional.
+
+**Instalar a voz do idioma (Windows):** Configurações → Hora e idioma → Idioma e região →
+adicione o idioma → Opções → Fala. Depois reinicie o navegador.
+
+Para conferir quais vozes o seu navegador enxerga, abra o console (F12) e rode:
+
+```js
+speechSynthesis.getVoices().map((v) => v.lang + " — " + v.name);
+```
+
 > Na primeira vez que abrir um tópico com exercício de código/SQL, o Pyodide/sql.js são
 > baixados (alguns segundos). Depois fica rápido, graças ao cache do navegador.
 
@@ -91,16 +145,34 @@ Abra <http://localhost:8000> no navegador.
 ├─ web/
 │  ├─ templates/         # base.html, index.html, roadmap.html, topic.html, lixeira.html
 │  └─ static/
-│     ├─ css/style.css
-│     └─ js/runner.js, progress.js
+│     ├─ css/           # broadsheet.css (design system) + style.css (telas do app)
+│     └─ js/            # runner.js (exercícios, nota, TTS/STT) + progress.js (API)
+├─ tools/                # geradores dos cursos grandes + roadmaps de expansão (ver tools/README.md)
+├─ web-antigo/           # front-end da primeira versão, mantido só como referência
 ├─ requirements.txt
 └─ study.db              # banco SQLite (gerado automaticamente, não versionado)
 ```
 
 ## Como adicionar novas aulas / cursos
 
-Todo o conteúdo vive em `app/content/*.json`. Para criar um novo curso, adicione um
-arquivo `.json` nessa pasta seguindo o formato:
+Todo o conteúdo vive em `app/content/*.json`. Cursos pequenos (SQL, Lógica) são editados
+direto no `.json`; os grandes (Python, Inglês, Russo) são **gerados** por scripts em
+`tools/`, porque editar milhares de linhas de JSON escapado à mão quebra fácil:
+
+```bash
+python tools/build_python.py    # reescreve app/content/python-do-zero.json
+python tools/build_ingles.py    # reescreve app/content/ingles-do-zero.json
+python tools/build_russo.py     # reescreve app/content/russo-do-zero.json
+```
+
+`build_python.py` e `build_ingles.py` são incrementais: carregam o JSON atual como base e
+só mexem nos módulos da fase em andamento, preservando os slugs (e o progresso) do que já
+existe. Os planos de expansão de cada curso estão em `tools/PYTHON_ROADMAP.md`,
+`tools/ENGLISH_ROADMAP.md` e `tools/RUSSIAN_ROADMAP.md`. Detalhes em
+[`tools/README.md`](tools/README.md).
+
+Para criar um curso novo do zero, adicione um arquivo `.json` em `app/content/` seguindo
+o formato:
 
 ```jsonc
 {
@@ -171,7 +243,8 @@ print({k: v for k, v in slugs.items() if len(v) > 1} or "sem colisões")
 | `starter_code`              | ✅                        | opcional                                                                                                                           | —                                                  | —                   | —                                                |
 | `test_code`                 | ✅ (asserts)              | —                                                                                                                                  | —                                                  | —                   | —                                                |
 | `solution`                  | ✅ (código de referência) | ✅ (query/comando de referência)                                                                                                   | ✅ (resposta esperada)                             | ✅ (frase esperada) | ✅ (texto da opção correta)                      |
-| `audio_text` / `audio_lang` | —                         | —                                                                                                                                  | (`audio` usa `audio_text`+`audio_lang` para o TTS) | ✅                  | —                                                |
+| `audio_text`                | —                         | —                                                                                                                                  | só `audio` (frase que o TTS lê)                    | ✅ (frase a falar)  | —                                                |
+| `audio_lang`                | —                         | —                                                                                                                                  | ✅ (voz do 🔊)                                     | ✅                  | ✅ (voz do 🔊 de cada alternativa)               |
 | `options`                   | —                         | metadados opcionais: `{"order_matters": true}`, `{"verify_query": "SELECT ..."}`, `{"setup_sql": "..."}` (sobrescreve o do tópico) | —                                                  | —                   | ✅ lista de alternativas, ex.: `["A", "B", "C"]` |
 
 Exercícios `sql` usam `Topic.setup_sql` (DDL/DML compartilhado pelos exercícios daquele

@@ -364,6 +364,22 @@ main.wrap {
 .pyodide-status { color: var(--ink-70); font-size: 13.5px; display: flex; align-items: center; gap: 6px; }
 .pyodide-status.ready { color: var(--color-accent-700); }
 
+/* Aviso de voz ausente (típico do Firefox, que só usa vozes do sistema). */
+.voice-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 var(--half);
+  padding: var(--half) var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-left: 3px solid var(--color-accent-2);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.voice-warning i { color: var(--color-accent-2-700); flex-shrink: 0; margin-top: 2px; }
+
 /* Nota do tópico */
 .score-panel {
   display: flex;
