@@ -399,6 +399,75 @@ main.wrap {
 .score-detail { margin: 0; font-size: 14px; font-weight: 600; }
 .score-rule { margin: 2px 0 0; font-size: 12.5px; color: var(--ink-70); line-height: 1.45; }
 
+/* Espelho fixo da nota, para ela continuar à vista ao rolar a página.
+   pointer-events: none porque é só informativo — nunca deve engolir um clique. */
+.score-float {
+  position: fixed;
+  /* Encosta na faixa vazia à direita da coluna de leitura (1080px). */
+  right: max(14px, calc((100% - 1080px) / 2 - 148px));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 124px;
+  padding: var(--half) 10px;
+  border: 1px solid var(--color-divider);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+.score-float[hidden] { display: none; }
+.score-float.is-full { border-top-color: var(--color-accent-700); }
+.score-float-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-70);
+}
+.score-float-value {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-feature-settings: "tnum" 1;
+}
+.score-float-value strong {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--color-accent-700);
+}
+.score-float-value span { font-size: 12px; color: var(--ink-70); }
+.score-float-hits { font-size: 12px; color: var(--ink-70); font-feature-settings: "tnum" 1; }
+
+/* Sem faixa livre ao lado da coluna, vira uma etiqueta no canto inferior. */
+@media (max-width: 1400px) {
+  .score-float {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 7px;
+    width: auto;
+    padding: 6px 12px;
+    border-top-width: 1px;
+    border-left: 3px solid var(--color-accent);
+  }
+  .score-float.is-full { border-top-color: var(--color-divider); border-left-color: var(--color-accent-700); }
+  .score-float-label { display: none; }
+  .score-float-value strong { font-size: 20px; }
+}
+
+@media print { .score-float { display: none; } }
+
 .score-badge {
   background: var(--color-accent-100);
   color: var(--color-accent-700);

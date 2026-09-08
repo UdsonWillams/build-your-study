@@ -41,6 +41,14 @@
       <p class="score-rule">Cada exercício vale 1 ponto quando você acerta. Erros não tiram pontos; tente, reveja a explicação e tente novamente.</p>
     </div>
   </div>
+  <!-- Espelho fixo da nota: acompanha a rolagem para a pontuação ficar sempre
+       à vista. aria-hidden porque repete o que o #score-panel já anuncia. -->
+  <aside id="score-float" class="score-float" aria-hidden="true" hidden>
+    <span class="score-float-label">Nota</span>
+    <span class="score-float-value"><strong data-score>—</strong><span>/ 10</span></span>
+    <span class="score-float-hits" data-score-hits></span>
+  </aside>
+
   <script type="text/plain" id="topic-setup-sql">{{ topic.setup_sql | safe }}</script>
 
   {% for ex in topic.exercises %}

@@ -487,6 +487,29 @@
   // nota: o aluno pode revisar a lição e tentar novamente.
   const wrongTries = new Map(); // exId -> erros antes de acertar
   const scorePanel = document.getElementById("score-panel");
+  // O painel do fluxo e o espelho fixo mostram sempre o mesmo estado.
+  const scoreViews = [scorePanel, document.getElementById("score-float")].filter(Boolean);
+  // Melhor nota já salva no servidor (vazia em tópico ainda não avaliado).
+  const savedScore =
+    scorePanel && scorePanel.dataset.savedScore !== ""
+      ? Number(scorePanel.dataset.savedScore)
+      : null;
+  // Espelho local da melhor nota já mandada ao servidor, para não repetir POST
+  // que o servidor descartaria de qualquer jeito.
+  let bestSavedScore = savedScore;
+
+  // Pinta a nota nos dois painéis. `hits` é a versão curta que cabe no fixo.
+  function paintScore(value, detail, hits, isFull) {
+    scoreViews.forEach((view) => {
+      view.hidden = false;
+      view.querySelector("[data-score]").textContent = value;
+      const detailEl = view.querySelector("[data-score-detail]");
+      if (detailEl) detailEl.textContent = detail;
+      const hitsEl = view.querySelector("[data-score-hits]");
+      if (hitsEl) hitsEl.textContent = hits;
+      view.classList.toggle("is-full", isFull);
+    });
+  }
 
   function registerMiss(exId) {
     if (!passed.has(exId)) wrongTries.set(exId, (wrongTries.get(exId) || 0) + 1);
@@ -509,19 +532,32 @@
   function refreshScorePanel() {
     if (!scorePanel || totalExercises === 0) return;
     const score = currentScore();
-    scorePanel.hidden = false;
-    scorePanel.querySelector("[data-score]").textContent = score.toFixed(1).replace(".", ",");
-    scorePanel.querySelector("[data-score-detail]").textContent =
-      `${passed.size} de ${totalExercises} acertos · ${wrongTries.size} exercício(s) com erro`;
-    scorePanel.classList.toggle("is-full", score === 10);
+    // O número grande é sempre a melhor nota: refazer um tópico não pode fazer
+    // a nota antiga "sumir" enquanto a tentativa atual ainda está no começo.
+    const best = savedScore !== null ? Math.max(savedScore, score) : score;
+    const detail = `${passed.size} de ${totalExercises} acertos nesta tentativa · ${wrongTries.size} exercício(s) com erro`;
+    paintScore(
+      best.toFixed(1).replace(".", ","),
+      savedScore !== null && savedScore > score
+        ? `Melhor nota: ${savedScore.toFixed(1).replace(".", ",")} · ${detail}`
+        : detail,
+      `${passed.size}/${totalExercises} acertos`,
+      best === 10
+    );
   }
 
   // Se o tópico já estava concluído e o aluno refez os exercícios, guarda a nota
   // nova sem precisar de clique — o servidor só troca se for melhor que a antiga.
   function autoSaveScore() {
     if (!completeBtn || !completeBtn.classList.contains("is-done")) return;
-    if (totalExercises === 0 || attempted.size < totalExercises) return;
-    Progress.markDone(parseInt(completeBtn.dataset.topicId, 10), currentScore()).catch(() => {});
+    if (totalExercises === 0) return;
+    // Salva assim que a tentativa atual supera a melhor nota guardada. Antes só
+    // salvava se o aluno refizesse os exercícios todos de uma sentada, então
+    // corrigir só os que errou não guardava nada.
+    const score = currentScore();
+    if (bestSavedScore !== null && score <= bestSavedScore) return;
+    bestSavedScore = score;
+    Progress.markDone(parseInt(completeBtn.dataset.topicId, 10), score).catch(() => {});
   }
 
   function onAnswerChecked() {
@@ -571,11 +607,18 @@
 
     output.hidden = false;
     output.className = "output";
-    attempted.add(exId);
 
     if (type === "text" || type === "audio") {
       const studentInput = ex.querySelector(".text-input");
       const studentAnswer = studentInput ? studentInput.value : "";
+
+      // Campo vazio não é resposta: não conta como exercício feito nem zera a nota.
+      if (!studentAnswer.trim()) {
+        output.classList.add("err");
+        output.textContent = "Escreva sua resposta antes de verificar.";
+        return;
+      }
+      attempted.add(exId);
 
       if (normalize(studentAnswer) === normalize(solution)) {
         output.classList.add("ok");
@@ -584,8 +627,7 @@
       } else {
         output.classList.add("err");
         output.textContent = buildTextErrorFeedback(studentAnswer, solution);
-        // Campo vazio é distração, não erro de conteúdo — não conta na nota.
-        if (studentAnswer.trim()) registerMiss(exId);
+        registerMiss(exId);
       }
       onAnswerChecked();
       return;
@@ -601,6 +643,7 @@
         output.textContent = "Selecione uma opção antes de verificar.";
         return;
       }
+      attempted.add(exId);
 
       if (normalize(selected.textContent) === normalize(solution)) {
         selected.classList.add("is-correct");
@@ -638,6 +681,7 @@
         output.textContent = "Não foi possível carregar o motor de SQL. Verifique sua conexão.";
         return;
       }
+      attempted.add(exId);
 
       let studentResult;
       try {
@@ -698,6 +742,7 @@
       output.textContent = "Não foi possível carregar o ambiente Python. Verifique sua conexão.";
       return;
     }
+    attempted.add(exId);
 
     py.globals.set("_student_src", studentCode);
     py.globals.set("_test_src", testCode);
@@ -737,8 +782,6 @@ exec(_test_src, _ns)
   // --- 8. STT (Speech Recognition) ---
   function startSpeakExercise(ex) {
     const exId = parseInt(ex.dataset.exerciseId, 10);
-    attempted.add(exId);
-    refreshCompleteButton();
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
@@ -746,6 +789,10 @@ exec(_test_src, _ns)
       resultEl.hidden = false;
       resultEl.className = "speak-result err";
       resultEl.textContent = "Seu navegador não suporta reconhecimento de voz. Use o Chrome.";
+      // Sem reconhecimento não há como responder aqui — marca como feito para o
+      // tópico não ficar travado para sempre nesse navegador.
+      attempted.add(exId);
+      refreshCompleteButton();
       return;
     }
 
@@ -770,6 +817,10 @@ exec(_test_src, _ns)
     recognition.onresult = (event) => {
       const transcripts = Array.from(event.results[0]).map(a => a.transcript);
       const best = transcripts[0];
+
+      // Só aqui o exercício conta como respondido: microfone negado, sem fala ou
+      // navegador sem reconhecimento não podem valer um zero na nota.
+      attempted.add(exId);
 
       if (transcripts.some(t => normalize(t) === normalize(solution))) {
         resultEl.className = "speak-result ok";
@@ -878,10 +929,12 @@ exec(_test_src, _ns)
     if (!scorePanel || totalExercises === 0) return;
     const saved = scorePanel.dataset.savedScore;
     if (saved === "") return;
-    scorePanel.hidden = false;
-    scorePanel.querySelector("[data-score]").textContent = Number(saved).toFixed(1).replace(".", ",");
-    scorePanel.querySelector("[data-score-detail]").textContent = "Sua melhor nota neste tópico";
-    scorePanel.classList.toggle("is-full", Number(saved) === 10);
+    paintScore(
+      Number(saved).toFixed(1).replace(".", ","),
+      "Sua melhor nota neste tópico",
+      "melhor nota",
+      Number(saved) === 10
+    );
   }
 
   // --- Inicialização ---
