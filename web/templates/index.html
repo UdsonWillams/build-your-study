@@ -38,9 +38,19 @@
     <article class="course-card card" data-category="{{ roadmap.category }}">
       <div class="course-card-header">
         <span class="course-icon"><i class="ph-duotone ph-graduation-cap"></i></span>
-        <div class="course-badges">
-          <span class="tag tag-accent">{{ roadmap.category }}</span>
-          <span class="tag tag-neutral">{{ roadmap.level }}</span>
+        <div class="course-card-header-right">
+          <div class="course-badges">
+            <span class="tag tag-accent">{{ roadmap.category }}</span>
+            <span class="tag tag-neutral">{{ roadmap.level }}</span>
+          </div>
+          {% if s.done > 0 %}
+          <form method="post" action="/roadmap/{{ roadmap.slug }}/reset-progress"
+                onsubmit="return confirm('Reiniciar o progresso deste curso? Isso apaga todas as lições concluídas e notas salvas. Essa ação não pode ser desfeita.');">
+            <button type="submit" class="btn btn-ghost btn-icon course-card-reset" title="Reiniciar progresso" aria-label="Reiniciar progresso">
+              <i class="ph-duotone ph-arrow-counter-clockwise"></i>
+            </button>
+          </form>
+          {% endif %}
         </div>
       </div>
 

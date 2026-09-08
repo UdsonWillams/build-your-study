@@ -10,7 +10,7 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session, selectinload
 
 from .database import get_db
@@ -32,6 +32,16 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="BuildYourStudy", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=WEB_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=str(WEB_DIR / "templates"))
+
+
+def _static_mtime(rel_path: str) -> int:
+    """Timestamp do arquivo estático, usado como query param (?v=...) nas tags
+    <link>/<script> — sem isso, o navegador pode continuar servindo uma versão
+    antiga do CSS/JS em cache depois de uma mudança."""
+    return int((WEB_DIR / "static" / rel_path).stat().st_mtime)
+
+
+templates.env.globals["static_mtime"] = _static_mtime
 
 
 def _completed_topic_ids(db: Session) -> set[int]:
@@ -188,6 +198,18 @@ def delete_roadmap(slug: str, db: Session = Depends(get_db)):
         db.add(DeletedRoadmap(slug=slug))
     db.commit()
     return RedirectResponse(url="/lixeira", status_code=303)
+
+
+@app.post("/roadmap/{slug}/reset-progress")
+def reset_progress(slug: str, db: Session = Depends(get_db)):
+    """Apaga o progresso (e as notas) de todos os tópicos deste curso."""
+    roadmap = db.scalar(select(Roadmap).where(Roadmap.slug == slug))
+    if roadmap is None:
+        raise HTTPException(status_code=404, detail="Curso não encontrado")
+    topic_ids = select(Topic.id).join(Module).where(Module.roadmap_id == roadmap.id)
+    db.execute(delete(Progress).where(Progress.topic_id.in_(topic_ids)))
+    db.commit()
+    return RedirectResponse(url=f"/roadmap/{slug}", status_code=303)
 
 
 @app.get("/topic/{slug}", response_class=HTMLResponse)

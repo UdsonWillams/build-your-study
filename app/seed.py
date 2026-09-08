@@ -16,7 +16,9 @@ seguindo o mesmo formato e reiniciar o app.
 import contextlib
 import io
 import json
+import os
 import sqlite3
+import tempfile
 from pathlib import Path
 
 from sqlalchemy import select
@@ -62,14 +64,24 @@ def _validate_code_exercise(solution: str, test_code: str, topic_slug: str, posi
     Mesma ideia da validação de sql: pega bug de autoria (solution errada, assert
     com typo, etc.) na carga do conteúdo, replicando o mesmo runtime usado pelo
     Pyodide no navegador (namespace com `_student_code` disponível).
+
+    Roda com o cwd apontando pra um diretório temporário: exercícios sobre
+    arquivos (`open("dados.txt", "w")` etc.) escrevem de verdade nesse `exec`,
+    e sem isso os arquivos vazavam pra raiz do repo a cada validação.
     """
     if not test_code:
         return
     ns = {"_student_code": solution}
+    original_cwd = Path.cwd()
     try:
-        with contextlib.redirect_stdout(io.StringIO()):
-            exec(solution, ns)
-            exec(test_code, ns)
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            os.chdir(tmp_dir)
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    exec(solution, ns)
+                    exec(test_code, ns)
+            finally:
+                os.chdir(original_cwd)
     except Exception as e:
         raise ValueError(
             f"Exercício code inválido no tópico '{topic_slug}' (posição {position}): {type(e).__name__}: {e}"

@@ -11,7 +11,9 @@ tools/PYTHON_ROADMAP.md.
 import contextlib
 import io
 import json
+import os
 import re
+import tempfile
 from pathlib import Path
 
 CONTENT_DIR = Path(__file__).resolve().parent.parent / "app" / "content"
@@ -61,12 +63,23 @@ def module(slug, title, summary, topics):
 
 def _validate_code_exercise(ex, loc):
     """Roda solution + test_code de verdade — mesmo mecanismo do app/seed.py
-    (_validate_code_exercise), pra pegar bug de autoria antes de rodar o app."""
+    (_validate_code_exercise), pra pegar bug de autoria antes de rodar o app.
+
+    Roda com o cwd apontando pra um diretório temporário: exercícios sobre
+    arquivos escrevem de verdade nesse `exec`, e sem isso os arquivos vazavam
+    pra raiz do repo a cada validação.
+    """
     ns = {"_student_code": ex["solution"]}
+    original_cwd = Path.cwd()
     try:
-        with contextlib.redirect_stdout(io.StringIO()):
-            exec(ex["solution"], ns)
-            exec(ex["test_code"], ns)
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            os.chdir(tmp_dir)
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    exec(ex["solution"], ns)
+                    exec(ex["test_code"], ns)
+            finally:
+                os.chdir(original_cwd)
     except Exception as e:
         return [f"{loc}: code invalido ({type(e).__name__}: {e})"]
     return []

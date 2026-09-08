@@ -27,12 +27,21 @@
     <span class="progress-label">{{ done }}/{{ total }} lições concluídas ({{ pct }}%){% if average is not none %} · média {{ ("%.1f"|format(average))|replace(".", ",") }} em {{ graded_count }} liç{{ "ões" if graded_count != 1 else "ão" }}{% endif %}</span>
   </div>
 
-  {% if roadmap.active %}
-  <form method="post" action="/roadmap/{{ roadmap.slug }}/disable" class="roadmap-admin-form"
-        onsubmit="return confirm('Desativar este curso? Ele sai do catálogo, mas nada é apagado — dá para reativar na Lixeira.');">
-    <button type="submit" class="btn btn-ghost btn-sm"><i class="ph-duotone ph-trash"></i> Desativar curso</button>
-  </form>
-  {% else %}
+  <div class="roadmap-admin-form">
+    {% if done > 0 %}
+    <form method="post" action="/roadmap/{{ roadmap.slug }}/reset-progress"
+          onsubmit="return confirm('Reiniciar o progresso deste curso? Isso apaga todas as lições concluídas e notas salvas. Essa ação não pode ser desfeita.');">
+      <button type="submit" class="btn btn-ghost btn-sm btn-danger"><i class="ph-duotone ph-arrow-counter-clockwise"></i> Reiniciar progresso</button>
+    </form>
+    {% endif %}
+    {% if roadmap.active %}
+    <form method="post" action="/roadmap/{{ roadmap.slug }}/disable"
+          onsubmit="return confirm('Desativar este curso? Ele sai do catálogo, mas nada é apagado — dá para reativar na Lixeira.');">
+      <button type="submit" class="btn btn-ghost btn-sm"><i class="ph-duotone ph-trash"></i> Desativar curso</button>
+    </form>
+    {% endif %}
+  </div>
+  {% if not roadmap.active %}
   <div class="disabled-banner">
     <span><i class="ph-duotone ph-warning"></i> Este curso está desativado e não aparece no catálogo.</span>
     <form method="post" action="/roadmap/{{ roadmap.slug }}/enable">

@@ -165,7 +165,11 @@ main.wrap {
   margin-bottom: var(--space-2);
 }
 .course-icon { font-size: 1.6rem; line-height: 1; color: var(--color-accent-700); }
+.course-card-header-right { display: flex; align-items: center; gap: var(--space-2); }
 .course-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.course-card-reset { width: 26px; height: 26px; color: var(--ink-70); flex-shrink: 0; }
+.course-card-reset i { font-size: 13px; }
+.course-card-reset:hover { color: var(--color-accent-2-700); background: color-mix(in srgb, var(--color-accent-2-700) 10%, transparent); }
 
 .course-title.card-title { font-size: 19px; margin-top: 2px; }
 .course-description.card-body { flex: 1; }
@@ -218,7 +222,7 @@ main.wrap {
 .progress-wrap .progress-bar { flex: 1; }
 .progress-label { font-size: 13.5px; color: var(--ink-70); white-space: nowrap; font-feature-settings: "tnum" 1; }
 
-.roadmap-admin-form { margin-top: var(--space-3); }
+.roadmap-admin-form { display: flex; gap: var(--space-2); margin-top: var(--space-3); }
 
 .disabled-banner {
   display: flex;

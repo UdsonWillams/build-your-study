@@ -23,6 +23,14 @@ Isso preserva os slugs dos módulos já existentes (e portanto o progresso já
 salvo de quem usa o curso). O plano de expansão completo do curso de Python
 (módulos, fases, o que já foi feito) está em `tools/PYTHON_ROADMAP.md`.
 
+O curso de inglês também tem um roteiro de expansão — uma reescrita completa
+em 27 módulos (A1 até C1 + trilha aplicada de trabalho/tecnologia/fluência),
+com validação de nível CEFR já feita — em `tools/ENGLISH_ROADMAP.md`.
+`build_ingles.py` já foi migrado para o mesmo padrão incremental de
+`build_python.py` (`BUILDERS`/`TARGET_ORDER`), e o Módulo 1 já foi
+construído; os módulos 2-27 seguem pendentes (ver seção "Status" desse
+roteiro).
+
 ## O que os geradores garantem sozinhos
 
 Antes de escrever qualquer coisa, os scripts validam o curso e **abortam sem

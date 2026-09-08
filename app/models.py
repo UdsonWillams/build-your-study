@@ -75,7 +75,11 @@ class Topic(Base):
         cascade="all, delete-orphan",
         order_by="Exercise.position",
     )
-    progress: Mapped["Progress | None"] = relationship(
+    # Sem "| None" de propósito: no Python 3.14 o SQLAlchemy 2.0.35 quebra ao
+    # desmontar uma união em Mapped[] (mesmo motivo da anotação do `score`).
+    # A relação pode ser nula (tópico sem progresso) — isso é do relacionamento,
+    # não da anotação.
+    progress: Mapped["Progress"] = relationship(
         back_populates="topic",
         cascade="all, delete-orphan",
         uselist=False,
