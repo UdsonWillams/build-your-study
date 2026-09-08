@@ -16,10 +16,35 @@ um JSON legado.
 """
 import json
 import re
+from copy import deepcopy
 from pathlib import Path
 
 CONTENT_DIR = Path(__file__).resolve().parent.parent / "app" / "content"
 OUT_PATH = CONTENT_DIR / "russo-do-zero.json"
+
+EARLY_MODULE_SLUGS = frozenset({
+    "modulo-01-alfabeto-e-primeiros-passos",
+    "modulo-02-frases-basicas-sem-verbo-ser",
+    "modulo-03-perguntas-e-negacao",
+    "modulo-04-casos-primeiro-contato",
+    "modulo-05-vocabulario-e-comunicacao-a1",
+    "modulo-06-presente-dos-verbos",
+    "modulo-07-vocabulario-e-comunicacao-a2",
+    "modulo-08-casos-intermediarios",
+})
+
+EXPANDED_MODULE_SLUGS = frozenset({
+    "modulo-09-aspecto-verbal-conceito",
+    "modulo-10-passado-e-futuro",
+    "modulo-11-casos-avancados",
+    "modulo-12-verbos-de-movimento",
+    "modulo-13-comunicacao-b1",
+    "modulo-14-participios-gerundios-e-discurso-indireto",
+    "modulo-15-verbos-de-movimento-prefixados",
+    "modulo-16-imperativo-e-aspecto",
+    "modulo-17-comparacao-pronomes-e-reflexivos",
+    "modulo-18-vocabulario-e-expressoes-b2",
+})
 
 
 # ============================================================
@@ -61,8 +86,9 @@ def module(slug, title, summary, topics):
 def check(modules, active_module_slugs):
     """Trava erros de autoria antes de gravar o JSON.
 
-    `active_module_slugs`: módulos sendo escritos/tocados NESTA fase — só
-    eles precisam cumprir o mínimo de 5 exercícios/tópico.
+    `active_module_slugs`: módulos sendo escritos/tocados NESTA fase — os
+    módulos 1–18 precisam ter exatamente 10 exercícios/tópico; os demais ativos
+    seguem o mínimo de 5.
     """
     problems = []
     topic_slugs = []
@@ -73,8 +99,14 @@ def check(modules, active_module_slugs):
         for t in m["topics"]:
             topic_slugs.append(t["slug"])
             loc_base = f"{m['slug']}/{t['slug']}"
-            if m["slug"] in active_module_slugs and len(t["exercises"]) < 5:
-                problems.append(f"{loc_base}: só {len(t['exercises'])} exercícios (mínimo 5)")
+            if m["slug"] in active_module_slugs:
+                if (m["slug"] in EARLY_MODULE_SLUGS
+                        or m["slug"] in EXPANDED_MODULE_SLUGS) and len(t["exercises"]) != 10:
+                    problems.append(f"{loc_base}: {len(t['exercises'])} exercícios (esperado exatamente 10)")
+                elif (m["slug"] not in EARLY_MODULE_SLUGS
+                        and m["slug"] not in EXPANDED_MODULE_SLUGS
+                        and len(t["exercises"]) < 5):
+                    problems.append(f"{loc_base}: só {len(t['exercises'])} exercícios (mínimo 5)")
             for i, e in enumerate(t["exercises"]):
                 loc = f"{loc_base} #{i}"
                 if not e.get("solution"):
@@ -162,7 +194,7 @@ pouco mais.
 > ("Eu gostaria de conversar com você sobre o que aconteceu ontem.")
 
 ...no B1/B2, **sem travar pensando em qual caso é qual**. Cada pedaço dessa
-frase exige o espiral: "со мной" (Instrumental), "о том" (Preposicional),
+frase exige o espiral: "с тобой" (Instrumental), "о том" (Preposicional),
 "что произошло" (aspecto perfectivo no passado). Quando essa frase sair de
 cabeça erguida, o curso cumpriu seu papel.
 
@@ -1973,7 +2005,7 @@ Assim como no singular, cada caso tem sua terminação de **plural**. Aqui vai o
 - **Preposicional**: -ах/-ях (para todos os gêneros!).
 - **Genitivo**: varia bastante (-ов, -ей, terminação zero...) — o mais difícil.
 
-> 🎯 Boa notícia: **Dativo, Instrumental e Preposicional** têm UMA terminação de plural para todos os gêneros (-ам/-ями/-ах). Só o Genitivo exige atenção extra.
+> 🎯 Boa notícia: **Dativo, Instrumental e Preposicional** têm padrões regulares de plural para todos os gêneros (-ам/-ям, -ами/-ями e -ах/-ях). Só o Genitivo exige atenção extra.
 """,
                 [
                     ex("quiz", 'No plural, a terminação do DATIVO é (para todos os gêneros):',
@@ -2813,7 +2845,7 @@ E o último par comum — correr:
 | água | плыть | плавать |
 | corrida | бежать | бегать |
 
-> 🎯 Regra geral: unidirecional = **-ть** (uma direção, agora); multidirecional = **-ать** (repetição/ida e volta/habilidade). Memorize os 5 pares como um bloco.
+> 🎯 Há uma tendência visível nos infinitivos (**идти/ходить**, **лететь/летать**), mas não transforme **-ть** versus **-ать** em regra universal. A distinção é lexical e aparece na conjugação: compare **я бегу/я бегаю** e **я плыву/я плаваю**. Memorize os cinco pares em contexto.
 """,
                 [
                     ex("quiz", "Qual verbo indica correr AGORA, numa direção?",
@@ -3074,7 +3106,7 @@ def build_modulo_14_participios_gerundios_e_discurso_indireto():
                 """
 # Particípios (причастия)
 
-Os **particípios** são formas do verbo que funcionam como adjetivos — equivalentes a "lendo"/"lido" em português, mas concordando em gênero/caso/número como qualquer adjetivo.
+Os **particípios** são formas do verbo que funcionam como adjetivos — podem corresponder a "que está lendo" ou "que foi lido" em português, mas concordam em gênero/caso/número como qualquer adjetivo.
 
 ## Particípio ativo (quem pratica a ação)
 
@@ -3087,7 +3119,7 @@ Os **particípios** são formas do verbo que funcionam como adjetivos — equiva
 
 ```
 читать -> читаемый        (o que é lido)
-книга, читаемая всеми     o livro lido por todos
+книга, читаемая всеми     o livro que está sendo lido por todos
 ```
 
 > 🎯 Particípios são muito comuns na escrita formal/literária russa, mas raros na fala cotidiana — no dia a dia, russos preferem orações com "который" (Módulo 11): "человек, который читает книгу" em vez de "человек, читающий книгу".
@@ -3206,8 +3238,8 @@ Para transformar uma ordem/pedido em discurso indireto, usa-se **чтобы** + 
 ```
 """,
                 [
-                    ex("quiz", "No discurso indireto russo, o tempo verbal:",
-                       "não muda (sem backshift)", ["não muda (sem backshift)", "sempre vira passado", "sempre vira futuro"]),
+                    ex("quiz", "No discurso indireto russo, comparado ao português, o tempo verbal normalmente:",
+                       "é preservado quando o contexto continua válido", ["é preservado quando o contexto continua válido", "sempre vira passado", "sempre vira futuro"]),
                     ex("quiz", "Qual partícula é usada para transformar perguntas de SIM/NÃO em discurso indireto?",
                        "ли", ["ли", "что", "где"]),
                     ex("quiz", "Qual construção transforma um pedido/ordem em discurso indireto?",
@@ -3377,7 +3409,7 @@ Adicionar um prefixo a идти/ехать cria verbos novos com sentido preciso
                 """
 # Pares imperfectivos dos prefixados
 
-Os verbos prefixados são **perfectivos** por natureza. O par **imperfectivo** troca a raiz -йти/-ехать por -ходить/-езжать:
+Muitos verbos de movimento prefixados são **perfectivos**, mas não todos: **войти** é perfectivo, enquanto **входить** é imperfectivo. Para formar o par imperfectivo, costuma-se trocar a raiz -йти/-ехать por -ходить/-езжать:
 
 | Perfectivo | Imperfectivo | Sentido |
 |---|---|---|
@@ -3513,7 +3545,8 @@ Basta colocar **не** antes do imperativo, exatamente como na negação comum (
 A escolha entre imperfectivo e perfectivo (Módulo 9) também vale para ordens, e muda o tom:
 
 - **Perfectivo**: um pedido pontual, focado no resultado — "Прочитай это!" (Leia isso [até o fim]!).
-- **Imperfectivo**: um convite mais neutro, uma instrução geral, ou justamente para **proibir/pedir para não continuar** algo — "Не читай!" (Não leia! / Pare de ler!) quase sempre usa o imperfectivo, mesmo quando o afirmativo correspondente seria perfectivo.
+- **Imperfectivo**: um convite mais neutro, uma instrução geral, ou justamente para **proibir/pedir para não continuar** algo — "Не читай!" (Não leia! / Pare de ler!).
+- **Perfectivo negativo**: também é natural quando se evita um evento ou resultado pontual — "Не забудь!" (Não esqueça!), "Не опоздай!" (Não se atrase!).
 
 > ⚠️ Esse é um padrão curioso: o imperativo negativo prefere o imperfectivo mesmo quando a versão afirmativa da mesma ideia usaria o perfectivo — vale notar como exceção à intuição.
 """,
@@ -3522,7 +3555,7 @@ A escolha entre imperfectivo e perfectivo (Módulo 9) também vale para ordens, 
                        "не + imperativo", ["не + imperativo", "imperativo + не", "нет + imperativo"]),
                     ex("text", "Traduza: Não leia esse livro! (не + читай + эту + книгу)",
                        "не читай эту книгу"),
-                    ex("quiz", "No imperativo negativo, qual aspecto costuma ser preferido, mesmo quando o afirmativo usaria o outro?",
+                    ex("quiz", "Para uma proibição geral, qual aspecto costuma ser preferido no imperativo negativo?",
                        "imperfectivo", ["imperfectivo", "perfectivo", "não faz diferença"]),
                     ex("audio", "Escute e transcreva:", "не говорите так", audio_text="не говорите так"),
                     ex("quiz", "O imperativo PERFECTIVO (ex: Прочитай!) indica:",
@@ -3887,8 +3920,8 @@ Frases prontas que flexionam casos:
                     ex("quiz", 'Em "Я с удовольствием", o caso é:', 
                        "Instrumental", ["Instrumental", "Preposicional", "Dativo"]),
                     ex("audio", "Escute e transcreva:", "мне всё равно", audio_text="Мне всё равно."),
-                    ex("quiz", 'Como se diz "Com prazer"?',
-                       "С удовольствием", ["С удовольствием", "С радостью não", "У меня нет"]),
+                     ex("quiz", 'Qual forma está correta na expressão "com prazer"?',
+                        "С удовольствием", ["С удовольствием", "С удовольствие", "С удовольствию"]),
                     ex("speak", "Repita em voz alta:", "мне надо работать", audio_text="Мне надо работать."),
                 ],
             ),
@@ -3904,7 +3937,7 @@ Como no inglês (collocations), certas combinações exigem o caso certo:
 |---|---|---|
 | интересоваться + Instrumental | Instrumental | интересоваться музыкой (interessar-se por música) |
 | гордиться + Instrumental | Instrumental | гордиться сыном (orgulhar-se do filho) |
-| ждать + Genitivo/Acusativo | Genitivo | ждать автобуса (esperar o ônibus) |
+| ждать + Genitivo/Acusativo | Genitivo ou Acusativo | ждать автобуса / ждать автобус (conforme contexto) |
 | бояться + Genitivo | Genitivo | бояться собак (ter medo de cães) |
 | помогать + Dativo | Dativo | помогать маме (ajudar a mãe) |
 
@@ -3950,7 +3983,7 @@ Além dos de movimento (Módulo 15), muitos verbos comuns usam prefixos para cri
 Он позвонил вчера.        Ele ligou ontem. (perfectivo, uma vez)
 ```
 
-> 🎯 A escolha do prefixo é o aspecto (Módulo 9): o prefixo torna o verbo perfectivo (ação única/completa). "Звонил" (processo) vs "позвонил" (ligou uma vez).
+> 🎯 Um prefixo frequentemente cria um perfectivo, mas também pode acrescentar uma nuance lexical; confirme sempre o par. "Звонил" (processo) contrasta com "позвонил" (ligou uma vez), enquanto outros verbos prefixados precisam ser aprendidos como unidades.
 """,
                 [
                     ex("quiz", 'Qual é o perfectivo de "звонить" (ligar)?',
@@ -4057,7 +4090,7 @@ Idioms russos — sentido figurado, caso embutido:
 | медведь на ухо наступил | o urso pisou na orelha | não ter ouvido musical |
 
 ```
-Не сиди, бить баклуши!            Não fique aí à toa!
+Не бей баклуши!                   Não fique aí à toa!
 Он витает в облаках на уроке.     Ele está nas nuvens na aula. (в + облаках = Preposicional plural)
 ```
 
@@ -6156,6 +6189,2264 @@ Pensar em russo é o **sinal máximo** de fluência consolidada.
 
 
 # ============================================================
+# Expansão editorial dos módulos 1–8
+# ============================================================
+
+# Os builders originais continuam contendo o núcleo já revisado. Estes itens
+# são complementos por tópico, em vez de exercícios genéricos gerados em lote:
+# cada um pratica uma palavra, uma forma ou uma decisão gramatical concreta.
+EARLY_EXERCISES = {
+    "como-o-curso-funciona": [
+        ex("quiz", "Qual nível corresponde ao iniciante que está começando a ler frases simples?",
+           "A1", ["A1", "B1", "C1"], audio_lang="pt-BR"),
+        ex("quiz", "Em qual módulo aparece o primeiro contato com os seis casos?",
+           "Módulo 4", ["Módulo 2", "Módulo 4", "Módulo 8"], audio_lang="pt-BR"),
+        ex("text", 'Escreva em cirílico a forma masculina de "russo".', "русский"),
+        ex("quiz", "O que fazer quando uma palavra russa nova aparece na lição?",
+           "Ouvir a pronúncia e depois praticar", [
+               "Ouvir a pronúncia e depois praticar",
+               "Ignorar o áudio e decorar só a tradução",
+               "Trocar a palavra por uma transliteração"
+           ], audio_lang="pt-BR"),
+        ex("quiz", "Qual é a ideia do currículo em espiral?",
+           "Revisar o mesmo tema com mais profundidade",
+           [
+               "Revisar o mesmo tema com mais profundidade",
+               "Estudar cada tema uma única vez",
+               "Repetir somente exercícios de vocabulário"
+           ], audio_lang="pt-BR"),
+    ],
+    "alfabeto-cirilico": [
+        ex("quiz", 'Qual letra representa o som "ts"?', "Ц", ["Ц", "Ч", "Щ"]),
+        ex("text", 'Escreva em cirílico "escola".', "школа"),
+        ex("audio", "Escute e transcreva:", "школа", audio_text="школа"),
+        ex("speak", "Repita a palavra em voz alta:", "рыба", audio_text="рыба"),
+        ex("quiz", 'Qual falsa amiga visual tem som de "s"?', "С", ["С", "Р", "В"]),
+    ],
+    "sons-dificeis-do-russo": [
+        ex("quiz", "Qual destas vogais é iotizada e pode amolecer a consoante anterior?",
+           "я", ["я", "а", "ы"]),
+        ex("text", 'Escreva em cirílico "cinco".', "пять"),
+        ex("audio", "Escute e transcreva:", "молоко", audio_text="молоко"),
+        ex("speak", "Repita a palavra em voz alta:", "юг", audio_text="юг"),
+        ex("quiz", 'Em "молоко", onde cai o acento tônico?',
+           "Na última sílaba", ["Na primeira sílaba", "Na segunda sílaba", "Na última sílaba"], audio_lang="pt-BR"),
+    ],
+    "primeiras-palavras-e-saudacoes": [
+        ex("text", 'Traduza para o russo: "Oi" (informal).', "привет"),
+        ex("quiz", 'Qual despedida é formal?', "До свидания", ["Пока", "До свидания", "Привет"]),
+        ex("audio", "Escute e transcreva:", "до свидания", audio_text="до свидания"),
+        ex("speak", "Repita a pergunta em voz alta:", "как дела", audio_text="как дела"),
+        ex("quiz", 'Qual resposta significa "Bem!"?', "Хорошо!", ["Хорошо!", "Так себе", "Нет"]),
+    ],
+    "numeros-1-a-10-russo": [
+        ex("quiz", 'Qual número é "девять"?', "9", ["7", "8", "9"]),
+        ex("text", "Escreva em cirílico o número 3.", "три"),
+        ex("audio", "Escute e transcreva o número:", "девять", audio_text="девять"),
+        ex("speak", "Repita o número em voz alta:", "четыре", audio_text="четыре"),
+        ex("quiz", 'Qual número é "восемь"?', "8", ["6", "8", "10"]),
+    ],
+    "pronomes-pessoais-russo": [
+        ex("text", 'Traduza para o russo: "você" formal.', "вы"),
+        ex("quiz", 'Qual pronome significa "eles/elas"?', "они", ["они", "оно", "мы"]),
+        ex("audio", "Escute e transcreva:", "она", audio_text="она"),
+        ex("speak", "Repita em voz alta:", "мы", audio_text="мы"),
+    ],
+    "genero-dos-substantivos": [
+        ex("quiz", 'Qual é o gênero de "море" (mar)?', "neutro", ["masculino", "feminino", "neutro"], audio_lang="pt-BR"),
+        ex("text", 'Escreva o gênero de "дверь": masculino ou feminino?', "feminino", audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "словарь", audio_text="словарь"),
+        ex("quiz", 'Uma palavra terminada em "-я" é geralmente:',
+           "feminina", ["masculina", "feminina", "neutra"], audio_lang="pt-BR"),
+    ],
+    "frases-sem-verbo-ser": [
+        ex("text", "Traduza: Ele [é] médico.", "он врач"),
+        ex("quiz", 'No presente, qual palavra NÃO entra em "Она врач"?',
+           'быть', ["быть", "врач", "она"]),
+        ex("audio", "Escute e transcreva:", "москва столица россии", audio_text="москва столица россии"),
+        ex("speak", "Repita em voz alta:", "это окно", audio_text="это окно"),
+    ],
+    "plural-basico-russo": [
+        ex("quiz", 'Qual é o plural de "море" (mar)?', "моря", ["моры", "моря", "море"]),
+        ex("text", 'Escreva o plural de "студент" (estudante).', "студенты"),
+        ex("audio", "Escute e transcreva:", "книги", audio_text="книги"),
+        ex("quiz", 'Depois de "ж", a grafia correta do plural usa:', "-и", ["-ы", "-и", "-а"], audio_lang="pt-BR"),
+    ],
+    "isso-e-palavras-comuns": [
+        ex("text", "Traduza: Isto é uma janela.", "это окно"),
+        ex("quiz", 'Na frase "Это мой город", o que apresenta o objeto?',
+           "это", ["это", "мой", "город"]),
+        ex("audio", "Escute e transcreva:", "это мой город", audio_text="это мой город"),
+        ex("speak", "Repita em voz alta:", "это моя сестра", audio_text="это моя сестра"),
+    ],
+    "palavras-interrogativas-russo": [
+        ex("text", "Traduza: Quando você trabalha?", "когда ты работаешь"),
+        ex("quiz", 'Qual palavra significa "por quê?"?', "почему", ["почему", "когда", "сколько"]),
+        ex("audio", "Escute e transcreva:", "сколько это стоит", audio_text="сколько это стоит"),
+        ex("speak", "Repita em voz alta:", "кто это", audio_text="кто это"),
+    ],
+    "gde-vs-kuda": [
+        ex("text", "Traduza: Para onde você vai?", "куда ты идёшь"),
+        ex("quiz", 'Qual pergunta indica localização parada?',
+           "Где ты?", ["Где ты?", "Куда ты идёшь?", "Куда ты едешь?"] ),
+        ex("audio", "Escute e transcreva:", "я живу в москве", audio_text="я живу в москве"),
+        ex("speak", "Repita em voz alta:", "куда ты идёшь", audio_text="куда ты идёшь"),
+    ],
+    "negacao-com-nao": [
+        ex("text", "Traduza: Ela não fala russo.", "она не говорит по-русски"),
+        ex("quiz", 'Em "Я не читаю", onde fica "не"?',
+           "Antes do verbo", ["Antes do verbo", "Depois do verbo", "No fim da frase"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "это не мой дом", audio_text="это не мой дом"),
+        ex("speak", "Repita em voz alta:", "я не понимаю", audio_text="я не понимаю"),
+        ex("quiz", 'Em "Я не читаю", o que "не" nega?',
+           "A ação de ler", ["A ação de ler", "A palavra я", "O lugar"], audio_lang="pt-BR"),
+    ],
+    "respostas-curtas": [
+        ex("quiz", 'Qual palavra responde "não"?', "Нет", ["Да", "Нет", "Пожалуйста"]),
+        ex("text", "Traduza: Sim, isso é um livro.", "да это книга"),
+        ex("audio", "Escute e transcreva:", "да я понимаю", audio_text="да я понимаю"),
+        ex("speak", "Repita em voz alta:", "нет я не знаю", audio_text="нет я не знаю"),
+        ex("quiz", 'Em "У меня нет времени", o sentido de "нет" é:',
+           "não tenho tempo", ["não tenho tempo", "tenho tempo", "gosto de tempo"], audio_lang="pt-BR"),
+    ],
+    "o-que-sao-os-casos": [
+        ex("quiz", 'Qual caso marca normalmente o objeto direto?', "Acusativo", ["Nominativo", "Acusativo", "Instrumental"], audio_lang="pt-BR"),
+        ex("quiz", 'A expressão "с другом" é um exemplo de qual caso?', "Instrumental", ["Instrumental", "Genitivo", "Preposicional"], audio_lang="pt-BR"),
+        ex("text", "Traduza: Eu gosto de música.", "мне нравится музыка"),
+        ex("speak", "Repita em voz alta:", "я иду с другом", audio_text="я иду с другом"),
+    ],
+    "caso-nominativo-contato": [
+        ex("quiz", 'Qual palavra é o sujeito em "Девушка читает"?', "Девушка", ["Девушка", "читает", "nenhuma"], audio_lang="pt-BR"),
+        ex("text", "Traduza: Moscou é a capital da Rússia.", "москва столица россии"),
+        ex("audio", "Escute e transcreva:", "студенты читают", audio_text="студенты читают"),
+        ex("quiz", 'A forma de dicionário de "студент" é o:', "Nominativo", ["Nominativo", "Acusativo", "Dativo"], audio_lang="pt-BR"),
+        ex("speak", "Repita em voz alta:", "книга на столе", audio_text="книга на столе"),
+    ],
+    "caso-acusativo-contato": [
+        ex("quiz", 'Em "Я люблю чай", qual palavra recebe diretamente a ação?', "чай", ["Я", "люблю", "чай"]),
+        ex("text", "Traduza: Meu nome é Maria.", "меня зовут мария"),
+        ex("audio", "Escute e transcreva:", "я вижу собаку", audio_text="я вижу собаку"),
+        ex("quiz", 'Em "Я иду в парк", o grupo "в парк" indica:',
+           "direção no Acusativo", ["direção no Acusativo", "lugar no Preposicional", "posse no Genitivo"], audio_lang="pt-BR"),
+        ex("speak", "Repita em voz alta:", "я читаю книгу", audio_text="я читаю книгу"),
+    ],
+    "caso-genitivo-contato": [
+        ex("quiz", 'Em "У неё есть брат", a forma "неё" pertence ao:', "Genitivo", ["Genitivo", "Dativo", "Instrumental"], audio_lang="pt-BR"),
+        ex("text", "Traduza: Ele tem um carro.", "у него есть машина"),
+        ex("audio", "Escute e transcreva:", "у меня нет времени", audio_text="у меня нет времени"),
+        ex("quiz", 'Em "Я из Бразилии", "из Бразилии" indica:', "origem no Genitivo", ["origem no Genitivo", "destino no Acusativo", "companhia no Instrumental"], audio_lang="pt-BR"),
+        ex("speak", "Repita em voz alta:", "это книга анны", audio_text="это книга анны"),
+    ],
+    "caso-dativo-contato": [
+        ex("quiz", 'Qual é a forma de "я" no Dativo?', "мне", ["мне", "меня", "мной"]),
+        ex("text", "Traduza: Eu preciso de tempo.", "мне нужно время"),
+        ex("audio", "Escute e transcreva:", "ему нравится музыка", audio_text="ему нравится музыка"),
+        ex("quiz", 'Em "Я пишу другу", qual é a função de "другу"?', "para quem escrevo", ["para quem escrevo", "quem escreve", "o que possuo"], audio_lang="pt-BR"),
+        ex("speak", "Repita em voz alta:", "мне нравится чай", audio_text="мне нравится чай"),
+    ],
+    "caso-instrumental-e-preposicional-contato": [
+        ex("quiz", 'Em "Я говорю с мамой", qual caso aparece depois de "с"?', "Instrumental", ["Instrumental", "Acusativo", "Genitivo"], audio_lang="pt-BR"),
+        ex("text", "Traduza: Eu penso no livro.", "я думаю о книге"),
+        ex("audio", "Escute e transcreva:", "я пишу ручкой", audio_text="я пишу ручкой"),
+        ex("quiz", 'Qual combinação indica localização, e não direção?',
+           "Я в школе — Preposicional", ["Я в школе — Preposicional", "Я иду в школу — Acusativo", "Я из школы — Genitivo"], audio_lang="pt-BR"),
+    ],
+    "rotina-diaria": [
+        ex("text", "Traduza: Eu durmo.", "я сплю"),
+        ex("quiz", 'Em "Я работаю в офисе", por que aparece "в офисе"?',
+           "Porque indica lugar", ["Porque indica lugar", "Porque indica posse", "Porque é objeto direto"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "я завтракаю", audio_text="я завтракаю"),
+        ex("speak", "Repita em voz alta:", "я отдыхаю", audio_text="я отдыхаю"),
+    ],
+    "familia-e-pessoas": [
+        ex("text", "Traduza: Este é o meu irmão.", "это мой брат"),
+        ex("quiz", 'Em "Я иду с сестрой", qual caso aparece em "с сестрой"?', "Instrumental", ["Instrumental", "Dativo", "Preposicional"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "это моя семья", audio_text="это моя семья"),
+        ex("speak", "Repita em voz alta:", "у меня есть сестра", audio_text="у меня есть сестра"),
+    ],
+    "lugares-na-cidade-russo": [
+        ex("text", "Traduza: Eu vou para o parque.", "я иду в парк"),
+        ex("quiz", 'Em "Я иду в парк", "в парк" expressa:',
+           "direção no Acusativo", ["direção no Acusativo", "localização no Preposicional", "origem no Genitivo"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "я в городе", audio_text="я в городе"),
+        ex("speak", "Repita em voz alta:", "магазин рядом с домом", audio_text="магазин рядом с домом"),
+    ],
+    "comida-e-bebida": [
+        ex("text", "Traduza: Eu bebo água.", "я пью воду"),
+        ex("quiz", 'Em "Мне нравится кофе", "кофе" funciona como:', "sujeito da construção", ["sujeito da construção", "objeto no Acusativo", "companhia no Instrumental"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "я люблю молоко", audio_text="я люблю молоко"),
+        ex("speak", "Repita em voz alta:", "я ем хлеб", audio_text="я ем хлеб"),
+    ],
+    "apresentacoes-basicas": [
+        ex("text", "Traduza: De onde você é?", "откуда ты"),
+        ex("quiz", 'Em "Я из Бразилии", o grupo "из Бразилии" expressa:', "origem no Genitivo", ["origem no Genitivo", "destino no Acusativo", "lugar no Preposicional"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "это мой друг", audio_text="это мой друг"),
+        ex("speak", "Repita em voz alta:", "очень приятно", audio_text="очень приятно"),
+    ],
+    "pedidos-simples-russo": [
+        ex("text", "Traduza: Dê-me água, por favor.", "дайте пожалуйста воды"),
+        ex("quiz", 'Em "Можно воды?", por que aparece "воды"?',
+           "Para indicar uma quantidade não especificada", [
+               "Para indicar uma quantidade não especificada",
+               "Para indicar o destino",
+               "Para indicar a pessoa que pede"
+           ], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "извините", audio_text="извините"),
+        ex("speak", "Repita em voz alta:", "можно чай", audio_text="можно чай"),
+    ],
+    "primeira-conjugacao": [
+        ex("text", "Traduza: Nós lemos o livro.", "мы читаем книгу"),
+        ex("quiz", 'Complete: "Ты ___ книгу." (lê)', "читаешь", ["читаю", "читаешь", "читают"]),
+        ex("audio", "Escute e transcreva:", "они читают", audio_text="они читают"),
+        ex("speak", "Repita em voz alta:", "вы работаете", audio_text="вы работаете"),
+    ],
+    "segunda-conjugacao": [
+        ex("text", "Traduza: Ela gosta de música.", "она любит музыку"),
+        ex("quiz", 'Na 2ª conjugação, a terminação de "ты" em "говорить" é:', "-ишь", ["-ишь", "-ешь", "-ете"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "мы любим музыку", audio_text="мы любим музыку"),
+        ex("speak", "Repita em voz alta:", "они говорят по-русски", audio_text="они говорят по-русски"),
+    ],
+    "verbos-irregulares-comuns": [
+        ex("text", "Traduza: Ela quer café.", "она хочет кофе"),
+        ex("quiz", 'Qual é a 1ª pessoa do presente de "идти"?', "иду", ["иду", "идёшь", "идут"]),
+        ex("audio", "Escute e transcreva:", "ты ешь", audio_text="ты ешь"),
+        ex("speak", "Repita em voz alta:", "мы идём домой", audio_text="мы идём домой"),
+    ],
+    "verbos-comuns-da-rotina": [
+        ex("text", "Traduza: Eu sei russo.", "я знаю русский"),
+        ex("quiz", 'Complete: "Я ___ в Бразилии." (moro)', "живу", ["живу", "живёшь", "живут"]),
+        ex("audio", "Escute e transcreva:", "я люблю музыку", audio_text="я люблю музыку"),
+        ex("speak", "Repita em voz alta:", "я работаю дома", audio_text="я работаю дома"),
+    ],
+    "perguntas-e-negacao-no-presente": [
+        ex("text", "Traduza: Você trabalha hoje?", "ты работаешь сегодня"),
+        ex("quiz", 'Como se nega "Я знаю"?', "Я не знаю", ["Я не знаю", "Я знаю не", "Не я знаю"]),
+        ex("audio", "Escute e transcreva:", "что ты читаешь", audio_text="что ты читаешь"),
+        ex("speak", "Repita em voz alta:", "нет я не знаю", audio_text="нет я не знаю"),
+    ],
+    "cidade-e-direcoes": [
+        ex("text", "Traduza: A loja fica perto de casa.", "магазин рядом с домом"),
+        ex("quiz", 'Em "рядом с домом", qual caso aparece depois de "с"?', "Instrumental", ["Instrumental", "Acusativo", "Genitivo"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "идите налево", audio_text="идите налево"),
+        ex("speak", "Repita em voz alta:", "где находится парк", audio_text="где находится парк"),
+    ],
+    "viagem-em-russo": [
+        ex("text", "Traduza: Ele vai de trem.", "он едет на поезде"),
+        ex("quiz", 'Em "на поезде", qual caso indica o meio de transporte?', "Preposicional", ["Preposicional", "Acusativo", "Dativo"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "я еду в аэропорт", audio_text="я еду в аэропорт"),
+        ex("speak", "Repita em voz alta:", "сколько стоит билет", audio_text="сколько стоит билет"),
+    ],
+    "compras": [
+        ex("text", "Traduza: Eu compro um livro.", "я покупаю книгу"),
+        ex("quiz", 'Em "Я покупаю книгу", qual é a forma do objeto direto?', "книгу", ["книга", "книгу", "книге"]),
+        ex("audio", "Escute e transcreva:", "я хочу купить воду", audio_text="я хочу купить воду"),
+        ex("speak", "Repita em voz alta:", "это дёшево", audio_text="это дёшево"),
+    ],
+    "restaurante": [
+        ex("text", "Traduza: A conta, por favor.", "счёт пожалуйста"),
+        ex("quiz", 'Em "Я хочу заказать салат", o caso de "салат" é:', "Acusativo", ["Acusativo", "Preposicional", "Genitivo"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "суп вкусный", audio_text="суп вкусный"),
+        ex("speak", "Repita em voz alta:", "можно салат пожалуйста", audio_text="можно салат пожалуйста"),
+    ],
+    "pedidos-educados": [
+        ex("text", "Traduza: Posso tomar café?", "можно мне кофе"),
+        ex("quiz", 'Em "Можно мне воды?", qual caso é "мне"?', "Dativo", ["Dativo", "Acusativo", "Genitivo"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "помогите пожалуйста", audio_text="помогите пожалуйста"),
+        ex("speak", "Repita em voz alta:", "дайте пожалуйста воду", audio_text="дайте пожалуйста воду"),
+    ],
+    "localizar-objetos": [
+        ex("text", "Traduza: As chaves estão na bolsa.", "ключи в сумке"),
+        ex("quiz", 'Em "под столом", qual caso aparece depois de "под"?', "Instrumental", ["Instrumental", "Preposicional", "Dativo"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "книга на столе", audio_text="книга на столе"),
+        ex("speak", "Repita em voz alta:", "где мой телефон", audio_text="где мой телефон"),
+    ],
+    "preposicional-lugar-e-assunto": [
+        ex("text", "Traduza: Ela fala sobre o trabalho.", "она говорит о работе"),
+        ex("quiz", 'Em "в Москве", qual caso aparece?', "Preposicional", ["Preposicional", "Acusativo", "Genitivo"], audio_lang="pt-BR"),
+        ex("audio", "Escute e transcreva:", "мы живём в городе", audio_text="мы живём в городе"),
+    ],
+    "preposicional-pronomes": [
+        ex("text", "Traduza: Ela pensa nele.", "она думает о нём"),
+        ex("quiz", 'Qual é a forma de "мы" depois de "о"?', "о нас", ["о нас", "о нам", "о нами"]),
+        ex("audio", "Escute e transcreva:", "я думаю о тебе", audio_text="я думаю о тебе"),
+        ex("speak", "Repita em voz alta:", "они говорят обо мне", audio_text="они говорят обо мне"),
+    ],
+    "acusativo-objeto-e-direcao": [
+        ex("text", "Traduza: Ela lê um livro novo.", "она читает новую книгу"),
+        ex("quiz", 'Em "Я вижу кота", por que "кота" não fica como o Nominativo?',
+           "Porque é masculino animado no Acusativo", [
+               "Porque é masculino animado no Acusativo",
+               "Porque é neutro no Preposicional",
+               "Porque é feminino no Dativo"
+           ], audio_lang="pt-BR"),
+    ],
+    "genitivo-posse-e-quantidade": [
+        ex("text", "Traduza: Ela não tem tempo.", "у неё нет времени"),
+        ex("quiz", 'Em "две книги", qual forma aparece depois de 2?', "Genitivo singular", ["Genitivo singular", "Genitivo plural", "Nominativo plural"], audio_lang="pt-BR"),
+    ],
+    "dativo-objeto-e-impessoais": [
+        ex("audio", "Escute e transcreva:", "мне нужно время", audio_text="мне нужно время"),
+        ex("quiz", 'Em "Он пишет сестре", qual caso é "сестре"?', "Dativo", ["Dativo", "Acusativo", "Instrumental"], audio_lang="pt-BR"),
+    ],
+    "instrumental-meio-e-tempo": [
+        ex("text", "Traduza: Ela fala com a mãe.", "она говорит с мамой"),
+        ex("quiz", 'Em "Он пишет карандашом", qual relação o Instrumental expressa?', "instrumento", ["instrumento", "posse", "destino"], audio_lang="pt-BR"),
+    ],
+    "plural-nos-casos": [
+        ex("text", "Traduza: Nós falamos sobre os amigos.", "мы говорим о друзьях"),
+        ex("quiz", 'Complete no Dativo plural: "Я пишу ___" (amigos).', "друзьям", ["друзья", "друзьям", "друзьями"]),
+        ex("speak", "Repita em voz alta:", "они идут с друзьями", audio_text="они идут с друзьями"),
+    ],
+}
+
+
+def lesson_review(explanation, examples, errors, summary):
+    """Monta o complemento editorial comum a todas as lições iniciais."""
+    error_lines = "\n".join(f"- {item}" for item in errors)
+    return (
+        "\n\n## Explicação consolidada\n\n"
+        + explanation.strip()
+        + "\n\n## Exemplos guiados\n\n"
+        + examples.strip()
+        + "\n\n## Erros comuns\n\n"
+        + error_lines
+        + "\n\n## Resumo prático\n\n"
+        + summary.strip()
+    )
+
+
+EARLY_LESSON_REVISIONS = {
+    "como-o-curso-funciona": lesson_review(
+        "O curso alterna compreensão e produção: primeiro você identifica a forma, depois a digita ou fala. O CEFR descreve a autonomia esperada; o currículo em espiral retoma casos, aspecto e movimento em níveis diferentes, sem fingir que uma explicação inicial basta.",
+        """
+Я учу русский. (Ya uchu russkiy.) — Eu estudo russo.
+Я возвращаюсь к теме. (Ya vozvrashchayus' k teme.) — Eu volto ao tema.
+""",
+        [
+            "Confundir o nível A1 com domínio da gramática: A1 significa conseguir lidar com mensagens simples.",
+            "Pular o áudio porque a tradução parece óbvia; reconhecimento visual não substitui compreensão oral.",
+            "Esperar aprender os seis casos em uma única tabela, em vez de reconhecer os blocos primeiro.",
+        ],
+        "Use a sequência ouvir → reconhecer → produzir. M4 apresenta os casos; M8 ensina as declinações; as revisões posteriores refinam escolha e naturalidade.",
+    ),
+    "alfabeto-cirilico": lesson_review(
+        "O alfabeto deve ser aprendido pelo som e pela forma da palavra, não por semelhança visual isolada. As falsas amigas В, Н, Р, С e У são especialmente importantes porque parecem latinas, mas representam outros sons.",
+        """
+Вино (vino) — vinho.
+Нос (nos) — nariz.
+Школа (shkola) — escola.
+""",
+        [
+            "Ler В como b, Н como h, Р como p ou С como c; essas letras precisam ser associadas ao som russo.",
+            "Escrever letras maiúsculas quando a palavra pede minúsculas; a forma muda, mas o som continua o mesmo.",
+            "Tentar pronunciar uma palavra inteira pelo português sem ouvir o modelo.",
+        ],
+        "Reconheça as 33 letras em grupos, leia palavras curtas e confirme a pronúncia no áudio. A meta inicial é decodificar, não dominar todos os detalhes fonéticos.",
+    ),
+    "sons-dificeis-do-russo": lesson_review(
+        "O sinal mole não é uma vogal: ele modifica a consoante anterior. O sinal duro separa uma consoante dura de uma vogal iotizada. Além disso, o acento tônico controla a pronúncia das vogais átonas, por isso a palavra escrita nem sempre revela sozinha o som.",
+        """
+Мать (mat') — mãe.
+Пять (pyat') — cinco.
+Молоко (moloko) — leite; o acento está na última sílaba.
+""",
+        [
+            "Pronunciar ь e ъ como se fossem vogais independentes.",
+            "Supor que todo о não acentuado mantém o mesmo som do о tônico.",
+            "Tratar я, ё, ю, е e и como simples vogais, ignorando a possível palatalização.",
+        ],
+        "Marque mentalmente o acento, observe os sinais e repita a palavra inteira. Não tente resolver a pronúncia apenas letra por letra.",
+    ),
+    "primeiras-palavras-e-saudacoes": lesson_review(
+        "Saudações russas codificam relação e situação. Привет e Пока são informais; Здравствуйте e До свидания são formas seguras em contexto formal. Пожалуйста muda de tradução conforme seja pedido ou resposta a um agradecimento.",
+        """
+Привет! (Privet!) — Oi!
+Как дела? (Kak dela?) — Como vai?
+Хорошо! (Khorosho!) — Bem!
+""",
+        [
+            "Usar Привет com uma autoridade ou desconhecido sem observar o registro.",
+            "Traduzir Пожалуйста sempre como por favor e perder o sentido de de nada.",
+            "Confundir До свидания, despedida formal, com Пока, despedida informal.",
+        ],
+        "Escolha a saudação pelo grau de formalidade, memorize pares de pergunta e resposta e pratique as frases como blocos sonoros.",
+    ),
+    "numeros-1-a-10-russo": lesson_review(
+        "Os números de 1 a 10 são vocabulário de alta frequência e já mostram o sinal mole no final de várias palavras. Neste módulo, memorize a forma e o som; as mudanças do substantivo depois de números serão aprofundadas mais adiante.",
+        """
+Два (dva) — dois.
+Пять (pyat') — cinco.
+Восемь (vosem') — oito.
+""",
+        [
+            "Trocar семь por семьь ou esquecer o sinal mole em пять, семь, восемь e десять.",
+            "Confundir четыре (4) com три (3) por tentar memorizar só a primeira sílaba.",
+            "Pronunciar о átono como o português sem conferir o áudio.",
+        ],
+        "Leia a sequência de 1 a 10, depois pratique números aleatórios. Produza a palavra em cirílico, não apenas o algarismo.",
+    ),
+    "pronomes-pessoais-russo": lesson_review(
+        "Os pronomes pessoais distinguem pessoa, número e, no caso de он, она e оно, gênero. Вы pode ser plural ou singular formal; o contexto e a relação entre os interlocutores decidem a leitura.",
+        """
+Я дома. (Ya doma.) — Estou em casa.
+Вы врач. (Vy vrach.) — O senhor / a senhora é médico(a).
+Они здесь. (Ani zdes'.) — Eles/elas estão aqui.
+""",
+        [
+            "Usar ты automaticamente para qualquer singular; com desconhecidos, вы é a opção polida.",
+            "Confundir вы formal singular com vocês sem olhar para o verbo e o contexto.",
+            "Ler они como uma forma de он; они é sempre plural.",
+        ],
+        "Associe cada pronome a pessoa e número, e memorize вы com os dois sentidos. A forma do pronome muda nos casos dos próximos módulos.",
+    ),
+    "genero-dos-substantivos": lesson_review(
+        "O gênero russo é propriedade do substantivo, não uma tradução automática do gênero em português. Consoante tende a ser masculino, -а/-я feminino e -о/-е neutro; palavras em -ь precisam ser aprendidas individualmente.",
+        """
+Это море. (Eto more.) — Este é o mar.
+Это дверь. (Eto dver'.) — Esta é a porta.
+Мой словарь. (Moy slovar'.) — Meu dicionário.
+""",
+        [
+            "Aplicar a regra de -а/-я a palavras em -ь, que podem ser masculinas ou femininas.",
+            "Escolher o gênero pela tradução portuguesa, sem observar a terminação russa.",
+            "Esquecer que o gênero reaparece em adjetivos e no passado verbal.",
+        ],
+        "Memorize substantivo e gênero juntos. Use a terminação como pista, mas trate -ь como vocabulário que exige consulta e prática.",
+    ),
+    "frases-sem-verbo-ser": lesson_review(
+        "No presente, a cópula быть normalmente não aparece. O russo coloca sujeito e predicado lado a lado; quando ambos são substantivos, um travessão pode marcar a relação na escrita, sem representar uma palavra pronunciada.",
+        """
+Он врач. (On vrach.) — Ele é médico.
+Это окно. (Eto okno.) — Isto é uma janela.
+Москва — столица России. (Moskva — stolitsa Rossii.) — Moscou é a capital da Rússia.
+""",
+        [
+            "Inserir есть em toda frase no presente: Я есть студент não é a forma neutra ensinada aqui.",
+            "Usar o travessão como se fosse obrigatório na fala; ele é principalmente uma marca de escrita.",
+            "Concluir que быть não existe; ele reaparece no passado e no futuro.",
+        ],
+        "No presente, use sujeito + predicado e omita быть. Use o travessão apenas como recurso de pontuação quando a escrita pedir.",
+    ),
+    "plural-basico-russo": lesson_review(
+        "O plural depende da terminação e da ortografia da consoante anterior. Masculinos e femininos costumam formar -ы/-и; neutros em -о/-е costumam formar -а/-я. A escolha entre -ы e -и não é livre.",
+        """
+Столы. (Stoly.) — Mesas.
+Книги. (Knigi.) — Livros.
+Окна. (Okna.) — Janelas.
+""",
+        [
+            "Escrever -ы depois de г, к, х, ш, ж, ч ou щ; a ortografia exige -и.",
+            "Usar -ы em substantivos neutros como окно, que forma окна.",
+            "Tratar toda forma plural como previsível; palavras frequentes como друг têm plural irregular.",
+        ],
+        "Identifique a terminação do singular, aplique a regra de gênero e confira a consoante anterior. Depois, leia o plural em voz alta.",
+    ),
+    "isso-e-palavras-comuns": lesson_review(
+        "Это funciona como apresentador invariável: não muda com o gênero nem com o número do substantivo apresentado. O possessivo, por outro lado, concorda com o substantivo: мой дом, моя книга, моё окно.",
+        """
+Это мой дом. (Eto moy dom.) — Esta é a minha casa.
+Это моя книга. (Eto moya kniga.) — Este é o meu livro.
+Это окно. (Eto okno.) — Isto é uma janela.
+""",
+        [
+            "Flexionar это como se fosse um artigo: a palavra permanece это nesta construção.",
+            "Usar мой com qualquer substantivo e ignorar o gênero de книга ou окно.",
+            "Confundir это com o pronome pessoal оно; это apresenta, não substitui simplesmente o substantivo.",
+        ],
+        "Mantenha это invariável e faça o possessivo concordar. Para produzir uma apresentação, use это + grupo nominal.",
+    ),
+    "palavras-interrogativas-russo": lesson_review(
+        "A palavra interrogativa ocupa o lugar da informação desconhecida; não exige um auxiliar. A entonação ajuda, mas a própria palavra já orienta o sentido da pergunta.",
+        """
+Кто это? — Quem é?
+Когда ты работаешь? — Quando você trabalha?
+Сколько это стоит? — Quanto isso custa?
+""",
+        [
+            "Confundir кто, para pessoas, com что, para coisas ou fatos.",
+            "Usar где quando a pergunta é direção; куда pergunta para onde.",
+            "Adicionar uma palavra equivalente a do/does do inglês; o verbo russo não precisa dela.",
+        ],
+        "Escolha a interrogativa pelo tipo de informação: pessoa, coisa, lugar, direção, tempo, motivo ou quantidade. Mantenha a ordem natural da frase.",
+    ),
+    "gde-vs-kuda": lesson_review(
+        "Где pergunta por localização estática; куда pergunta por destino. A diferença não depende apenas do verbo: ela organiza a perspectiva espacial e antecipa a oposição entre Preposicional e Acusativo.",
+        """
+Где ты? — Onde você está?
+Куда ты идёшь? — Para onde você vai?
+Я живу в Москве. — Moro em Moscou.
+""",
+        [
+            "Traduzir ambos como onde e perder a ideia de movimento em куда.",
+            "Usar Где com um destino, como se localização e direção fossem a mesma coisa.",
+            "Confundir идёшь, movimento a pé, com uma forma de estar parado.",
+        ],
+        "Pergunte где para posição e куда para destino. Primeiro decida se há deslocamento; depois escolha a construção de lugar adequada.",
+    ),
+    "negacao-com-nao": lesson_review(
+        "Не vem antes do elemento negado, normalmente o verbo. A posição pode mudar o foco: em Это не моя книга, a negação recai sobre a posse; em Я не читаю, recai sobre a ação.",
+        """
+Я читаю. — Eu leio.
+Я не читаю. — Eu não leio / não estou lendo.
+Это не мой дом. — Esta não é a minha casa.
+""",
+        [
+            "Colocar не depois do verbo por influência do português ou do inglês.",
+            "Confundir не, que nega uma palavra ou ação, com нет, que também responde não e indica inexistência.",
+            "Achar que a negação elimina a flexão ou altera automaticamente a ordem inteira da frase.",
+        ],
+        "Coloque не imediatamente antes do elemento que quer negar. Leia a frase e pergunte qual parte está sendo contrastada.",
+    ),
+    "respostas-curtas": lesson_review(
+        "Да e нет podem funcionar sozinhos ou iniciar uma resposta curta. Para negar existência, нет aparece em uma construção própria e o elemento que não existe assume o Genitivo, que será estudado com mais detalhe depois.",
+        """
+Это книга? — Isto é um livro?
+Да, книга. — Sim, é um livro.
+Нет, это не книга. — Não, isto não é um livro.
+""",
+        [
+            "Responder toda pergunta com uma frase longa, quando uma resposta curta já é natural.",
+            "Usar да para concordar com uma frase negativa sem prestar atenção ao sentido da pergunta.",
+            "Ler нет somente como não e ignorar o sentido de não há em У меня нет времени.",
+        ],
+        "Use да ou нет como resposta inicial; repita apenas a informação necessária. Reconheça нет como resposta e como marcador de inexistência.",
+    ),
+    "o-que-sao-os-casos": lesson_review(
+        "Caso é a forma que sinaliza a função de um grupo nominal. Neste primeiro contato, o objetivo é reconhecer blocos e funções, não decorar paradigmas: sujeito, objeto, posse, destinatário, companhia e lugar são pistas suficientes por enquanto.",
+        """
+Студент читает. — O estudante lê. (sujeito)
+Мне нравится музыка. — Eu gosto de música. (para mim agrada música)
+Я иду с другом. — Eu vou com um amigo. (companhia)
+""",
+        [
+            "Tentar declinar toda palavra nova neste módulo; as tabelas completas ficam no Módulo 8.",
+            "Confundir a tradução portuguesa com o nome do caso, especialmente em construções impessoais.",
+            "Supor que uma preposição sempre escolhe o mesmo caso sem considerar o sentido de lugar, direção ou companhia.",
+        ],
+        "Reconheça a função e memorize a frase fixa. Adie a pergunta sobre todas as terminações para o Módulo 8.",
+    ),
+    "caso-nominativo-contato": lesson_review(
+        "O Nominativo é a forma de entrada do dicionário e normalmente marca quem realiza a ação ou o tema da frase. Ele também aparece no predicado nominal e no elemento que agrada em construções como Мне нравится музыка.",
+        """
+Девушка читает. — A moça lê.
+Студенты читают. — Os estudantes leem.
+Книга на столе. — O livro está sobre a mesa.
+""",
+        [
+            "Escolher o primeiro substantivo como sujeito sem verificar quem realiza a ação.",
+            "Achar que toda palavra antes do verbo é Nominativo; a ordem pode variar.",
+            "Tentar aplicar terminações de outros casos ao sujeito sem necessidade.",
+        ],
+        "Pergunte quem ou o que realiza a ação. Se a forma é a entrada do dicionário e exerce essa função, reconheça Nominativo.",
+    ),
+    "caso-acusativo-contato": lesson_review(
+        "O Acusativo aparece quando algo ou alguém recebe diretamente a ação e em destinos após в/на. As frases Меня зовут... e Я читаю книгу são blocos úteis; a declinação completa de animados e inanimados virá no Módulo 8.",
+        """
+Я читаю книгу. — Eu leio o livro.
+Я вижу собаку. — Eu vejo o cachorro.
+Я иду в парк. — Eu vou para o parque.
+""",
+        [
+            "Confundir objeto direto com sujeito porque a ordem da frase parece semelhante ao português.",
+            "Usar Preposicional em в парк; movimento para o destino pede Acusativo.",
+            "Tentar memorizar apenas a terminação -у sem considerar gênero e animacidade.",
+        ],
+        "Procure o alvo da ação ou o destino do movimento. Neste módulo, reconheça o bloco; no Módulo 8, escolha a forma pela regra.",
+    ),
+    "caso-genitivo-contato": lesson_review(
+        "O Genitivo aparece em posse, origem e na construção de existência com у, есть e нет. A leitura literal de у меня есть é “junto a mim há”; essa lógica evita procurar um verbo ter inexistente no presente.",
+        """
+У него есть машина. — Ele tem um carro.
+У меня нет времени. — Eu não tenho tempo.
+Это книга Анны. — Este é o livro de Anna.
+""",
+        [
+            "Traduzir у меня есть com я имею em toda situação; a construção fixa é mais natural.",
+            "Usar Nominativo depois de нет, ignorando a ideia de ausência.",
+            "Confundir из, origem, com в, destino ou localização.",
+        ],
+        "Reconheça posse, origem e ausência como gatilhos do Genitivo. Memorize у меня есть, у меня нет e из + origem como blocos.",
+    ),
+    "caso-dativo-contato": lesson_review(
+        "O Dativo marca o destinatário e a pessoa para quem uma sensação ou necessidade se apresenta. Em Мне нравится музыка, мне não é o sujeito gramatical: a estrutura significa literalmente “para mim agrada música”.",
+        """
+Я пишу другу. — Eu escrevo para um amigo.
+Мне нужно время. — Eu preciso de tempo.
+Ему нравится музыка. — Ele gosta de música.
+""",
+        [
+            "Traduzir eu gosto como Я нравится; a construção usa Мне нравится.",
+            "Confundir мне, Dativo, com меня, forma usada em outras funções.",
+            "Procurar concordância do verbo com a pessoa que sente; нравится concorda com o que agrada.",
+        ],
+        "Pergunte “para quem?” ou reconheça Мне нравится/Мне нужно. Memorize o bloco antes de estudar as terminações.",
+    ),
+    "caso-instrumental-e-preposicional-contato": lesson_review(
+        "O Instrumental aparece com companhia e instrumento; o Preposicional aparece depois de в, на ou о em local e assunto. O contraste в школе e в школу é uma decisão de sentido: posição contra destino.",
+        """
+Я говорю с мамой. — Eu falo com a mãe.
+Я пишу ручкой. — Eu escrevo com uma caneta.
+Я думаю о книге. — Eu penso no livro.
+""",
+        [
+            "Usar Nominativo depois de с; companhia exige Instrumental.",
+            "Confundir в школе, localização, com в школу, direção.",
+            "Achar que Preposicional pode aparecer sem preposição.",
+        ],
+        "Veja a preposição e o sentido: с/чем ou с/кем aponta para Instrumental; в/на/о + lugar ou assunto aponta para Preposicional.",
+    ),
+    "rotina-diaria": lesson_review(
+        "Verbos da rotina permitem praticar presente e lugar na mesma frase. Quando a ação ocorre em um local, в/на + forma de lugar descreve onde a pessoa está trabalhando ou estudando, sem verbo estar no presente.",
+        """
+Я завтракаю. — Eu tomo café da manhã.
+Я работаю в офисе. — Eu trabalho no escritório.
+Я сплю. — Eu durmo.
+""",
+        [
+            "Usar Я есть перед uma atividade; o presente continua sem o verbo ser/estar.",
+            "Usar в офис em localização, em vez de в офисе.",
+            "Confundir учусь, estudo, com работаю, trabalho.",
+        ],
+        "Conjugue o verbo para я e acrescente a rotina. Para dizer onde, use в/на + a forma de lugar já reconhecida.",
+    ),
+    "familia-e-pessoas": lesson_review(
+        "O vocabulário de família combina apresentação, posse e companhia. Isso faz o mesmo substantivo aparecer em funções diferentes: брат em У меня есть брат, mas другом em Я иду с другом.",
+        """
+Это мой брат. — Este é o meu irmão.
+У меня есть сестра. — Eu tenho uma irmã.
+Я иду с сестрой. — Eu vou com a minha irmã.
+""",
+        [
+            "Manter брат depois de с; a companhia exige a forma do Instrumental.",
+            "Usar мой com мама ou моя com брат sem concordância de gênero.",
+            "Confundir семья, família, com сестра, irmã.",
+        ],
+        "Pratique cada membro da família em três moldes: это + posse, у меня есть + pessoa e с + companhia.",
+    ),
+    "lugares-na-cidade-russo": lesson_review(
+        "Lugares da cidade reforçam a diferença entre destino e localização. В школу e в парк respondem para onde; в магазине e в городе respondem onde. A preposição é parecida, mas a forma e o sentido mudam.",
+        """
+Я иду в парк. — Eu vou para o parque.
+Я в городе. — Eu estou na cidade.
+Магазин рядом с домом. — A loja fica perto de casa.
+""",
+        [
+            "Usar в городе para indicar movimento; a frase localiza, não indica destino.",
+            "Esquecer o Instrumental depois de рядом с.",
+            "Traduzir рядом como dentro; a palavra significa perto.",
+        ],
+        "Decida primeiro entre ir para um lugar e estar em um lugar. Depois, escolha Acusativo ou Preposicional e pratique o bloco completo.",
+    ),
+    "comida-e-bebida": lesson_review(
+        "Comida e bebida mostram duas estruturas: verbos como пить e любить recebem um objeto direto; Мне нравится usa uma construção impessoal, em que o que agrada aparece como tema da frase.",
+        """
+Я пью воду. — Eu bebo água.
+Я люблю молоко. — Eu gosto muito de leite.
+Мне нравится кофе. — Eu gosto de café.
+""",
+        [
+            "Usar Мне нравится com o pronome da pessoa como se fosse sujeito de gostar.",
+            "Esquecer a forma вода → воду depois de пить.",
+            "Supor que кофе muda de terminação como palavras comuns; ele é invariável neste nível.",
+        ],
+        "Use Я + verbo + alimento para ação direta. Use Мне нравится + tema para a construção impessoal de gosto.",
+    ),
+    "apresentacoes-basicas": lesson_review(
+        "Apresentações combinam perguntas fixas e casos já reconhecíveis. Меня зовут apresenta o nome; из + lugar indica origem; это мой друг apresenta outra pessoa.",
+        """
+Как тебя зовут? — Qual é o seu nome?
+Меня зовут Анна. — Meu nome é Anna.
+Я из Бразилии. — Eu sou do Brasil.
+""",
+        [
+            "Dizer Я зовут; a construção fixa usa Меня зовут.",
+            "Usar в Бразилии para origem; из pede a ideia de “de, vindo de”.",
+            "Confundir Откуда ты? com Где ты?, origem com localização atual.",
+        ],
+        "Memorize o par Как тебя зовут? → Меня зовут... e use из + lugar para dizer de onde você é.",
+    ),
+    "pedidos-simples-russo": lesson_review(
+        "Pedidos iniciais usam fórmulas curtas e corteses. Можно pergunta se algo é possível; Дайте, пожалуйста solicita algo; Генitivo em Можно воды indica uma quantidade não especificada.",
+        """
+Можно чай? — Posso tomar chá?
+Дайте, пожалуйста, воды. — Dê-me água, por favor.
+Извините! — Desculpe / Com licença!
+""",
+        [
+            "Usar água no Nominativo em Можно воды quando a intenção é uma quantidade não especificada.",
+            "Confundir можно, possibilidade, com хочу, desejo direto.",
+            "Omitir пожалуйста em uma situação em que a polidez é importante.",
+        ],
+        "Escolha Можно para pedir permissão ou oferta, Дайте para solicitar e acrescente пожалуйста quando quiser suavizar o pedido.",
+    ),
+    "primeira-conjugacao": lesson_review(
+        "Na 1ª conjugação, as terminações do presente acompanham a pessoa: -ю/-у, -ешь, -ет, -ем, -ете, -ют/-ут. A raiz permanece reconhecível em verbos regulares como читать e работать.",
+        """
+Я читаю книгу. — Eu leio o livro.
+Ты читаешь книгу. — Você lê o livro.
+Они читают книгу. — Eles leem o livro.
+""",
+        [
+            "Usar a terminação de я com ты: читаю não combina com ты.",
+            "Esquecer -ете com вы e produzir uma forma de ты.",
+            "Confundir o infinitivo читать com a forma conjugada читают.",
+        ],
+        "Identifique o pronome, remova -ть e aplique a terminação correspondente. Confirme a pessoa pelo sujeito antes de responder.",
+    ),
+    "segunda-conjugacao": lesson_review(
+        "A 2ª conjugação aparece com frequência em verbos em -ить. Suas marcas mais visíveis são -ишь, -ит, -им e -ите, embora a 1ª pessoa e o plural final também exijam atenção.",
+        """
+Я люблю музыку. — Eu gosto de música.
+Мы любим музыку. — Nós gostamos de música.
+Они говорят по-русски. — Eles falam russo.
+""",
+        [
+            "Escolher -ешь para ты em um verbo regular da 2ª conjugação.",
+            "Confundir говорим, nós falamos, com говорите, vocês falam.",
+            "Aplicar a regra do infinitivo sem lembrar que existem exceções.",
+        ],
+        "Procure -ить no infinitivo como pista, identifique o sujeito e observe o núcleo -и- nas terminações oblíquas.",
+    ),
+    "verbos-irregulares-comuns": lesson_review(
+        "Хотеть, идти e есть são frequentes e não devem ser forçados nos modelos regulares. A forma precisa ser recuperada como vocabulário conjugado, especialmente em quero, vou e como.",
+        """
+Я хочу есть. — Eu quero comer.
+Я иду домой. — Eu vou para casa a pé.
+Ты ешь. — Você come.
+""",
+        [
+            "Formar хочую ou идю seguindo uma regra inexistente.",
+            "Confundir иду, movimento a pé agora, com uma forma de ехать, ir de veículo.",
+            "Usar ем com ты; o presente de есть é ты ешь.",
+        ],
+        "Memorize as formas de alta frequência em frases inteiras: хочу, иду e ем/ешь/ест.",
+    ),
+    "verbos-comuns-da-rotina": lesson_review(
+        "Os verbos da rotina combinam conjugação, vocabulário e casos. Жить costuma aparecer com lugar, любить com objeto direto e понимать com a expressão по-русски.",
+        """
+Я живу в Бразилии. — Eu moro no Brasil.
+Я понимаю по-русски. — Eu entendo russo.
+Я люблю музыку. — Eu gosto de música.
+""",
+        [
+            "Usar я жить em vez da forma conjugada я живу.",
+            "Trocar в Бразилии por в Бразилию quando a ideia é morar, não ir para lá.",
+            "Confundir знаю, saber um fato, com понимаю, entender.",
+        ],
+        "Conjugue o verbo antes de escolher o complemento. Para local estático use в + forma de lugar; para objeto direto, reconheça o Acusativo.",
+    ),
+    "perguntas-e-negacao-no-presente": lesson_review(
+        "No presente, a pergunta normalmente mantém a ordem declarativa e ganha entonação interrogativa. A negação continua sendo не antes do verbo; a resposta curta pode omitir o sujeito quando ele já está claro.",
+        """
+Ты работаешь сегодня? — Você trabalha hoje?
+Что ты читаешь? — O que você lê?
+Нет, не работаю. — Não, não trabalho.
+""",
+        [
+            "Criar um auxiliar equivalente a do/does; o verbo russo não precisa dele.",
+            "Colocar не no fim da frase: o padrão neutro é не + verbo.",
+            "Responder Нет, работаю quando o sentido correto é negar a ação.",
+        ],
+        "Mantenha o verbo conjugado, use entonação para perguntar e coloque не imediatamente antes do verbo para negar.",
+    ),
+    "cidade-e-direcoes": lesson_review(
+        "Para orientar alguém, combine pergunta de localização com direção e distância. Рядом с exige companhia/local de referência no Instrumental; Идите прямо e Идите налево são imperativos formais úteis.",
+        """
+Где находится парк? — Onde fica o parque?
+Идите налево. — Vá à esquerda.
+Магазин рядом с домом. — A loja fica perto de casa.
+""",
+        [
+            "Confundir налево, à esquerda, com направо, à direita.",
+            "Usar дом depois de с, em vez de домом.",
+            "Tratar находится como uma tradução obrigatória de estar em toda frase; ele é útil para localizar algo.",
+        ],
+        "Pergunte onde fica, escolha a direção e lembre que рядом с puxa Instrumental para o ponto de referência.",
+    ),
+    "viagem-em-russo": lesson_review(
+        "Viagem reúne destino, meio de transporte e preço. В + destino usa Acusativo; на + meio de transporte usa Preposicional em expressões como на поезде.",
+        """
+Я еду в аэропорт. — Eu vou para o aeroporto.
+Он едет на поезде. — Ele vai de trem.
+Сколько стоит билет? — Quanto custa o bilhete?
+""",
+        [
+            "Usar в аэропорте para destino; аэропорте indica localização, não movimento para lá.",
+            "Traduzir на поезде como um destino; a expressão indica o meio de transporte.",
+            "Confundir билет, bilhete, com багаж, bagagem.",
+        ],
+        "Pergunte o destino com в + Acusativo, o meio com на + Preposicional e o preço com Сколько стоит...?.",
+    ),
+    "compras": lesson_review(
+        "Em compras, o objeto de купить e покупать recebe a ação. Para substantivos femininos em -а, o Acusativo costuma aparecer em -у: книга → книгу.",
+        """
+Я покупаю книгу. — Eu compro um livro.
+Я хочу купить воду. — Eu quero comprar água.
+Это дёшево. — Isto é barato.
+""",
+        [
+            "Usar книга depois de покупаю; o objeto feminino comum passa a книгу.",
+            "Confundir дорого, caro, com дёшево, barato.",
+            "Usar купить sem objeto quando a tarefa pede uma compra concreta.",
+        ],
+        "Use Сколько стоит...? para perguntar preço e flexione o objeto direto conforme a regra já estudada ou a forma memorizada.",
+    ),
+    "restaurante": lesson_review(
+        "No restaurante, pedidos curtos são naturais. O objeto de заказать aparece no Acusativo; em substantivos masculinos inanimados como салат e суп, a forma pode ser igual à do Nominativo.",
+        """
+Я хочу заказать салат. — Eu quero pedir uma salada.
+Можно меню, пожалуйста? — Pode me dar o cardápio, por favor?
+Счёт, пожалуйста! — A conta, por favor!
+""",
+        [
+            "Interpretar меню como plural obrigatório; a palavra é invariável e depende do contexto.",
+            "Trocar салат por салата sem um motivo de Genitivo.",
+            "Esquecer que суп e салат podem parecer Nominativo, embora exerçam função de objeto.",
+        ],
+        "Monte o pedido com Можно ou Я хочу заказать e identifique o objeto pelo verbo, não só pela aparência da terminação.",
+    ),
+    "pedidos-educados": lesson_review(
+        "A polidez combina imperativo formal, пожалуйста e pronomes nos casos certos. Помогите мне usa Dativo para a pessoa ajudada; Можно мне воды combina Dativo e Genitivo de quantidade.",
+        """
+Помогите мне, пожалуйста! — Ajude-me, por favor!
+Можно мне воды? — Posso tomar um pouco de água?
+Дайте, пожалуйста, меню. — Dê-me o cardápio, por favor.
+""",
+        [
+            "Usar меня depois de помогите; a pessoa beneficiária é мне.",
+            "Trocar воды por вода quando a ideia é uma quantidade não especificada.",
+            "Usar o imperativo informal com desconhecidos em uma situação de atendimento.",
+        ],
+        "Use Помогите/Дайте para pedidos diretos, мне para o destinatário e пожалуйста para suavizar o tom.",
+    ),
+    "localizar-objetos": lesson_review(
+        "Para localizar objetos, в/на + Preposicional informa posição. Outras preposições espaciais, como под, podem exigir Instrumental: под столом significa debaixo da mesa.",
+        """
+Ключи в сумке. — As chaves estão na bolsa.
+Книга на столе. — O livro está sobre a mesa.
+Телефон под столом. — O telefone está debaixo da mesa.
+""",
+        [
+            "Usar сумка ou сумку depois de в quando a frase responde onde, não para onde.",
+            "Confundir на столе, sobre a mesa, com под столом, debaixo da mesa.",
+            "Esquecer que под muda de construção conforme indica posição ou movimento.",
+        ],
+        "Pergunte Где...? para localização, escolha в/на/под pelo espaço e confira o caso exigido pela preposição.",
+    ),
+    "preposicional-lugar-e-assunto": lesson_review(
+        "O Preposicional singular apresenta dois usos centrais: lugar com в/на e assunto com о/об. A terminação mais comum é -е; palavras femininas em -ь usam -и, e о vira об diante de vogal quando isso facilita a pronúncia.",
+        """
+Она говорит о работе. — Ela fala sobre o trabalho.
+Мы живём в городе. — Nós moramos na cidade.
+Она рассказывает об Америке. — Ela fala sobre a América.
+""",
+        [
+            "Usar Acusativo em в Москве quando o verbo indica permanência, não destino.",
+            "Escrever о Америке sem observar a combinação natural об Америке.",
+            "Tratar -е como uma terminação universal; дверь vira двери.",
+        ],
+        "Identifique lugar ou assunto, escolha в/на/о(б) e aplique a forma singular correspondente. Preposicional precisa de preposição.",
+    ),
+    "preposicional-pronomes": lesson_review(
+        "Pronomes pessoais têm formas próprias no Preposicional. Обо мне é uma combinação fixa; о нём, о ней e о них preservam a preposição e mudam a forma do pronome.",
+        """
+Она думает о нём. — Ela pensa nele.
+Я думаю о тебе. — Eu penso em você.
+Они говорят обо мне. — Eles falam sobre mim.
+""",
+        [
+            "Usar о я ou о ты; pronomes não permanecem no Nominativo depois da preposição.",
+            "Confundir о нём, Preposicional, com его, forma de outros casos.",
+            "Esquecer о extra em обо мне, uma combinação motivada pela pronúncia.",
+        ],
+        "Memorize a tabela por blocos com о: обо мне, о тебе, о нём, о ней, о нас, о вас, о них.",
+    ),
+    "acusativo-objeto-e-direcao": lesson_review(
+        "No Acusativo, gênero e animacidade importam. Feminino em -а passa a -у; masculino animado costuma igualar o Genitivo; masculino inanimado e neutro frequentemente mantêm a forma do Nominativo.",
+        """
+Она читает новую книгу. — Ela lê um livro novo.
+Я вижу кота. — Eu vejo o gato.
+Я иду в школу. — Eu vou para a escola.
+""",
+        [
+            "Aplicar a regra de objeto inanimado a pessoa ou animal: кот vira кота.",
+            "Confundir книгу com книге; o primeiro é objeto, o segundo é uma forma de lugar/assunto.",
+            "Usar Preposicional depois de в com verbo de movimento para destino.",
+        ],
+        "Pergunte o que recebe a ação ou qual é o destino; depois classifique o substantivo por gênero e animacidade.",
+    ),
+    "genitivo-posse-e-quantidade": lesson_review(
+        "O Genitivo singular aparece com posse, ausência e depois de 2, 3 e 4. Depois de 5 ou mais, é comum o Genitivo plural. Não basta contar: a forma do substantivo depende do número e do padrão de declinação.",
+        """
+У неё нет времени. — Ela não tem tempo.
+Две книги. — Dois livros.
+Пять книг. — Cinco livros.
+""",
+        [
+            "Usar Nominativo depois de нет ou depois de две.",
+            "Aplicar Genitivo singular depois de cinco sem reconhecer o Genitivo plural.",
+            "Confundir у неё, posse de ela, com ей, Dativo de ela.",
+        ],
+        "Para quantidades, separe 1, 2–4 e 5+. Para ausência, procure нет; para posse, procure у + pessoa.",
+    ),
+    "dativo-objeto-e-impessoais": lesson_review(
+        "O Dativo singular usa com frequência -у/-ю no masculino e neutro e -е no feminino em -а. Além de destinatário, aparece com gostar, precisar, idade e movimento em direção a alguém ou lugar.",
+        """
+Я даю книгу сестре. — Eu dou o livro para a irmã.
+Мне нужно время. — Eu preciso de tempo.
+Я иду к врачу. — Eu vou ao médico.
+""",
+        [
+            "Usar сестра depois de даю; o destinatário é сестре.",
+            "Confundir к врачу, direção a uma pessoa, com в врача, uma combinação inadequada.",
+            "Tratar мне нравится como uma concordância comum de sujeito e verbo.",
+        ],
+        "Pergunte para quem, reconheça construções impessoais e observe к + Dativo. Memorize as terminações por gênero.",
+    ),
+    "instrumental-meio-e-tempo": lesson_review(
+        "O Instrumental responde com quem? ou com o quê? e também aparece em expressões de tempo. No singular, masculinos e neutros tendem a -ом/-ем; femininos em -а tendem a -ой/-ей.",
+        """
+Она говорит с мамой. — Ela fala com a mãe.
+Он пишет карандашом. — Ele escreve com um lápis.
+Зимой мы отдыхаем. — No inverno, descansamos.
+""",
+        [
+            "Usar мама depois de с; companhia exige мамой.",
+            "Confundir карандашом, instrumento, com карандаш no Nominativo.",
+            "Tratar зимой como uma forma de direção; é uma expressão fixa de tempo.",
+        ],
+        "Identifique companhia, instrumento ou tempo e escolha a forma do Instrumental. No plural, procure -ами/-ями.",
+    ),
+    "plural-nos-casos": lesson_review(
+        "No plural, Dativo, Instrumental e Preposicional têm padrões relativamente regulares, enquanto o Genitivo varia bastante. O caso continua sendo decidido pela função ou pela preposição; o plural só acrescenta outra camada de forma.",
+        """
+Мы говорим о друзьях. — Nós falamos sobre os amigos.
+Я пишу друзьям. — Eu escrevo para os amigos.
+Они идут с друзьями. — Eles vão com os amigos.
+""",
+        [
+            "Usar друзьями quando a frase exige Dativo: Я пишу друзьям.",
+            "Confundir друзьях, Preposicional, com друзьям, Dativo.",
+            "Supor que todo Genitivo plural termina em uma única terminação.",
+        ],
+        "Determine o caso antes de olhar a terminação. Fixe o trio друзьям / друзьями / друзьях e trate Genitivo plural como categoria de alta atenção.",
+    ),
+}
+
+
+def _complete_early_module(builder):
+    """Aplica as revisões somente ao resultado novo dos builders 1–8."""
+    def wrapped():
+        built = builder()
+        for current_topic in built["topics"]:
+            slug = current_topic["slug"]
+            current_topic["exercises"].extend(deepcopy(EARLY_EXERCISES[slug]))
+            current_topic["lesson_md"] += EARLY_LESSON_REVISIONS[slug]
+        return built
+    return wrapped
+
+
+for _early_builder_name in (
+    "build_modulo_01_alfabeto_e_primeiros_passos",
+    "build_modulo_02_frases_basicas_sem_verbo_ser",
+    "build_modulo_03_perguntas_e_negacao",
+    "build_modulo_04_casos_primeiro_contato",
+    "build_modulo_05_vocabulario_e_comunicacao_a1",
+    "build_modulo_06_presente_dos_verbos",
+    "build_modulo_07_vocabulario_e_comunicacao_a2",
+    "build_modulo_08_casos_intermediarios",
+):
+    globals()[_early_builder_name] = _complete_early_module(globals()[_early_builder_name])
+
+
+# ============================================================
+# Expansão dos módulos 9–18: exercícios e revisão editorial
+# ============================================================
+
+INTERMEDIATE_EXTRA_EXERCISES = {
+    # Módulo 9 — aspecto verbal
+    "o-que-e-aspecto-verbal": [
+        ex("text", "Traduza destacando o processo, sem afirmar o resultado: Eu estava lendo um artigo.",
+           "я читал статью"),
+        ex("quiz", 'Em "Вчера я прочитал статью до конца", o aspecto de прочитал é:',
+           "perfectivo", ["perfectivo", "imperfectivo", "tempo verbal"]),
+        ex("text", 'Complete: "Она ___ письмо весь вечер." (estava escrevendo — писать)',
+           "писала"),
+        ex("audio", "Escute e transcreva:", "я читал статью весь вечер", audio_text="я читал статью весь вечер"),
+        ex("speak", "Repita em voz alta:", "я прочитал статью до конца", audio_text="я прочитал статью до конца"),
+    ],
+    "formando-o-perfectivo": [
+        ex("text", 'Escreva o perfectivo de "смотреть" (assistir/olhar), com по-.',
+           "посмотреть"),
+        ex("quiz", 'Qual par mostra processo versus ação concluída?',
+           "писать / написать", ["писать / написать", "писал / пишет", "пишу / писал"]),
+        ex("text", 'Complete com o perfectivo: "Она ___ письмо за час." (написать)',
+           "написала"),
+        ex("audio", "Escute e transcreva:", "он решил задачу", audio_text="он решил задачу"),
+        ex("speak", "Repita em voz alta:", "мы сделали проект", audio_text="мы сделали проект"),
+    ],
+    "aspecto-no-presente-e-infinitivo": [
+        ex("text", "Traduza: Amanhã vou ler o livro até o fim.",
+           "завтра я прочитаю книгу"),
+        ex("quiz", 'Em "Я буду читать", o infinitivo читать é:',
+           "imperfectivo", ["imperfectivo", "perfectivo", "passado"]),
+        ex("text", 'Complete com o infinitivo de processo: "Я хочу ___ эту статью." (ler)',
+           "читать"),
+        ex("audio", "Escute e transcreva:", "она будет писать письмо", audio_text="она будет писать письмо"),
+        ex("speak", "Repita em voz alta:", "мы прочитаем статью", audio_text="мы прочитаем статью"),
+    ],
+    "usando-aspecto-no-passado": [
+        ex("text", "Traduza usando o imperfectivo: Ela estava escrevendo uma carta.",
+           "она писала письмо"),
+        ex("quiz", 'Qual frase afirma que o trabalho foi concluído?',
+           "Я сделал работу.", ["Я сделал работу.", "Я делал работу.", "Я делаю работу."]),
+        ex("text", 'Complete: "Когда я вошёл, он ___ письмо." (estava escrevendo — писать)',
+           "писал"),
+        ex("audio", "Escute e transcreva:", "я написал письмо за час", audio_text="я написал письмо за час"),
+        ex("speak", "Repita em voz alta:", "мы часто читали вместе", audio_text="мы часто читали вместе"),
+    ],
+    "pares-comuns-de-aspecto": [
+        ex("quiz", 'Qual é o perfectivo de "решать"?',
+           "решить", ["решить", "решал", "решает"]),
+        ex("text", "Traduza: Eu normalmente leio antes de dormir.",
+           "я обычно читаю перед сном"),
+        ex("audio", "Escute e transcreva:", "я решил задачу", audio_text="я решил задачу"),
+        ex("speak", "Repita em voz alta:", "она сказала правду", audio_text="она сказала правду"),
+    ],
+
+    # Módulo 10 — passado, futuro e condicional
+    "passado-com-genero": [
+        ex("text", 'Complete no feminino: "Она ___ фильм вчера." (assistiu — смотреть)',
+           "смотрела"),
+        ex("quiz", 'Qual forma completa corretamente "Окно ___ само." (abriu-se, neutro)?',
+           "открылось", ["открылось", "открылся", "открылась"]),
+        ex("audio", "Escute e transcreva:", "мы работали весь день", audio_text="мы работали весь день"),
+        ex("speak", "Repita em voz alta:", "она читала вчера", audio_text="она читала вчера"),
+    ],
+    "passado-dos-irregulares": [
+        ex("text", 'Complete: "Они ___ прийти раньше." (puderam — мочь)',
+           "могли"),
+        ex("quiz", 'Qual é o passado feminino de идти?',
+           "шла", ["шла", "шёл", "шли"]),
+        ex("audio", "Escute e transcreva:", "она ела суп", audio_text="она ела суп"),
+        ex("speak", "Repita em voz alta:", "он мог помочь", audio_text="он мог помочь"),
+    ],
+    "futuro-simples-e-composto": [
+        ex("text", "Traduza: Eles vão ler o artigo até o fim.",
+           "они прочитают статью"),
+        ex("quiz", 'Complete o futuro composto: "Вы ___ работать завтра." (быть)',
+           "будете", ["будете", "будешь", "будут"]),
+        ex("audio", "Escute e transcreva:", "мы будем обсуждать план", audio_text="мы будем обсуждать план"),
+        ex("speak", "Repita em voz alta:", "я закончу работу", audio_text="я закончу работу"),
+    ],
+    "negacao-no-futuro": [
+        ex("text", "Traduza usando o perfectivo: Nós não terminaremos o projeto hoje.",
+           "мы не закончим проект сегодня"),
+        ex("quiz", 'Qual frase nega uma ação futura pontual, não uma intenção contínua?',
+           "Я не подожду.", ["Я не подожду.", "Я не буду ждать.", "Я не жду."]),
+        ex("text", "Traduza: Ela não conseguirá terminar o trabalho.",
+           "она не закончит работу"),
+        ex("audio", "Escute e transcreva:", "он не придёт завтра", audio_text="он не придёт завтра"),
+        ex("speak", "Repita em voz alta:", "я не буду покупать билет", audio_text="я не буду покупать билет"),
+    ],
+    "modo-condicional": [
+        ex("text", "Traduza: Se eu soubesse a resposta, responderia.",
+           "если бы я знал ответ я бы ответил"),
+        ex("quiz", 'Em "Если бы у меня было время", a forma verbal vem no:',
+           "passado", ["passado", "presente", "futuro"]),
+        ex("audio", "Escute e transcreva:", "я бы помог тебе", audio_text="я бы помог тебе"),
+        ex("speak", "Repita em voz alta:", "мы бы поехали вместе", audio_text="мы бы поехали вместе"),
+    ],
+
+    # Módulo 11 — casos avançados
+    "adjetivos-no-nominativo": [
+        ex("text", 'Complete: "___ дом стоит здесь." (novo, masculino)', "новый"),
+        ex("quiz", 'Qual forma concorda com "окно" no Nominativo?',
+           "новое", ["новое", "новая", "новый"]),
+        ex("audio", "Escute e transcreva:", "большие города интересны", audio_text="большие города интересны"),
+        ex("speak", "Repita em voz alta:", "красивая улица рядом", audio_text="красивая улица рядом"),
+    ],
+    "adjetivos-nos-casos": [
+        ex("text", 'Complete no Genitivo: "около ___ дома" (новый)', "нового"),
+        ex("quiz", 'Complete no Instrumental: "Я иду с ___ другом." (новый)',
+           "новым", ["новым", "нового", "новому"]),
+        ex("audio", "Escute e transcreva:", "я думаю о новой работе", audio_text="я думаю о новой работе"),
+        ex("speak", "Repita em voz alta:", "мы живём в старом городе", audio_text="мы живём в старом городе"),
+    ],
+    "pronomes-em-todos-os-casos": [
+        ex("text", 'Complete no Dativo: "Я помогаю ___." (ela)', "ей"),
+        ex("quiz", 'Complete: "Мы говорим о ___." (eles)',
+           "них", ["них", "им", "ими"]),
+        ex("audio", "Escute e transcreva:", "он говорит обо мне", audio_text="он говорит обо мне"),
+        ex("speak", "Repita em voz alta:", "мы идём к нему", audio_text="мы идём к нему"),
+    ],
+    "oracoes-com-kotoryi": [
+        ex("text", "Traduza: O livro que você lê é interessante.",
+           "книга которую ты читаешь интересная"),
+        ex("quiz", 'Complete no plural: "Люди, ___ работают здесь, добрые."',
+           "которые", ["которые", "которая", "которое"]),
+        ex("audio", "Escute e transcreva:", "женщина которая живёт рядом моя сестра", audio_text="женщина которая живёт рядом моя сестра"),
+        ex("speak", "Repita em voz alta:", "я знаю человека который говорит по-русски", audio_text="я знаю человека который говорит по-русски"),
+    ],
+    "kotoryi-nos-casos": [
+        ex("text", 'Complete no Dativo feminino: "Девушка, ___ я пишу, живёт здесь."',
+           "которой"),
+        ex("quiz", 'Complete no Preposicional neutro: "Озеро, о ___ я думаю, далеко."',
+           "котором", ["котором", "которого", "которому"]),
+        ex("audio", "Escute e transcreva:", "это книга о которой я говорил", audio_text="это книга о которой я говорил"),
+        ex("speak", "Repita em voz alta:", "человек с которым я работаю мой друг", audio_text="человек с которым я работаю мой друг"),
+    ],
+    "adjetivos-no-plural": [
+        ex("text", 'Complete no Genitivo plural: "много ___ книг" (novo)', "новых"),
+        ex("quiz", 'No Acusativo de seres animados, complete: "Я вижу ___ студентов." (novo)',
+           "новых", ["новых", "новые", "новыми"]),
+        ex("audio", "Escute e transcreva:", "мы говорим о старых друзьях", audio_text="мы говорим о старых друзьях"),
+        ex("speak", "Repita em voz alta:", "она работает с опытными врачами", audio_text="она работает с опытными врачами"),
+    ],
+
+    # Módulo 12 — verbos de movimento
+    "idti-vs-khodit": [
+        ex("text", "Traduza: Ele está indo ao médico agora.", "он идёт к врачу"),
+        ex("quiz", 'Para "todo sábado", escolha a forma correta: "Я ___ в бассейн."',
+           "хожу", ["хожу", "иду", "пойду"]),
+        ex("audio", "Escute e transcreva:", "мы идём в музей сейчас", audio_text="мы идём в музей сейчас"),
+        ex("speak", "Repita em voz alta:", "она ходит в бассейн по субботам", audio_text="она ходит в бассейн по субботам"),
+    ],
+    "ekhat-vs-ezdit": [
+        ex("text", "Traduza: Eles estão indo para São Petersburgo agora, de veículo.",
+           "они едут в санкт-петербург сейчас"),
+        ex("quiz", 'Para uma rotina de carro, escolha: "Он ___ на работу каждый день."',
+           "ездит", ["ездит", "едет", "пойдёт"]),
+        ex("audio", "Escute e transcreva:", "он едет на автобусе в центр", audio_text="он едет на автобусе в центр"),
+        ex("speak", "Repita em voz alta:", "мы ездим на дачу летом", audio_text="мы ездим на дачу летом"),
+    ],
+    "letet-vs-letat": [
+        ex("text", "Traduza: O avião está voando sobre a cidade.",
+           "самолёт летит над городом"),
+        ex("quiz", 'Para um hábito, complete: "Я часто ___ в Турцию."',
+           "летаю", ["летаю", "лечу", "летит"]),
+        ex("audio", "Escute e transcreva:", "мы летим в москву сейчас", audio_text="мы летим в москву сейчас"),
+        ex("speak", "Repita em voz alta:", "она часто летает в турцию", audio_text="она часто летает в турцию"),
+    ],
+    "plyt-vs-plavat": [
+        ex("text", "Traduza: O barco está indo para a margem.",
+           "лодка плывёт к берегу"),
+        ex("quiz", 'Para habilidade geral, complete: "Он хорошо ___."',
+           "плавает", ["плавает", "плывёт", "плыл"]),
+        ex("audio", "Escute e transcreva:", "мы плывём по реке", audio_text="мы плывём по реке"),
+        ex("speak", "Repita em voz alta:", "он плавает каждое утро", audio_text="он плавает каждое утро"),
+    ],
+    "bezhat-vs-begat": [
+        ex("text", "Traduza: A criança está correndo até a mãe.",
+           "ребёнок бежит к маме"),
+        ex("quiz", 'Para um hábito, complete: "Она ___ по утрам."',
+           "бегает", ["бегает", "бежит", "побежит"]),
+        ex("audio", "Escute e transcreva:", "они бегут в парк сейчас", audio_text="они бегут в парк сейчас"),
+        ex("speak", "Repita em voz alta:", "я бегаю по вечерам", audio_text="я бегаю по вечерам"),
+    ],
+
+    # Módulo 13 — comunicação B1
+    "contando-historias-russo": [
+        ex("text", "Traduza: Enquanto ela cozinhava, ele chegou.",
+           "пока она готовила он пришёл"),
+        ex("quiz", 'Qual combinação apresenta cenário + evento pontual?',
+           "Я читал, когда позвонил друг.", ["Я читал, когда позвонил друг.", "Я прочитал, когда читал друг.", "Я читаю, когда позвоню друг."]),
+        ex("audio", "Escute e transcreva:", "сначала он работал потом отдохнул", audio_text="сначала он работал потом отдохнул"),
+        ex("speak", "Repita em voz alta:", "я шёл домой когда начался дождь", audio_text="я шёл домой когда начался дождь"),
+    ],
+    "opinando": [
+        ex("text", "Traduza: Na minha opinião, essa decisão é importante.",
+           "по-моему это важное решение"),
+        ex("quiz", 'Em "Я думаю о нём", o pronome está no:',
+           "Preposicional", ["Preposicional", "Dativo", "Instrumental"]),
+        ex("audio", "Escute e transcreva:", "я считаю что это хорошая идея", audio_text="я считаю что это хорошая идея"),
+        ex("speak", "Repita em voz alta:", "по-моему этот план лучше", audio_text="по-моему этот план лучше"),
+    ],
+    "falando-de-planos-russo": [
+        ex("text", 'Complete: "В следующем году я ___ в Москве." (vou trabalhar)',
+           "буду работать"),
+        ex("quiz", 'Para um plano pontual com resultado, escolha:',
+           "Я куплю билет.", ["Я куплю билет.", "Я буду покупать билет.", "Я покупаю билет."]),
+        ex("audio", "Escute e transcreva:", "мы будем изучать русский", audio_text="мы будем изучать русский"),
+        ex("speak", "Repita em voz alta:", "я поеду в петербург летом", audio_text="я поеду в петербург летом"),
+    ],
+    "pedidos-educados-b1": [
+        ex("text", "Traduza: Você poderia repetir, por favor?",
+           "не могли бы вы повторить пожалуйста"),
+        ex("quiz", 'Complete no Dativo: "Помогите ___, пожалуйста." (eu)',
+           "мне", ["мне", "меня", "мной"]),
+        ex("audio", "Escute e transcreva:", "можно мне ещё воды", audio_text="можно мне ещё воды"),
+        ex("speak", "Repita em voz alta:", "скажите пожалуйста как пройти", audio_text="скажите пожалуйста как пройти"),
+    ],
+    "expressando-gostos": [
+        ex("text", "Traduza: Eu gosto de música clássica.",
+           "мне нравится классическая музыка"),
+        ex("quiz", 'Complete no Acusativo: "Я люблю ___ книгу." (nova)',
+           "новую", ["новую", "новая", "новой"]),
+        ex("audio", "Escute e transcreva:", "мне нравится этот фильм", audio_text="мне нравится этот фильм"),
+        ex("speak", "Repita em voz alta:", "я предпочитаю чай а не кофе", audio_text="я предпочитаю чай а не кофе"),
+    ],
+    "desculpas-e-justificativas": [
+        ex("text", "Traduza: Eu não podia vir.", "я не мог прийти"),
+        ex("quiz", 'Qual forma indica que a pessoa não conseguiu chegar a tempo?',
+           "Я не успел.", ["Я не успел.", "Я успевал.", "Я успеваю."]),
+        ex("audio", "Escute e transcreva:", "к сожалению я опоздал", audio_text="к сожалению я опоздал"),
+        ex("speak", "Repita em voz alta:", "извините я не смог прийти", audio_text="извините я не смог прийти"),
+    ],
+
+    # Módulo 14 — formas verbais avançadas
+    "participios": [
+        ex("quiz", 'Qual é o particípio ativo presente de "работать"?',
+           "работающий", ["работающий", "работаемый", "работавший"]),
+        ex("text", "Traduza: O documento assinado pelo diretor está na mesa.",
+           "документ подписанный директором на столе"),
+        ex("quiz", 'Para o resultado concluído "livro lido", escolha:',
+           "прочитанная книга", ["прочитанная книга", "читаемая книга", "читающая книга"]),
+        ex("audio", "Escute e transcreva:", "студент читающий книгу сидит у окна", audio_text="студент читающий книгу сидит у окна"),
+        ex("speak", "Repita em voz alta:", "письмо написанное вчера лежит на столе", audio_text="письмо написанное вчера лежит на столе"),
+    ],
+    "gerundios-russo": [
+        ex("text", 'Escreva o gerúndio perfectivo de "сделать" (tendo feito).',
+           "сделав"),
+        ex("quiz", 'Na frase "Прочитав книгу, он уснул", quem pratica as duas ações é:',
+           "он", ["он", "книгу", "um sujeito diferente"]),
+        ex("text", "Traduza: Tendo terminado o trabalho, ela foi para casa.",
+           "закончив работу она пошла домой"),
+        ex("audio", "Escute e transcreva:", "читая книгу он пил чай", audio_text="читая книгу он пил чай"),
+        ex("speak", "Repita em voz alta:", "приехав в москву она позвонила мне", audio_text="приехав в москву она позвонила мне"),
+    ],
+    "participio-passivo-curto": [
+        ex("quiz", 'Qual é a forma curta masculina de "написанный"?',
+           "написан", ["написан", "написана", "написано"]),
+        ex("text", "Traduza: As portas estão fechadas.", "двери закрыты"),
+        ex("quiz", 'Complete no neutro: "Окно ___ после ремонта." (aberto)',
+           "открыто", ["открыто", "открыт", "открыта"]),
+        ex("audio", "Escute e transcreva:", "задача решена", audio_text="задача решена"),
+        ex("speak", "Repita em voz alta:", "документы подписаны", audio_text="документы подписаны"),
+    ],
+    "discurso-indireto-russo": [
+        ex("text", "Traduza: Ela disse que virá amanhã.",
+           "она сказала что придёт завтра"),
+        ex("quiz", 'Complete a pergunta indireta: "Он спросил, ___ я приду."',
+           "ли", ["ли", "что", "чтобы"]),
+        ex("audio", "Escute e transcreva:", "он спросил где находится вокзал", audio_text="он спросил где находится вокзал"),
+        ex("speak", "Repita em voz alta:", "она попросила чтобы я подождал", audio_text="она попросила чтобы я подождал"),
+    ],
+    "verbos-de-citacao": [
+        ex("text", "Traduza: Ela explicou por que se atrasou.",
+           "она объяснила почему опоздала"),
+        ex("quiz", 'Qual construção completa: "Он попросил, ___ я подождал."',
+           "чтобы", ["чтобы", "ли", "что"]),
+        ex("audio", "Escute e transcreva:", "он ответил что занят", audio_text="он ответил что занят"),
+        ex("speak", "Repita em voz alta:", "я спросил придёшь ли ты", audio_text="я спросил придёшь ли ты"),
+    ],
+
+    # Módulo 15 — movimento prefixado
+    "prefixos-chegar-e-sair": [
+        ex("text", "Traduza: Nós chegamos à cidade à noite.",
+           "мы приехали в город вечером"),
+        ex("quiz", 'Qual verbo significa "ir embora de veículo"?',
+           "уехать", ["уехать", "приехать", "въехать"]),
+        ex("audio", "Escute e transcreva:", "она пришла домой поздно", audio_text="она пришла домой поздно"),
+        ex("speak", "Repita em voz alta:", "он уехал из москвы утром", audio_text="он уехал из москвы утром"),
+    ],
+    "prefixos-entrar-e-sair": [
+        ex("text", "Traduza: Ele saiu da loja.", "он вышел из магазина"),
+        ex("quiz", 'Qual verbo significa "entrar de veículo"?',
+           "въехать", ["въехать", "выйти", "прийти"]),
+        ex("audio", "Escute e transcreva:", "машина въехала в гараж", audio_text="машина въехала в гараж"),
+        ex("speak", "Repita em voz alta:", "мы вышли из здания", audio_text="мы вышли из здания"),
+    ],
+    "prefixo-pere": [
+        ex("text", "Traduza: Ela atravessou a rua.", "она перешла улицу"),
+        ex("quiz", 'Qual verbo significa "aproximar-se"?',
+           "подойти", ["подойти", "отойти", "перейти"]),
+        ex("audio", "Escute e transcreva:", "он отошёл от окна", audio_text="он отошёл от окна"),
+        ex("speak", "Repita em voz alta:", "я зайду к другу вечером", audio_text="я зайду к другу вечером"),
+    ],
+    "pares-imperfectivos-de-movimento": [
+        ex("text", "Traduza: Ela chega frequentemente às nove.",
+           "она часто приходит в девять"),
+        ex("quiz", 'Qual é o imperfectivo de "выйти"?',
+           "выходить", ["выходить", "выйти", "въехать"]),
+        ex("audio", "Escute e transcreva:", "он обычно приезжает рано", audio_text="он обычно приезжает рано"),
+        ex("speak", "Repita em voz alta:", "мы часто переходим эту улицу", audio_text="мы часто переходим эту улицу"),
+    ],
+    "movimento-prefixado-e-casos": [
+        ex("text", 'Complete: "Он вошёл в ___ комнату." (sala, Acusativo)', "комнату"),
+        ex("quiz", 'Em "Она отошла от друга", a forma de "друг" está no:',
+           "Genitivo", ["Genitivo", "Dativo", "Acusativo"]),
+        ex("audio", "Escute e transcreva:", "она подошла к окну", audio_text="она подошла к окну"),
+        ex("speak", "Repita em voz alta:", "мы выехали из города", audio_text="мы выехали из города"),
+    ],
+
+    # Módulo 16 — imperativo e aspecto
+    "modo-imperativo": [
+        ex("text", "Traduza no formal: Fale mais devagar.", "говорите медленнее"),
+        ex("quiz", 'Qual é o imperativo informal de "писать"?',
+           "пиши", ["пиши", "пишите", "пишешь"]),
+        ex("audio", "Escute e transcreva:", "идите прямо", audio_text="идите прямо"),
+        ex("speak", "Repita em voz alta:", "открой окно", audio_text="открой окно"),
+    ],
+    "imperativo-negativo": [
+        ex("text", "Traduza: Não corra!", "не беги"),
+        ex("quiz", 'Complete a proibição formal: "Не ___ дверь!" (abrir — открывать)',
+           "открывайте", ["открывайте", "откройте", "открываете"]),
+        ex("audio", "Escute e transcreva:", "не открывайте дверь", audio_text="не открывайте дверь"),
+        ex("speak", "Repita em voz alta:", "не забудь паспорт", audio_text="не забудь паспорт"),
+    ],
+    "aspecto-no-imperativo": [
+        ex("text", "Traduza: Termine o relatório!", "закончи отчёт"),
+        ex("quiz", 'Para uma instrução repetida, escolha:',
+           "Звони мне каждую неделю.", ["Звони мне каждую неделю.", "Позвони мне один раз.", "Не позвони мне."]),
+        ex("audio", "Escute e transcreva:", "прочитай эту статью", audio_text="прочитай эту статью"),
+        ex("speak", "Repita em voz alta:", "не опаздывай на работу", audio_text="не опаздывай на работу"),
+    ],
+    "imperativo-formal": [
+        ex("text", "Traduza: Aguarde, por favor.", "подождите пожалуйста"),
+        ex("quiz", 'Em "Дайте мне воды", o caso de воды é:',
+           "Genitivo de quantidade", ["Genitivo de quantidade", "Acusativo", "Dativo"]),
+        ex("audio", "Escute e transcreva:", "помогите мне пожалуйста", audio_text="помогите мне пожалуйста"),
+        ex("speak", "Repita em voz alta:", "скажите пожалуйста ещё раз", audio_text="скажите пожалуйста ещё раз"),
+    ],
+    "pedidos-com-imperativo": [
+        ex("text", "Traduza: Mostre-me o caminho.", "покажите мне дорогу"),
+        ex("quiz", 'Em "Принеси мне чашку чая", мне está no:',
+           "Dativo", ["Dativo", "Acusativo", "Instrumental"]),
+        ex("audio", "Escute e transcreva:", "расскажи мне о своей поездке", audio_text="расскажи мне о своей поездке"),
+        ex("speak", "Repita em voz alta:", "дайте мне пожалуйста счёт", audio_text="дайте мне пожалуйста счёт"),
+    ],
+
+    # Módulo 17 — comparação, pronomes e reflexivos
+    "comparativo-e-superlativo-russo": [
+        ex("text", 'Complete: "Этот тест ___, чем предыдущий." (mais fácil)', "легче"),
+        ex("quiz", 'Qual é o superlativo feminino de "красивый"?',
+           "самая красивая", ["самая красивая", "самый красивый", "красивее"]),
+        ex("audio", "Escute e transcreva:", "этот вариант лучше", audio_text="этот вариант лучше"),
+        ex("speak", "Repita em voz alta:", "это самый высокий дом", audio_text="это самый высокий дом"),
+    ],
+    "comparacao-com-chem": [
+        ex("text", "Traduza: Anna é mais velha do que Maria.",
+           "анна старше чем мария"),
+        ex("quiz", 'Qual frase usa o Genitivo na comparação?',
+           "Он младше меня.", ["Он младше меня.", "Он младше я.", "Он младше чем."]),
+        ex("audio", "Escute e transcreva:", "этот фильм интереснее чем тот", audio_text="этот фильм интереснее чем тот"),
+        ex("speak", "Repita em voz alta:", "она такая же высокая как я", audio_text="она такая же высокая как я"),
+    ],
+    "adjetivos-forma-curta": [
+        ex("text", "Traduza: Eles estão prontos.", "они готовы"),
+        ex("quiz", 'Complete no neutro: "Окно ___, можно войти." (aberto)',
+           "открыто", ["открыто", "открыт", "открыта"]),
+        ex("audio", "Escute e transcreva:", "мы готовы начать", audio_text="мы готовы начать"),
+        ex("speak", "Repita em voz alta:", "она уверена в ответе", audio_text="она уверена в ответе"),
+    ],
+    "verbos-reflexivos": [
+        ex("text", "Traduza: Você estuda na universidade.",
+           "ты учишься в университете"),
+        ex("quiz", 'Qual verbo significa "encontrar-se / encontrar-se com alguém"?',
+           "встречаться", ["встречаться", "встречать", "встречу"]),
+        ex("audio", "Escute e transcreva:", "мы встречаемся вечером", audio_text="мы встречаемся вечером"),
+        ex("speak", "Repita em voz alta:", "он интересуется музыкой", audio_text="он интересуется музыкой"),
+    ],
+    "reflexivos-na-rotina": [
+        ex("text", 'Complete: "После душа я ___." (visto-me)', "одеваюсь"),
+        ex("quiz", 'Qual forma descreve uma rotina?',
+           "Я просыпаюсь в семь.", ["Я просыпаюсь в семь.", "Я проснусь один раз.", "Я разбудил друга."]),
+        ex("audio", "Escute e transcreva:", "она встаёт рано и умывается", audio_text="она встаёт рано и умывается"),
+        ex("speak", "Repita em voz alta:", "мы ложимся спать в одиннадцать", audio_text="мы ложимся спать в одиннадцать"),
+    ],
+
+    # Módulo 18 — vocabulário e expressões B2
+    "expressoes-do-dia-a-dia-russo": [
+        ex("text", "Traduza: Para mim tanto faz.", "мне всё равно"),
+        ex("quiz", 'Em "У меня нет времени", a forma времени está no:',
+           "Genitivo", ["Genitivo", "Dativo", "Instrumental"]),
+        ex("audio", "Escute e transcreva:", "я с удовольствием помогу", audio_text="я с удовольствием помогу"),
+        ex("speak", "Repita em voz alta:", "мне надо купить билет", audio_text="мне надо купить билет"),
+    ],
+    "colocacoes-com-casos": [
+        ex("text", 'Complete no Instrumental: "Он гордится ___." (filho)', "сыном"),
+        ex("quiz", 'Qual verbo exige Dativo?',
+           "помогать", ["помогать", "бояться", "гордиться"]),
+        ex("audio", "Escute e transcreva:", "я жду автобуса", audio_text="я жду автобуса"),
+        ex("speak", "Repita em voz alta:", "она гордится сыном", audio_text="она гордится сыном"),
+    ],
+    "verbos-com-prefixo": [
+        ex("text", "Traduza: Eu entendi imediatamente.", "я сразу понял"),
+        ex("quiz", 'Qual é o imperfectivo correspondente a "позвонить"?',
+           "звонить", ["звонить", "позвоню", "звонил"]),
+        ex("audio", "Escute e transcreva:", "он прочитал письмо", audio_text="он прочитал письмо"),
+        ex("speak", "Repita em voz alta:", "я сделаю это сегодня", audio_text="я сделаю это сегодня"),
+    ],
+    "expressoes-de-tempo": [
+        ex("text", 'Complete: "Мы встретимся ___ час." (daqui a uma hora)', "через"),
+        ex("quiz", 'Em "в мае", maio está no:',
+           "Preposicional", ["Preposicional", "Acusativo", "Genitivo"]),
+        ex("audio", "Escute e transcreva:", "я уехал два года назад", audio_text="я уехал два года назад"),
+        ex("speak", "Repita em voz alta:", "мы работаем с утра до вечера", audio_text="мы работаем с утра до вечера"),
+    ],
+    "frases-prontas": [
+        ex("text", "Traduza: Infelizmente, não posso ir.",
+           "к сожалению я не могу прийти"),
+        ex("quiz", 'O que significa "Кстати"?',
+           "Aliás", ["Aliás", "Infelizmente", "Na minha opinião"]),
+        ex("audio", "Escute e transcreva:", "всё хорошо", audio_text="всё хорошо"),
+        ex("speak", "Repita em voz alta:", "на здоровье", audio_text="на здоровье"),
+    ],
+    "expressoes-idiomaticas-russo": [
+        ex("text", "Traduza: Ela está nas nuvens.", "она витает в облаках"),
+        ex("quiz", 'Qual expressão significa "guardar bem na memória"?',
+           "зарубить на носу", ["зарубить на носу", "бить баклуши", "витать в облаках"]),
+        ex("audio", "Escute e transcreva:", "не бей баклуши", audio_text="не бей баклуши"),
+        ex("speak", "Repita em voz alta:", "он бежит домой сломя голову", audio_text="он бежит домой сломя голову"),
+    ],
+}
+
+
+def lesson_revision(explanation, table, examples, common_error, summary):
+    return f"""## Aprofundamento guiado
+
+{explanation}
+
+### Quadro de decisão
+
+{table}
+
+### Exemplos em contexto
+
+```text
+{examples}
+```
+
+### Erro comum
+
+{common_error}
+
+### Resumo
+
+{summary}""".strip()
+
+
+INTERMEDIATE_LESSON_REVISIONS = {
+    # Módulo 9 — aspecto verbal
+    "o-que-e-aspecto-verbal": lesson_revision(
+        "Aspecto não informa se a ação ocorreu ontem ou amanhã; ele enquadra a ação por dentro. O imperfectivo apresenta processo, hábito ou repetição. O perfectivo apresenta uma ação vista como unidade, normalmente com limite ou resultado. A tradução portuguesa pode ser igual nos dois casos, por isso o contexto é decisivo.",
+        """| Pergunta do contexto | Imperfectivo | Perfectivo |
+|---|---|---|
+| O foco é o desenvolvimento? | читать | — |
+| O foco é o resultado alcançado? | — | прочитать |
+| A ação se repete? | читать | pode ocorrer com prefixo, se cada ocorrência for vista como concluída |""",
+        """Вчера я читал статью, когда ты позвонил. — Ontem eu estava lendo um artigo quando você ligou.
+Вчера я прочитал статью до конца. — Ontem li o artigo até o fim.
+Я часто готовлю дома. — Eu cozinho em casa com frequência.""",
+        "Não escolha o perfectivo apenas porque a frase está no passado: читал e прочитал são ambos passado, mas só o segundo afirma a conclusão. Também não trate imperfectivo como “incompleto” em todos os sentidos; ele pode relatar um fato sem destacar o resultado.",
+        "Primeiro pergunte qual é o foco, processo/repetição ou limite/resultado; só depois escolha o par de aspecto. O tempo verbal e o aspecto são decisões independentes.",
+    ),
+    "formando-o-perfectivo": lesson_revision(
+        "O perfectivo não é formado por uma regra mecânica única. Prefixos como про-, с-, на- e по- são frequentes, mas podem alterar o sentido lexical; pares como решать/решить e покупать/купить exigem memorização. Aprenda o verbo em par e observe também a conjugação resultante.",
+        """| Relação | Imperfectivo | Perfectivo | Foco comum |
+|---|---|---|---|
+| Prefixo | читать | прочитать | concluir a leitura |
+| Prefixo | делать | сделать | concluir/fazer |
+| Alternância | решать | решить | chegar à solução |
+| Par lexical | покупать | купить | efetuar a compra |""",
+        """Я решал задачу час. — Eu fiquei resolvendo o problema por uma hora.
+Я решил задачу. — Eu resolvi o problema, chegando à solução.
+Она написала письмо за час. — Ela escreveu a carta em uma hora, concluindo-a.""",
+        "Não se deve acrescentar qualquer prefixo para “fabricar” um perfectivo. прочитать é o par de читать, mas *порешать não significa simplesmente “resolver” como решил; consulte o par lexical e o sentido do prefixo.",
+        "Memorize infinitivo imperfectivo + infinitivo perfectivo + uma frase-modelo. Prefixo ajuda, mas o par e o significado precisam ser confirmados juntos.",
+    ),
+    "aspecto-no-presente-e-infinitivo": lesson_revision(
+        "O presente genuíno é formado pelo imperfectivo: Я читаю significa “leio/estou lendo”. Quando um perfectivo recebe uma terminação de pessoa, a leitura normal passa a ser futuro simples: Я прочитаю significa “vou ler até o fim”. No infinitivo, a escolha depende do objetivo de хотеть, надо, можно e outras construções.",
+        """| Estrutura | Aspecto | Sentido |
+|---|---|---|
+| Я читаю | imperfectivo | leio/estou lendo agora |
+| Я прочитаю | perfectivo | lerei e terminarei |
+| Я хочу читать | imperfectivo | quero ler, foco na atividade |
+| Я хочу прочитать | perfectivo | quero ler até o fim |""",
+        """Сейчас я читаю книгу. — Agora estou lendo um livro.
+Завтра я прочитаю книгу. — Amanhã lerei o livro até o fim.
+Мне надо читать больше. — Preciso ler mais, como hábito/atividade.""",
+        "Confundir прочитаю com presente é o erro clássico. A forma parece uma conjugação de presente, mas um verbo perfectivo não tem presente real; nessa forma ele projeta a ação para o futuro.",
+        "No presente, procure o imperfectivo. No infinitivo, pergunte se o falante quer destacar a atividade ou a conclusão e escolha читать ou прочитать.",
+    ),
+    "usando-aspecto-no-passado": lesson_revision(
+        "No passado, os dois aspectos são possíveis. O imperfectivo constrói o pano de fundo, uma ação em curso ou um hábito; o perfectivo fecha um evento, apresenta uma mudança ou entrega um resultado. Em narrativas, essa alternância organiza a sequência sem exigir muitas palavras extras.",
+        """| Função na narrativa | Forma típica | Exemplo |
+|---|---|---|
+| Cenário/processo | imperfectivo | Я читал письмо |
+| Evento que interrompe | perfectivo | Друг позвонил |
+| Resultado alcançado | perfectivo | Я написал письмо |
+| Repetição/hábito passado | imperfectivo | Я часто читал |""",
+        """Я писал письмо, когда зазвонил телефон. — Eu estava escrevendo quando o telefone tocou.
+Я написал письмо и отправил его. — Escrevi a carta e a enviei.
+В детстве я часто читал. — Na infância eu lia com frequência.""",
+        "Não traduza automaticamente todo perfectivo por “uma vez” nem todo imperfectivo por “não terminou”. O contexto pode apresentar uma sequência de eventos perfectivos ou um fato imperfectivo sem interesse pelo limite.",
+        "Use imperfectivo para o filme da ação e perfectivo para o corte que marca o evento ou o resultado. Depois confira gênero e número da forma passada.",
+    ),
+    "pares-comuns-de-aspecto": lesson_revision(
+        "Pares de aspecto funcionam como vocabulário de alta frequência, e alguns são supletivos: говорить/сказать não compartilha uma raiz transparente. A melhor prática é associar cada par a um contraste de contexto, não a uma tradução isolada.",
+        """| Imperfectivo | Perfectivo | Contraste |
+|---|---|---|
+| читать | прочитать | ler / ler até o fim |
+| делать | сделать | fazer / concluir |
+| писать | написать | escrever / terminar de escrever |
+| говорить | сказать | falar / dizer uma vez |
+| решать | решить | resolver em processo / chegar à solução |""",
+        """Что ты делаешь? — O que você está fazendo?
+Я сделал домашнее задание. — Fiz o dever de casa.
+Она сказала правду. — Ela disse a verdade, como ato pontual.""",
+        "Usar a forma presente de um par como se fosse o perfectivo (“решает” para “resolveu”) mistura tempo, pessoa e aspecto. Compare infinitivos primeiro e só então flexione.",
+        "Construa um pequeno parágrafo por contraste: processo com imperfectivo, resultado com perfectivo. Releia até a escolha soar ligada ao contexto, não à tradução literal.",
+    ),
+
+    # Módulo 10 — passado, futuro e condicional
+    "passado-com-genero": lesson_revision(
+        "No passado russo, a terminação concorda com o gênero do sujeito no singular e com o número no plural. A pessoa “eu” não determina sozinha a forma: я pode produzir читал ou читала conforme quem fala. O particípio passado termina em -л/-ла/-ло/-ли, com ajustes nos verbos irregulares.",
+        """| Sujeito | Terminação | Exemplo |
+|---|---|---|
+| он / я masculino | -л | он читал |
+| она / я feminino | -ла | она читала |
+| оно | -ло | окно открылось |
+| мы, вы, они | -ли | они читали |""",
+        """Я читала книгу. — Eu, mulher, lia/estava lendo o livro.
+Он работал вчера. — Ele trabalhou ontem.
+Окно открылось само. — A janela se abriu sozinha.""",
+        "Não use -л com todo sujeito singular. “Eu” não é automaticamente masculino; e um sujeito neutro como окно pede -ло. Identifique gênero e número antes de escolher a terminação.",
+        "Encontre o sujeito, determine gênero/número e só então forme o passado. No plural, abandone a distinção de gênero e use -ли.",
+    ),
+    "passado-dos-irregulares": lesson_revision(
+        "Os verbos идти, есть e мочь conservam formas históricas no passado. A irregularidade é mais visível no masculino singular (шёл, ел, мог), enquanto o feminino e o plural seguem padrões próprios. O caso do destino continua separado da forma verbal: идти домой não flexiona домой como um substantivo comum.",
+        """| Infinitivo | Masc. | Fem. | Plural |
+|---|---|---|---|
+| идти | шёл | шла | шли |
+| есть | ел | ела | ели |
+| мочь | мог | могла | могли |
+| жить | жил | жила | жили |""",
+        """Она шла домой. — Ela ia para casa.
+Мы ели суп. — Nós comemos sopa.
+Он мог помочь. — Ele podia/conseguiu ajudar, conforme o contexto.""",
+        "Não acrescente -л mecanicamente a идти (*идл). Também não confunda мог, capacidade/possibilidade passada, com смог, resultado de conseguir fazer algo em uma situação específica.",
+        "Memorize o trio masculino/feminino/plural dos verbos frequentes e use o contexto para distinguir мочь de смочь.",
+    ),
+    "futuro-simples-e-composto": lesson_revision(
+        "O russo distribui o futuro entre aspecto e estrutura. O perfectivo forma o futuro simples com terminações pessoais; o imperfectivo usa o futuro de быть + infinitivo. A diferença não é apenas duração: ela também separa resultado planejado de atividade em andamento.",
+        """| Verbo | Construção | Exemplo |
+|---|---|---|
+| perfectivo прочитать | forma pessoal | Я прочитаю книгу |
+| imperfectivo читать | буду + infinitivo | Я буду читать книгу |
+| imperfectivo работать | будете + infinitivo | Вы будете работать |
+| быть | буду, будешь... | Мы будем дома |""",
+        """Я прочитаю статью вечером. — Lerei o artigo até o fim à noite.
+Я буду читать статью вечером. — Ficarei lendo/estarei lendo o artigo à noite.
+Они будут обсуждать план. — Eles discutirão o plano como atividade.""",
+        "Буду купить é impossível: o auxiliar exige infinitivo imperfectivo. Para resultado, use o perfectivo diretamente, como куплю ou прочитаю.",
+        "Classifique o infinitivo por aspecto. Perfectivo recebe a conjugação do futuro simples; imperfectivo recebe a forma correta de быть + infinitivo.",
+    ),
+    "negacao-no-futuro": lesson_revision(
+        "A negação deixa a escolha de aspecto especialmente visível. не буду + imperfectivo nega intenção ou participação numa atividade; не + perfectivo nega a ocorrência ou o resultado de um evento específico. O contexto e marcadores como сегодня, завтра e до конца orientam a escolha.",
+        """| Ideia | Forma | Exemplo |
+|---|---|---|
+| Não vou realizar a atividade | не буду + imperfectivo | Я не буду читать |
+| O resultado não acontecerá | не + perfectivo | Я не прочитаю это |
+| Evento pontual não ocorrerá | perfectivo negativo | Он не придёт |
+| Falta de capacidade no processo | не мог | Я не мог прийти |""",
+        """Я не буду покупать билет. — Não vou comprar/ficar comprando o bilhete.
+Я не куплю билет. — Não comprarei o bilhete, decisão sobre o resultado.
+Он не придёт завтра. — Ele não virá amanhã.""",
+        "Tratar не буду читать e не прочитаю como sinônimos apaga a intenção versus resultado. O mesmo verbo pode mudar de aspecto sem que a tradução portuguesa mostre a diferença.",
+        "Pergunte se a negação recai sobre a atividade planejada ou sobre um evento que deveria ocorrer. Escolha o aspecto antes de conjugar.",
+    ),
+    "modo-condicional": lesson_revision(
+        "O condicional combina uma forma passada com a partícula бы. A forma passada ainda concorda com gênero e número, mas não marca tempo hipotético por si só; a oração com если e o contexto informam a condição. бы é uma partícula móvel, embora algumas posições sejam mais naturais.",
+        """| Elemento | Função | Exemplo |
+|---|---|---|
+| если бы | introduz condição | Если бы я знал |
+| passado | forma do verbo | я знал / она знала |
+| бы | consequência hipotética | я бы ответил |
+| у меня было | posse/estado | У меня было бы время |""",
+        """Если бы я знал ответ, я бы ответил. — Se eu soubesse a resposta, responderia.
+Она бы пришла, если бы могла. — Ela viria se pudesse.
+Я хотел бы поговорить. — Eu gostaria de conversar.""",
+        "Não conjugue бы como se fosse um verbo e não transforme automaticamente toda oração em passado factual. Em я бы помог a ajuda é hipotética, não uma afirmação de que já ajudei.",
+        "Forme o verbo no passado, posicione бы junto da oração relevante e deixe a conjunção/contexto indicar a hipótese.",
+    ),
+
+    # Módulo 11 — casos avançados
+    "adjetivos-no-nominativo": lesson_revision(
+        "No Nominativo, o adjetivo acompanha o substantivo que funciona como sujeito ou predicativo nominal. Antes de escolher a terminação, identifique gênero e suavidade da base: -ый/-ой/-ий, -ая/-яя, -ое/-ее e -ые/-ие são famílias, não terminações intercambiáveis.",
+        """| Substantivo | Adjetivo | Exemplo |
+|---|---|---|
+| masc. дом | -ый/-ой/-ий | новый дом |
+| fem. книга | -ая/-яя | новая книга |
+| neutro окно | -ое/-ее | новое окно |
+| plural дома | -ые/-ие | новые дома |""",
+        """Новый дом рядом. — A casa nova está perto.
+Новая книга интересная. — O livro novo é interessante.
+Новые города большие. — As cidades novas são grandes.""",
+        "Não concorde com a tradução portuguesa, que pode omitir gênero, nem use nova com дом. O gênero do substantivo russo é gramatical e precisa ser aprendido junto ao vocabulário.",
+        "Ache o substantivo, determine gênero/número e depois faça o adjetivo concordar no caso exigido pela função da frase.",
+    ),
+    "adjetivos-nos-casos": lesson_revision(
+        "A terminação do adjetivo é uma segunda pista do caso: o substantivo e o adjetivo devem caminhar juntos. O masculino singular mostra bem a oposição novo: новый, нового, новому, новым, новом; o feminino frequentemente neutraliza várias oposições em -ой.",
+        """| Caso | Masc. новый | Fem. новая | Exemplo |
+|---|---|---|---|
+| Genitivo | нового | новой | около нового дома |
+| Dativo | новому | новой | к новой школе |
+| Acusativo | новый/нового | новую | вижу новую книгу |
+| Instrumental | новым | новой | с новым другом |
+| Preposicional | новом | новой | о новой работе |""",
+        """Я вижу новый дом. — Vejo uma casa nova.
+Он живёт в новом доме. — Ele mora numa casa nova.
+Она говорит о новой работе. — Ela fala sobre o trabalho novo.""",
+        "Escolher a forma pelo som do adjetivo isolado é arriscado. Em в новом доме, tanto в quanto a ideia de localização pedem Preposicional; em вижу новый дом, o objeto inanimado mantém a forma do Nominativo.",
+        "Determine preposição/função e animacidade, flexione o substantivo e faça o adjetivo repetir o mesmo gênero, número e caso.",
+    ),
+    "pronomes-em-todos-os-casos": lesson_revision(
+        "Pronomes pessoais não são apenas substantivos com terminações regulares; muitos têm raízes próprias. Organize-os por função: меня/тебя/его... cobre Genitivo e Acusativo, мне/тебе/ему... cobre Dativo, e с/о/к revelam Instrumental, Preposicional ou Dativo.",
+        """| Função | я | ты | он | она |
+|---|---|---|---|---|
+| Gen./Acus. | меня | тебя | его | её |
+| Dativo | мне | тебе | ему | ей |
+| Instrumental | мной | тобой | им | ей |
+| Preposicional | обо мне | о тебе | о нём | о ней |""",
+        """Я говорю с тобой. — Eu falo com você.
+Он думает обо мне. — Ele pensa em mim.
+Она идёт к нам. — Ela vem até nós.""",
+        "Não escolha entre мне e меня pela tradução “me”. Preposição e função decidem: помочь мне pede Dativo, enquanto видеть меня pede Acusativo.",
+        "Memorize os pronomes em blocos de caso e teste cada frase com a pergunta para quem?, quem/o quê? ou sobre/com quem?.",
+    ),
+    "oracoes-com-kotoryi": lesson_revision(
+        "Который concorda em gênero e número com o antecedente, mas o caso depende da função que ele desempenha na oração relativa. Em Мужчина, который читает, o relativo é sujeito; em книгу, которую я читаю, é objeto e recebe Acusativo feminino.",
+        """| Antecedente | Sujeito relativo | Objeto relativo |
+|---|---|---|
+| мужчина | который | которого/который |
+| женщина | которая | которую |
+| окно | которое | которое |
+| люди | которые | которых/которые |""",
+        """Женщина, которая работает здесь, — врач. — A mulher que trabalha aqui é médica.
+Книга, которую ты читаешь, интересная. — O livro que você lê é interessante.
+Люди, которые живут здесь, добрые. — As pessoas que vivem aqui são gentis.""",
+        "Não basta olhar o gênero do antecedente: em которого я знаю, o relativo é objeto, por isso está no caso oblíquo. Separe antecedente e função dentro da oração relativa.",
+        "Concorde primeiro com gênero/número; depois pergunte qual papel который exerce na oração e aplique o caso.",
+    ),
+    "kotoryi-nos-casos": lesson_revision(
+        "Quando a oração relativa contém uma preposição ou um verbo que rege caso, который declina. O antecedente pode estar no Nominativo, enquanto o relativo está no Dativo, Instrumental ou Preposicional; as duas funções não precisam coincidir.",
+        """| Preposição/função | Forma masc./neutro | Forma fem. | Exemplo |
+|---|---|---|---|
+| с, companhia | с которым | с которой | друг, с которым я работаю |
+| о, assunto | о котором | о которой | книга, о которой говорю |
+| к/escrever para | которому | которой | человек, которому пишу |
+| objeto | которого/который | которую | дом, который вижу |""",
+        """Друг, с которым я иду, — русский. — O amigo com quem vou é russo.
+Книга, о которой я говорил, новая. — O livro sobre o qual falei é novo.
+Девушка, которой я пишу, живёт здесь. — A moça para quem escrevo mora aqui.""",
+        "Confundir o caso do antecedente com o caso do relativo produz formas como *с который. A preposição s exige Instrumental: с которым, с которой.",
+        "Identifique o antecedente para gênero/número, identifique o regente dentro da relativa para o caso e combine as duas informações.",
+    ),
+    "adjetivos-no-plural": lesson_revision(
+        "No plural, o gênero deixa de distinguir a forma do adjetivo, mas o caso continua visível. A animacidade é decisiva no Acusativo: objetos inanimados se aproximam do Nominativo; seres animados se aproximam do Genitivo plural.",
+        """| Caso | Terminação comum | Exemplo |
+|---|---|---|
+| Nominativo | -ые/-ие | новые дома |
+| Genitivo | -ых/-их | новых домов |
+| Dativo | -ым/-им | новым домам |
+| Acusativo | -ые/-ых | новые дома / новых студентов |
+| Instrumental | -ыми/-ими | новыми домами |
+| Preposicional | -ых/-их | новых домах |""",
+        """Я вижу новые дома. — Vejo casas novas.
+Я вижу новых студентов. — Vejo estudantes novos.
+Мы говорим о старых друзьях. — Falamos sobre velhos amigos.""",
+        "Usar новые para qualquer objeto plural ignora a animacidade: Я вижу новых студентов, mas Я вижу новые дома. O caso é o mesmo, a forma muda pela animacidade.",
+        "No plural, determine o caso e depois verifique se o Acusativo envolve pessoas/animais. Nos outros casos, use a série regular do quadro.",
+    ),
+
+    # Módulo 12 — verbos de movimento
+    "idti-vs-khodit": lesson_revision(
+        "Идти e ходить formam o par de movimento a pé. Ambos são imperfectivos, mas codificam a configuração do deslocamento: идти aponta para uma trajetória única em curso; ходить cobre ida e volta, repetição, percurso habitual ou habilidade geral.",
+        """| Situação | Verbo | Exemplo |
+|---|---|---|
+| agora, direção determinada | идти | Я иду в школу |
+| hábito/ida e volta | ходить | Я хожу в школу |
+| habilidade | ходить | Ребёнок уже ходит |
+| destino de pessoa | идти + к + Dativo | иду к врачу |""",
+        """Я иду к врачу сейчас. — Estou indo ao médico agora.
+Я хожу в бассейн по субботам. — Vou à piscina aos sábados.
+Мы ходили по городу весь день. — Passeamos pela cidade o dia todo.""",
+        "A oposição não é simplesmente presente versus passado, nem perfectivo versus imperfectivo. No passado, шёл ainda é direcional e ходил pode ser habitual ou de ida e volta.",
+        "Visualize uma seta única para идти e um trajeto repetido/aberto para ходить; depois escolha o caso do destino, como к врачу ou в школу.",
+    ),
+    "ekhat-vs-ezdit": lesson_revision(
+        "Ехать e ездить aplicam a mesma oposição quando o deslocamento é feito em veículo. A conjugação muda bastante, por isso memorize as formas ед- e езд- junto do contexto, não apenas os infinitivos.",
+        """| Situação | Verbo | Primeira pessoa |
+|---|---|---|
+| indo agora em uma direção | ехать | я еду |
+| hábito/viagens recorrentes | ездить | я езжу |
+| terceira pessoa agora | едет | — |
+| terceira pessoa habitual | ездит | — |""",
+        """Я еду в Москву сейчас. — Estou indo a Moscou agora.
+Я езжу на работу на машине. — Vou ao trabalho de carro regularmente.
+Мы ездили на дачу летом. — Íamos à casa de campo no verão.""",
+        "Confundir еду e езжу muda a configuração do movimento. Também não traduza “de carro” como destino: на машине é Instrumental de meio, enquanto на работу é direção.",
+        "Pergunte se há uma viagem única em curso ou um padrão recorrente; em seguida confira a forma conjugada e a preposição do destino/meio.",
+    ),
+    "letet-vs-letat": lesson_revision(
+        "Лететь e летать descrevem movimento aéreo com a mesma oposição direcional. O avião que está em uma rota agora летит; a pessoa que viaja frequentemente ou sabe voar летает. A escolha do destino ainda aciona Acusativo com в.",
+        """| Contexto | Verbo | Exemplo |
+|---|---|---|
+| voo em curso, uma rota | лететь | Самолёт летит в Москву |
+| hábito/frequência | летать | Я часто летаю в Россию |
+| destino | в + Acusativo | в Москву |
+| sobre algo | над + Instrumental | над городом |""",
+        """Самолёт летит над городом. — O avião voa sobre a cidade.
+Мы летим в Москву сейчас. — Estamos voando para Moscou agora.
+Она часто летает в Турцию. — Ela voa frequentemente para a Turquia.""",
+        "A terminação do infinitivo não decide tudo e não é seguro decorar “-ть = agora, -ать = hábito” como regra universal. Use situação e conjugação: лечу/летаю também precisam ser reconhecidos.",
+        "Marque a rota única ou a recorrência, então flexione лететь/летать e aplique o caso exigido pela preposição.",
+    ),
+    "plyt-vs-plavat": lesson_revision(
+        "Плыть e плавать distinguem uma travessia ou direção em curso de natação, navegação e habilidade recorrentes. O tipo de água não é o critério principal; a perspectiva do movimento é. A preposição к leva Dativo, e по pode marcar percurso.",
+        """| Situação | Verbo | Exemplo |
+|---|---|---|
+| indo agora para uma margem | плыть | Я плыву к берегу |
+| sabe nadar | плавать | Он хорошо плавает |
+| percurso na água | плыть/плавать + по | плывём по реке |
+| repetição | плавать | Она плавает каждое утро |""",
+        """Лодка плывёт к берегу. — O barco vai para a margem.
+Он хорошо плавает. — Ele nada bem.
+Мы плывём по реке. — Estamos navegando pelo rio.""",
+        "Usar плыть para habilidade geral soa como uma única travessia. O contrário também falha: плавать não marca automaticamente uma direção momentânea.",
+        "Decida se há uma seta momentânea ou um hábito/habilidade e depois confirme к берегу, по реке ou outra construção espacial.",
+    ),
+    "bezhat-vs-begat": lesson_revision(
+        "Бежать e бегать fecham o conjunto básico de movimento: correr agora em uma direção versus correr habitualmente, de um lado para outro ou como habilidade. O prefixo pode criar uma leitura perfectiva diferente, como побежать, portanto a oposição deve ser lida dentro da frase.",
+        """| Situação | Verbo | Exemplo |
+|---|---|---|
+| correndo agora para um destino | бежать | Я бегу в парк |
+| hábito | бегать | Я бегаю по утрам |
+| direção a uma pessoa | к + Dativo | бежит к маме |
+| movimento em percurso | по + Dativo | бегает по стадиону |""",
+        """Ребёнок бежит к маме. — A criança corre até a mãe.
+Они бегут в парк сейчас. — Eles estão correndo para o parque agora.
+Я бегаю по вечерам. — Corro à noite regularmente.""",
+        "Não confunda o par de movimento com o aspecto de побежать/побегать. Um prefixo pode mudar a estrutura aspectual, enquanto бежать/бегать sem prefixo descreve direção ou repetição.",
+        "Escolha a direção em curso ou a recorrência, observe o destino e só depois avalie se há algum prefixo que acrescenta limite ao evento.",
+    ),
+
+    # Módulo 13 — comunicação B1
+    "contando-historias-russo": lesson_revision(
+        "Uma narrativa natural alterna planos. O imperfectivo abre o cenário, descreve o que estava acontecendo ou cria uma rotina; o perfectivo introduz eventos delimitados e mudanças. A conjunção quando não determina sozinha o aspecto: a relação temporal e o foco determinam.",
+        """| Camada narrativa | Aspecto | Exemplo |
+|---|---|---|
+| pano de fundo | imperfectivo | Я шёл домой |
+| evento súbito | perfectivo | начался дождь |
+| sequência concluída | perfectivo | он пришёл и сел |
+| hábito | imperfectivo | она часто готовила |""",
+        """Я шёл домой, когда начался дождь. — Eu ia para casa quando começou a chover.
+Сначала он работал, потом отдохнул. — Primeiro trabalhou, depois descansou.
+Пока она готовила, он пришёл. — Enquanto ela cozinhava, ele chegou.""",
+        "Usar perfectivo nos dois verbos pode apagar o pano de fundo; usar imperfectivo nos dois pode não marcar a mudança. Faça a pergunta “o que já estava em curso?” antes de conjugar.",
+        "Monte a história em duas camadas: cenário imperfectivo + evento perfectivo, sem esquecer gênero do passado e casos dos objetos.",
+    ),
+    "opinando": lesson_revision(
+        "Opiniões podem ser apresentadas como pensamento, avaliação ou comentário. Я думаю о + Preposicional significa pensar sobre alguém/algo; Я думаю, что introduz uma proposição. Essa diferença evita escolher о нём quando o que vem depois é uma oração inteira.",
+        """| Estrutura | Uso | Exemplo |
+|---|---|---|
+| Я думаю, что... | opinião proposicional | Я думаю, что это важно |
+| По-моему,... | opinião marcada | По-моему, план хороший |
+| Я считаю, что... | avaliação | Я считаю, что он прав |
+| думать о + Prep. | pensar sobre | Я думаю о нём |""",
+        """По-моему, этот план лучше. — Na minha opinião, este plano é melhor.
+Я думаю о нём хорошо. — Penso bem dele.
+Я считаю, что это хорошая идея. — Considero que é uma boa ideia.""",
+        "Não use *о я ou *о он. Depois de о, o pronome muda para обо мне, о нём etc.; depois de что, mantenha uma oração com seu próprio sujeito e verbo.",
+        "Escolha primeiro entre uma opinião com что e um assunto com о + Preposicional; depois flexione adjetivos e pronomes dentro da oração.",
+    ),
+    "falando-de-planos-russo": lesson_revision(
+        "Planos combinam intenção, futuro e destino. Буду работать apresenta uma atividade futura; куплю ou поеду apresenta um resultado/viagem planejada como evento. O infinitivo perfectivo depois de хочу costuma projetar uma ação concluída ou uma ida específica.",
+        """| Intenção | Forma | Exemplo |
+|---|---|---|
+| atividade futura | буду + imperfectivo | буду работать |
+| resultado pontual | perfectivo futuro | куплю машину |
+| viagem pretendida | perfectivo infinitivo | хочу поехать |
+| destino | в + Acusativo | в Россию |
+| local de trabalho | в + Preposicional | в Москве |""",
+        """Я буду работать в Москве. — Vou trabalhar em Moscou.
+Я хочу поехать в Россию. — Quero viajar para a Rússia.
+Я куплю билет завтра. — Comprarei a passagem amanhã.""",
+        "Não use o mesmo caso em в Москве e в Россию: permanência pede Preposicional, destino pede Acusativo. Também evite *буду купить; o futuro composto só aceita imperfectivo.",
+        "Separe local e destino, identifique atividade versus resultado e escolha o aspecto antes de formar o futuro.",
+    ),
+    "pedidos-educados-b1": lesson_revision(
+        "A polidez russa pode ser graduada. Можно мне é um pedido neutro; Я хотел бы suaviza a vontade; Не могли бы вы...? é uma pergunta muito cortês. O destinatário de помочь aparece no Dativo, enquanto o objeto/quantidade mantém seu próprio caso.",
+        """| Fórmula | Registro | Exemplo |
+|---|---|---|
+| Можно мне...? | pedido neutro | Можно мне воды? |
+| Я хотел бы... | gostaria de | Я хотел бы поговорить |
+| Не могли бы вы...? | muito educado | Не могли бы вы помочь мне? |
+| пожалуйста | suaviza | Скажите, пожалуйста |""",
+        """Не могли бы вы повторить, пожалуйста? — Você poderia repetir, por favor?
+Можно мне ещё воды? — Posso tomar mais água?
+Я хотел бы поговорить с тобой. — Eu gostaria de conversar com você.""",
+        "Não use меня depois de помочь: a pessoa beneficiária é мне. E não confunda воды, Genitivo de quantidade, com вода quando se pede uma unidade/porção determinada.",
+        "Escolha a fórmula pelo grau de polidez, use Dativo para quem recebe a ajuda e confira o caso do item pedido.",
+    ),
+    "expressando-gostos": lesson_revision(
+        "Há duas construções importantes para “gostar”. Em Мне нравится, a pessoa que sente fica no Dativo e a coisa agradável funciona como sujeito no Nominativo. Em Я люблю/предпочитаю, a pessoa é sujeito e o objeto vai para o Acusativo.",
+        """| Verbo | Pessoa | Coisa apreciada | Exemplo |
+|---|---|---|---|
+| нравиться | Dativo | Nominativo | Мне нравится музыка |
+| любить | Nominativo | Acusativo | Я люблю чай |
+| предпочитать | Nominativo | Acusativo | Я предпочитаю кофе |
+| нравится no plural | Dativo | plural + нравится | Мне нравятся книги |""",
+        """Мне нравится классическая музыка. — Gosto de música clássica.
+Я люблю новую книгу. — Gosto muito do livro novo.
+Мне нравятся эти фильмы. — Gosto destes filmes.""",
+        "Não conjugue нравится de acordo com мне. O verbo concorda com a coisa apreciada: мне нравится музыка, mas мне нравятся книги.",
+        "Pergunte quem sente, depois identifique a coisa que agrada. Dativo + Nominativo usa нравиться; sujeito + Acusativo usa любить/предпочитать.",
+    ),
+    "desculpas-e-justificativas": lesson_revision(
+        "Desculpas naturais combinam uma fórmula fixa com a causa e uma escolha aspectual cuidadosa. Не смог прийти apresenta uma tentativa que não se concretizou; не мог прийти descreve falta de possibilidade/capacidade. Потому что introduz a justificativa.",
+        """| Situação | Forma | Sentido |
+|---|---|---|
+| desculpa | Извините | desculpe |
+| causa | потому что | porque |
+| tentativa falhou | не смог прийти | não consegui vir |
+| impossibilidade | не мог прийти | não podia vir |
+| atraso | за опоздание | pelo atraso |""",
+        """Извините за опоздание. — Desculpe o atraso.
+Я не смог прийти, потому что был занят. — Não consegui vir porque estava ocupado.
+К сожалению, я опоздал. — Infelizmente, me atrasei.""",
+        "Não trate мог e смог como simples variantes de estilo. O perfectivo смог fecha o episódio de tentativa malsucedida; мог enquadra a possibilidade ou incapacidade.",
+        "Use a expressão fixa da desculpa, escolha o aspecto conforme possibilidade versus resultado e ligue a causa com потому что.",
+    ),
+
+    # Módulo 14 — formas verbais avançadas
+    "participios": lesson_revision(
+        "Particípios condensam uma oração relativa em uma forma adjetival. A forma ativa descreve quem faz a ação; a passiva descreve quem a recebe. É importante distinguir o presente (читающий, читаемый) do resultado perfectivo (прочитанный): “lido até o fim” normalmente pede прочитанный, não читаемый.",
+        """| Tipo | Formação/exemplo | Valor |
+|---|---|---|
+| ativo presente | читающий | que está lendo |
+| passivo presente | читаемый | que é/está sendo lido |
+| ativo passado | читавший | que leu/lia |
+| passivo perfectivo | прочитанный | que foi lido até o fim |""",
+        """Студент, читающий книгу, сидит у окна. — O estudante que lê o livro está sentado perto da janela.
+Документ, подписанный директором, на столе. — O documento assinado pelo diretor está na mesa.
+Прочитанная книга лежит здесь. — O livro lido até o fim está aqui.""",
+        "Usar читаемый para qualquer “lido” pode sugerir uma ação em curso ou uma propriedade (“legível”). Para resultado concluído, prefira o particípio perfectivo прочитанный; e faça a forma concordar com o substantivo.",
+        "Pergunte quem pratica ou sofre a ação, escolha o tempo/aspecto do particípio e decline-o como adjetivo em gênero, número e caso.",
+    ),
+    "gerundios-russo": lesson_revision(
+        "O gerúndio russo (деепричастие) é invariável e acrescenta uma ação secundária ao verbo principal. O imperfectivo costuma indicar simultaneidade (читая, “lendo”); o perfectivo indica anterioridade e conclusão (прочитав, “tendo lido”). O sujeito implícito das duas ações deve ser o mesmo.",
+        """| Aspecto | Forma | Relação temporal |
+|---|---|---|
+| imperfectivo | читая | ao mesmo tempo |
+| perfectivo | прочитав | antes, concluída |
+| sujeito | он | deve coincidir com a principal |
+| concordância | invariável | não muda por gênero/caso |""",
+        """Читая книгу, он пил чай. — Enquanto lia o livro, ele bebia chá.
+Прочитав книгу, он уснул. — Tendo lido o livro, ele adormeceu.
+Закончив работу, она пошла домой. — Tendo terminado o trabalho, ela foi para casa.""",
+        "Não coloque um gerúndio cujo sujeito não seja o da oração principal: *Прочитав книгу, начался дождь sugere que “a chuva leu o livro”. Também não faça o gerúndio concordar como adjetivo.",
+        "Escolha simultaneidade ou anterioridade, mantenha o mesmo sujeito e deixe o gerúndio invariável.",
+    ),
+    "participio-passivo-curto": lesson_revision(
+        "O particípio passivo curto apresenta um estado/resultado e funciona como predicado. Ele concorda em gênero e número, mas não recebe caso porque não acompanha um substantivo dentro de um sintagma. O presente normalmente omite быть: Письмо написано significa “A carta está escrita”.",
+        """| Sujeito | Forma curta de закрыть | Exemplo |
+|---|---|---|
+| masc. магазин | закрыт | Магазин закрыт |
+| fem. дверь | закрыта | Дверь закрыта |
+| neutro окно | закрыто | Окно закрыто |
+| plural двери | закрыты | Двери закрыты |""",
+        """Задача решена. — O problema está resolvido.
+Документы подписаны. — Os documentos estão assinados.
+Окно открыто после ремонта. — A janela está aberta depois da reforma.""",
+        "Não confunda forma curta com a longa: закрыта é predicado (“está fechada”), enquanto закрытая дверь é um modificador antes do substantivo. Também não use *дверь закрыт: o sujeito é feminino.",
+        "Use a forma curta para resultado predicativo e confira apenas gênero/número do sujeito; use a longa quando o particípio acompanha um substantivo.",
+    ),
+    "discurso-indireto-russo": lesson_revision(
+        "O discurso indireto russo preserva com frequência o tempo da fala original, mas não é uma regra de “nunca mudar”: o tempo pode mudar quando o sentido temporal exige. O núcleo didático é ajustar pronomes e escolher что, palavra interrogativa, ли ou чтобы conforme o tipo de conteúdo relatado.",
+        """| Fala direta | Discurso indireto | Conector |
+|---|---|---|
+| Я устал | он сказал, что он устал | что |
+| Где ты? | она спросила, где я | palavra interrogativa |
+| Ты придёшь? | он спросил, придёшь ли ты | ли |
+| Читай! | он сказал, чтобы я читал | чтобы + passado |""",
+        """Она сказала, что придёт завтра. — Ela disse que virá amanhã.
+Он спросил, где находится вокзал. — Ele perguntou onde fica a estação.
+Она попросила, чтобы я подождал. — Ela pediu que eu esperasse.""",
+        "Não use ли em perguntas que já têm onde, quando ou por que; ли marca a alternativa sim/não. Depois de чтобы, o verbo concorda com o novo sujeito no passado.",
+        "Identifique declaração, pergunta aberta, pergunta sim/não ou pedido; escolha o conector e ajuste os pronomes ao ponto de vista do narrador.",
+    ),
+    "verbos-de-citacao": lesson_revision(
+        "O verbo de citação seleciona a construção seguinte. Сказать/ответить/объяснить normalmente introduzem что ou uma interrogativa; спросить usa ли ou palavra interrogativa; попросить seleciona чтобы. A seleção lexical é tão importante quanto a conjunção.",
+        """| Verbo | Complemento típico | Exemplo |
+|---|---|---|
+| сказать/ответить | что | Он ответил, что занят |
+| спросить | ли / где, почему... | Я спросил, придёшь ли ты |
+| объяснить | что / почему | Она объяснила, почему опоздала |
+| попросить | чтобы + passado | Он попросил, чтобы я подождал |""",
+        """Он ответил, что занят. — Ele respondeu que está ocupado.
+Она объяснила, почему опоздала. — Ela explicou por que se atrasou.
+Я спросил, придёшь ли ты. — Perguntei se você virá.""",
+        "Não traduza “perguntar” com ответить nem “pedir” com сказать. O conector pode até estar correto, mas o verbo de citação errado muda a relação discursiva.",
+        "Escolha primeiro o ato de fala, depois o conector e finalmente o tempo/aspecto da oração relatada.",
+    ),
+
+    # Módulo 15 — movimento prefixado
+    "prefixos-chegar-e-sair": lesson_revision(
+        "Os prefixos при- e у- acrescentam um ponto final ao movimento. Прийти/приехать significam chegar; уйти/уехать significam ir embora. Esses perfectivos se opõem a приходить, приезжать, уходить e уезжать quando a situação é habitual ou está em desenvolvimento.",
+        """| Sentido | A pé | De veículo | Origem/destino |
+|---|---|---|---|
+| chegar | прийти | приехать | в/на + Acusativo |
+| ir embora | уйти | уехать | из/с/от + Genitivo |
+| chegar repetidamente | приходить | приезжать | rotina |
+| sair repetidamente | уходить | уезжать | rotina |""",
+        """Мы приехали в город вечером. — Chegamos à cidade à noite.
+Он пришёл домой. — Ele chegou em casa.
+Он уехал из Москвы утром. — Ele saiu de Moscou de manhã.""",
+        "Não associe при- apenas a “entrar”: прийти é chegar, e o destino não vira Preposicional quando há movimento. в Москву é Acusativo; в Москве é localização.",
+        "Identifique chegar ou partir, escolha a modalidade a pé/veículo e confira se o complemento é destino ou origem.",
+    ),
+    "prefixos-entrar-e-sair": lesson_revision(
+        "Войти/въехать focalizam entrada em um espaço; выйти/выехать focalizam saída de dentro. O par de casos é muito produtivo: в + Acusativo indica para dentro, из + Genitivo indica de dentro. O prefixo e a preposição formam uma unidade de sentido.",
+        """| Evento | A pé | De veículo | Complemento |
+|---|---|---|---|
+| entrar | войти | въехать | в комнату |
+| sair | выйти | выехать | из комнаты |
+| entrar repetidamente | входить | въезжать | em desenvolvimento |
+| sair repetidamente | выходить | выезжать | em desenvolvimento |""",
+        """Он вошёл в комнату. — Ele entrou na sala.
+Она вышла из магазина. — Ela saiu da loja.
+Машина въехала в гараж. — O carro entrou na garagem.""",
+        "Não use в комнате para “entrou na sala”: essa forma é localização. Para o evento de entrada, в комнату exige Acusativo; para sair de dentro, из комнаты exige Genitivo.",
+        "Pergunte para onde ou de onde, escolha a preposição correspondente e só então flexione o lugar.",
+    ),
+    "prefixo-pere": lesson_revision(
+        "Пере- atravessa uma fronteira ou muda de um lado para outro; под- aproxima; от- afasta; за- pode indicar uma entrada breve, uma parada no caminho ou “passar por”. Esses sentidos são composicionais, mas o uso lexical precisa ser aprendido em frases.",
+        """| Prefixo | Núcleo de sentido | Regência frequente | Exemplo |
+|---|---|---|---|
+| пере- | atravessar | Acusativo | перейти улицу |
+| под- | aproximar-se | к + Dativo | подойти к окну |
+| от- | afastar-se | от + Genitivo | отойти от окна |
+| за- | passar/entrar de passagem | к + Dativo | зайти к другу |""",
+        """Она перешла улицу. — Ela atravessou a rua.
+Он подошёл к окну. — Ele se aproximou da janela.
+Я зайду к другу вечером. — Passarei na casa do meu amigo à noite.""",
+        "Não memorize подойти como “entrar”: o verbo significa aproximar-se e к puxa Dativo. Do mesmo modo, переходить улицу e идти к окну selecionam complementos diferentes.",
+        "Aprenda cada prefixo com uma imagem espacial, a preposição e o caso: a tríade evita escolher apenas pela tradução portuguesa.",
+    ),
+    "pares-imperfectivos-de-movimento": lesson_revision(
+        "Um verbo de movimento prefixado perfectivo costuma ganhar um par imperfectivo com -ходить ou -езжать: прийти/приходить, приехать/приезжать. O imperfectivo não significa necessariamente “estar agora”; também cobre rotina, repetição e característica regular.",
+        """| Perfectivo | Imperfectivo | Exemplo de repetição |
+|---|---|---|
+| прийти | приходить | Он часто приходит |
+| уйти | уходить | Она рано уходит |
+| войти | входить | Люди входят в зал |
+| выйти | выходить | Он выходит из дома |
+| приехать | приезжать | Она приезжает рано |""",
+        """Он пришёл в девять. — Ele chegou às nove, uma ocorrência.
+Он приходит в девять. — Ele chega às nove, rotina.
+Мы часто переходим эту улицу. — Atravessamos esta rua com frequência.""",
+        "Não forme o imperfectivo apenas removendo o prefixo: *йти não é o par de прийти. O prefixo permanece e a raiz do movimento muda conforme o meio.",
+        "Compare evento único e padrão recorrente, memorize o par completo e conserve os casos do destino/origem.",
+    ),
+    "movimento-prefixado-e-casos": lesson_revision(
+        "Prefixos de movimento fazem o aspecto e a direção avançarem juntos, mas não substituem a regência das preposições. Destino, origem e aproximação são relações diferentes: в/на + Acusativo, из/с/от + Genitivo e к + Dativo.",
+        """| Relação | Preposição | Caso | Exemplo |
+|---|---|---|---|
+| destino/entrada | в/на | Acusativo | в комнату |
+| origem/saída | из/с/от | Genitivo | из города |
+| aproximação | к | Dativo | к окну |
+| travessia | sem preposição frequente | Acusativo | перейти улицу |""",
+        """Он вошёл в комнату. — Ele entrou na sala.
+Она отошла от друга. — Ela se afastou do amigo.
+Мы выехали из города. — Saímos da cidade de veículo.""",
+        "Não escolha o caso pela forma do prefixo isolado. O mesmo prefixo pode aparecer em construções distintas; observe a preposição e a relação espacial que a frase expressa.",
+        "Classifique destino, origem, aproximação ou travessia; aplique a preposição/regência e só depois confira a flexão do substantivo.",
+    ),
+
+    # Módulo 16 — imperativo e aspecto
+    "modo-imperativo": lesson_revision(
+        "O imperativo é dirigido a ты ou вы, não recebe pronome sujeito normalmente e varia em informal/formal-plural. Muitas formas vêm da base do presente (читай, говори), mas verbos frequentes são irregulares: иди, ешь, дай. A entonação e пожалуйста modulam a ordem.",
+        """| Infinitivo | ты | вы/formal-plural | Exemplo |
+|---|---|---|---|
+| читать | читай | читайте | Читайте книгу |
+| говорить | говори | говорите | Говорите медленнее |
+| идти | иди | идите | Идите прямо |
+| писать | пиши | пишите | Пишите здесь |""",
+        """Говорите медленнее. — Fale mais devagar, formal.
+Иди домой! — Vá para casa, informal.
+Идите прямо. — Siga em frente, formal/plural.""",
+        "Não deduza todos os imperativos apenas pela terminação -те; ela marca a forma de вы, mas a base pode ser irregular. Идите não é o presente идёте usado como ordem por acaso.",
+        "Defina o interlocutor, escolha a forma ты ou вы e confirme se o verbo tem imperativo irregular antes de adicionar o complemento.",
+    ),
+    "imperativo-negativo": lesson_revision(
+        "A negação usa не + imperativo, mas o aspecto depende do efeito pretendido. Imperfectivo é muito comum para proibição geral ou para interromper uma atividade; perfectivo aparece em avisos sobre um resultado pontual, como Не забудь! e Не опоздай!.",
+        """| Intenção | Forma | Exemplo |
+|---|---|---|
+| não faça/continue | не + imperfectivo | Не читай это! |
+| não conclua este evento | não + perfectivo | Не забудь паспорт! |
+| proibição formal | не + imperativo вы | Не открывайте дверь! |
+| interrupção | imperfectivo | Не говори! |""",
+        """Не читай эту книгу! — Não leia esse livro!
+Не забудь паспорт! — Não esqueça o passaporte!
+Не открывайте дверь! — Não abram/abra a porta!""",
+        "Dizer que todo imperativo negativo é imperfectivo é uma simplificação perigosa: не забудь, не опоздай e не потеряй usam perfectivo quando o foco é evitar um resultado pontual.",
+        "Para proibição de atividade, prefira imperfectivo; para evitar um evento/resultado único, aceite o perfectivo. A situação decide.",
+    ),
+    "aspecto-no-imperativo": lesson_revision(
+        "No imperativo afirmativo, o perfectivo costuma pedir uma realização única com resultado; o imperfectivo pode convidar a uma atividade, dar instrução geral ou pedir repetição. O contraste é pragmático: duas formas podem ser gramaticais, mas com tom diferente.",
+        """| Aspecto | Uso | Exemplo |
+|---|---|---|
+| perfectivo | uma realização | Прочитай статью! |
+| imperfectivo | hábito/repetição | Звони каждую неделю! |
+| imperfectivo negativo | não iniciar/continuar | Не опаздывай! |
+| perfectivo negativo | evitar resultado | Не забудь! |""",
+        """Позвони мне вечером! — Ligue para mim à noite, uma vez.
+Звони мне каждую неделю! — Ligue para mim toda semana.
+Закончи отчёт! — Termine o relatório.""",
+        "Não escolha o aspecto apenas pela tradução “ligue” ou “leia”. Marcadores como каждую неделю exigem repetição; “até o fim” e uma tarefa única favorecem perfectivo.",
+        "Leia o pedido como intenção comunicativa: resultado único, processo, rotina ou proibição. Isso orienta o par aspectual.",
+    ),
+    "imperativo-formal": lesson_revision(
+        "Вы no imperativo serve tanto ao plural quanto à distância/polidez com uma pessoa. Пожалуйста suaviza, mas não substitui a concordância. Verbos de ajuda, dizer e dar também recuperam os casos do curso: помочь мне, сказать мне, дать мне воды.",
+        """| Pedido | Forma-alvo | Caso importante |
+|---|---|---|
+| diga-me | Скажите мне | мне = Dativo |
+| ajude-me | Помогите мне | мне = Dativo |
+| dê-me água | Дайте мне воды | воды = Genitivo de quantidade |
+| espere | Подождите | вы formal/plural |""",
+        """Подождите, пожалуйста. — Aguarde, por favor.
+Помогите мне, пожалуйста. — Ajude-me, por favor.
+Скажите, пожалуйста, ещё раз. — Diga, por favor, mais uma vez.""",
+        "Não use меня para o beneficiário de ajudar nem água no Nominativo quando a quantidade é indefinida. A polidez não elimina a regência do verbo.",
+        "Use o imperativo de вы em situações formais, acrescente пожалуйста conforme o tom e revise cada complemento pelo caso que o verbo exige.",
+    ),
+    "pedidos-com-imperativo": lesson_revision(
+        "Pedidos cotidianos ficam naturais quando o imperativo, o destinatário e o objeto são separados. Дай/принеси/покажи/расскажи podem levar мне no Dativo; o item pedido pode ser Acusativo, Genitivo de quantidade ou um complemento preposicionado.",
+        """| Função | Forma | Caso |
+|---|---|---|
+| destinatário | мне | Dativo |
+| item definido | чашку, книгу | Acusativo |
+| quantidade | воды, чая | Genitivo |
+| assunto | о себе, о поездке | Preposicional |""",
+        """Покажите мне дорогу. — Mostre-me o caminho.
+Дайте мне, пожалуйста, счёт. — Dê-me a conta, por favor.
+Расскажи мне о своей поездке. — Conte-me sobre sua viagem.""",
+        "Não copie o caso do pronome para o objeto: мне é Dativo, mas дорогу é Acusativo e воды é Genitivo de quantidade. Cada complemento responde a uma pergunta diferente.",
+        "Localize o destinatário, o objeto definido/quantidade e o assunto; depois escolha o imperativo e a regência de cada bloco.",
+    ),
+
+    # Módulo 17 — comparação, pronomes e reflexivos
+    "comparativo-e-superlativo-russo": lesson_revision(
+        "O comparativo russo pode ser uma forma sintética (новее, красивее) ou uma forma irregular (лучше, хуже, больше). O superlativo mais transparente usa самый + adjetivo, que concorda com o substantivo em gênero, número e caso.",
+        """| Grau | Forma | Exemplo |
+|---|---|---|
+| comparativo regular | adjetivo + -ее | красивее |
+| irregular | лучше/хуже/больше | Этот вариант лучше |
+| superlativo | самый + adjetivo | самый высокий дом |
+| comparação | comparativo + чем | лучше, чем тот |""",
+        """Этот тест легче, чем предыдущий. — Este teste é mais fácil que o anterior.
+Это самый высокий дом. — Esta é a casa mais alta.
+Моя идея лучше. — Minha ideia é melhor.""",
+        "Não use *хорошее como comparativo de хороший nem deixe самый invariável sem concordância. O adjetivo do superlativo continua ligado ao substantivo.",
+        "Memorize os irregulares, forme o superlativo com concordância e confirme se a comparação exige чем ou outra construção.",
+    ),
+    "comparacao-com-chem": lesson_revision(
+        "Чем liga duas partes de uma comparação explícita. O segundo termo pode aparecer depois de чем ou, em muitos comparativos, no Genitivo sem чем: Он выше меня. A igualdade usa такой же, как, com o padrão de caso esperado pela construção.",
+        """| Relação | Estrutura | Exemplo |
+|---|---|---|
+| superioridade explícita | comparativo + чем | выше, чем я |
+| genitivo comparativo | comparativo + pronome | выше меня |
+| igualdade | такой же, как | такой же высокий, как я |
+| diferença | больше/меньше + чем | больше, чем Сочи |""",
+        """Анна старше, чем Мария. — Anna é mais velha que Maria.
+Он младше меня. — Ele é mais novo que eu.
+Она такая же высокая, как я. — Ela é tão alta quanto eu.""",
+        "Não use o Nominativo depois de um comparativo sem чем: *Он младше я. A alternativa natural é Он младше меня ou Он младше, чем я.",
+        "Escolha comparação explícita com чем ou Genitivo comparativo; para igualdade, use такой же... как e preserve a concordância.",
+    ),
+    "adjetivos-forma-curta": lesson_revision(
+        "A forma curta é sobretudo predicativa: vem depois do sujeito e descreve estado ou avaliação, enquanto a forma longa modifica um substantivo. Ela tem gênero e número, mas não funciona como um adjetivo longo em todos os contextos e nem todo adjetivo tem uso curto frequente.",
+        """| Função | Forma longa | Forma curta |
+|---|---|---|
+| antes do substantivo | красивая девушка | — |
+| predicado feminino | девушка красивая | она рада |
+| predicado neutro | — | окно открыто |
+| plural | красивые дома | они готовы |""",
+        """Они готовы начать. — Eles estão prontos para começar.
+Она уверена в ответе. — Ela está segura da resposta.
+Окно открыто. — A janela está aberta.""",
+        "Não trate toda forma terminada em -ый como predicado curto nem coloque рада antes do substantivo sem contexto. A posição e o sentido distinguem as duas séries.",
+        "Use a forma longa como modificador e a curta como predicado/estado quando ela for usual; faça a concordância de gênero e número.",
+    ),
+    "verbos-reflexivos": lesson_revision(
+        "-ся/-сь não significa sempre “a si mesmo”. Pode indicar reflexividade, reciprocidade, processo sem agente destacado ou um sentido lexicalizado, como учиться “estudar”. A partícula acompanha todas as terminações e alterna entre -ся e -сь por razões fonéticas.",
+        """| Verbo | Sentido | Exemplo |
+|---|---|---|
+| мыть / мыться | lavar / lavar-se | Я моюсь |
+| учить / учиться | ensinar / estudar | Ты учишься |
+| встречать / встречаться | encontrar / encontrar-se | Мы встречаемся |
+| интересовать / интересоваться | interessar / interessar-se | Он интересуется музыкой |""",
+        """Ты учишься в университете. — Você estuda na universidade.
+Мы встречаемся вечером. — Nós nos encontramos à noite.
+Он интересуется музыкой. — Ele se interessa por música.""",
+        "Não traduza -ся sempre como “se” e não remova a partícula ao conjugar: учит e учится têm sujeitos e sentidos diferentes. интересоваться ainda exige Instrumental.",
+        "Aprenda o verbo reflexivo como unidade lexical, observe sua regência e coloque -ся/-сь depois da terminação verbal.",
+    ),
+    "reflexivos-na-rotina": lesson_revision(
+        "A rotina combina verbos reflexivos, horários e movimento. Просыпаться, вставать, умываться, одеваться e ложиться são normalmente imperfectivos porque descrevem hábitos; uma forma perfectiva pode narrar um episódio concluído. Destinos continuam exigindo casos próprios.",
+        """| Rotina | Forma | Complemento |
+|---|---|---|
+| acordar | просыпаться | в семь часов |
+| levantar-se | вставать | рано |
+| vestir-se | одеваться | — |
+| ir ao trabalho | идти | на работу, Acusativo |
+| deitar-se | ложиться | спать |""",
+        """Я просыпаюсь в семь и одеваюсь. — Acordo às sete e me visto.
+Я одеваюсь и иду на работу. — Visto-me e vou trabalhar.
+Мы ложимся спать в одиннадцать. — Deitamo-nos às onze.""",
+        "Não use Preposicional em na работу: com movimento, на работу é direção e Acusativo; na localização, “no trabalho” é на работе, Preposicional.",
+        "Conjugue o reflexivo como verbo normal, use imperfectivo para a rotina e diferencie destino de localização nos complementos espaciais.",
+    ),
+
+    # Módulo 18 — vocabulário e expressões B2
+    "expressoes-do-dia-a-dia-russo": lesson_revision(
+        "Expressões fixas são unidades de vocabulário, mas não são livres de gramática. Мне всё равно e мне надо usam Dativo; с удовольствием usa Instrumental; нет exige Genitivo. Memorizar a frase inteira ajuda a recuperar o caso sob pressão.",
+        """| Expressão | Caso | Sentido |
+|---|---|---|
+| мне всё равно | Dativo | tanto faz para mim |
+| с удовольствием | Instrumental | com prazer |
+| у меня нет времени | Genitivo | não tenho tempo |
+| мне надо работать | Dativo | preciso trabalhar |""",
+        """Мне всё равно. — Para mim tanto faz.
+Я с удовольствием помогу. — Terei prazer em ajudar.
+У меня нет времени. — Não tenho tempo.""",
+        "Não substitua мне por меня porque ambas podem traduzir “me”. A expressão e a função determinam o caso; нет времени não é uma negação com Nominativo.",
+        "Aprenda a colocação como bloco, nomeie o caso que aparece dentro dela e reutilize-a em frases novas.",
+    ),
+    "colocacoes-com-casos": lesson_revision(
+        "Colocações ligam verbo e caso de forma previsível, mas nem sempre coincidem com a preposição portuguesa. интересоваться e гордиться regem Instrumental; помогать rege Dativo; бояться rege Genitivo. Ждать pode selecionar Genitivo ou Acusativo conforme definitude, animacidade e aspecto.",
+        """| Verbo | Regência frequente | Exemplo |
+|---|---|---|
+| интересоваться | Instrumental | музыкой |
+| гордиться | Instrumental | сыном |
+| помогать | Dativo | маме |
+| бояться | Genitivo | собак |
+| ждать | Genitivo/Acusativo | автобуса / автобус |""",
+        """Он интересуется музыкой. — Ele se interessa por música.
+Я помогаю маме. — Eu ajudo minha mãe.
+Я жду автобус. — Espero o ônibus específico.""",
+        "Não traduza “ajudar minha mãe” como Acusativo: помогать маме exige Dativo. Com ждать, não ensine uma única forma como obrigatória; o contexto pode favorecer Genitivo ou Acusativo.",
+        "Memorize verbo + caso + exemplo curto. Quando houver mais de uma regência possível, use contexto de definitude e animacidade.",
+    ),
+    "verbos-com-prefixo": lesson_revision(
+        "Prefixos criam sentidos lexicais e frequentemente perfectivos, mas não são sinônimo automático de perfectividade. Позвонить, прочитать, сделать e понять precisam ser comparados aos pares imperfeitos звонить, читать, делать e понимать; o prefixo também pode acrescentar direção, início ou completude.",
+        """| Imperfectivo | Perfectivo | Nuance |
+|---|---|---|
+| звонить | позвонить | ligar repetidamente / uma vez |
+| читать | прочитать | ler / ler até o fim |
+| делать | сделать | fazer / concluir |
+| понимать | понять | entender gradualmente / captar |
+| говорить | сказать | falar / dizer |""",
+        """Я сразу понял. — Entendi imediatamente.
+Он позвонил вчера. — Ele ligou ontem, uma vez.
+Он прочитал письмо. — Ele leu a carta até o fim.""",
+        "Não remova o prefixo para voltar ao infinitivo nem conclua que qualquer verbo prefixado é perfectivo em todas as suas formas. O par e o sentido precisam ser aprendidos juntos.",
+        "Compare os dois verbos em uma situação de processo e outra de resultado; depois flexione o aspecto escolhido no tempo necessário.",
+    ),
+    "expressoes-de-tempo": lesson_revision(
+        "Expressões temporais reciclam casos já vistos e por isso são um ótimo teste de espiral. В понедельник trata o dia como ponto de agenda; в мае localiza no mês; через marca distância futura; назад mede distância passada; с... до... delimita intervalo.",
+        """| Expressão | Caso/estrutura | Sentido |
+|---|---|---|
+| в понедельник | Acusativo | na segunda |
+| в мае | Preposicional | em maio |
+| через час | Acusativo | daqui a uma hora |
+| год назад | forma de tempo | há um ano |
+| с утра до вечера | Genitivo após с/до | de manhã à noite |""",
+        """Мы встретимся через час. — Nós nos encontraremos daqui a uma hora.
+Я работаю в понедельник. — Trabalho na segunda-feira.
+Мы работаем с утра до вечера. — Trabalhamos da manhã à noite.""",
+        "Não generalize в + Acusativo para todo tempo: в мае é Preposicional porque localiza a ação em um mês. A pergunta é agenda/duração/distância ou localização temporal.",
+        "Identifique o tipo de expressão, aplique a preposição e só então flexione a palavra temporal.",
+    ),
+    "frases-prontas": lesson_revision(
+        "Frases prontas funcionam como marcadores de conversa e devem ser aprendidas com pontuação e registro. Кстати abre um comentário lateral; к сожалению marca pesar; по-моему atribui opinião; на здоровье tem usos convencionais em respostas sociais, não apenas uma tradução literal.",
+        """| Expressão | Função | Exemplo |
+|---|---|---|
+| Кстати | comentário lateral | Кстати, я видел его |
+| К сожалению | pesar/limitação | К сожалению, не могу |
+| По-моему | opinião | По-моему, это важно |
+| Ничего страшного | tranquilizar | Ничего страшного! |
+| На здоровье | resposta/saúde | Спасибо! — На здоровье! |""",
+        """К сожалению, я не могу прийти. — Infelizmente, não posso ir.
+Кстати, я видел его вчера. — Aliás, eu o vi ontem.
+Всё хорошо. — Está tudo bem.""",
+        "Não trate кстати e к сожалению como conjunções que mudam a flexão da oração. São marcadores discursivos; a frase interna continua obedecendo a seus próprios casos e tempos.",
+        "Memorize o bloco, identifique sua função conversacional e depois analise separadamente a gramática da oração que ele introduz.",
+    ),
+    "expressoes-idiomaticas-russo": lesson_revision(
+        "Idiomas não devem ser traduzidos palavra por palavra. A imagem ajuda a lembrar, mas o sentido vem do conjunto e os casos fazem parte da expressão: в облаках e на носу são Preposicionais; сломя голову é uma construção adverbial cristalizada.",
+        """| Expressão | Sentido natural | Caso/observação |
+|---|---|---|
+| бить баклуши | ficar à toa | infinitivo/imperativo |
+| витать в облаках | viver nas nuvens | в облаках = Prep. |
+| сломя голову | a toda velocidade | expressão adverbial |
+| зарубить на носу | guardar bem | на носу = Prep. |
+| медведь на ухо наступил | não ter ouvido musical | на ухо = Acusativo |""",
+        """Она витает в облаках. — Ela está nas nuvens.
+Не бей баклуши! — Não fique à toa!
+Он бежит домой сломя голову. — Ele corre para casa a toda velocidade.""",
+        "Não invente uma tradução literal como se fosse o significado e não confunda o idiom com uma frase malformada: Хватит бить баклуши ou Не бей баклуши é natural; *Не сиди, бить баклуши não é.",
+        "Aprenda expressão, sentido e exemplo juntos; depois identifique os casos internos sem perder o valor idiomático.",
+    ),
+}
+
+
+def _expand_intermediate_module(builder):
+    """Completa os módulos 9–18 sem alterar os exercícios já autorados."""
+    def wrapped():
+        built = builder()
+        for current_topic in built["topics"]:
+            slug = current_topic["slug"]
+            if slug not in INTERMEDIATE_EXTRA_EXERCISES:
+                raise KeyError(f"tópico sem exercícios extras: {slug}")
+            if slug not in INTERMEDIATE_LESSON_REVISIONS:
+                raise KeyError(f"tópico sem revisão editorial: {slug}")
+            current_topic["exercises"].extend(deepcopy(INTERMEDIATE_EXTRA_EXERCISES[slug]))
+            current_topic["lesson_md"] = (
+                current_topic["lesson_md"].rstrip()
+                + "\n\n"
+                + INTERMEDIATE_LESSON_REVISIONS[slug]
+            )
+            if len(current_topic["exercises"]) != 10:
+                raise ValueError(
+                    f"{built['slug']}/{slug}: esperado exatamente 10 exercícios, "
+                    f"encontrados {len(current_topic['exercises'])}"
+                )
+        return built
+    return wrapped
+
+
+for _expanded_builder_name in (
+    "build_modulo_09_aspecto_verbal_conceito",
+    "build_modulo_10_passado_e_futuro",
+    "build_modulo_11_casos_avancados",
+    "build_modulo_12_verbos_de_movimento",
+    "build_modulo_13_comunicacao_b1",
+    "build_modulo_14_participios_gerundios_e_discurso_indireto",
+    "build_modulo_15_verbos_de_movimento_prefixados",
+    "build_modulo_16_imperativo_e_aspecto",
+    "build_modulo_17_comparacao_pronomes_e_reflexivos",
+    "build_modulo_18_vocabulario_e_expressoes_b2",
+):
+    globals()[_expanded_builder_name] = _expand_intermediate_module(
+        globals()[_expanded_builder_name]
+    )
+
+
+# ============================================================
 # Montagem final: monta o curso na ordem do roteiro
 # ============================================================
 
@@ -6254,8 +8545,8 @@ def main():
     modules = [by_slug[slug] for slug in TARGET_ORDER if slug in by_slug]
     modules = finalize_modules(modules)
 
-    # Só os módulos com builder nesta execução precisam cumprir o mínimo de
-    # 5 exercícios/tópico (regra do tools/README.md).
+    # Os módulos 1–18 têm a meta editorial de exatamente 10 exercícios/tópico;
+    # os demais módulos ativos seguem o mínimo de 5 (regra do README).
     active_module_slugs = set(BUILDERS)
     problems = check(modules, active_module_slugs)
     if problems:

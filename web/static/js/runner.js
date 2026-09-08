@@ -474,7 +474,7 @@
     if (isDone) return;
     if (totalExercises === 0) {
       completeBtn.disabled = false;
-    } else if (passed.size >= totalExercises) {
+    } else if (attempted.size >= totalExercises) {
       completeBtn.disabled = false;
       completeBtn.innerHTML = "Marcar como concluído";
     } else {
@@ -483,11 +483,9 @@
   }
 
   // --- 4b. Nota do tópico (0 a 10) ---
-  // Cada exercício vale 1 ponto se acertado de primeira, 0,5 se acertado depois
-  // de errar e 0 se a solução foi revelada antes de acertar. Sem isso a nota não
-  // diria nada: dá para tentar de novo à vontade até tudo passar.
+  // Cada exercício vale 1 ponto quando fica correto. Erros não penalizam a
+  // nota: o aluno pode revisar a lição e tentar novamente.
   const wrongTries = new Map(); // exId -> erros antes de acertar
-  const revealed = new Set(); // exId cuja solução foi vista antes de acertar
   const scorePanel = document.getElementById("score-panel");
 
   function registerMiss(exId) {
@@ -495,8 +493,7 @@
   }
 
   function exercisePoints(exId) {
-    if (!passed.has(exId) || revealed.has(exId)) return 0;
-    return wrongTries.get(exId) ? 0.5 : 1;
+    return passed.has(exId) ? 1 : 0;
   }
 
   function currentScore() {
@@ -512,13 +509,10 @@
   function refreshScorePanel() {
     if (!scorePanel || totalExercises === 0) return;
     const score = currentScore();
-    const firstTry = [...passed].filter(
-      (id) => !revealed.has(id) && !wrongTries.get(id)
-    ).length;
     scorePanel.hidden = false;
     scorePanel.querySelector("[data-score]").textContent = score.toFixed(1).replace(".", ",");
     scorePanel.querySelector("[data-score-detail]").textContent =
-      `${passed.size} de ${totalExercises} resolvidos · ${firstTry} de primeira`;
+      `${passed.size} de ${totalExercises} acertos · ${wrongTries.size} exercício(s) com erro`;
     scorePanel.classList.toggle("is-full", score === 10);
   }
 
@@ -526,7 +520,7 @@
   // nova sem precisar de clique — o servidor só troca se for melhor que a antiga.
   function autoSaveScore() {
     if (!completeBtn || !completeBtn.classList.contains("is-done")) return;
-    if (totalExercises === 0 || passed.size < totalExercises) return;
+    if (totalExercises === 0 || attempted.size < totalExercises) return;
     Progress.markDone(parseInt(completeBtn.dataset.topicId, 10), currentScore()).catch(() => {});
   }
 
@@ -742,6 +736,10 @@ exec(_test_src, _ns)
 
   // --- 8. STT (Speech Recognition) ---
   function startSpeakExercise(ex) {
+    const exId = parseInt(ex.dataset.exerciseId, 10);
+    attempted.add(exId);
+    refreshCompleteButton();
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       const resultEl = ex.querySelector(".speak-result");
@@ -755,7 +753,6 @@ exec(_test_src, _ns)
     const resultEl = ex.querySelector(".speak-result");
     const audioLang = btn.dataset.audioLang || "en-US";
     const solution = ex.querySelector("[data-solution-code]").textContent.trim();
-    const exId = parseInt(ex.dataset.exerciseId, 10);
 
     const recognition = new SpeechRecognition();
     recognition.lang = audioLang;
@@ -822,11 +819,9 @@ exec(_test_src, _ns)
         const hasAttempted = attempted.has(exId);
         const showSolution = hasAttempted || confirm("Mostrar a solução? Tente resolver sozinho primeiro 🙂");
         if (showSolution) {
-          // Ver a resposta zera o ponto — mas só se ainda não tinha acertado.
-          if (!passed.has(exId)) {
-            revealed.add(exId);
-            refreshScorePanel();
-          }
+          // Mostrar a solução não penaliza a nota; o ponto depende apenas de
+          // validar a resposta correta.
+          refreshScorePanel();
           if (type === "code" || type === "sql") {
             editors.get(ex).setValue(solution);
           } else if (type === "speak") {
