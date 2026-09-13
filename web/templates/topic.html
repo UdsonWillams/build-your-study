@@ -1,13 +1,16 @@
-{% extends "base.html" %}
-
-{% block title %}{{ topic.title }} — BuildYourStudy{% endblock %}
-
-{% block head %}
+{% extends "base.html" %} {% block title %}{{ topic.title }} — BuildYourStudy{%
+endblock %} {% block head %}
 <!-- Markdown -->
 <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
 <!-- CodeMirror (editor) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
+/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
 <!-- Pyodide -->
@@ -16,82 +19,158 @@
 <!-- sql.js (só carregado em tópicos com exercício sql) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.1/dist/sql-wasm.js"></script>
-{% endif %}
-{% endblock %}
-
-{% block content %}
+{% endif %} {% endblock %} {% block content %}
 <nav class="breadcrumb">
-  <a href="/">Catálogo</a> <span>/</span> <a href="/roadmap/{{ roadmap.slug }}">{{ roadmap.title }}</a> <span>/</span> {{ topic.title }}
+  <a href="/">Catálogo</a> <span>/</span>
+  <a href="/roadmap/{{ roadmap.slug }}">{{ roadmap.title }}</a>
+  <span>/</span> {{ topic.title }}
 </nav>
 
 <article class="lesson" data-category="{{ roadmap.category }}">
   <div id="lesson-content" class="markdown-body"></div>
-  <script id="lesson-md" type="text/plain">{{ topic.lesson_md | safe }}</script>
+  <script id="lesson-md" type="text/plain">
+    {{ topic.lesson_md | safe }}
+  </script>
 </article>
 
 {% if topic.exercises %}
 <section class="exercises">
   <h2>Exercícios</h2>
-  <p id="pyodide-status" class="pyodide-status"><i class="ph-duotone ph-hourglass-simple"></i> Preparando o ambiente Python…</p>
+  <p id="pyodide-status" class="pyodide-status">
+    <i class="ph-duotone ph-hourglass-simple"></i> Preparando o ambiente Python…
+  </p>
 
-  <div id="score-panel" class="score-panel" data-saved-score="{{ score if score is not none else '' }}" hidden>
-    <div class="score-value"><strong data-score>—</strong><span>/ 10</span></div>
+  <div
+    id="score-panel"
+    class="score-panel"
+    data-saved-score="{{ score if score is not none else '' }}"
+    hidden
+  >
+    <div class="score-value">
+      <strong data-score>—</strong><span>/ 10</span>
+    </div>
     <div class="score-text">
       <p class="score-detail" data-score-detail></p>
-      <p class="score-rule">Cada exercício vale 1 ponto quando você acerta. Erros não tiram pontos; tente, reveja a explicação e tente novamente.</p>
+      <p class="score-rule">
+        Cada exercício vale 1 ponto quando você acerta. Erros não tiram pontos;
+        tente, reveja a explicação e tente novamente.
+      </p>
     </div>
   </div>
   <!-- Espelho fixo da nota: acompanha a rolagem para a pontuação ficar sempre
        à vista. aria-hidden porque repete o que o #score-panel já anuncia. -->
   <aside id="score-float" class="score-float" aria-hidden="true" hidden>
     <span class="score-float-label">Nota</span>
-    <span class="score-float-value"><strong data-score>—</strong><span>/ 10</span></span>
+    <span class="score-float-value"
+      ><strong data-score>—</strong><span>/ 10</span></span
+    >
     <span class="score-float-hits" data-score-hits></span>
   </aside>
 
-  <script type="text/plain" id="topic-setup-sql">{{ topic.setup_sql | safe }}</script>
+  <script type="text/plain" id="topic-setup-sql">
+    {{ topic.setup_sql | safe }}
+  </script>
 
   {% for ex in topic.exercises %}
-  <div class="exercise" data-exercise-id="{{ ex.id }}" data-type="{{ ex.type }}" data-audio-lang="{{ ex.audio_lang }}">
+  <div
+    class="exercise"
+    data-exercise-id="{{ ex.id }}"
+    data-type="{{ ex.type }}"
+    data-audio-lang="{{ ex.audio_lang }}"
+  >
     <span class="kicker">Exercício {{ loop.index }}</span>
     <div class="exercise-prompt markdown-body" data-prompt></div>
-    <script type="text/plain" data-prompt-md>{{ ex.prompt | safe }}</script>
+    <script type="text/plain" data-prompt-md>
+      {{ ex.prompt | safe }}
+    </script>
 
     {% if ex.type == 'code' or not ex.type %}
-      <textarea class="code-editor">{{ ex.starter_code }}</textarea>
+    <textarea class="code-editor">{{ ex.starter_code }}</textarea>
     {% elif ex.type == 'text' %}
-      <div class="text-input-row">
-        <input type="text" class="text-input" placeholder="Digite sua resposta..." autocomplete="off">
-        <button type="button" class="btn btn-ghost btn-icon btn-audio" data-audio-text="{{ ex.solution }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="1" aria-label="Ouvir pronúncia"><i class="ph-duotone ph-speaker-high"></i></button>
-      </div>
-      {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
-      <div class="cyrillic-keyboard" data-cyrillic-keyboard></div>
-      {% endif %}
-    {% elif ex.type == 'audio' %}
-      <div class="audio-controls">
-        <button class="btn btn-secondary btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="1"><i class="ph-duotone ph-speaker-high"></i> Ouvir</button>
-        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5"><i class="ph-duotone ph-hourglass-simple"></i> Lento</button>
-      </div>
-      <input type="text" class="text-input" placeholder="O que você ouviu?" autocomplete="off">
-      {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
-      <div class="cyrillic-keyboard" data-cyrillic-keyboard></div>
-      {% endif %}
-    {% elif ex.type == 'speak' %}
-      <div class="speak-target">
-        <span class="speak-label"><i class="ph-duotone ph-megaphone-simple"></i> Diga em voz alta:</span>
-        <span class="speak-phrase">{{ ex.audio_text }}</span>
-      </div>
-      <div class="audio-controls">
-        <button class="btn btn-primary btn-speak" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}"><i class="ph-duotone ph-microphone"></i> Gravar fala</button>
-        <button class="btn btn-ghost btn-audio" data-audio-text="{{ ex.audio_text }}" data-audio-lang="{{ ex.audio_lang }}" data-speed="0.5"><i class="ph-duotone ph-speaker-high"></i> Ouvir exemplo</button>
-      </div>
-      <div class="speak-result" hidden></div>
+    <div class="text-input-row">
+      <input
+        type="text"
+        class="text-input"
+        placeholder="Digite sua resposta..."
+        autocomplete="off"
+      />
+      <button
+        type="button"
+        class="btn btn-ghost btn-icon btn-audio"
+        data-audio-text="{{ ex.solution }}"
+        data-audio-lang="{{ ex.audio_lang }}"
+        data-speed="1"
+        aria-label="Ouvir pronúncia"
+      >
+        <i class="ph-duotone ph-speaker-high"></i>
+      </button>
+    </div>
+    {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
+    <div class="cyrillic-keyboard" data-cyrillic-keyboard></div>
+    {% endif %} {% elif ex.type == 'audio' %}
+    <div class="audio-controls">
+      <button
+        class="btn btn-secondary btn-audio"
+        data-audio-text="{{ ex.audio_text }}"
+        data-audio-lang="{{ ex.audio_lang }}"
+        data-speed="1"
+      >
+        <i class="ph-duotone ph-speaker-high"></i> Ouvir
+      </button>
+      <button
+        class="btn btn-ghost btn-audio"
+        data-audio-text="{{ ex.audio_text }}"
+        data-audio-lang="{{ ex.audio_lang }}"
+        data-speed="0.5"
+      >
+        <i class="ph-duotone ph-hourglass-simple"></i> Lento
+      </button>
+    </div>
+    <input
+      type="text"
+      class="text-input"
+      placeholder="O que você ouviu?"
+      autocomplete="off"
+    />
+    {% if ex.audio_lang and ex.audio_lang.startswith('ru') %}
+    <div class="cyrillic-keyboard" data-cyrillic-keyboard></div>
+    {% endif %} {% elif ex.type == 'speak' %}
+    <div class="speak-target">
+      <span class="speak-label"
+        ><i class="ph-duotone ph-megaphone-simple"></i> Diga em voz alta:</span
+      >
+      <span class="speak-phrase">{{ ex.audio_text }}</span>
+    </div>
+    <div class="audio-controls">
+      <button
+        class="btn btn-primary btn-speak"
+        data-audio-text="{{ ex.audio_text }}"
+        data-audio-lang="{{ ex.audio_lang }}"
+      >
+        <i class="ph-duotone ph-microphone"></i> Gravar fala
+      </button>
+      <button
+        class="btn btn-ghost btn-audio"
+        data-audio-text="{{ ex.audio_text }}"
+        data-audio-lang="{{ ex.audio_lang }}"
+        data-speed="0.5"
+      >
+        <i class="ph-duotone ph-speaker-high"></i> Ouvir exemplo
+      </button>
+    </div>
+    <div class="speak-result" hidden></div>
     {% elif ex.type == 'quiz' %}
-      <div class="quiz-options" data-quiz-options></div>
-      <script type="text/plain" data-quiz-options-data>{{ ex.options | safe }}</script>
+    <div class="quiz-options" data-quiz-options></div>
+    <script type="text/plain" data-quiz-options-data>
+      {{ ex.options | safe }}
+    </script>
     {% elif ex.type == 'sql' %}
-      <textarea class="code-editor" data-lang="sql">{{ ex.starter_code }}</textarea>
-      <script type="text/plain" data-exercise-options>{{ ex.options | safe }}</script>
+    <textarea class="code-editor" data-lang="sql">
+{{ ex.starter_code }}</textarea
+    >
+    <script type="text/plain" data-exercise-options>
+      {{ ex.options | safe }}
+    </script>
     {% endif %}
 
     <div class="exercise-actions">
@@ -105,8 +184,12 @@
     {% if ex.type == 'sql' %}
     <div class="sql-result" data-sql-result hidden></div>
     {% endif %}
-    <script type="text/plain" data-test-code>{{ ex.test_code | safe }}</script>
-    <script type="text/plain" data-solution-code>{{ ex.solution | safe }}</script>
+    <script type="text/plain" data-test-code>
+      {{ ex.test_code | safe }}
+    </script>
+    <script type="text/plain" data-solution-code>
+      {{ ex.solution | safe }}
+    </script>
   </div>
   {% endfor %}
 </section>
@@ -114,25 +197,37 @@
 
 <section class="topic-footer">
   <div class="footer-left">
-    <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-ghost"><i class="ph-duotone ph-arrow-left"></i> Voltar ao curso</a>
+    <a href="/roadmap/{{ roadmap.slug }}" class="btn btn-ghost"
+      ><i class="ph-duotone ph-arrow-left"></i> Voltar ao curso</a
+    >
   </div>
 
   <div class="footer-center">
-    <button id="complete-btn" class="btn btn-primary {% if is_done %}is-done{% endif %}"
-            data-topic-id="{{ topic.id }}"
-            data-has-exercises="{{ 'true' if topic.exercises else 'false' }}">
-      {% if is_done %}<i class="ph-duotone ph-check"></i> Concluído{% elif topic.exercises %}Conclua os exercícios para liberar{% else %}Marcar como lido{% endif %}
+    <button
+      id="complete-btn"
+      class="btn btn-primary {% if is_done %}is-done{% endif %}"
+      data-topic-id="{{ topic.id }}"
+      data-has-exercises="{{ 'true' if topic.exercises else 'false' }}"
+    >
+      {% if is_done %}<i class="ph-duotone ph-check"></i> Concluído{% elif
+      topic.exercises %}Conclua os exercícios para liberar{% else %}Marcar como
+      lido{% endif %}
     </button>
   </div>
 
   <div class="nav-buttons">
-    {% if prev_topic %}<a class="btn btn-ghost" href="/topic/{{ prev_topic.slug }}"><i class="ph-duotone ph-arrow-left"></i> Anterior</a>{% endif %}
-    {% if next_topic %}<a class="btn btn-ghost" href="/topic/{{ next_topic.slug }}">Próximo <i class="ph-duotone ph-arrow-right"></i></a>{% endif %}
+    {% if prev_topic %}<a
+      class="btn btn-ghost"
+      href="/topic/{{ prev_topic.slug }}"
+      ><i class="ph-duotone ph-arrow-left"></i> Anterior</a
+    >{% endif %} {% if next_topic %}<a
+      class="btn btn-ghost"
+      href="/topic/{{ next_topic.slug }}"
+      >Próximo <i class="ph-duotone ph-arrow-right"></i></a
+    >{% endif %}
   </div>
 </section>
-{% endblock %}
-
-{% block scripts %}
-<script src="/static/js/progress.js"></script>
-<script src="/static/js/runner.js"></script>
+{% endblock %} {% block scripts %}
+<script src="/static/js/progress.js?v={{ static_mtime('js/progress.js') }}"></script>
+<script src="/static/js/runner.js?v={{ static_mtime('js/runner.js') }}"></script>
 {% endblock %}
