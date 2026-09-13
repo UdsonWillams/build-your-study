@@ -27,7 +27,7 @@ OUT_PATH = CONTENT_DIR / "python-do-zero.json"
 def normalize(s):
     """Espelha normalize() de web/static/js/runner.js."""
     s = s.lower().replace("ё", "е")
-    s = re.sub(r"[.,!?;:'\"-]", "", s)
+    s = re.sub(r"[.,!?;:'\"’‘“”…–—-]", "", s)
     return re.sub(r"\s+", " ", s).strip()
 
 

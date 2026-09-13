@@ -33,7 +33,7 @@ OUT_PATH = CONTENT_DIR / "ingles-do-zero.json"
 # compara a resposta do aluno com a solucao.
 def normalize(s):
     s = s.lower().replace("ё", "е")
-    s = re.sub(r"[.,!?;:'\"-]", "", s)
+    s = re.sub(r"[.,!?;:'\"’‘“”…–—-]", "", s)
     return re.sub(r"\s+", " ", s).strip()
 
 

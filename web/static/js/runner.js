@@ -287,7 +287,7 @@
         audioBtn.innerHTML = '<i class="ph-duotone ph-speaker-high"></i>';
         audioBtn.setAttribute("aria-label", "Ouvir");
         audioBtn.dataset.audioText = opt;
-        audioBtn.dataset.audioLang = audioLang;
+        audioBtn.dataset.audioLang = optionAudioLang(opt, audioLang);
         audioBtn.dataset.speed = "1";
 
         row.appendChild(btn);
@@ -295,6 +295,21 @@
         container.appendChild(row);
       });
     });
+  }
+
+  // Alternativas de quiz de idioma misturam teoria em português com o idioma
+  // estudado: a voz sai de cada alternativa, não do exercício inteiro. Cirílico
+  // é lido em russo; num exercício de inglês, pistas de português (acento ou
+  // palavra comum) fora dos parênteses de glosa trocam para pt-BR.
+  const PT_HINT = /[ãõçáéíóúâêôà]|\b(não|que|para|uma|um|dos|das|pelo|pela|sem|mais|ou|se|quando|porque|onde|qual|quem|isso|esse|essa|eu|ele|ela|eles|elas|vou|tenho|muito|obrigado|obrigada|de|da|do|em|na|os)\b/i;
+
+  function optionAudioLang(opt, exerciseLang) {
+    const letters = opt.match(/\p{L}/gu) || [];
+    const cyrillic = letters.filter((c) => /[а-яёА-ЯЁ]/.test(c)).length;
+    if (letters.length && cyrillic / letters.length > 0.5) return "ru-RU";
+    if (exerciseLang.startsWith("ru")) return "pt-BR";
+    if (exerciseLang.startsWith("en") && PT_HINT.test(opt.replace(/\([^)]*\)/g, ""))) return "pt-BR";
+    return exerciseLang;
   }
 
   // --- 2c. Teclado cirílico virtual (exercícios de russo) ---
@@ -635,7 +650,7 @@
   function normalize(s) {
     return s.toLowerCase()
       .replace(/ё/g, "е")
-      .replace(/[.,!?;:'"-]/g, "")
+      .replace(/[.,!?;:'"’‘“”…–—-]/g, "")
       .replace(/\s+/g, " ")
       .trim();
   }
