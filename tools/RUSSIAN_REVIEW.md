@@ -76,9 +76,11 @@ Legenda: [x] revisado e corrigido · notas curtas do que mudou.
 ## Pendências observadas (não são erros; ficaram fora desta revisão)
 
 - Expandir os Módulos 19–29 (hoje 5–7 exercícios por tópico e lições curtas) para o
-  padrão de 10 exercícios dos Módulos 1–18. É decisão editorial separada.
+  padrão de 10 exercícios dos Módulos 1–18. É decisão editorial separada. Adiado em
+  2026-09-13: são ~220 exercícios novos, melhor numa sessão dedicada.
 - Exercícios de tradução aceitam uma única ordem de palavras; o russo tem ordem livre, então
   uma resposta correta em outra ordem é recusada. Resolver exigiria aceitar várias soluções.
 - Termos em inglês que ainda aparecem nos Módulos 21 e 27 ("chunks", "recall").
 - Formas só masculinas em frases-modelo (я хотел бы); uma aluna escreveria хотела бы e
-  seria recusada nos exercícios de digitação.
+  seria recusada nos exercícios de digitação. Mantido assim por decisão do usuário
+  (2026-09-13).

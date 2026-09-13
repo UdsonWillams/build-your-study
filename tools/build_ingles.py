@@ -32,6 +32,22 @@ OUT_PATH = CONTENT_DIR / "ingles-do-zero.json"
 # Espelha normalize() do web/static/js/runner.js: e' assim que o front-end
 # compara a resposta do aluno com a solucao.
 def normalize(s):
+    s = s.lower().replace("ё", "е").replace("’", "'").replace("‘", "'")
+    # Contrações comuns viram a forma longa dos dois lados (I'm = I am), para o
+    # corretor aceitar as duas formas.
+    for pattern, repl in (
+        (r"\bcan't\b", "cannot"), (r"\bcan not\b", "cannot"), (r"\bwon't\b", "will not"),
+        (r"n't\b", " not"), (r"\bi'm\b", "i am"), (r"'re\b", " are"), (r"'ve\b", " have"),
+        (r"'ll\b", " will"), (r"'d\b", " would"), (r"\blet's\b", "let us"),
+        (r"\b(it|he|she|that|what|there|where|who|here|how)'s\b", r"\1 is"),
+    ):
+        s = re.sub(pattern, repl, s)
+    s = re.sub(r"[.,!?;:'\"“”…–—-]", "", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def plain(s):
+    """Leitura antiga do corretor: só tira pontuação e apóstrofo ("dont" = "don't")."""
     s = s.lower().replace("ё", "е")
     s = re.sub(r"[.,!?;:'\"’‘“”…–—-]", "", s)
     return re.sub(r"\s+", " ", s).strip()
@@ -114,16 +130,35 @@ def check(modules, active_module_slugs):
                     problems.append(f"{loc}: solution vazia")
                 if e["type"] == "quiz":
                     opts = e.get("options") or []
+                    # O front-end aceita a resposta pelas duas leituras (contração
+                    # expandida ou só sem apóstrofo): nenhuma pode empatar alternativas.
                     norms = [normalize(o) for o in opts]
-                    if len(set(norms)) != len(norms):
+                    plains = [plain(o) for o in opts]
+                    if len(set(norms)) != len(norms) or len(set(plains)) != len(plains):
                         problems.append(f"{loc}: alternativas ambíguas após normalize: {opts}")
-                    if norms.count(normalize(e["solution"])) != 1:
+                    sol_n, sol_p = normalize(e["solution"]), plain(e["solution"])
+                    if sum(1 for n, p in zip(norms, plains) if n == sol_n or p == sol_p) != 1:
                         problems.append(f"{loc}: solution não bate com exatamente 1 alternativa: {opts}")
                 if e["type"] in ("audio", "speak"):
                     if not e.get("audio_text"):
                         problems.append(f"{loc}: {e['type']} sem audio_text")
                     elif normalize(e["audio_text"]) != normalize(e["solution"]):
                         problems.append(f"{loc}: audio_text != solution")
+            # A mesma pergunta não pode aparecer duas vezes no tópico: em quiz
+            # compara o enunciado; nos demais tipos, tipo + frase de resposta
+            # (áudio e fala da mesma frase continuam valendo).
+            seen = {}
+            for i, e in enumerate(t["exercises"]):
+                if e["type"] == "quiz":
+                    key = ("quiz", normalize(e["prompt"]))
+                elif len(normalize(e["solution"]).split()) >= 2:
+                    key = (e["type"], normalize(e["solution"]))
+                else:
+                    continue
+                if key in seen:
+                    problems.append(f"{loc_base} #{i}: repete o exercício #{seen[key]}")
+                else:
+                    seen[key] = i
 
     if len(set(topic_slugs)) != len(topic_slugs):
         dupes = {s for s in topic_slugs if topic_slugs.count(s) > 1}
@@ -196,7 +231,7 @@ How do you spell your name?     Como você soletra seu nome?
 Dois sons costumam ser os mais difíceis para brasileiros:
 
 - **th** (como em `think` e `this`): a língua fica entre os dentes — não existe equivalente em português, e trocar por "f"/"t" muda o significado da palavra.
-- **r final** (como em `car`, `hard`): em muitos sotaques americanos, é um som gutural único, bem diferente do "r" do português.
+- **r final** (como em `car`, `hard`): em muitos sotaques americanos, a língua se curva para trás sem tocar o céu da boca — um som "enrolado", bem diferente do "r" do português.
 
 > 🎧 A melhor forma de treinar pronúncia é **ouvir muito** e repetir em voz alta. Clique em 🔊 para ouvir e 🎤 para tentar falar.
 """,
@@ -751,8 +786,8 @@ def build_modulo_02_gramatica_essencial_a1():
                 """
 # Pronomes pessoais (subject pronouns)
 
-Os pronomes pessoais em inglês aparecem como **sujeito** da frase. São poucos
-e não mudam conforme a pessoa — são o "quem" da ação.
+Os pronomes pessoais em inglês aparecem como **sujeito** da frase. São o "quem" da ação e, diferente do
+português, quase nunca podem ser omitidos: dizemos **I study**, nunca só *study*.
 
 | Pronome | Português |
 |---|---|
@@ -762,7 +797,7 @@ e não mudam conforme a pessoa — são o "quem" da ação.
 | **she** | ela |
 | **it** | ele/ela (coisas, animais, objetos) |
 | **we** | nós |
-| **they** | eles / elas / vocês |
+| **they** | eles / elas |
 
 ## Regras que ajudam
 
@@ -953,7 +988,7 @@ O plural em inglês é, na maioria das vezes, só acrescentar **-s**.
 | Terminação | Plural | Exemplos |
 |---|---|---|
 | consoante | + **s** | book -> books, cat -> cats |
-| s, sh, ch, x, o | + **es** | bus -> buses, box -> boxes |
+| s, sh, ch, x, o | + **es** | bus -> buses, box -> boxes, potato -> potatoes (mas photo -> photos) |
 | consoante + y | troca y por **ies** | baby -> babies, city -> cities |
 | vogal + y | + **s** | boy -> boys, day -> days |
 
@@ -967,7 +1002,7 @@ person -> people tooth -> teeth
 
 ## Uso com números
 
-Com plural usamos números e **no article** a/an:
+Com plural usamos números e **nenhum artigo** (a/an):
 
 ```
 one book, two books
@@ -1017,8 +1052,8 @@ Those are our books.     Aqueles são nossos livros.  (longe, plural)
 
 ## Dica de memória
 
-- **this / these** têm "t" duplo e são os de **perto** (como o "este").
-- **that / those** têm "t" + "h/a/o/u" e são os de **longe**.
+- **this / these** são os de **perto**; **that / those**, os de **longe**.
+- **these** e **those** são os plurais — os dois terminam em **-se**, um lembrete do "s" de plural.
 - Singular (this/that) com o verbo **is**; plural (these/those) com **are**.
 
 > 💡 Use **this** para apresentar algo na mão e **that** para apontar algo
@@ -1186,7 +1221,7 @@ Does he live here?          Ele mora aqui?
 > errado — o certo é "Does he live?".
 """,
                 [
-                    ex("quiz", 'Complete: "He ___ coffee." (drinks)',
+                    ex("quiz", "Complete: \"He ___ coffee.\" (drink)",
                        "drinks", ["drinks", "drink", "drinking"]),
                     ex("quiz", 'Complete: "I ___ to school every day." (go)',
                        "go", ["go", "goes", "going"]),
@@ -1393,7 +1428,7 @@ on    em dias       ->  on Monday
 
 ## Cidades e lugares
 
-- **in** + cidade/pais: `She lives in São Paulo.`
+- **in** + cidade/país: `She lives in São Paulo.`
 - **at** + ponto específico: `I'm at home.`, `We're at the store.`
 
 > 💡 Dica rápida: **on** = superfície, **in** = dentro, **at** = ponto
@@ -1710,7 +1745,7 @@ Her dress is red.         O vestido dela é vermelho.
 I need new shoes.         Eu preciso de sapatos novos.
 ```
 
-> 💡 **pants** é "calça" — sempre no plural, como em português. **shoes** e
+> 💡 **pants** é "calça" — sempre no plural em inglês (em português, "a calça" é singular). **shoes** e
 > **socks** também costumam aparecer no plural (são aos pares).
 """,
                 [
@@ -1881,7 +1916,7 @@ She travels by plane.       Ela viaja de avião.
 | hot | quente |
 | cold | frio |
 | warm | morno / quentinho |
-| snow | neve |
+| snowy | com neve |
 
 ## Como falar do tempo
 
@@ -2980,8 +3015,7 @@ Yes, I will. / No, I won't.
                 [
                     ex("quiz", 'Complete: "I will ___ you tomorrow." (ver)',
                        "see", ["see", "seeing", "saw"]),
-                    ex("quiz", "Qual é a contração de 'will not'?",
-                       "won't", ["won't", "willn't", "doesn't will"]),
+                    ex("quiz", "Qual é a contração de 'will not'?", "won't", ["won't", "wouldn't", "doesn't will"]),
                     ex("text", "Traduza: Eu vou ajudar você.",
                        "i will help you"),
                     ex("quiz", 'Complete: "It ___ rain today." (não vai, negativo)',
@@ -3015,7 +3049,7 @@ How much money?      (não "moneys")
 
 ## Regras rápidas
 
-- Contável + contável: **one banana, two bananas**.
+- Contável: **one banana, two bananas**.
 - Incontável: sempre no singular — **the water is cold** (não "are").
 - Para "quantidade" de incontáveis, use palavras como **a glass of water**, 
   **a piece of information**.
@@ -3348,7 +3382,7 @@ ou indireto) — vêm depois do verbo ou da preposição.
                        "me", ["me", "I", "my"]),
                     ex("quiz", "O pronome objeto de 'she' é:",
                        "her", ["her", "she", "hers"]),
-                    ex("text", "Complete: 'Can you help ___?' (me)",
+                    ex("text", "Complete: 'Can you help ___?' (eu)",
                        "me"),
                     ex("quiz", "O pronome objeto de 'they' é:",
                        "them", ["them", "they", "their"]),
@@ -4842,7 +4876,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
             ex("quiz", "Qual dia vem depois de Thursday?", "Friday", ["Friday", "Wednesday", "Saturday"]),
             ex("text", "Traduza: A festa é na sexta-feira.", "the party is on friday"),
             ex("audio", "Escute e transcreva:", "it's five o'clock", audio_text="It's five o'clock."),
-            ex("speak", "Pergunte as horas em voz alta:", "what time is it", audio_text="What time is it?"),
+            ex("speak", "Diga em voz alta que são três horas:", "it's three o'clock", audio_text="It's three o'clock."),
         ],
     },
     "paises-e-nacionalidades": {
@@ -4884,7 +4918,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
             ex("text", "Traduza: Meu tio trabalha aqui.", "my uncle works here"),
             ex("audio", "Escute e transcreva:", "her husband is a teacher", audio_text="Her husband is a teacher."),
             ex("speak", "Diga em voz alta quantas irmãs você tem:", "i have one sister", audio_text="I have one sister."),
-            ex("quiz", "Você mostra uma pessoa da família. Qual pergunta e resposta combinam?", "This is my sister.", ["This is my sister.", "This are my sister.", "I am my sister."]),
+            ex("quiz", "Você mostra uma pessoa da família. Qual frase está correta?", "This is my sister.", ["This is my sister.", "This are my sister.", "I am my sister."]),
         ],
     },
     "cores-em-ingles": {
@@ -5223,7 +5257,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Talvez na próxima.", "maybe next time"),
-            ex("quiz", "Qual resposta recusa sem ser grosseira?", "I'd love to, but I'm busy.", ["I'd love to, but I'm busy.", "No way!", "Leave me alone."]),
+            ex("quiz", "Qual resposta recusa e deixa a porta aberta para outra ocasião?", "Maybe next time.", ["Maybe next time.", "No way!", "Leave me alone."]),
             ex("audio", "Escute e transcreva:", "sorry i can't make it", audio_text="Sorry, I can't make it."),
             ex("speak", "Diga por que você não pode ir:", "i'm busy today", audio_text="I'm busy today."),
         ],
@@ -5303,7 +5337,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: A sopa está fria.", "the soup is cold"),
-            ex("quiz", "Qual abertura é educada para uma reclamação?", "I'm sorry, but...", ["I'm sorry, but...", "Hey, you!", "Shut up."]),
+            ex("quiz", "Como dizer que o seu pedido veio errado?", "My order is wrong.", ["My order is wrong.", "My order is delicious.", "I order every day."]),
             ex("audio", "Escute e transcreva:", "the room is dirty", audio_text="The room is dirty."),
             ex("speak", "Diga que algo não funciona:", "it doesn't work", audio_text="It doesn't work."),
         ],
@@ -5343,7 +5377,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Eu não acho que seja uma boa ideia.", "i don't think it's a good idea"),
-            ex("quiz", "Qual frase pede a opinião de outra pessoa?", "What do you think?", ["What do you think?", "I think so.", "I am thinking."]),
+            ex("quiz", "Qual frase usa \"I believe\" para dar uma opinião?", "I believe it is a good plan.", ["I believe it is a good plan.", "I believe yesterday.", "Believe I it a good plan."]),
             ex("audio", "Escute e transcreva:", "in my opinion it is too expensive", audio_text="In my opinion, it is too expensive."),
             ex("speak", "Dê uma opinião positiva:", "i think it's a good idea", audio_text="I think it's a good idea."),
         ],
@@ -5367,7 +5401,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Meu voo sai às oito.", "my flight leaves at eight"),
-            ex("quiz", "Qual documento de identificação você apresenta no aeroporto?", "passport", ["passport", "map", "luggage"]),
+            ex("quiz", "Como se diz \"voo\" em inglês?", "flight", ["flight", "trip", "ticket"]),
             ex("audio", "Escute e transcreva:", "where is my luggage", audio_text="Where is my luggage?"),
             ex("speak", "Diga o que você tem para a viagem:", "i have a ticket", audio_text="I have a ticket."),
         ],
@@ -5427,7 +5461,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Preciso marcar uma consulta.", "i need an appointment"),
-            ex("quiz", "Qual palavra significa 'remédio'?", "medicine", ["medicine", "appointment", "pain"]),
+            ex("quiz", "Como se diz \"saudável\" em inglês?", "healthy", ["healthy", "sick", "pain"]),
             ex("audio", "Escute e transcreva:", "i have a cold", audio_text="I have a cold."),
             ex("speak", "Diga como você está hoje:", "i am healthy today", audio_text="I am healthy today."),
         ],
@@ -5447,7 +5481,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: A bateria está fraca.", "the battery is low"),
-            ex("quiz", "Onde você lê uma página na internet?", "website", ["website", "battery", "screen"]),
+            ex("quiz", "Como se diz \"tela\" em inglês?", "screen", ["screen", "battery", "website"]),
             ex("audio", "Escute e transcreva:", "i use my laptop at home", audio_text="I use my laptop at home."),
             ex("speak", "Descreva seu computador:", "my computer is new", audio_text="My computer is new."),
         ],
@@ -5467,7 +5501,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Vamos assistir a um filme.", "let's watch a movie"),
-            ex("quiz", "Qual evento normalmente envolve música ao vivo?", "concert", ["concert", "theater", "game"]),
+            ex("quiz", "Como se diz \"teatro\" em inglês?", "theater", ["theater", "concert", "game"]),
             ex("audio", "Escute e transcreva:", "the series is very interesting", audio_text="The series is very interesting."),
             ex("speak", "Diga uma atividade de entretenimento:", "we went to the theater", audio_text="We went to the theater."),
         ],
@@ -5487,7 +5521,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Ele é meu colega de trabalho.", "he is my colleague"),
-            ex("quiz", "Como se diz 'vizinha' em inglês?", "neighbor", ["neighbor", "colleague", "girlfriend"]),
+            ex("quiz", "Como se diz \"amizade\" em inglês?", "friendship", ["friendship", "relationship", "neighbor"]),
             ex("audio", "Escute e transcreva:", "i trust my best friend", audio_text="I trust my best friend."),
             ex("speak", "Apresente sua esposa:", "she is my wife", audio_text="She is my wife."),
         ],
@@ -5627,7 +5661,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: O centro é movimentado.", "downtown is busy"),
-            ex("quiz", "Qual lugar é a zona rural?", "countryside", ["countryside", "downtown", "suburb"]),
+            ex("quiz", "Como se diz \"subúrbio\" (bairro residencial longe do centro) em inglês?", "suburb", ["suburb", "downtown", "countryside"]),
             ex("audio", "Escute e transcreva:", "there is a lot of traffic downtown", audio_text="There is a lot of traffic downtown."),
             ex("speak", "Descreva onde você mora:", "i live in a quiet suburb", audio_text="I live in a quiet suburb."),
         ],
@@ -5793,7 +5827,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
             ex("text", "Traduza: Eu tenho algumas perguntas.", "i have some questions"),
             ex("quiz", "Complete: 'There aren't ___ eggs.'", "any", ["any", "some", "a"]),
             ex("audio", "Escute e transcreva:", "would you like some coffee", audio_text="Would you like some coffee?"),
-            ex("quiz", "Complete a pergunta neutra: 'Do you have ___ water?'", "any", ["any", "many", "a"]),
+            ex("quiz", "Complete a oferta educada: \"Would you like ___ coffee?\"", "some", ["some", "any", "many"]),
         ],
     },
     "much-many": {
@@ -5851,7 +5885,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Você não precisa vir amanhã.", "you don't have to come tomorrow"),
-            ex("quiz", "Qual frase diz que é proibido estacionar?", "You mustn't park here.", ["You mustn't park here.", "You don't have to park here.", "You have to park here."]),
+            ex("quiz", "Qual frase diz que algo NÃO é necessário?", "You don't have to come.", ["You don't have to come.", "You mustn't come.", "You must come."]),
             ex("audio", "Escute e transcreva:", "do i have to bring my passport", audio_text="Do I have to bring my passport?"),
             ex("speak", "Dê uma regra de segurança:", "you must wear a seat belt", audio_text="You must wear a seat belt."),
         ],
@@ -5891,7 +5925,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Ela fala inglês bem.", "she speaks english well"),
-            ex("quiz", "Qual é o advérbio de 'careful'?", "carefully", ["carefully", "carefuly", "careful"]),
+            ex("quiz", "Qual é o advérbio de \"easy\"?", "easily", ["easily", "easyly", "easy"]),
             ex("audio", "Escute e transcreva:", "he drives very slowly", audio_text="He drives very slowly."),
             ex("speak", "Peça que alguém ouça com atenção:", "please listen carefully", audio_text="Please listen carefully."),
         ],
@@ -6045,7 +6079,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
             "Uma conversa de compra pode seguir quatro passos: perguntar o preço, verificar uma cor ou tamanho, avaliar o preço e decidir. **I'll take it** mostra que você decidiu comprar.",
             [
                 ("Do you have this shirt in blue?", "Você tem esta camisa em azul?"),
-                ("It's too expensive. I'll take it.", "É caro demais. Vou levar."),
+                ("It's cheap. I'll take it.", "É barato. Vou levar."),
             ],
             [
                 "Use **Do you have...?**; não monte a pergunta como *Is you have...?*.",
@@ -6075,7 +6109,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
         ),
         "exercises": [
             ex("text", "Traduza: Minha mãe trabalha em um hospital.", "my mother works in a hospital"),
-            ex("quiz", "Qual resposta combina com 'How many brothers do you have?'", "I have two brothers.", ["I have two brothers.", "I am two brothers.", "I has two brothers."]),
+            ex("quiz", "Qual pergunta combina com a resposta \"I have two brothers.\"?", "How many brothers do you have?", ["How many brothers do you have?", "How old are your brothers?", "Where do your brothers live?"]),
             ex("audio", "Escute e transcreva:", "my father lives here", audio_text="My father lives here."),
             ex("speak", "Diga onde sua família mora:", "we live together", audio_text="We live together."),
         ],
@@ -6154,7 +6188,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
             "Ouça a primeira expressão, relacione pergunta e resposta e use frases de reparo quando uma parte da conversa escapar.",
         ),
         "exercises": [
-            ex("quiz", "Para 'Where are you from?', qual resposta é natural?", "I'm from Brazil.", ["I'm from Brazil.", "I'm fine, thanks.", "I'm 20 years old."]),
+            ex("quiz", "Para 'How are you?', qual é a resposta natural?", "I'm fine, thanks.", ["I'm fine, thanks.", "I'm from Brazil.", "I'm 20 years old."]),
             ex("text", "Traduza: Você pode repetir, por favor?", "can you repeat please"),
             ex("audio", "Escute e transcreva:", "what do you do", audio_text="What do you do?"),
             ex("speak", "Diga que você não entendeu:", "i don't understand", audio_text="I don't understand."),
@@ -6386,7 +6420,7 @@ TARGET_TOPIC_ENHANCEMENTS.update({
     },
     "partes-do-corpo": {
         "lesson": _lesson_revision(
-            "Partes do corpo aparecem com possessivos ou com **have**: **my hand**, **her eyes**, **I have blue eyes**. Para falar de dor, o inglês usa **have**: **My head hurts** ou **I have a headache**.",
+            "Partes do corpo aparecem com possessivos ou com **have**: **my hand**, **her eyes**, **I have blue eyes**. Para falar de dor, o inglês usa **hurt** ou **have**: **My head hurts** ou **I have a headache**.",
             [
                 ("She has brown eyes.", "Ela tem olhos castanhos."),
                 ("My ears hurt.", "Minhas orelhas doem."),
@@ -6829,9 +6863,9 @@ eat - ate - eaten     do - did - done
 > year). Quando aparece tempo definido, é passado simples (próximo tópico).
 """,
                 [
-                    ex("quiz", 'Complete: "I have ___ to Paris." (been)',
+                    ex("quiz", "Complete: \"I have ___ to Paris.\" (be)",
                        "been", ["been", "be", "was"]),
-                    ex("quiz", 'Complete: "She has ___ her homework." (finished)',
+                    ex("quiz", "Complete: \"She has ___ her homework.\" (finish)",
                        "finished", ["finished", "finish", "finishes"]),
                     ex("text", "Traduza: Você já comeu sushi?",
                        "have you ever eaten sushi"),
@@ -6982,9 +7016,9 @@ Had you seen that movie before?      Você já tinha visto aquele filme?
 > para **had + particípio**, e o mais recente fica no passado simples.
 """,
                 [
-                    ex("quiz", 'Complete: "When I arrived, she had ___." (left)',
+                    ex("quiz", "Complete: \"When I arrived, she had ___.\" (leave)",
                        "left", ["left", "leave", "leaved"]),
-                    ex("quiz", 'Complete: "He said he had ___ the email." (sent)',
+                    ex("quiz", "Complete: \"He said he had ___ the email.\" (send)",
                        "sent", ["sent", "send", "sending"]),
                     ex("text", "Traduza: Quando chegamos, o filme já tinha começado.",
                        "when we arrived the movie had already started"),
@@ -7126,7 +7160,7 @@ What would you do if you won the lottery?   O que você faria se ganhasse na lot
                 [
                     ex("quiz", "O segundo condicional expressa:",
                        "situações hipotéticas/improváveis", ["situações hipotéticas/improváveis", "fatos gerais", "passado real"]),
-                    ex("quiz", 'Complete: "If I ___ a lot of money, I would travel." (had)',
+                    ex("quiz", "Complete: \"If I ___ a lot of money, I would travel.\" (have)",
                        "had", ["had", "have", "will have"]),
                     ex("text", "Complete: 'If I were you, I ___ (study) more.'",
                        "would study"),
@@ -7268,7 +7302,7 @@ I'm good at cooking.           Eu sou bom em cozinhar.
                        "gerúndio", ["gerúndio", "infinitivo", "passado"]),
                     ex("quiz", 'Complete: "I enjoy ___ to music." (listen)',
                        "listening", ["listening", "listen", "listened"]),
-                    ex("text", "Traduza: Eu gosto de nadar.",
+                    ex("text", "Traduza usando o gerúndio: Eu gosto de nadar.",
                        "i like swimming"),
                     ex("quiz", 'Complete: "He finished ___ the report." (write)',
                        "writing", ["writing", "write", "wrote"]),
@@ -7719,7 +7753,7 @@ Every citizen has rights.           Todo cidadão tem direitos.
                        "government", ["government", "election", "law"]),
                     ex("quiz", "Como se diz 'votar' em inglês?",
                        "vote", ["vote", "debate", "citizen"]),
-                    ex("text", "Traduza: As eleições serão em novembro.",
+                    ex("text", "Traduza: A eleição será em novembro.",
                        "the election will be in november"),
                     ex("quiz", "Como se diz 'cidadão' em inglês?",
                        "citizen", ["citizen", "candidate", "policy"]),
@@ -9141,7 +9175,7 @@ Rewind         voltar
                        "watch this video again", audio_text="Watch this video again."),
                     ex("quiz", "Ao assistir duas vezes, você:",
                        "pega o que perdeu na primeira", ["pega o que perdeu na primeira", "perde tempo", "piora"]),
-                    ex("quiz", "O que significa 'close captions'?",
+                    ex("quiz", "O que significa 'closed captions'?",
                        "legendas", ["legendas", "volume", "pausa"]),
                 ],
             ),
@@ -9249,8 +9283,7 @@ What would you have done?      O que você teria feito?
                        "if + past perfect, would have + particípio", ["if + past perfect, would have + particípio", "if + presente, will + verbo", "if + passado, would + verbo"]),
                     ex("audio", "Escute e transcreva:",
                        "if we had left earlier we would have arrived on time", audio_text="If we had left earlier, we would have arrived on time."),
-                    ex("quiz", 'Complete: "If I had seen him, I ___ have said hello."',
-                       "would", ["would", "will", "had"]),
+                    ex("quiz", "Complete: \"If she ___ studied, she would have passed.\"", "had", ["had", "has", "would"]),
                 ],
             ),
             topic(
@@ -9536,11 +9569,11 @@ The car that was bought = the car bought.
 > "the man who is running" vira "the man running".
 """,
                 [
-                    ex("quiz", 'Complete a relativa reduzida: "The man ___ next to me is my brother." (sitting)',
+                    ex("quiz", "Complete a relativa reduzida: \"The man ___ next to me is my brother.\" (sit)",
                        "sitting", ["sitting", "who sitting", "sits"]),
                     ex("quiz", "Uma 'participle clause' usa:",
                        "particípio (sitting/done)", ["particípio (sitting/done)", "that + verbo", "who + verbo"]),
-                    ex("text", "Complete: 'The book ___ on the table is mine.' (lying)",
+                    ex("text", "Complete: 'The book ___ on the table is mine.' (lie)",
                        "lying"),
                     ex("quiz", "Para reduzir 'the car that was bought', dizemos:",
                        "the car bought", ["the car bought", "the car buying", "the car buy"]),
@@ -10214,7 +10247,7 @@ There's a problem.     Há um problema.
                        "I'd've", ["I'd've", "I'd has", "I'd was"]),
                     ex("quiz", "'Wouldn't've' significa:",
                        "would not have", ["would not have", "would never", "want not"]),
-                    ex("text", "Complete: '___ finished by now.' (they have)",
+                    ex("text", "Complete com a contração: '___ finished by now.' (they have)",
                        "they've"),
                     ex("quiz", "Contrações duplas como 'shouldn't've' aparecem:",
                        "na fala informal", ["na fala informal", "em textos legais", "nunca"]),
@@ -10303,8 +10336,7 @@ Cuz I'm busy.             Porque estou ocupado.
                        "don't know", ["don't know", "do know", "don't go"]),
                     ex("quiz", "'Cuz' significa:",
                        "because", ["because", "going", "want"]),
-                    ex("text", "Complete: 'I ___ know.' (não sei, redução)",
-                       "dunno"),
+                    ex("text", "Complete com a redução informal: 'I ___.' (não sei)", "dunno"),
                     ex("quiz", "'Lemme' significa:",
                        "let me", ["let me", "love me", "less me"]),
                     ex("audio", "Escute e transcreva:",
@@ -10564,7 +10596,7 @@ No big deal.                Sem problema.
                        "sem problema, não é grande coisa", ["sem problema, não é grande coisa", "grande negócio", "cuidado"]),
                     ex("quiz", "'I'm good' (recusando algo) significa:",
                        "estou bem, não preciso", ["estou bem, não preciso", "estou ótimo", "sou bom"]),
-                    ex("text", "Traduza: A decisão é sua.",
+                    ex("text", "Traduza de forma natural, com a expressão 'up to': A decisão é sua.",
                        "it's up to you"),
                     ex("quiz", "'For sure!' significa:",
                        "com certeza", ["com certeza", "talvez", "nunca"]),
@@ -11048,7 +11080,7 @@ Perhaps it will rain.               Talvez chova.
                        "It could be that...", ["It could be that...", "It is definitely...", "I know exactly."]),
                     ex("quiz", "O que 'perhaps' significa?",
                        "talvez", ["talvez", "com certeza", "nunca"]),
-                    ex("text", "Complete: '___ it will rain.' (talvez)",
+                    ex("text", "Complete com a palavra da lição, mais formal que 'maybe': '___ it will rain.' (talvez)",
                        "perhaps"),
                     ex("audio", "Escute e transcreva:",
                        "it could be that they are late", audio_text="It could be that they are late."),
@@ -11154,8 +11186,7 @@ What I meant to say was...          O que eu quis dizer foi...
                        "That's not what I meant.", ["That's not what I meant.", "You're crazy.", "Bye."]),
                     ex("quiz", "O que 'misunderstanding' significa?",
                        "mal-entendido", ["mal-entendido", "acordo", "surpresa"]),
-                    ex("text", "Traduza: Acho que houve um mal-entendido.",
-                       "i think there is a misunderstanding"),
+                    ex("text", "Traduza: Acho que houve um mal-entendido.", "i think there was a misunderstanding"),
                     ex("audio", "Escute e transcreva:",
                        "let me clarify what i said", audio_text="Let me clarify what I said."),
                     ex("quiz", "Para reformular o que disse:",
@@ -11999,7 +12030,7 @@ B1_B2_TOPIC_ENHANCEMENTS = {
             "O que fazemos quando queremos descobrir uma informação?",
             "We find out.",
             ["We find out.", "We get up.", "We turn off."],
-            "please turn off the lights",
+            "we need to find out the truth",
             "Diga que você está procurando suas chaves.",
             "i am looking for my keys",
         ),
@@ -12091,8 +12122,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "O que sustenta uma conclusão científica?",
             "Evidence.",
             ["Evidence.", "A password.", "A salary."],
-            "the experiment was successful",
-            "Diga que a ciência explica o mundo.",
+            "the research took three years",
+            "Diga que a ciência ajuda a explicar o mundo.",
             "science helps explain the world",
         ),
     ),
@@ -12233,8 +12264,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não use *client* para toda situação de compra: uma loja geralmente tem **customers**, enquanto um escritório de consultoria atende **clients**. **Profit** não é receita total; é o lucro.",
         "Escolha o termo conforme a relação comercial: empresa, pessoa atendida, produto, marca, mercado ou resultado.",
         _b1_b2_exercises(
-            "Traduza: A empresa cresceu este ano.",
-            "the company grew this year",
+            "Traduza: O lucro foi alto este ano.",
+            "the profit was high this year",
             "Quem compra um produto em uma loja é normalmente um...",
             "customer",
             ["customer", "client only", "competitor"],
@@ -12254,8 +12285,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não confunda **excited** (animado) com *exciting* (que causa animação). A pessoa fica **excited**; o evento pode ser **exciting**.",
         "Use **be + adjetivo** para o estado e acrescente **about + assunto** para explicar o motivo.",
         _b1_b2_exercises(
-            "Traduza: Estou preocupado com a prova.",
-            "i am worried about the exam",
+            "Traduza: Ela está com raiva.",
+            "she is angry",
             "Qual frase descreve a emoção da pessoa, e não a causa?",
             "She is excited.",
             ["She is excited.", "The trip is exciting.", "She travels tomorrow."],
@@ -12296,12 +12327,12 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não confunda **argue** com ‘provar que está certo’: em relações, geralmente significa discutir. **Apologize** é pedir desculpas; **forgive** é aceitar as desculpas.",
         "Nomeie o problema, use uma ação respeitosa e descreva como a comunicação pode reconstruir a confiança.",
         _b1_b2_exercises(
-            "Traduza: É importante respeitar outras pessoas.",
-            "it is important to respect other people",
+            "Traduza: Eles pediram desculpas e chegaram a um acordo.",
+            "they apologized and reached a compromise",
             "O que uma pessoa faz quando reconhece que errou?",
             "She apologizes.",
             ["She apologizes.", "She argues forever.", "She ignores everyone."],
-            "communication is important in relationships",
+            "he apologized and she forgave him",
             "Diga que amigos devem apoiar uns aos outros.",
             "friends should support each other",
         ),
@@ -12317,12 +12348,12 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não confunda **truth** (verdade, substantivo) com **true** (verdadeiro, adjetivo). **Peace** é paz; **piece** é pedaço, embora tenham pronúncia semelhante.",
         "Identifique a ideia abstrata, escolha a classe gramatical correta e conecte-a a uma opinião ou exemplo concreto.",
         _b1_b2_exercises(
-            "Traduza: A liberdade é importante para todos.",
-            "freedom is important to everyone",
+            "Traduza: O significado da ideia é claro.",
+            "the meaning of the idea is clear",
             "Qual palavra significa 'o que algo quer dizer'?",
             "meaning",
             ["meaning", "courage", "value"],
-            "happiness is not only about money",
+            "peace and justice are important values",
             "Diga que a justiça é importante em uma sociedade.",
             "justice is important in a society",
         ),
@@ -12411,9 +12442,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: O que quero dizer é que precisamos de mais tempo.",
             "what i mean is that we need more time",
-            "Qual expressão reformula uma ideia?",
-            "In other words, ...",
-            ["In other words, ...", "At first, ...", "Good night, ..."],
+            "Qual expressão esclarece a sua intenção?",
+            "What I mean is...",
+            ["What I mean is...", "In conclusion...", "By the way..."],
             "for example we could start tomorrow",
             "Explique que o plano é caro demais, em outras palavras.",
             "in other words the plan is too expensive",
@@ -12430,11 +12461,11 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não use **finally** para iniciar uma sequência e não empilhe ações sem conectores. **Suddenly** marca uma mudança inesperada, não apenas o próximo passo.",
         "Planeje começo, desenvolvimento e fim; use conectores e alterne cenário em progresso com eventos pontuais.",
         _b1_b2_exercises(
-            "Ordene e traduza: 'First / we / arrived / then / we / had dinner'.",
-            "first we arrived then we had dinner",
-            "Qual conector apresenta o último evento?",
-            "Finally, ...",
-            ["Finally, ...", "First, ...", "Suddenly, ..."],
+            "Traduza: De repente, o telefone tocou.",
+            "suddenly the phone rang",
+            "Qual conector indica algo inesperado?",
+            "Suddenly, ...",
+            ["Suddenly, ...", "Finally, ...", "First, ..."],
             "suddenly the phone rang",
             "Comece uma história dizendo que você chegou em casa.",
             "first i arrived home",
@@ -12496,8 +12527,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "Traduza: Este celular é mais caro que o outro.",
             "this phone is more expensive than the other one",
             "Qual frase indica igualdade?",
-            "The two rooms are as bright as each other.",
-            ["The two rooms are as bright as each other.", "One room is brighter than the other.", "This is the brightest room."],
+            "This room is as bright as that one.",
+            ["This room is as bright as that one.", "One room is brighter than the other.", "This is the brightest room."],
             "my current job is better than my old job",
             "Compare duas cidades dizendo que uma é mais tranquila.",
             "this city is quieter than that one",
@@ -12577,8 +12608,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não diga *thinking to change*: a combinação natural é **thinking of changing**. **Plan to** leva infinitivo: **plan to travel**.",
         "Indique o grau de decisão: plano definido, intenção, ideia em avaliação ou esperança.",
         _b1_b2_exercises(
-            "Traduza: Estou pensando em mudar de emprego.",
-            "i am thinking of changing jobs",
+            "Traduza: Eu pretendo estudar mais.",
+            "i intend to study more",
             "Qual frase apresenta um plano mais definido?",
             "I am planning to start a course.",
             ["I am planning to start a course.", "I am thinking of starting a course.", "I hope to start someday."],
@@ -12629,9 +12660,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: Não entendi a última parte.",
             "i didn't catch the last part",
-            "Qual é a melhor primeira estratégia para fala rápida?",
-            "Focar nas palavras-chave e no contexto.",
-            ["Focar nas palavras-chave e no contexto.", "Ouvir cada letra separadamente.", "Parar a conversa imediatamente."],
+            "Qual frase pede que a pessoa repita?",
+            "Could you say that again, please?",
+            ["Could you say that again, please?", "I caught everything.", "Say nothing."],
             "what are you doing after work",
             "Peça educadamente para a pessoa repetir.",
             "could you say that again please",
@@ -12669,7 +12700,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não use *wanna* antes de um substantivo como se fosse *want a*: **I want a coffee** não vira *I wanna coffee*. Em um e-mail formal, prefira a forma completa.",
         "Reconheça a redução pelo contexto, expanda mentalmente para a forma completa e ajuste o registro ao falar ou escrever.",
         _b1_b2_exercises(
-            "Traduza: Temos que sair agora.",
+            "Traduza usando a forma reduzida informal (gotta): Temos que sair agora.",
             "we gotta leave now",
             "Em conversa informal, 'gonna' corresponde a:",
             "going to",
@@ -12695,7 +12726,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "O que é fala conectada?",
             "A ligação de sons entre palavras na fala.",
             ["A ligação de sons entre palavras na fala.", "Uma nova regra de ortografia.", "Uma lista de gírias."],
-            "he is coming at ten",
+            "check it out",
             "Repita a frase conectando as palavras naturalmente.",
             "come in and take a seat",
         ),
@@ -12713,9 +12744,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: Eles estão esperando lá fora.",
             "they are waiting outside",
-            "Qual é a expansão de 'won't'?",
-            "will not",
-            ["will not", "would not", "want not"],
+            "'Can't' é a contração de:",
+            "cannot",
+            ["cannot", "could not", "will not"],
             "she doesn't like noisy places",
             "Diga que você ligará mais tarde.",
             "i will call you later",
@@ -12780,8 +12811,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "A fala seguinte do interlocutor.",
             ["A fala seguinte do interlocutor.", "O silêncio final.", "A primeira palavra apenas."],
             "well i think we should wait",
-            "Mostre que você está ouvindo com uma resposta curta.",
-            "uh huh i understand",
+            "Mostre que você está acompanhando a conversa com uma resposta curta.",
+            "i see what you mean",
         ),
     ),
     "entendendo-podcasts": _b1_b2_spec(
@@ -12800,7 +12831,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "Qual sequência favorece o aprendizado com um podcast?",
             "Ouvir pelo sentido, repetir e conferir a transcrição.",
             ["Ouvir pelo sentido, repetir e conferir a transcrição.", "Traduzir cada palavra antes de ouvir.", "Ouvir uma vez e nunca revisar."],
-            "welcome to the show",
+            "in this episode we talk about work",
             "Peça para reproduzir uma parte novamente.",
             "please play that part again",
         ),
@@ -12868,9 +12899,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: Se ela tivesse estudado, teria passado.",
             "if she had studied she would have passed",
-            "O terceiro condicional fala de:",
-            "Uma possibilidade irreal no passado.",
-            ["Uma possibilidade irreal no passado.", "Uma rotina atual.", "Um horário futuro fixo."],
+            "Qual frase está no terceiro condicional?",
+            "If I had known, I would have helped.",
+            ["If I had known, I would have helped.", "If I know, I will help.", "If I knew, I would help."],
             "if i had known i would have helped you",
             "Diga o que você teria feito se tivesse mais informação.",
             "i would have acted differently if i had known",
@@ -12929,8 +12960,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não diga *should is finished* nem *has been finish*. O modal pede **be** e o perfeito pede **been**; ambos precisam do particípio final.",
         "Identifique o auxiliar de modalidade ou de perfeito, acrescente **be/been** e mantenha o particípio da ação.",
         _b1_b2_exercises(
-            "Traduza: O projeto deve ser concluído até sexta-feira.",
-            "the project should be finished by friday",
+            "Traduza: O e-mail pode ser enviado hoje.",
+            "the email can be sent today",
             "Qual completa: 'The files have ___ uploaded'?",
             "been",
             ["been", "be", "being"],
@@ -12963,7 +12994,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
     "discurso-indireto-avancado": _b1_b2_spec(
         "Discurso indireto avançado",
         "Relatar perguntas, ordens, pedidos e sugestões sem reproduzir a fala diretamente.",
-        "Para perguntas de sim/não, use **asked if/whether**; para perguntas com *wh*, preserve a palavra interrogativa e use ordem afirmativa. Para ordens, use **told/asked + objeto + to**; para proibições, **not to**.",
+        "Para perguntas de sim/não, use **asked if/whether**; para perguntas com *wh*, preserve a palavra interrogativa e use ordem afirmativa. Para ordens, use **told/asked + objeto + to**; para proibições, **not to**. Verbos como **suggest** e **deny** vêm seguidos de **-ing**: **She suggested taking a break**; **He denied taking the money**.",
         [
             ("He asked me where I lived.", "Ele me perguntou onde eu morava."),
             ("She told us not to leave.", "Ela nos disse para não sairmos."),
@@ -13026,7 +13057,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
     "gerundio-infinitivo-avancado": _b1_b2_spec(
         "Gerúndio e infinitivo avançados",
         "Distinguir mudanças de sentido causadas por gerúndio ou infinitivo depois de verbos como remember, stop, try e regret.",
-        "**Remember + -ing** recorda uma ação passada; **remember + to** significa não esquecer uma ação. **Stop + -ing** encerra uma atividade; **stop + to** interrompe algo para fazer outra coisa. **Try to** indica esforço e **try + -ing**, uma tentativa como solução.",
+        "**Remember + -ing** recorda uma ação passada; **remember + to** significa não esquecer uma ação. **Stop + -ing** encerra uma atividade; **stop + to** interrompe algo para fazer outra coisa. **Try to** indica esforço e **try + -ing**, uma tentativa como solução. O infinitivo perfeito (**to have + particípio**) situa a ação antes do verbo principal: **She was glad to have met him**.",
         [
             ("I remember locking the door.", "Lembro-me de ter trancado a porta."),
             ("She stopped to answer the phone.", "Ela parou para atender o telefone."),
@@ -13055,8 +13086,8 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não diga *Although he was tired, but he finished*. **Although** já marca o contraste; use **however** em uma nova estrutura, sem duplicar a conjunção.",
         "Escolha o conectivo pela relação lógica, una as orações com pontuação clara e evite repetir duas marcas da mesma relação.",
         _b1_b2_exercises(
-            "Traduza: Embora estivesse cansado, ele terminou o trabalho.",
-            "although he was tired he finished the work",
+            "Traduza: Portanto, precisamos de mais tempo.",
+            "therefore we need more time",
             "Qual conectivo introduz consequência?",
             "Therefore, ...",
             ["Therefore, ...", "Although, ...", "Whereas, ..."],
@@ -13086,9 +13117,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: Preciso tomar uma decisão.",
             "i need to make a decision",
-            "Qual combinação significa 'café forte'?",
-            "strong coffee",
-            ["strong coffee", "heavy coffee", "power coffee"],
+            "Qual é a collocation correta com \"attention\"?",
+            "pay attention",
+            ["pay attention", "make attention", "do attention"],
             "we made a serious mistake",
             "Diga para alguém prestar atenção.",
             "please pay attention",
@@ -13152,7 +13183,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "Qual é um sinônimo natural de 'begin'?",
             "start",
             ["start", "finish", "stop"],
-            "this is an important decision",
+            "we purchased a new laptop",
             "Diga 'comprar' em um registro formal.",
             "purchase",
         ),
@@ -13254,9 +13285,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: As evidências apoiam a hipótese.",
             "the evidence supports the hypothesis",
-            "Qual palavra significa 'abordagem' em um estudo?",
-            "approach",
-            ["approach", "conclusion", "mistake"],
+            "Como se diz \"conclusão\" (de um estudo) em inglês?",
+            "conclusion",
+            ["conclusion", "summary", "approach"],
             "the study presents significant results",
             "Diga que o estudo analisa os dados disponíveis.",
             "the study analyzes the available data",
@@ -13275,9 +13306,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: Precisamos de retorno antes de implementar o plano.",
             "we need feedback before we implement the plan",
-            "Quem é um stakeholder?",
-            "Uma parte interessada no projeto.",
-            ["Uma parte interessada no projeto.", "Um erro de digitação.", "Um horário do calendário."],
+            "Em uma reunião, o que é a \"agenda\"?",
+            "A pauta, a lista de assuntos.",
+            ["A pauta, a lista de assuntos.", "O calendário pessoal.", "O salário do mês."],
             "let's negotiate the contract tomorrow",
             "Diga que os entregáveis estão prontos para revisão.",
             "the deliverables are ready for review",
@@ -13386,7 +13417,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         "Não escreva *gonna* em uma redação formal sem uma razão estilística. E não confunda **wanna** com **want a**: o complemento mostra se vem verbo ou substantivo.",
         "Expanda a redução para confirmar o sentido, pratique a pronúncia em uma frase e escolha a forma completa quando o registro exigir.",
         _b1_b2_exercises(
-            "Traduza: Vou ligar para você mais tarde.",
+            "Traduza usando a forma reduzida gonna: Vou ligar para você mais tarde.",
             "i am gonna call you later",
             "Em um relatório formal, qual forma é preferível?",
             "I am going to",
@@ -13732,9 +13763,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Traduza: Há uma falha nesse argumento.",
             "there is a flaw in that argument",
-            "O que é uma 'overgeneralization'?",
-            "Uma conclusão ampla demais.",
-            ["Uma conclusão ampla demais.", "Uma evidência muito precisa.", "Uma pergunta de esclarecimento."],
+            "Qual frase aponta uma generalização exagerada?",
+            "That's an overgeneralization.",
+            ["That's an overgeneralization.", "That's a clear fact.", "That's a good question."],
             "i'd like to challenge that assumption",
             "Conteste com cuidado dizendo que isso não se sustenta.",
             "that doesn't hold up",
@@ -13869,7 +13900,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "Qual fechamento combina com um e-mail formal?",
             "Yours sincerely,",
             ["Yours sincerely,", "See ya,", "Cheers mate,"],
-            "i look forward to your reply",
+            "thank you for your prompt reply",
             "Leia em voz alta o pedido formal.",
             "i would appreciate your confirmation",
         ),
@@ -13887,10 +13918,10 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Escreva uma frase informal avisando que você vai se atrasar.",
             "just letting you know i'll be late",
-            "Qual abertura combina com uma amiga?",
-            "Hi Anna!",
-            ["Hi Anna!", "Dear Sir or Madam,", "To whom it may concern,"],
-            "talk to you soon",
+            "Qual frase combina com um e-mail para uma amiga?",
+            "Hope you're well!",
+            ["Hope you're well!", "I am writing to formally inform you.", "To whom it may concern,"],
+            "can't wait to see you",
             "Despeça-se de modo informal.",
             "talk to you soon",
         ),
@@ -13950,9 +13981,9 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
         _b1_b2_exercises(
             "Escreva a concessão: Embora o plano custe mais, ele economiza tempo.",
             "while it is true that the plan costs more it saves time",
-            "O que é uma claim?",
-            "Uma afirmação ou posição defendida.",
-            ["Uma afirmação ou posição defendida.", "A saudação do texto.", "Um detalhe sem relação."],
+            "Qual frase apresenta uma claim (a posição defendida)?",
+            "Remote work increases productivity.",
+            ["Remote work increases productivity.", "Dear Sir or Madam,", "For example, yesterday."],
             "some may argue that the plan is too expensive",
             "Apresente um contra-argumento.",
             "some may argue that it is too expensive",
@@ -14037,7 +14068,7 @@ B1_B2_TOPIC_ENHANCEMENTS.update({
             "Qual frase pede atualizações?",
             "Keep me posted on any changes.",
             ["Keep me posted on any changes.", "Forget the report.", "No information is needed."],
-            "let's touch base next week",
+            "keep me posted on any changes",
             "Peça para alinhar novamente na próxima semana.",
             "let's touch base next week",
         ),
@@ -14286,14 +14317,14 @@ The reason why I came was to help.   O motivo de eu ter vindo era ajudar.
 ```
 
 > 💡 **It + be + foco + who/that...** destaca a pessoa/coisa. **What + sujeito
-> + verbo + is...** destaca o que o sujeito precisa/quere.
+> + verbo + is...** destaca o que o sujeito precisa/quer.
 """,
                 [
                     ex("quiz", "Para focar em QUEM fez a ação:",
                        "It was Ana who called.", ["It was Ana who called.", "Ana called.", "Called Ana."]),
                     ex("quiz", "O que 'What I need is...' destaca?",
                        "o que eu preciso", ["o que eu preciso", "quem eu sou", "onde estou"]),
-                    ex("text", "Complete: 'It ___ my brother who broke the window.' (was)",
+                    ex("text", "Complete: 'It ___ my brother who broke the window.' (be, no passado)",
                        "was"),
                     ex("audio", "Escute e transcreva:",
                        "what i want is more time", audio_text="What I want is more time."),
@@ -14328,7 +14359,7 @@ I love pizza and she loves sushi.        (sem elipse — repete "loves")
                        "omitir palavras que o contexto já diz", ["omitir palavras que o contexto já diz", "repetir tudo", "inventar palavras"]),
                     ex("quiz", "Em 'I can help, if you want me to', o que foi elidido?",
                        "help", ["help", "want", "if"]),
-                    ex("text", "Complete com elipse: 'She sings better than I ___' (do)",
+                    ex("text", "Complete com elipse: 'She sings better than I ___' (auxiliar)",
                        "do"),
                     ex("audio", "Escute e transcreva:",
                        "i can if you want me to", audio_text="I can, if you want me to."),
@@ -14935,8 +14966,8 @@ diferentes.
 ## Escala de intensidade
 
 ```
-happy  ->  content  ->  delighted  ->  thrilled
-angry  ->  annoyed  ->  upset  ->  furious
+content  ->  happy  ->  delighted  ->  thrilled
+annoyed  ->  upset  ->  angry  ->  furious
 important  ->  significant  ->  vital  ->  crucial
 ```
 
@@ -15034,16 +15065,13 @@ He obtained the results.              Ele obteve os resultados.
 > start/buy/help/get/ask — usadas em textos e e-mails formais.
 """,
                 [
-                    ex("quiz", "A versão formal de 'help' é:",
-                       "assist", ["assist", "aid informal", "help"]),
-                    ex("quiz", "A versão formal de 'get' é:",
-                       "obtain", ["obtain", "receive informal", "grab"]),
+                    ex("quiz", "A versão formal de 'help' é:", "assist", ["assist", "help", "ask"]),
+                    ex("quiz", "A versão formal de 'get' é:", "obtain", ["obtain", "get", "grab"]),
                     ex("text", "Escreva a versão formal de 'start'.",
                        "begin"),
                     ex("audio", "Escute e transcreva:",
                        "i would like to inquire about", audio_text="I would like to inquire about..."),
-                    ex("quiz", "A versão formal de 'ask' é:",
-                       "inquire", ["inquire", "question informal", "say"]),
+                    ex("quiz", "A versão formal de 'ask' é:", "inquire", ["inquire", "ask", "say"]),
                     ex("quiz", "Saber os pares formal/informal é essencial para:",
                        "adequar a fala ao contexto", ["adequar a fala ao contexto", "decorar sem usar", "falar igual sempre"]),
                 ],
@@ -15241,7 +15269,7 @@ So you're saying that...             Então você está dizendo que...
 ```
 
 > 💡 **I take issue with** é uma discordância firme e educada. **compelling**
-# ===== convencente =====
+> convincente
 """,
                 [
                     ex("quiz", "Para contestar com firmeza:",
@@ -15345,7 +15373,7 @@ Can we revisit the terms?            Podemos revisar os termos?
 ```
 
 > 💡 **meet someone halfway** = ceder até o meio-termo. **revisit the terms**
-# ===== reconsiderar os termos =====
+> reconsiderar os termos
 """,
                 [
                     ex("quiz", "Para ceder parcialmente:",
@@ -15487,7 +15515,7 @@ It depends on your perspective.      Depende da sua perspectiva.
 ```
 
 > 💡 Discutir política não é impor opinião — é **analisar** com isenção:
-# ===== "Both sides have valid points" =====
+> "Both sides have valid points"
 """,
                 [
                     ex("quiz", "Para falar sem partidarismo:",
@@ -15522,7 +15550,7 @@ It's a systemic problem.            É um problema sistêmico.
 ```
 
 > 💡 **pressing** = urgente. **systemic** = estrutural (não pontual).
-# ===== address = tratar/enfrentar =====
+> address = tratar/enfrentar
 """,
                 [
                     ex("quiz", "Para chamar atenção a um problema:",
@@ -15558,7 +15586,7 @@ Could you walk me through that?     Pode me guiar por isso?
 ```
 
 > 💡 **trade-off** = a desvantagem aceita em troca de uma vantagem (ex.:
-# ===== velocidade x custo). walk me through = explicar passo a passo =====
+> velocidade x custo). walk me through = explicar passo a passo
 """,
                 [
                     ex("quiz", "Para falar em termos técnicos:",
@@ -15627,7 +15655,7 @@ I can't entirely agree.             Não posso concordar inteiramente.
 ```
 
 > 💡 **inclined to** = inclinado a (não é certeza, é tendência). A opinião
-# ===== sutil não diz "100% sim ou não" — diz o grau e a exceção =====
+> sutil não diz "100% sim ou não" — diz o grau e a exceção
 """,
                 [
                     ex("quiz", "Para dar opinião com ressalva:",
@@ -15661,7 +15689,7 @@ Let's agree to disagree.                        Vamos concordar em discordar.
 ```
 
 > 💡 "I understand where you're coming from" = reconhece a perspectiva antes
-# ===== de contrapor. "Agree to disagree" encerra de forma madura =====
+> de contrapor. "Agree to disagree" encerra de forma madura
 """,
                 [
                     ex("quiz", "Para discordar sem ferir:",
@@ -15697,7 +15725,7 @@ Let me put it this way.               Deixe-me colocar desta forma.
 ```
 
 > 💡 As frases-ponte dão 2-3 segundos para organizar a resposta — tempo
-# ===== suficiente para formular bem =====
+> suficiente para formular bem
 """,
                 [
                     ex("quiz", "Para ganhar tempo ao pensar:",
@@ -15783,7 +15811,7 @@ Fala acelerada exige estratégia — e não há vergonha em pedir para repetir.
 - **Peça para repetir**: "Sorry, could you say that again?"
 
 > 💡 Pedir repetição é **normal e esperado** — até nativos fazem. É o oposto
-# ===== de fraqueza =====
+> de fraqueza
 """,
                 [
                     ex("quiz", "Quando a fala está rápida demais:",
@@ -15821,7 +15849,7 @@ sul-africano      (pronúncia distinta)
 Quanto mais sotaques você ouvir, mais fácil cada um fica. Treine com
 entrevistas, podcasts e vídeos de países diferentes.
 
-> 💘 **A única defesa contra sotaques é exposição variada e repetida.**
+> 💡 **A única defesa contra sotaques é exposição variada e repetida.**
 """,
                 [
                     ex("quiz", "Além de americano/britânico, é comum ouvir:",
@@ -16264,23 +16292,23 @@ Notícias têm estrutura própria: **manchete** + **lead** + **corpo**.
 ## Manchetes compactas
 
 ```
-Ban Raises Rates      O banco aumenta as taxas.
+Bank Raises Rates     O banco aumenta as taxas.
 Leaders Meet in Paris  Líderes se reúnem em Paris.
 ```
 
-As manchetes omitem artigos e verbos para caber em uma linha.
+As manchetes omitem artigos e verbos auxiliares (is/are) para caber em uma linha.
 
 ## Lead
 
 O primeiro parágrafo responde: o que, quem, onde, quando.
 
 > 💡 Vocabulário formal de notícia: **announce** (anunciar), **surge**
-# ===== (disparar), decline (cair), concern (preocupação) =====
+> (disparar), decline (cair), concern (preocupação)
 """,
                 [
                     ex("quiz", "Manchetes em inglês costumam:",
                        "omitir palavras (títulos compactos)", ["omitir palavras (títulos compactos)", "ser frases longas", "ser informais"]),
-                    ex("quiz", "O que 'Ban Raises Rates' significa?",
+                    ex("quiz", "O que 'Bank Raises Rates' significa?",
                        "o banco aumenta as taxas", ["o banco aumenta as taxas", "o banco baixa as taxas", "o banco fecha"]),
                     ex("text", "Complete: 'The newspaper ___ the article.' (publicou)",
                        "published"),
@@ -16315,7 +16343,7 @@ the essay examines...       o ensaio examina...
 ```
 
 > 💡 Ensaio acadêmico usa hedging e tom formal: "The author argues",
-> # ===== não "I think" =====
+> não "I think"
 """,
                 [
                     ex("quiz", "Num ensaio, a tese aparece:",
@@ -16396,7 +16424,7 @@ significant     significativo
 ```
 
 > 💡 Citações dão crédito e apoio ao argumento. Hedging ("may",
-> # ===== "suggests") suaviza as afirmações =====
+> "suggests") suaviza as afirmações
 """,
                 [
                     ex("quiz", "O 'abstract' de um artigo:",
@@ -16439,7 +16467,7 @@ For more info, see the docs.   Para mais informações, veja a documentação.
 ```
 
 > 💡 README explica o que o projeto faz e como usar. O tom é imperativo e
-# ===== objetivo =====
+> objetivo
 """,
                 [
                     ex("quiz", "Documentação técnica usa:",
@@ -16481,7 +16509,7 @@ The author uses irony.         O autor usa ironia.
 ```
 
 > 💡 Personagens e cenários revelam o tema. **Foreshadowing** dá pistas do
-# ===== que virá =====
+> que virá
 """,
                 [
                     ex("quiz", "Narrativa literária usa:",
@@ -16565,7 +16593,7 @@ The report summarizes the results.   O relatório resume os resultados.
 ```
 
 > 💡 **shall** em contratos = obrigação. Para ler proposta, procure o
-# ===== objetivo, o custo e o cronograma =====
+> objetivo, o custo e o cronograma
 """,
                 [
                     ex("quiz", "Documentos profissionais são:",
@@ -16608,7 +16636,7 @@ Conclusion: Therefore, remote work benefits companies.
 ```
 
 > 💡 Ao ler, pergunte: "Qual é a afirmação? O que a apoia? O que o autor
-# ===== conclui?" =====
+> conclui?"
 """,
                 [
                     ex("quiz", "O que é a 'claim' num texto?",
@@ -16644,8 +16672,8 @@ Conclusion: Therefore, remote work benefits companies.
 Pergunte: "Quem está falando? O que foi omitido? De onde vem a
 informação?"
 
-> 💘 Um texto neutro apresenta os dois lados; um texto tendencioso
-> # ===== escolhe só as palavras e fatos que apoiam uma posição =====
+> 💡 Um texto neutro apresenta os dois lados; um texto tendencioso
+> escolhe só as palavras e fatos que apoiam uma posição
 """,
                 [
                     ex("quiz", "Viés num texto é:",
@@ -16684,7 +16712,7 @@ His words suggest hidden criticism.  (subtexto)
 ```
 
 > 💡 O implícito aparece em literatura, humor e análise — o leitor C1
-# ===== capta o que ficou nas entrelinhas =====
+> capta o que ficou nas entrelinhas
 """,
                 [
                     ex("quiz", "Subtexto é:",
@@ -16725,14 +16753,14 @@ Preste atenção ao **vocabulário** e às **escolhas** do autor — cada palavr
 carrega tom.
 
 > 💡 O tom responde: "como o autor se sente sobre o assunto?" — e como ele
-# ===== quer que o leitor se sinta =====
+> quer que o leitor se sinta
 """,
                 [
                     ex("quiz", "O tom de um texto é:",
                        "a atitude/emoção transmitida", ["a atitude/emoção transmitida", "o tamanho", "a fonte"]),
                     ex("quiz", "Tom sarcástico na escrita usa:",
                        "ironia e exagero", ["ironia e exagero", "só fatos", "formalidade"]),
-                    ex("text", "Complete: 'The tone is clearly ___ .' (formal)",
+                    ex("text", "Complete: 'The tone is clearly ___ .' (oposto de informal)",
                        "formal"),
                     ex("audio", "Escute e transcreva:",
                        "the tone of the letter is formal", audio_text="The tone of the letter is formal."),
@@ -16818,7 +16846,7 @@ It is strongly recommended that...     Recomenda-se fortemente que...
 ```
 
 > 💡 Relatório C1 não é só números: é **dados + interpretação +
-# ===== recomendação =====
+> recomendação
 """,
                 [
                     ex("quiz", "O 'executive summary' resume:",
@@ -16857,7 +16885,7 @@ While it is true that..., it is also...   Embora seja verdade que..., também é
 ```
 
 > 💡 Ensaio C1 **reconhece o outro lado** antes de defender o seu — isso
-# ===== fortalece o argumento =====
+> fortalece o argumento
 """,
                 [
                     ex("quiz", "Uma tese C1 é:",
@@ -16897,7 +16925,7 @@ The long-term benefits outweigh the costs.   Os benefícios de longo prazo super
 ```
 
 > 💡 Proposta convincente **antecipa as objeções** — mostre que você já
-# ===== pensou nos riscos =====
+> pensou nos riscos
 """,
                 [
                     ex("quiz", "Uma proposta forte inclui:",
@@ -16936,7 +16964,7 @@ The headline grabbed my attention.      A manchete chamou minha atenção.
 ```
 
 > 💡 O **hook** é a primeira frase que prende o leitor: uma pergunta, um dado
-# ===== surpreendente ou uma história curta =====
+> surpreendente ou uma história curta
 """,
                 [
                     ex("quiz", "O 'hook' de um artigo serve para:",
@@ -16978,14 +17006,14 @@ worth watching  vale a pena assistir
 ```
 
 > 💡 Resenha C1 conclui com **recomendação qualificada**: "Despite its
-# ===== flaws, the film is worth watching." =====
+> flaws, the film is worth watching."
 """,
                 [
                     ex("quiz", "Resenha crítica avalia:",
                        "pontos fortes e fracos com equilíbrio", ["pontos fortes e fracos com equilíbrio", "só elogios", "só ataques"]),
                     ex("quiz", "Para criticar com nuance:",
                        "While the pacing is slow, the character depth is strong.", ["While the pacing is slow, the character depth is strong.", "It's boring.", "It's perfect."]),
-                    ex("text", "Complete: 'The author's ___ is evident throughout.' (talento)",
+                    ex("text", "Complete: 'The author's ___ is evident throughout.' (habilidade)",
                        "skill"),
                     ex("audio", "Escute e transcreva:",
                        "despite its flaws the film is worth watching", audio_text="Despite its flaws, the film is worth watching."),
@@ -17019,7 +17047,7 @@ configure      configurar
 ```
 
 > 💡 Boa documentação responde: o que é, por que usar e como usar. Evite
-# ===== jargão desnecessário e ambiguidade =====
+> jargão desnecessário e ambiguidade
 """,
                 [
                     ex("quiz", "Escrita técnica prioriza:",
@@ -17060,8 +17088,8 @@ Several studies agree that...       Vários estudos concordam que...
 The findings require further investigation.   Os resultados exigem mais investigação.
 ```
 
-> 💘 Citação acadêmica usa **autor + ano** (ex.: Smith, 2020). A análise
-# ===== crítica questiona suposições e evidência =====
+> 💡 Citação acadêmica usa **autor + ano** (ex.: Smith, 2020). A análise
+> crítica questiona suposições e evidência
 """,
                 [
                     ex("quiz", "A 'literature review':",
@@ -17103,7 +17131,7 @@ Join us and make the difference.    Junte-se a nós e faça a diferença.
 ```
 
 > 💡 A **call to action** é o pedido final: "Join us", "Act now", "Sign
-# ===== the petition". Sem ela, a persuasão não fecha =====
+> the petition". Sem ela, a persuasão não fecha
 """,
                 [
                     ex("quiz", "Persuasão usa três apelos:",
@@ -17145,7 +17173,7 @@ While critics object, the evidence is strong.   Embora os críticos objetem, a e
 ```
 
 > 💡 Argumentação madura **reconhece o contra-argumento e o refuta** — não
-# ===== finge que ele não existe =====
+> finge que ele não existe
 """,
                 [
                     ex("quiz", "O 'counterclaim' é:",
@@ -17179,7 +17207,7 @@ Cut:          remova redundância e palavras desnecessárias.
 Proofread:    corrija ortografia e gramática finais.
 ```
 
-> 💘 **Proofread** é a última passada — sempre antes de enviar ou publicar.
+> 💡 **Proofread** é a última passada — sempre antes de enviar ou publicar.
 """,
                 [
                     ex("quiz", "Revisar (revise) significa:",
@@ -17218,7 +17246,7 @@ Passiva: The decision was made.          (impessoal)
 - **Passiva**: formal/impessoal (relatórios, academia).
 
 > 💡 Regra geral: prefira a **ativa** para clareza; use a passiva quando o
-# ===== agente for irrelevante ou desconhecido =====
+> agente for irrelevante ou desconhecido
 """,
                 [
                     ex("quiz", "Voz ativa ('The team made the decision'):",
@@ -17256,7 +17284,7 @@ The results were strong. Therefore, the team celebrated.
 ```
 
 > 💡 Texto coeso flui naturalmente; texto sem coesão "salta" de ideia em
-# ===== ideia =====
+> ideia
 """,
                 [
                     ex("quiz", "Coesão é:",
@@ -17296,8 +17324,8 @@ The report covers several topics.    O relatório cobre vários tópicos.
 Please be specific about the numbers.   Por favor, seja específico sobre os números.
 ```
 
-> 💘 A vagueza ("stuff", "things") enfraquece o texto. No C1, cada ideia
-# ===== tem a palavra certa =====
+> 💡 A vagueza ("stuff", "things") enfraquece o texto. No C1, cada ideia
+> tem a palavra certa
 """,
                 [
                     ex("quiz", "Precisão evita:",
@@ -17334,7 +17362,7 @@ Texto acadêmico  ->  formal e impessoal
 ```
 
 > 💡 **Misturar registros** num mesmo texto confunde o leitor. Mantenha um
-# ===== registro consistente do início ao fim =====
+> registro consistente do início ao fim
 """,
                 [
                     ex("quiz", "O registro adequado depende de:",
@@ -17383,7 +17411,7 @@ I believe I'm qualified for this position.   Acredito que sou qualificado para e
 ```
 
 > 💡 Sobre pontos fracos, mostre **consciência e melhoria**: "I used to
-# ===== struggle with X, so I worked on Y." =====
+> struggle with X, so I worked on Y."
 """,
                 [
                     ex("quiz", "Para falar dos pontos fortes:",
@@ -17426,14 +17454,14 @@ improved   melhorei
 ```
 
 > 💡 Para a maioria dos países, use **resume** (1-2 páginas). Comece frases
-# ===== com verbos de ação no passado: "Led a team of ten people." =====
+> com verbos de ação no passado: "Led a team of ten people."
 """,
                 [
                     ex("quiz", "A seção de empregos no CV é:",
                        "Work Experience", ["Work Experience", "Hobbies", "References"]),
                     ex("quiz", "Um bom verbo de ação para o CV:",
                        "managed", ["managed", "did", "was"]),
-                    ex("text", "Complete: 'Led a team of ___ people.' (10)",
+                    ex("text", "Complete com o número por extenso: 'Led a team of ___ people.' (10)",
                        "ten"),
                     ex("audio", "Escute e transcreva:",
                        "i have five years of experience", audio_text="I have five years of experience."),
@@ -17467,8 +17495,8 @@ Let's connect on LinkedIn.          Vamos conectar no LinkedIn.
 I'd like to connect with you.       Gostaria de me conectar com você.
 ```
 
-> 💘 Um bom summary mostra **impacto e objetivos** — não é só lista de
-# ===== empresas =====
+> 💡 Um bom summary mostra **impacto e objetivos** — não é só lista de
+> empresas
 """,
                 [
                     ex("quiz", "O headline do LinkedIn é:",
@@ -17503,7 +17531,7 @@ What are your thoughts on this?    O que vocês acham disso?
 Let's wrap up.                     Vamos encerrar.
 ```
 
-> 💘 **circle back** = voltar a um assunto depois. **wrap up** = encerrar.
+> 💡 **circle back** = voltar a um assunto depois. **wrap up** = encerrar.
 """,
                 [
                     ex("quiz", "Para começar a reunião:",
@@ -17537,8 +17565,8 @@ The main point here is...         O ponto principal aqui é...
 Any questions?                    Alguma pergunta?
 ```
 
-> 💘 Uma boa apresentação termina com **resumo e próximos passos**, e abre
-# ===== espaço para perguntas =====
+> 💡 Uma boa apresentação termina com **resumo e próximos passos**, e abre
+> espaço para perguntas
 """,
                 [
                     ex("quiz", "Para guiar pela apresentação:",
@@ -17580,7 +17608,7 @@ Please let me know if you have any questions.   Avise se tiver dúvidas.
 Would Thursday work for you?              Quinta-feira funciona para você?
 ```
 
-> 💘 E-mail bom tem **uma ação clara** e **um prazo** — não é um texto vago.
+> 💡 E-mail bom tem **uma ação clara** e **um prazo** — não é um texto vago.
 """,
                 [
                     ex("quiz", "Um assunto de e-mail eficaz:",
@@ -17621,7 +17649,7 @@ Keep me in the loop.           Mantenha-me atualizado.
 Can you follow up on this?     Pode dar continuidade nisso?
 ```
 
-> 💘 **in the loop** = informado/ciente. **ping me** = me avise/contate.
+> 💡 **in the loop** = informado/ciente. **ping me** = me avise/contate.
 """,
                 [
                     ex("quiz", "O que 'FYI' significa?",
@@ -17654,8 +17682,8 @@ The system is composed of...       O sistema é composto por...
 I suggest we refactor this.        Sugiro refatorarmos isso.
 ```
 
-> 💘 **blocker** = impedimento que trava a entrega. Proposta técnica boa
-# ===== ouve, propõe e explica o porquê =====
+> 💡 **blocker** = impedimento que trava a entrega. Proposta técnica boa
+> ouve, propõe e explica o porquê
 """,
                 [
                     ex("quiz", "O que 'blocker' significa no trabalho?",
@@ -17689,7 +17717,7 @@ I'm running behind schedule.          Estou atrasado.
 We hit an issue with the deployment.  Enfrentamos um problema no deploy.
 ```
 
-> 💘 Um bom status tem: **o que fez + o que falta + bloqueios**.
+> 💡 Um bom status tem: **o que fez + o que falta + bloqueios**.
 """,
                 [
                     ex("quiz", "Para dizer que está em dia:",
@@ -17723,7 +17751,7 @@ Just to be clear, we meet at 3.       Só para deixar claro, nos vemos às 3.
 So, to confirm, the deadline is Friday.   Então, para confirmar, o prazo é sexta.
 ```
 
-> 💘 Confirmar o entendimento evita retrabalho: "So, to confirm..." é ouro.
+> 💡 Confirmar o entendimento evita retrabalho: "So, to confirm..." é ouro.
 """,
                 [
                     ex("quiz", "Para pedir esclarecimento:",
@@ -17757,8 +17785,8 @@ Here's the workaround.                Aqui está a solução paliativa.
 This affects all users.               Isso afeta todos os usuários.
 ```
 
-> 💘 **root cause** = causa raiz. **workaround** = solução paliativa
-# ===== enquanto a definitiva não sai =====
+> 💡 **root cause** = causa raiz. **workaround** = solução paliativa
+> enquanto a definitiva não sai
 """,
                 [
                     ex("quiz", "Para reportar um problema:",
@@ -17792,8 +17820,8 @@ I need an extension.                 Preciso de uma prorrogação.
 We can meet the deadline.            Damos conta do prazo.
 ```
 
-> 💘 **push the deadline** = adiar o prazo. **meet the deadline** = cumprir
-# ===== o prazo =====
+> 💡 **push the deadline** = adiar o prazo. **meet the deadline** = cumprir
+> o prazo
 """,
                 [
                     ex("quiz", "Para pedir mais tempo:",
@@ -17826,8 +17854,8 @@ Have you considered...?               Você já considerou...?
 One thing to improve is...            Uma coisa a melhorar é...
 ```
 
-> 💘 O "sanduíche" clássico: **positivo + melhoria + positivo**. E seja
-# ===== específico — "bom trabalho" genérico não ajuda =====
+> 💡 O "sanduíche" clássico: **positivo + melhoria + positivo**. E seja
+> específico — "bom trabalho" genérico não ajuda
 """,
                 [
                     ex("quiz", "Para começar feedback positivo:",
@@ -17861,8 +17889,8 @@ I'll work on that.                    Vou trabalhar nisso.
 Could you give me an example?         Pode me dar um exemplo?
 ```
 
-> 💘 A pior atitude é se defender na hora. Agradeça, considere e peça
-# ===== detalhes se precisar =====
+> 💡 A pior atitude é se defender na hora. Agradeça, considere e peça
+> detalhes se precisar
 """,
                 [
                     ex("quiz", "Ao receber feedback, o ideal é:",
@@ -17896,8 +17924,8 @@ Let's find a middle ground.             Vamos encontrar um meio-termo.
 Let me consider the offer.              Deixe-me considerar a oferta.
 ```
 
-> 💘 Negociação profissional é **respeitosa e baseada em dados** — nada de
-# ===== agressividade ou pressa =====
+> 💡 Negociação profissional é **respeitosa e baseada em dados** — nada de
+> agressividade ou pressa
 """,
                 [
                     ex("quiz", "Para falar de salário:",
@@ -17953,8 +17981,8 @@ The code runs on the server.      O código roda no servidor.
 This function processes the data.  Esta função processa os dados.
 ```
 
-> 💘 **bug** = erro. **run** = executar. **library/framework** = código
-# ===== pronto para reutilizar =====
+> 💡 **bug** = erro. **run** = executar. **library/framework** = código
+> pronto para reutilizar
 """,
                 [
                     ex("quiz", "Como se diz 'variável'?",
@@ -17995,8 +18023,8 @@ This is a new feature.          Esta é uma nova funcionalidade.
 We release a new version monthly.   Publicamos uma nova versão mensalmente.
 ```
 
-> 💘 **feature** = funcionalidade nova. **deployment** = colocar o software
-# ===== no ar =====
+> 💡 **feature** = funcionalidade nova. **deployment** = colocar o software
+> no ar
 """,
                 [
                     ex("quiz", "Como se diz 'requisitos'?",
@@ -18037,7 +18065,7 @@ Check the documentation for details.   Consulte a documentação para detalhes.
 See the API reference for all methods.  Veja a referência da API para todos os métodos.
 ```
 
-> 💘 Boa documentação inclui **exemplos e casos de uso** — não só o logo.
+> 💡 Boa documentação inclui **exemplos e casos de uso** — não só o logo.
 """,
                 [
                     ex("quiz", "A seção de instalação é:",
@@ -18080,7 +18108,7 @@ git push         envia commits
 git pull         baixa mudanças
 ```
 
-> 💘 **issue** registra tarefa ou bug. **PR** propõe mudança para revisão.
+> 💡 **issue** registra tarefa ou bug. **PR** propõe mudança para revisão.
 """,
                 [
                     ex("quiz", "Como se diz 'repositório'?",
@@ -18119,8 +18147,8 @@ Has anyone solved this problem?   Alguém já resolveu esse problema?
 Accepted answer    resposta marcada como correta
 ```
 
-> 💘 Boa pergunta inclui **código + erro**. Antes de perguntar, procure se
-# ===== alguém já perguntou =====
+> 💡 Boa pergunta inclui **código + erro**. Antes de perguntar, procure se
+> alguém já perguntou
 """,
                 [
                     ex("quiz", "Para descrever um erro:",
@@ -18153,8 +18181,8 @@ This tutorial explains step by step.   Este tutorial explica passo a passo.
 This article explains how to scale.    Este artigo explica como escalar.
 ```
 
-> 💘 Para julgar um artigo, veja se **resolve o problema** — e teste o que
-# ===== aprendeu na prática =====
+> 💡 Para julgar um artigo, veja se **resolve o problema** — e teste o que
+> aprendeu na prática
 """,
                 [
                     ex("quiz", "Artigo técnico geralmente segue:",
@@ -18187,8 +18215,8 @@ Minor: could you fix the spacing?   Menor: pode corrigir o espaçamento?
 This looks good to me.        Isso parece bom para mim.
 ```
 
-> 💘 **LGTM** = looks good to me — aprovação comum em PRs. Review gentil
-# ===== **sugere**, não impõe =====
+> 💡 **LGTM** = looks good to me — aprovação comum em PRs. Review gentil
+> **sugere**, não impõe
 """,
                 [
                     ex("quiz", "O que 'LGTM' significa?",
@@ -18222,7 +18250,7 @@ Requested changes                mudanças solicitadas
 Looks good, merging now.         Parece bom, mergeando agora.
 ```
 
-> 💘 Um PR descritivo explica **o que mudou e por quê** — não só o título.
+> 💡 Um PR descritivo explica **o que mudou e por quê** — não só o título.
 """,
                 [
                     ex("quiz", "Ao abrir um PR:",
@@ -18255,8 +18283,8 @@ This scales well with users.      Isso escala bem com usuários.
 The trade-off of this approach is complexity.   A desvantagem desta abordagem é a complexidade.
 ```
 
-> 💘 **scales well** = aguenta crescimento. **trade-off** = desvantagem
-# ===== aceita em troca de uma vantagem =====
+> 💡 **scales well** = aguenta crescimento. **trade-off** = desvantagem
+> aceita em troca de uma vantagem
 """,
                 [
                     ex("quiz", "Para propor arquitetura:",
@@ -18295,8 +18323,8 @@ We added a cache to reduce latency.   Adicionamos um cache para reduzir a latên
 We need a load balancer.              Precisamos de um balanceador de carga.
 ```
 
-> 💘 **latency** = tempo de resposta; **throughput** = quanto o sistema
-# ===== processa por unidade de tempo =====
+> 💡 **latency** = tempo de resposta; **throughput** = quanto o sistema
+> processa por unidade de tempo
 """,
                 [
                     ex("quiz", "O que 'latency' significa?",
@@ -18334,8 +18362,8 @@ Can you reproduce the error?      Você consegue reproduzir o erro?
 Let's check the error log.        Vamos ver o registro de erros.
 ```
 
-> 💘 O primeiro passo do debug: **ler o erro e reproduzir**. Um
-# ===== breakpoint pausa o código para inspeção =====
+> 💡 O primeiro passo do debug: **ler o erro e reproduzir**. Um
+> breakpoint pausa o código para inspeção
 """,
                 [
                     ex("quiz", "O que 'traceback' mostra?",
@@ -18375,8 +18403,8 @@ We trained the model on new data.   Treinamos o modelo com dados novos.
 The model was trained on a large dataset.   O modelo foi treinado em um grande conjunto de dados.
 ```
 
-> 💘 **training** = treinar com dados; **inference** = usar o modelo
-# ===== treinado para prever =====
+> 💡 **training** = treinar com dados; **inference** = usar o modelo
+> treinado para prever
 """,
                 [
                     ex("quiz", "O que é 'training' (em ML)?",
@@ -18415,8 +18443,8 @@ We deployed to the cloud.         Publicamos na nuvem.
 We host the app on a cloud provider.   Hospedamos o app em um provedor de nuvem.
 ```
 
-> 💘 **scaling** ajusta recursos sob demanda. **serverless** = você não
-# ===== gerencia servidores =====
+> 💡 **scaling** ajusta recursos sob demanda. **serverless** = você não
+> gerencia servidores
 """,
                 [
                     ex("quiz", "O que 'cloud' significa em TI?",
@@ -18456,15 +18484,15 @@ The deployment pipeline is automated.   O pipeline de deploy é automatizado.
 The pipeline runs on every commit.      O pipeline roda a cada commit.
 ```
 
-> 💘 **CI/CD** automatiza build, teste e deploy. **rollback** volta para a
-# ===== versão anterior em caso de problema =====
+> 💡 **CI/CD** automatiza build, teste e deploy. **rollback** volta para a
+> versão anterior em caso de problema
 """,
                 [
                     ex("quiz", "O que 'CI/CD' envolve?",
                        "integração e entrega contínuas", ["integração e entrega contínuas", "design", "documentação"]),
                     ex("quiz", "O que é um 'container' (Docker)?",
                        "ambiente isolado para rodar o app", ["ambiente isolado para rodar o app", "um arquivo", "um bug"]),
-                    ex("text", "Complete: 'The pipeline runs on every ___ .' (commit)",
+                    ex("text", "Complete: 'The pipeline runs on every ___ .' (registro de uma alteração no Git)",
                        "commit"),
                     ex("audio", "Escute e transcreva:",
                        "the deployment pipeline is automated", audio_text="The deployment pipeline is automated."),
@@ -18486,7 +18514,7 @@ def build_modulo_25_treino_fluencia():
     return module(
         "modulo-25-treino-fluencia",
         "Módulo 25 — Treino de Fluência",
-        "Falar sem travar: pensar em inglês, evitar a tradução mental, parafrasear, circumlocução, espontaneidade, recall de vocabulário, frases automáticas, velocidade, pronúncia, entonação, escuta rápida e alternância de contexto.",
+        "Falar sem travar: pensar em inglês, evitar a tradução mental, parafrasear, circunlocução, espontaneidade, recall de vocabulário, frases automáticas, velocidade, pronúncia, entonação, escuta rápida e alternância de contexto.",
         [
             topic(
                 "pensando-em-ingles",
@@ -18499,12 +18527,12 @@ mentalmente.
 
 ## Como praticar
 
-- **Rotule** objetos ao redor em inglês (tabela, cadeira, janela).
+- **Rotule** objetos ao redor em inglês (table, chair, window).
 - **Narre** o que faz: "I'm opening the door", "I need my keys".
 - Forme pensamentos simples direto no idioma.
 
 > 💡 Pensar em inglês deixa a fala mais **rápida e natural** — porque você
-# ===== pula a etapa da tradução =====
+> pula a etapa da tradução
 """,
                 [
                     ex("quiz", "Pensar em inglês significa:",
@@ -18535,8 +18563,8 @@ A tradução palavra a palavra **atrasa** e gera erros. Aprenda em **blocos**.
 - Associe a palavra à **imagem/ideia**, não ao português.
 - Não abra o dicionário a cada palavra — use o contexto.
 
-> 💘 Blocos prontos como "It depends" são aprendidos **como um todo** — não
-# ===== traduzidos palavra por palavra =====
+> 💡 Blocos prontos como "It depends" são aprendidos **como um todo** — não
+> traduzidos palavra por palavra
 """,
                 [
                     ex("quiz", "A tradução mental palavra a palavra:",
@@ -18575,7 +18603,7 @@ She is very happy.   ->   She is delighted.
 - O ouvinte não entendeu.
 - Você quer evitar repetição.
 
-> 💘 Paráfrase + sinônimos = o socorro da fluência quando falta a palavra.
+> 💡 Paráfrase + sinônimos = o socorro da fluência quando falta a palavra.
 """,
                 [
                     ex("quiz", "Parafrasear é:",
@@ -18587,7 +18615,7 @@ She is very happy.   ->   She is delighted.
                     ex("audio", "Escute e transcreva:",
                        "can you say it in other words", audio_text="Can you say it in other words?"),
                     ex("quiz", "Paráfrase é essencial para:",
-                       "fluência e circumlocução", ["fluência e circumlocução", "decorar", "nada"]),
+                       "fluência e circunlocução", ["fluência e circunlocução", "decorar", "nada"]),
                     ex("quiz", "Para parafrasear, use:",
                        "sinônimos e reestruturação", ["sinônimos e reestruturação", "só a palavra exata", "o dicionário em voz alta"]),
                 ],
@@ -18613,8 +18641,8 @@ conversa fluindo.
 Em vez de travar ("I don't know the word"), você **descreve** — e o nativo
 te ajuda ou você se faz entender.
 
-> 💘 Circunlocução = falar ao redor da palavra. Treine descrevendo objetos
-# ===== do dia a dia sem dizer o nome =====
+> 💡 Circunlocução = falar ao redor da palavra. Treine descrevendo objetos
+> do dia a dia sem dizer o nome
 """,
                 [
                     ex("quiz", "Circunlocução é:",
@@ -18652,8 +18680,8 @@ Off the top of my head...          De cabeça, sem pensar muito...
 - **Reformule** e tente ("Let me put it this way...").
 - Não fique em silêncio — o nativo também hesita.
 
-> 💘 Espontaneidade melhora com **prática de resposta rápida** — não com
-# ===== silêncio =====
+> 💡 Espontaneidade melhora com **prática de resposta rápida** — não com
+> silêncio
 """,
                 [
                     ex("quiz", "Para reagir sem ensaio:",
@@ -18685,8 +18713,8 @@ reconhecer.
 - Use **repetição espaçada** (revisar em intervalos).
 - Antes de conferir, tente **recordar**.
 
-> 💘 Reler a lista não é recall — **testar-se** é. Quem se testa lembra
-# ===== muito mais =====
+> 💡 Reler a lista não é recall — **testar-se** é. Quem se testa lembra
+> muito mais
 """,
                 [
                     ex("quiz", "Recall ativo é:",
@@ -18724,7 +18752,7 @@ I'm used to ___.              Estou acostumado a...
 Repita os templates em voz alta com vocabulário diferente até saírem
 automáticos.
 
-> 💘 Com o tempo, as frases saem **sozinhas** — sem montar do zero cada vez.
+> 💡 Com o tempo, as frases saem **sozinhas** — sem montar do zero cada vez.
 """,
                 [
                     ex("quiz", "Formação automática significa:",
@@ -18762,15 +18790,15 @@ Muito rápido:   compromete a clareza.
 - Pratique **frases inteiras** (não palavra por palavra).
 - Automatize vocabulário e estruturas.
 
-> 💘 A velocidade vem da **automatização**, não da pressa. Fale confortável
-# ===== e deixe o vocabulário fluir =====
+> 💡 A velocidade vem da **automatização**, não da pressa. Fale confortável
+> e deixe o vocabulário fluir
 """,
                 [
                     ex("quiz", "Velocidade natural de fala:",
                        "equilibrada, nem lenta nem rápida demais", ["equilibrada, nem lenta nem rápida demais", "sempre muito rápida", "sempre muito lenta"]),
                     ex("quiz", "Falar muito devagar pode:",
                        "soar inseguro", ["soar inseguro", "soar profissional", "ajudar sempre"]),
-                    ex("text", "Complete: 'Speak at a ___ pace.' (natural)",
+                    ex("text", "Complete: 'Speak at a ___ pace.' (nem rápido nem lento: espontâneo)",
                        "natural"),
                     ex("audio", "Escute e transcreva:",
                        "speak at a comfortable pace", audio_text="Speak at a comfortable pace."),
@@ -18795,8 +18823,8 @@ sotaque perfeito.
 - **Ritmo e ligação**: a fala conectada (Módulo 14).
 - **Shadowing**: repetir o áudio em voz alta, imitando.
 
-> 💘 **Clareza > perfeição**: você não precisa soar britânico ou americano —
-# ===== precisa ser entendido =====
+> 💡 **Clareza > perfeição**: você não precisa soar britânico ou americano —
+> precisa ser entendido
 """,
                 [
                     ex("quiz", "O mais importante na pronúncia é:",
@@ -18833,8 +18861,8 @@ Afirmação / wh:    tom desce       ("I'm tired. ↘")
 - **Repita imitando** o tom do nativo (shadowing).
 - Note como a mesma frase muda com o tom.
 
-> 💘 "It's really interesting" com tom diferente pode ser elogio ou ironia —
-# ===== o tom é parte do significado =====
+> 💡 "It's really interesting" com tom diferente pode ser elogio ou ironia —
+> o tom é parte do significado
 """,
                 [
                     ex("quiz", "A entonação afeta:",
@@ -18864,8 +18892,8 @@ Treine o ouvido com velocidades crescentes até o natural parecer claro.
 - Aumente a velocidade do áudio **aos poucos** (1.1x, 1.25x, 1.5x).
 - Quando você entende a 1.5x, a fala normal parece lenta e clara.
 
-> 💘 O segredo é a **exposição frequente** — não é um teste, é um treino de
-# ===== adaptação =====
+> 💡 O segredo é a **exposição frequente** — não é um teste, é um treino de
+> adaptação
 """,
                 [
                     ex("quiz", "Para treinar escuta rápida:",
@@ -18897,15 +18925,15 @@ técnica, social.
 - Pratique em temas variados: trabalho, lazer, notícias, tecnologia.
 - Observe como a linguagem muda com o ambiente.
 
-> 💘 No nível avançado, você alterna **com naturalidade**: e-mail formal de
-# ===== manhã, conversa informal à noite, discussão técnica no meio =====
+> 💡 No nível avançado, você alterna **com naturalidade**: e-mail formal de
+> manhã, conversa informal à noite, discussão técnica no meio
 """,
                 [
                     ex("quiz", "Alternar contextos treina:",
                        "adaptar a linguagem ao ambiente", ["adaptar a linguagem ao ambiente", "só um registro", "nada"]),
                     ex("quiz", "Falar formal e informal exige:",
                        "flexibilidade de registro", ["flexibilidade de registro", "rigidez", "decoração"]),
-                    ex("text", "Complete: 'Switch between ___ and formal.' (informal)",
+                    ex("text", "Complete: 'Switch between ___ and formal.' (oposto de formal)",
                        "informal"),
                     ex("audio", "Escute e transcreva:",
                        "adapt your language to the situation", audio_text="Adapt your language to the situation."),
@@ -18946,22 +18974,21 @@ It's fine.   (ok, meio insatisfeito)
 It's great.  (entusiasmado)
 ```
 
-> 💘 Captar nuance exige atenção ao **tom e ao contexto** — não só ao
-# ===== dicionário =====
+> 💡 Captar nuance exige atenção ao **tom e ao contexto** — não só ao
+> dicionário
 """,
                 [
                     ex("quiz", "Nuance é:",
                        "a sutileza de significado", ["a sutileza de significado", "o erro", "o tamanho"]),
                     ex("quiz", "'Annoyed' vs 'furious' mostram:",
                        "graus de intensidade", ["graus de intensidade", "a mesma coisa", "erro"]),
-                    ex("text", "Complete: 'Choose words with the right ___ .' (nuance)",
+                    ex("text", "Complete: 'Choose words with the right ___ .' (sutileza de sentido)",
                        "nuance"),
                     ex("audio", "Escute e transcreva:",
                        "the nuance changes the meaning", audio_text="The nuance changes the meaning."),
                     ex("quiz", "Captar nuance exige:",
                        "atenção ao tom e ao contexto", ["atenção ao tom e ao contexto", "só o dicionário", "pressa"]),
-                    ex("quiz", "'It could be worse' transmite:",
-                       "insatisfação disfarçada", ["insatisfação disfarçada", "alegria total", "surpresa"]),
+                    ex("quiz", "'It could be worse' transmite:", "que a situação não é ótima, mas é aceitável", ["que a situação não é ótima, mas é aceitável", "alegria total", "surpresa"]),
                 ],
             ),
             topic(
@@ -18983,8 +19010,8 @@ No domínio C1, você lê as **entrelinhas** — inclusive em negociações.
 
 Observe **tom, contexto e hesitação** — não só as palavras.
 
-> 💘 Em conversas sutis (negociação, feedback), o implícito manda. Quem só
-# ===== ouve o literal perde metade da mensagem =====
+> 💡 Em conversas sutis (negociação, feedback), o implícito manda. Quem só
+> ouve o literal perde metade da mensagem
 """,
                 [
                     ex("quiz", "Sentido implícito é:",
@@ -19022,15 +19049,15 @@ Referência   piada que depende de cultura/filme/série
 Provavelmente faltou a **referência cultural** — não é que seu inglês seja
 fraco.
 
-> 💘 Quanto mais filmes, séries e notícias você consome, mais referências
-# ===== você acumula — e mais humor você entende =====
+> 💡 Quanto mais filmes, séries e notícias você consome, mais referências
+> você acumula — e mais humor você entende
 """,
                 [
                     ex("quiz", "Humor em inglês usa muito:",
                        "ironia, wordplay e referências", ["ironia, wordplay e referências", "só piadas prontas", "nada"]),
                     ex("quiz", "O que é 'wordplay'?",
                        "jogo de palavras", ["jogo de palavras", "piada de física", "erro"]),
-                    ex("text", "Complete: 'He has a great sense of ___ .' (humor)",
+                    ex("text", "Complete: 'He has a great sense of ___ .' (o que faz rir)",
                        "humor"),
                     ex("audio", "Escute e transcreva:",
                        "that was a good joke", audio_text="That was a good joke."),
@@ -19060,8 +19087,8 @@ fraco.
 - Use sarcasmo com quem **conhece seu tom** — com estranhos, pode soar rude.
 - O tom costuma ser **plano ou exagerado**.
 
-> 💘 Entender sarcasmo é essencial; **produzir** sarcasmo exige contexto e
-# ===== confiança =====
+> 💡 Entender sarcasmo é essencial; **produzir** sarcasmo exige contexto e
+> confiança
 """,
                 [
                     ex("quiz", "Sarcasmo diz:",
@@ -19094,15 +19121,15 @@ I'm on the fence.       Estou em cima do muro (indeciso).
 It slipped my mind.     Me escapou (esqueci).
 ```
 
-> 💘 Idioms demais soam **forçados**. Use com moderação, no contexto certo —
-# ===== como um nativo faria =====
+> 💡 Idioms demais soam **forçados**. Use com moderação, no contexto certo —
+> como um nativo faria
 """,
                 [
                     ex("quiz", "Linguagem idiomática é:",
                        "natural e figurada", ["natural e figurada", "literal", "formal sempre"]),
                     ex("quiz", "O que 'it's a no-brainer' significa?",
                        "é óbvio", ["é óbvio", "é difícil", "é erro"]),
-                    ex("text", "Complete: 'It's a no-___ .' (brainer)",
+                    ex("text", "Complete: 'It's a no-___ .' (algo óbvio, que não exige pensar)",
                        "brainer"),
                     ex("audio", "Escute e transcreva:",
                        "it's a no-brainer", audio_text="It's a no-brainer."),
@@ -19123,7 +19150,7 @@ Referências a filmes, séries, história e cultura aparecem o tempo todo.
 ## Exemplos
 
 ```
-"That's so 'to Google it'!"   (o Google virou verbo)
+"Just google it!"             (o Google virou verbo: "pesquise")
 "He's the new Steve Jobs."    (referência a inovação)
 ```
 
@@ -19131,8 +19158,8 @@ Referências a filmes, séries, história e cultura aparecem o tempo todo.
 
 Sem a referência, a piada ou o comentário **perde o sentido**.
 
-> 💘 Para acumular referências, consuma **filmes, séries e notícias em
-# ===== inglês** — é a cultura que completa a língua =====
+> 💡 Para acumular referências, consuma **filmes, séries e notícias em
+> inglês** — é a cultura que completa a língua
 """,
                 [
                     ex("quiz", "Referências culturais aparecem em:",
@@ -19165,8 +19192,8 @@ Semiformal: "Can we schedule a meeting?"
 Informal: "Wanna meet up?"
 ```
 
-> 💘 Quem domina o C1 não fala igual em todos os lugares — **adapta** o
-# ===== registro ao público e à situação =====
+> 💡 Quem domina o C1 não fala igual em todos os lugares — **adapta** o
+> registro ao público e à situação
 """,
                 [
                     ex("quiz", "Registros diferentes exigem:",
@@ -19199,8 +19226,8 @@ Please be advised that...       Informo que...
 We would be most grateful.      Ficaríamos muito gratos.
 ```
 
-> 💘 Em formal, **evite contrações** ("I am", não "I'm") e gírias. É o
-# ===== padrão de e-mails, documentos e discursos =====
+> 💡 Em formal, **evite contrações** ("I am", não "I'm") e gírias. É o
+> padrão de e-mails, documentos e discursos
 """,
                 [
                     ex("quiz", "Linguagem formal usa:",
@@ -19233,8 +19260,8 @@ No worries!              Sem problema!
 Catch you later!         Até mais!
 ```
 
-> 💘 Saber **quando NÃO** usar o informal é parte do domínio: amigos e
-# ===== conversas sim; e-mail formal, tese ou entrevista, não =====
+> 💡 Saber **quando NÃO** usar o informal é parte do domínio: amigos e
+> conversas sim; e-mail formal, tese ou entrevista, não
 """,
                 [
                     ex("quiz", "Linguagem informal inclui:",
@@ -19267,8 +19294,8 @@ Let's schedule a follow-up.        Vamos agendar um acompanhamento.
 Please let me know your decision.  Avise-me sua decisão.
 ```
 
-> 💘 Profissional **assertivo** pede sem agredir: "Could you please..."
-# ===== é firme e educado ao mesmo tempo =====
+> 💡 Profissional **assertivo** pede sem agredir: "Could you please..."
+> é firme e educado ao mesmo tempo
 """,
                 [
                     ex("quiz", "Linguagem profissional é:",
@@ -19301,8 +19328,8 @@ The evidence suggests that...    A evidência sugere que...
 According to Smith...            Segundo Smith...
 ```
 
-> 💘 No acadêmico, **citações dão credibilidade** e o **hedging** suaviza as
-# ===== afirmações — nada de "I think" ou certezas absolutas =====
+> 💡 No acadêmico, **citações dão credibilidade** e o **hedging** suaviza as
+> afirmações — nada de "I think" ou certezas absolutas
 """,
                 [
                     ex("quiz", "Linguagem acadêmica é:",
@@ -19336,8 +19363,8 @@ This is a unique opportunity.  Esta é uma oportunidade única.
 Act now!                       Aja agora!
 ```
 
-> 💘 Persuasão de nível usa **verbos de ação** e foca no **benefício** para
-# ===== o outro — e encerra com uma call to action =====
+> 💡 Persuasão de nível usa **verbos de ação** e foca no **benefício** para
+> o outro — e encerra com uma call to action
 """,
                 [
                     ex("quiz", "Persuasão eficaz apela:",
@@ -19371,8 +19398,8 @@ Just to be clear...                Só para ficar claro...
 Could you clarify the timeline?    Pode esclarecer o cronograma?
 ```
 
-> 💘 "Just to be clear..." confirma a precisão e evita retrabalho — é a
-# ===== marca da comunicação profissional =====
+> 💡 "Just to be clear..." confirma a precisão e evita retrabalho — é a
+> marca da comunicação profissional
 """,
                 [
                     ex("quiz", "Comunicação precisa evita:",
@@ -19411,8 +19438,8 @@ By the way, have you heard?    A propósito, você ouviu?
 Can I add something here?      Posso acrescentar algo?
 ```
 
-> 💘 Conversa flui com **escuta ativa** — reagir e perguntar mantém o
-# ===== diálogo vivo =====
+> 💡 Conversa flui com **escuta ativa** — reagir e perguntar mantém o
+> diálogo vivo
 """,
                 [
                     ex("quiz", "Conversa natural tem:",
@@ -19458,7 +19485,7 @@ Ler é uma das formas mais ricas de imersão — e deve ser **progressiva**.
 - Ao encontrar palavra nova, **tente adivinhar pelo contexto** antes do
   dicionário.
 
-> 💘 Ler em voz alta de vez em quando também treina **pronúncia e ritmo**.
+> 💡 Ler em voz alta de vez em quando também treina **pronúncia e ritmo**.
 """,
                 [
                     ex("quiz", "Para começar a ler em inglês:",
@@ -19492,8 +19519,8 @@ Largar a legenda é **progressivo** — e um marco da imersão.
 Ao travar, **rever a cena com legenda** — é assim que se conecta som e
 escrita.
 
-> 💘 Re-assistir algo que você já conhece sem legenda usa o **contexto**
-# ===== para preencher o que não ouviu =====
+> 💡 Re-assistir algo que você já conhece sem legenda usa o **contexto**
+> para preencher o que não ouviu
 """,
                 [
                     ex("quiz", "Para largar a legenda:",
@@ -19525,8 +19552,8 @@ trabalha com tecnologia.
 - **Pause e repita** os trechos importantes.
 - Fixe o vocabulário **no contexto real**.
 
-> 💘 Code reviews, palestras e docs em inglês treinam o vocabulário técnico
-# ===== que você vai usar de verdade =====
+> 💡 Code reviews, palestras e docs em inglês treinam o vocabulário técnico
+> que você vai usar de verdade
 """,
                 [
                     ex("quiz", "Conteúdo técnico em inglês:",
@@ -19557,8 +19584,8 @@ Podcasts são imersão que **cabe em qualquer rotina**.
 - Escolha temas do seu **interesse**.
 - Depois, **resuma em voz alta** — treina escuta E fala.
 
-> 💘 Um pouco todo dia rende mais que horas no domingo. Constância é a
-# ===== chave =====
+> 💡 Um pouco todo dia rende mais que horas no domingo. Constância é a
+> chave
 """,
                 [
                     ex("quiz", "Podcasts cabem na rotina porque:",
@@ -19589,8 +19616,8 @@ A escrita diária constrói **consistência** e **vocabulário ativo**.
 - Não **traduza palavra a palavra** — use o que você já sabe.
 - Revise às vezes, mas **escreva todo dia**.
 
-> 💘 Escrever consolida o vocabulário **ativo** — aquele que você consegue
-# ===== produzir, não só reconhecer =====
+> 💡 Escrever consolida o vocabulário **ativo** — aquele que você consegue
+> produzir, não só reconhecer
 """,
                 [
                     ex("quiz", "Escrever todo dia cria:",
@@ -19621,8 +19648,8 @@ Falar diariamente é o treino que fecha a fluência.
 - **Fale sozinho**: narre sua rotina ou descreva o que vê.
 - Se puder, **app/amigo**: 10 minutos de conversa real.
 
-> 💘 A **constância importa mais que a duração**: 10 minutos todo dia vencem
-# ===== 2 horas uma vez por semana =====
+> 💡 A **constância importa mais que a duração**: 10 minutos todo dia vencem
+> 2 horas uma vez por semana
 """,
                 [
                     ex("quiz", "Falar todo dia exige:",
@@ -19653,8 +19680,8 @@ Discussões reais colocam seu inglês à prova — e treinam o pensamento.
 - **Grupos** de idiomas e meetups.
 - Comentários em **inglês** (notícias, YouTube).
 
-> 💘 Discutir ativamente treina **produção e pensamento em inglês**. Não
-# ===== tenha medo de errar — errar faz parte de aprender =====
+> 💡 Discutir ativamente treina **produção e pensamento em inglês**. Não
+> tenha medo de errar — errar faz parte de aprender
 """,
                 [
                     ex("quiz", "Para praticar discussão:",
@@ -19685,8 +19712,8 @@ A documentação real é uma das melhores fontes de **inglês técnico autêntic
 - Anote **expressões úteis** (install, configure, deploy).
 - Replique em conversas e textos.
 
-> 💘 Docs ensinam frases **reais de uso técnico** — o inglês exato do
-# ===== dia a dia de quem trabalha com tecnologia =====
+> 💡 Docs ensinam frases **reais de uso técnico** — o inglês exato do
+> dia a dia de quem trabalha com tecnologia
 """,
                 [
                     ex("quiz", "Documentação técnica real:",
@@ -19724,8 +19751,8 @@ código, docs e code reviews
 - **Vocabulário técnico** + **comunicação clara**.
 - Os chunks do dia a dia do trabalho (Módulo 23).
 
-> 💘 A imersão total acelera a fluência como nada mais — mas exige a base
-# ===== que você construiu até aqui =====
+> 💡 A imersão total acelera a fluência como nada mais — mas exige a base
+> que você construiu até aqui
 """,
                 [
                     ex("quiz", "Trabalhar em inglês inclui:",
@@ -19756,8 +19783,8 @@ Pensar em inglês é o **sinal máximo** de fluência consolidada.
 - Responda a si mesmo em inglês.
 - Aos poucos, os sonhos também migram para o inglês — um grande marco!
 
-> 💘 Quando você **sonha** em inglês, a imersão virou parte de você.
-# ===== Parabéns: este é o fim do curso, e o começo da autonomia =====
+> 💡 Quando você **sonha** em inglês, a imersão virou parte de você.
+> Parabéns: este é o fim do curso, e o começo da autonomia
 """,
                 [
                     ex("quiz", "Pensar em inglês é o sinal de:",

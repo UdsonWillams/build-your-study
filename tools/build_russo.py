@@ -54,8 +54,17 @@ EXPANDED_MODULE_SLUGS = frozenset({
 # Espelha normalize() do web/static/js/runner.js: e' assim que o front-end
 # compara a resposta do aluno com a solucao.
 def normalize(s):
-    s = s.lower().replace("ё", "е")
-    s = re.sub(r"[.,!?;:'\"’‘“”…–—-]", "", s)
+    s = s.lower().replace("ё", "е").replace("’", "'").replace("‘", "'")
+    # Contrações comuns viram a forma longa dos dois lados (I'm = I am), para o
+    # corretor aceitar as duas formas.
+    for pattern, repl in (
+        (r"\bcan't\b", "cannot"), (r"\bcan not\b", "cannot"), (r"\bwon't\b", "will not"),
+        (r"n't\b", " not"), (r"\bi'm\b", "i am"), (r"'re\b", " are"), (r"'ve\b", " have"),
+        (r"'ll\b", " will"), (r"'d\b", " would"), (r"\blet's\b", "let us"),
+        (r"\b(it|he|she|that|what|there|where|who|here|how)'s\b", r"\1 is"),
+    ):
+        s = re.sub(pattern, repl, s)
+    s = re.sub(r"[.,!?;:'\"“”…–—-]", "", s)
     return re.sub(r"\s+", " ", s).strip()
 
 

@@ -15,7 +15,7 @@
         {
           "slug": "alfabeto-e-pronuncia",
           "title": "Alfabeto e pronúncia",
-          "lesson_md": "# Alfabeto e pronúncia\n\nAntes de montar qualquer frase, vale ouvir como soam as letras e alguns sons do inglês — muitos são bem diferentes do português.\n\n## O alfabeto (26 letras)\n\nA, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z\n\nAlgumas pronúncias que costumam surpreender:\n\n| Letra | Soa como (aproximado) |\n|---|---|\n| **H** | \"eitch\" — o H é pronunciado, diferente do português |\n| **J** | \"djêi\" |\n| **R** | som mais \"enrolado\", puxado para trás |\n| **W** | \"dâbliu\" |\n| **Y** | \"uái\" |\n\n## Soletrando (spelling)\n\nÉ muito comum precisar soletrar o próprio nome em situações do dia a dia (por telefone, em cadastros, em hotéis):\n\n```\nHow do you spell your name?     Como você soletra seu nome?\n```\n\n## Sons que não existem em português\n\nDois sons costumam ser os mais difíceis para brasileiros:\n\n- **th** (como em `think` e `this`): a língua fica entre os dentes — não existe equivalente em português, e trocar por \"f\"/\"t\" muda o significado da palavra.\n- **r final** (como em `car`, `hard`): em muitos sotaques americanos, é um som gutural único, bem diferente do \"r\" do português.\n\n> 🎧 A melhor forma de treinar pronúncia é **ouvir muito** e repetir em voz alta. Clique em 🔊 para ouvir e 🎤 para tentar falar.\n\n## Explicação prática\nO nome de uma letra e o som que ela representa não são a mesma coisa. Na soletração, diga os nomes das letras separadamente e confirme a palavra inteira depois.\n\n## Exemplos naturais\n- **How do you spell Anna?** — Como você soletra Anna?\n- **The word think starts with T.** — A palavra think começa com T.\n\n## Erros comuns\n- Não trate o H como mudo: em inglês, a letra se chama **aitch**.\n- Não troque o som de **th** pelo de **t** em *think*.\n\n## Resumo prático\nSoletrar é dizer nomes de letras; pronunciar é produzir os sons da palavra. Ouça, repita devagar e depois tente no ritmo normal.",
+          "lesson_md": "# Alfabeto e pronúncia\n\nAntes de montar qualquer frase, vale ouvir como soam as letras e alguns sons do inglês — muitos são bem diferentes do português.\n\n## O alfabeto (26 letras)\n\nA, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z\n\nAlgumas pronúncias que costumam surpreender:\n\n| Letra | Soa como (aproximado) |\n|---|---|\n| **H** | \"eitch\" — o H é pronunciado, diferente do português |\n| **J** | \"djêi\" |\n| **R** | som mais \"enrolado\", puxado para trás |\n| **W** | \"dâbliu\" |\n| **Y** | \"uái\" |\n\n## Soletrando (spelling)\n\nÉ muito comum precisar soletrar o próprio nome em situações do dia a dia (por telefone, em cadastros, em hotéis):\n\n```\nHow do you spell your name?     Como você soletra seu nome?\n```\n\n## Sons que não existem em português\n\nDois sons costumam ser os mais difíceis para brasileiros:\n\n- **th** (como em `think` e `this`): a língua fica entre os dentes — não existe equivalente em português, e trocar por \"f\"/\"t\" muda o significado da palavra.\n- **r final** (como em `car`, `hard`): em muitos sotaques americanos, a língua se curva para trás sem tocar o céu da boca — um som \"enrolado\", bem diferente do \"r\" do português.\n\n> 🎧 A melhor forma de treinar pronúncia é **ouvir muito** e repetir em voz alta. Clique em 🔊 para ouvir e 🎤 para tentar falar.\n\n## Explicação prática\nO nome de uma letra e o som que ela representa não são a mesma coisa. Na soletração, diga os nomes das letras separadamente e confirme a palavra inteira depois.\n\n## Exemplos naturais\n- **How do you spell Anna?** — Como você soletra Anna?\n- **The word think starts with T.** — A palavra think começa com T.\n\n## Erros comuns\n- Não trate o H como mudo: em inglês, a letra se chama **aitch**.\n- Não troque o som de **th** pelo de **t** em *think*.\n\n## Resumo prático\nSoletrar é dizer nomes de letras; pronunciar é produzir os sons da palavra. Ouça, repita devagar e depois tente no ritmo normal.",
           "exercises": [
             {
               "type": "quiz",
@@ -609,9 +609,9 @@
             },
             {
               "type": "speak",
-              "prompt": "Pergunte as horas em voz alta:",
-              "solution": "what time is it",
-              "audio_text": "What time is it?",
+              "prompt": "Diga em voz alta que são três horas:",
+              "solution": "it's three o'clock",
+              "audio_text": "It's three o'clock.",
               "audio_lang": "en-US",
               "position": 9
             }
@@ -807,7 +807,7 @@
             },
             {
               "type": "quiz",
-              "prompt": "Você mostra uma pessoa da família. Qual pergunta e resposta combinam?",
+              "prompt": "Você mostra uma pessoa da família. Qual frase está correta?",
               "solution": "This is my sister.",
               "options": [
                 "This is my sister.",
@@ -1538,7 +1538,7 @@
         {
           "slug": "pronomes-pessoais",
           "title": "Pronomes pessoais",
-          "lesson_md": "# Pronomes pessoais (subject pronouns)\n\nOs pronomes pessoais em inglês aparecem como **sujeito** da frase. São poucos\ne não mudam conforme a pessoa — são o \"quem\" da ação.\n\n| Pronome | Português |\n|---|---|\n| **I** | eu |\n| **you** | você / vocês |\n| **he** | ele |\n| **she** | ela |\n| **it** | ele/ela (coisas, animais, objetos) |\n| **we** | nós |\n| **they** | eles / elas / vocês |\n\n## Regras que ajudam\n\n- **I** (eu) sempre com letra maiúscula, mesmo no meio da frase.\n- **he** e **she** são só para pessoas; para coisas e animais usa-se **it**.\n- **you** serve tanto para \"você\" (singular) quanto para \"vocês\" (plural).\n\n## Substituindo nomes por pronomes\n\n```\nMaria is my friend.  ->  She is my friend.\nMy friends and I are students.  ->  We are students.\nThe dog is big.  ->  It is big.\n```\n\n> 💡 Pergunte sempre: \"qual pronome substitui esse nome?\" — ela/ele = she/he;\n> nós = we; eles/elas = they; objeto/animal = it.\n\n## Explicação prática\nO pronome deve representar quem faz a ação. Escolha **he** ou **she** para pessoas, **it** para uma coisa ou animal e **we** quando o grupo inclui quem fala.\n\n## Exemplos naturais\n- **Pedro and I are friends. We study together.** — Pedro e eu somos amigos. Nós estudamos juntos.\n- **The dog is small. It is friendly.** — O cachorro é pequeno. Ele é dócil.\n\n## Erros comuns\n- **I** sempre aparece com maiúscula, inclusive no meio da frase.\n- Não use **he** ou **she** para objetos; para uma coisa, use **it**.\n\n## Resumo prático\nEncontre o sujeito, escolha o pronome que o substitui e confira se **you** significa você ou vocês conforme o contexto.",
+          "lesson_md": "# Pronomes pessoais (subject pronouns)\n\nOs pronomes pessoais em inglês aparecem como **sujeito** da frase. São o \"quem\" da ação e, diferente do\nportuguês, quase nunca podem ser omitidos: dizemos **I study**, nunca só *study*.\n\n| Pronome | Português |\n|---|---|\n| **I** | eu |\n| **you** | você / vocês |\n| **he** | ele |\n| **she** | ela |\n| **it** | ele/ela (coisas, animais, objetos) |\n| **we** | nós |\n| **they** | eles / elas |\n\n## Regras que ajudam\n\n- **I** (eu) sempre com letra maiúscula, mesmo no meio da frase.\n- **he** e **she** são só para pessoas; para coisas e animais usa-se **it**.\n- **you** serve tanto para \"você\" (singular) quanto para \"vocês\" (plural).\n\n## Substituindo nomes por pronomes\n\n```\nMaria is my friend.  ->  She is my friend.\nMy friends and I are students.  ->  We are students.\nThe dog is big.  ->  It is big.\n```\n\n> 💡 Pergunte sempre: \"qual pronome substitui esse nome?\" — ela/ele = she/he;\n> nós = we; eles/elas = they; objeto/animal = it.\n\n## Explicação prática\nO pronome deve representar quem faz a ação. Escolha **he** ou **she** para pessoas, **it** para uma coisa ou animal e **we** quando o grupo inclui quem fala.\n\n## Exemplos naturais\n- **Pedro and I are friends. We study together.** — Pedro e eu somos amigos. Nós estudamos juntos.\n- **The dog is small. It is friendly.** — O cachorro é pequeno. Ele é dócil.\n\n## Erros comuns\n- **I** sempre aparece com maiúscula, inclusive no meio da frase.\n- Não use **he** ou **she** para objetos; para uma coisa, use **it**.\n\n## Resumo prático\nEncontre o sujeito, escolha o pronome que o substitui e confira se **you** significa você ou vocês conforme o contexto.",
           "exercises": [
             {
               "type": "quiz",
@@ -1960,7 +1960,7 @@
         {
           "slug": "singular-e-plural",
           "title": "Singular e plural",
-          "lesson_md": "# Singular e plural\n\nO plural em inglês é, na maioria das vezes, só acrescentar **-s**.\n\n## Regras principais\n\n| Terminação | Plural | Exemplos |\n|---|---|---|\n| consoante | + **s** | book -> books, cat -> cats |\n| s, sh, ch, x, o | + **es** | bus -> buses, box -> boxes |\n| consoante + y | troca y por **ies** | baby -> babies, city -> cities |\n| vogal + y | + **s** | boy -> boys, day -> days |\n\n## Plurais irregulares (decorar)\n\n```\nman -> men       child -> children\nwoman -> women   foot -> feet\nperson -> people tooth -> teeth\n```\n\n## Uso com números\n\nCom plural usamos números e **no article** a/an:\n\n```\none book, two books\na cat, three cats\n```\n\n> 💡 Depois de números maiores que um, o substantivo vai sempre para o plural:\n> `five students`, nunca \"five student\".\n\n## Explicação prática\nO plural regular costuma usar **-s**, mas terminações em **s, sh, ch, x** pedem **-es** e consoante + **y** vira **-ies**. Alguns plurais precisam ser memorizados, como **child/children**.\n\n## Exemplos naturais\n- **There are three children in the park.** — Há três crianças no parque.\n- **I have two boxes.** — Eu tenho duas caixas.\n\n## Erros comuns\n- Depois de **two, three, five...**, use plural: **two boxes**, não *two box*.\n- Não aplique a regra de **-s** a tudo: **woman/women** e **man/men** são irregulares.\n\n## Resumo prático\nObserve a terminação da palavra, pratique alguns irregulares e confira se números maiores que um recebem substantivo no plural.",
+          "lesson_md": "# Singular e plural\n\nO plural em inglês é, na maioria das vezes, só acrescentar **-s**.\n\n## Regras principais\n\n| Terminação | Plural | Exemplos |\n|---|---|---|\n| consoante | + **s** | book -> books, cat -> cats |\n| s, sh, ch, x, o | + **es** | bus -> buses, box -> boxes, potato -> potatoes (mas photo -> photos) |\n| consoante + y | troca y por **ies** | baby -> babies, city -> cities |\n| vogal + y | + **s** | boy -> boys, day -> days |\n\n## Plurais irregulares (decorar)\n\n```\nman -> men       child -> children\nwoman -> women   foot -> feet\nperson -> people tooth -> teeth\n```\n\n## Uso com números\n\nCom plural usamos números e **nenhum artigo** (a/an):\n\n```\none book, two books\na cat, three cats\n```\n\n> 💡 Depois de números maiores que um, o substantivo vai sempre para o plural:\n> `five students`, nunca \"five student\".\n\n## Explicação prática\nO plural regular costuma usar **-s**, mas terminações em **s, sh, ch, x** pedem **-es** e consoante + **y** vira **-ies**. Alguns plurais precisam ser memorizados, como **child/children**.\n\n## Exemplos naturais\n- **There are three children in the park.** — Há três crianças no parque.\n- **I have two boxes.** — Eu tenho duas caixas.\n\n## Erros comuns\n- Depois de **two, three, five...**, use plural: **two boxes**, não *two box*.\n- Não aplique a regra de **-s** a tudo: **woman/women** e **man/men** são irregulares.\n\n## Resumo prático\nObserve a terminação da palavra, pratique alguns irregulares e confira se números maiores que um recebem substantivo no plural.",
           "exercises": [
             {
               "type": "quiz",
@@ -2070,7 +2070,7 @@
         {
           "slug": "demonstrativos",
           "title": "Demonstrativos (this/that/these/those)",
-          "lesson_md": "# Demonstrativos (this / that / these / those)\n\nOs demonstrativos apontam para coisas, indicando se estão **perto** ou\n**longe**, e se são singular ou plural.\n\n| | Singular | Plural |\n|---|---|---|\n| **Perto** | this (este/esta) | these (estes/estas) |\n| **Longe** | that (aquele/aquela) | those (aqueles/aquelas) |\n\n## Exemplos\n\n```\nThis is my phone.        Este é meu celular.   (perto, singular)\nThese are my keys.       Estas são minhas chaves.  (perto, plural)\nThat is your car.        Aquele é seu carro.   (longe, singular)\nThose are our books.     Aqueles são nossos livros.  (longe, plural)\n```\n\n## Dica de memória\n\n- **this / these** têm \"t\" duplo e são os de **perto** (como o \"este\").\n- **that / those** têm \"t\" + \"h/a/o/u\" e são os de **longe**.\n- Singular (this/that) com o verbo **is**; plural (these/those) com **are**.\n\n> 💡 Use **this** para apresentar algo na mão e **that** para apontar algo\n> distante: `This is my book.` vs `That is your book.`\n\n## Explicação prática\nPense em duas perguntas: está perto ou longe? É uma coisa ou mais de uma? **this/that** são singulares; **these/those** são plurais. O verbo acompanha: **is** no singular, **are** no plural.\n\n## Exemplos naturais\n- **That is my car.** — Aquele é meu carro.\n- **Those are your shoes.** — Aqueles são seus sapatos.\n\n## Erros comuns\n- Não combine **these/those** com substantivo singular: diga **these books**, não *these book*.\n- Não diga *this are*; perto e plural pede **these are**.\n\n## Resumo prático\nUse **this/these** para perto, **that/those** para longe, e combine singular com **is** e plural com **are**.",
+          "lesson_md": "# Demonstrativos (this / that / these / those)\n\nOs demonstrativos apontam para coisas, indicando se estão **perto** ou\n**longe**, e se são singular ou plural.\n\n| | Singular | Plural |\n|---|---|---|\n| **Perto** | this (este/esta) | these (estes/estas) |\n| **Longe** | that (aquele/aquela) | those (aqueles/aquelas) |\n\n## Exemplos\n\n```\nThis is my phone.        Este é meu celular.   (perto, singular)\nThese are my keys.       Estas são minhas chaves.  (perto, plural)\nThat is your car.        Aquele é seu carro.   (longe, singular)\nThose are our books.     Aqueles são nossos livros.  (longe, plural)\n```\n\n## Dica de memória\n\n- **this / these** são os de **perto**; **that / those**, os de **longe**.\n- **these** e **those** são os plurais — os dois terminam em **-se**, um lembrete do \"s\" de plural.\n- Singular (this/that) com o verbo **is**; plural (these/those) com **are**.\n\n> 💡 Use **this** para apresentar algo na mão e **that** para apontar algo\n> distante: `This is my book.` vs `That is your book.`\n\n## Explicação prática\nPense em duas perguntas: está perto ou longe? É uma coisa ou mais de uma? **this/that** são singulares; **these/those** são plurais. O verbo acompanha: **is** no singular, **are** no plural.\n\n## Exemplos naturais\n- **That is my car.** — Aquele é meu carro.\n- **Those are your shoes.** — Aqueles são seus sapatos.\n\n## Erros comuns\n- Não combine **these/those** com substantivo singular: diga **these books**, não *these book*.\n- Não diga *this are*; perto e plural pede **these are**.\n\n## Resumo prático\nUse **this/these** para perto, **that/those** para longe, e combine singular com **is** e plural com **are**.",
           "exercises": [
             {
               "type": "quiz",
@@ -2391,7 +2391,7 @@
           "exercises": [
             {
               "type": "quiz",
-              "prompt": "Complete: \"He ___ coffee.\" (drinks)",
+              "prompt": "Complete: \"He ___ coffee.\" (drink)",
               "solution": "drinks",
               "options": [
                 "drinks",
@@ -2811,7 +2811,7 @@
         {
           "slug": "preposicoes-basicas",
           "title": "Preposições básicas",
-          "lesson_md": "# Preposições básicas\n\nAs preposições ligam ideias e indicam **lugar** ou **tempo**. As mais comuns\nno A1 são:\n\n## Lugar\n\n```\nin     dentro de  ->  The keys are in my bag.   As chaves estão na bolsa.\non     em cima de ->  The book is on the table. O livro está na mesa.\nunder  embaixo de ->  The cat is under the bed. O gato está embaixo da cama.\nnext to  ao lado de ->  The bank is next to the store.\nbetween  entre    ->  The park is between the school and the store.\n```\n\n## Tempo\n\n```\nat    em horários  ->  I wake up at 7 am.    Eu acordo às 7h.\nin    em meses, anos, partes do dia  ->  in the morning, in 2026\non    em dias       ->  on Monday\n```\n\n## Cidades e lugares\n\n- **in** + cidade/pais: `She lives in São Paulo.`\n- **at** + ponto específico: `I'm at home.`, `We're at the store.`\n\n> 💡 Dica rápida: **on** = superfície, **in** = dentro, **at** = ponto\n> específico. Para tempo: **at** horas, **on** dias, **in** meses/anos.\n\n## Explicação prática\nPense em imagens simples: **in** é dentro, **on** é sobre uma superfície e **at** é um ponto ou horário. Para tempo, use **at** com horas, **on** com dias e **in** com meses, anos e partes do dia.\n\n## Exemplos naturais\n- **The keys are in the bag.** — As chaves estão na bolsa.\n- **The bank is next to the school.** — O banco fica ao lado da escola.\n\n## Erros comuns\n- Não diga *in Monday*; para dias, use **on Monday**.\n- Não confunda **next to** (ao lado de) com **between** (entre duas coisas).\n\n## Resumo prático\nEscolha a preposição pela relação: interior, superfície, ponto, lado ou posição entre; depois confira se é lugar ou tempo.",
+          "lesson_md": "# Preposições básicas\n\nAs preposições ligam ideias e indicam **lugar** ou **tempo**. As mais comuns\nno A1 são:\n\n## Lugar\n\n```\nin     dentro de  ->  The keys are in my bag.   As chaves estão na bolsa.\non     em cima de ->  The book is on the table. O livro está na mesa.\nunder  embaixo de ->  The cat is under the bed. O gato está embaixo da cama.\nnext to  ao lado de ->  The bank is next to the store.\nbetween  entre    ->  The park is between the school and the store.\n```\n\n## Tempo\n\n```\nat    em horários  ->  I wake up at 7 am.    Eu acordo às 7h.\nin    em meses, anos, partes do dia  ->  in the morning, in 2026\non    em dias       ->  on Monday\n```\n\n## Cidades e lugares\n\n- **in** + cidade/país: `She lives in São Paulo.`\n- **at** + ponto específico: `I'm at home.`, `We're at the store.`\n\n> 💡 Dica rápida: **on** = superfície, **in** = dentro, **at** = ponto\n> específico. Para tempo: **at** horas, **on** dias, **in** meses/anos.\n\n## Explicação prática\nPense em imagens simples: **in** é dentro, **on** é sobre uma superfície e **at** é um ponto ou horário. Para tempo, use **at** com horas, **on** com dias e **in** com meses, anos e partes do dia.\n\n## Exemplos naturais\n- **The keys are in the bag.** — As chaves estão na bolsa.\n- **The bank is next to the school.** — O banco fica ao lado da escola.\n\n## Erros comuns\n- Não diga *in Monday*; para dias, use **on Monday**.\n- Não confunda **next to** (ao lado de) com **between** (entre duas coisas).\n\n## Resumo prático\nEscolha a preposição pela relação: interior, superfície, ponto, lado ou posição entre; depois confira se é lugar ou tempo.",
           "exercises": [
             {
               "type": "quiz",
@@ -3453,7 +3453,7 @@
         {
           "slug": "roupas-em-ingles",
           "title": "Roupas",
-          "lesson_md": "# Roupas\n\n| Inglês | Português |\n|---|---|\n| shirt | camisa |\n| pants | calça |\n| dress | vestido |\n| skirt | saia |\n| shoes | sapatos |\n| socks | meias |\n| hat | chapéu |\n| jacket | jaqueta |\n| coat | casaco |\n\n## Exemplos\n\n```\nHer dress is red.         O vestido dela é vermelho.\nI need new shoes.         Eu preciso de sapatos novos.\n```\n\n> 💡 **pants** é \"calça\" — sempre no plural, como em português. **shoes** e\n> **socks** também costumam aparecer no plural (são aos pares).\n\n## Explicação prática\nMuitas roupas aparecem no plural porque são usadas aos pares ou têm formato de duas pernas, como **pants**. Use **wear** para falar do que veste e **need** para dizer o que precisa.\n\n## Exemplos naturais\n- **I need a jacket.** — Eu preciso de uma jaqueta.\n- **These pants are black.** — Esta calça é preta.\n\n## Erros comuns\n- Não transforme **pants** em *pant* no uso normal; a palavra é plural.\n- **Shoes** são sapatos e **socks** são meias; não troque as duas palavras por causa do uso em pares.\n\n## Resumo prático\nMemorize a peça junto com uma cor ou uma ação: **wear shoes**, **need a jacket**, **a red dress**.",
+          "lesson_md": "# Roupas\n\n| Inglês | Português |\n|---|---|\n| shirt | camisa |\n| pants | calça |\n| dress | vestido |\n| skirt | saia |\n| shoes | sapatos |\n| socks | meias |\n| hat | chapéu |\n| jacket | jaqueta |\n| coat | casaco |\n\n## Exemplos\n\n```\nHer dress is red.         O vestido dela é vermelho.\nI need new shoes.         Eu preciso de sapatos novos.\n```\n\n> 💡 **pants** é \"calça\" — sempre no plural em inglês (em português, \"a calça\" é singular). **shoes** e\n> **socks** também costumam aparecer no plural (são aos pares).\n\n## Explicação prática\nMuitas roupas aparecem no plural porque são usadas aos pares ou têm formato de duas pernas, como **pants**. Use **wear** para falar do que veste e **need** para dizer o que precisa.\n\n## Exemplos naturais\n- **I need a jacket.** — Eu preciso de uma jaqueta.\n- **These pants are black.** — Esta calça é preta.\n\n## Erros comuns\n- Não transforme **pants** em *pant* no uso normal; a palavra é plural.\n- **Shoes** são sapatos e **socks** são meias; não troque as duas palavras por causa do uso em pares.\n\n## Resumo prático\nMemorize a peça junto com uma cor ou uma ação: **wear shoes**, **need a jacket**, **a red dress**.",
           "exercises": [
             {
               "type": "quiz",
@@ -3877,7 +3877,7 @@
         {
           "slug": "clima-e-tempo",
           "title": "Clima e tempo",
-          "lesson_md": "# Clima e tempo\n\n## Adjetivos do clima\n\n| Inglês | Português |\n|---|---|\n| sunny | ensolarado |\n| rainy | chuvoso |\n| cloudy | nublado |\n| windy | ventoso |\n| hot | quente |\n| cold | frio |\n| warm | morno / quentinho |\n| snow | neve |\n\n## Como falar do tempo\n\nUse **It is** (está/faz) + adjetivo:\n\n```\nIt is sunny today.        Está ensolarado hoje.\nIt is cold outside.       Está frio lá fora.\nIt's raining.             Está chovendo.\n```\n\n> 💡 Em inglês o \"it\" do clima não tem tradução direta: \"It is hot.\" = \"Está\n> quente\" — o \"it\" não é \"ele\".\n\n## Explicação prática\nO inglês usa **it** como sujeito obrigatório para o clima, mesmo quando o português não mostra um pronome. Combine **It is** com o adjetivo e, se quiser, com **today** ou **outside**.\n\n## Exemplos naturais\n- **It is sunny today.** — Está ensolarado hoje.\n- **It is hot outside.** — Está quente lá fora.\n\n## Erros comuns\n- Não diga *Is sunny today*; inclua **It is**.\n- **Hot** é quente e **cold** é frio; não confunda o clima com a temperatura de um objeto sem contexto.\n\n## Resumo prático\nPara descrever o tempo, comece com **It is**, escolha o adjetivo e acrescente um marcador de lugar ou tempo.",
+          "lesson_md": "# Clima e tempo\n\n## Adjetivos do clima\n\n| Inglês | Português |\n|---|---|\n| sunny | ensolarado |\n| rainy | chuvoso |\n| cloudy | nublado |\n| windy | ventoso |\n| hot | quente |\n| cold | frio |\n| warm | morno / quentinho |\n| snowy | com neve |\n\n## Como falar do tempo\n\nUse **It is** (está/faz) + adjetivo:\n\n```\nIt is sunny today.        Está ensolarado hoje.\nIt is cold outside.       Está frio lá fora.\nIt's raining.             Está chovendo.\n```\n\n> 💡 Em inglês o \"it\" do clima não tem tradução direta: \"It is hot.\" = \"Está\n> quente\" — o \"it\" não é \"ele\".\n\n## Explicação prática\nO inglês usa **it** como sujeito obrigatório para o clima, mesmo quando o português não mostra um pronome. Combine **It is** com o adjetivo e, se quiser, com **today** ou **outside**.\n\n## Exemplos naturais\n- **It is sunny today.** — Está ensolarado hoje.\n- **It is hot outside.** — Está quente lá fora.\n\n## Erros comuns\n- Não diga *Is sunny today*; inclua **It is**.\n- **Hot** é quente e **cold** é frio; não confunda o clima com a temperatura de um objeto sem contexto.\n\n## Resumo prático\nPara descrever o tempo, comece com **It is**, escolha o adjetivo e acrescente um marcador de lugar ou tempo.",
           "exercises": [
             {
               "type": "quiz",
@@ -4301,7 +4301,7 @@
         {
           "slug": "partes-do-corpo",
           "title": "Partes do corpo",
-          "lesson_md": "# Partes do corpo\n\n| Inglês | Português |\n|---|---|\n| head | cabeça |\n| hair | cabelo |\n| face | rosto |\n| eyes | olhos |\n| ears | orelhas |\n| nose | nariz |\n| mouth | boca |\n| hand | mão |\n| arm | braço |\n| leg | perna |\n| foot | pé |\n\n## Exemplos\n\n```\nMy head hurts.           Minha cabeça dói.\nShe has blue eyes.       Ela tem olhos azuis.\n```\n\n> 💡 Alguns plurais são irregulares: **foot -> feet** (pé/pés) e **tooth ->\n> teeth** (dente/dentes).\n\n## Explicação prática\nPartes do corpo aparecem com possessivos ou com **have**: **my hand**, **her eyes**, **I have blue eyes**. Para falar de dor, o inglês usa **have**: **My head hurts** ou **I have a headache**.\n\n## Exemplos naturais\n- **She has brown eyes.** — Ela tem olhos castanhos.\n- **My ears hurt.** — Minhas orelhas doem.\n\n## Erros comuns\n- Não diga *I am a headache*; diga **I have a headache**.\n- O plural de **foot** é **feet**, não *foots*.\n\n## Resumo prático\nUse o possessivo para localizar a parte do corpo, **have** para características e **hurt** para dor.",
+          "lesson_md": "# Partes do corpo\n\n| Inglês | Português |\n|---|---|\n| head | cabeça |\n| hair | cabelo |\n| face | rosto |\n| eyes | olhos |\n| ears | orelhas |\n| nose | nariz |\n| mouth | boca |\n| hand | mão |\n| arm | braço |\n| leg | perna |\n| foot | pé |\n\n## Exemplos\n\n```\nMy head hurts.           Minha cabeça dói.\nShe has blue eyes.       Ela tem olhos azuis.\n```\n\n> 💡 Alguns plurais são irregulares: **foot -> feet** (pé/pés) e **tooth ->\n> teeth** (dente/dentes).\n\n## Explicação prática\nPartes do corpo aparecem com possessivos ou com **have**: **my hand**, **her eyes**, **I have blue eyes**. Para falar de dor, o inglês usa **hurt** ou **have**: **My head hurts** ou **I have a headache**.\n\n## Exemplos naturais\n- **She has brown eyes.** — Ela tem olhos castanhos.\n- **My ears hurt.** — Minhas orelhas doem.\n\n## Erros comuns\n- Não diga *I am a headache*; diga **I have a headache**.\n- O plural de **foot** é **feet**, não *foots*.\n\n## Resumo prático\nUse o possessivo para localizar a parte do corpo, **have** para características e **hurt** para dor.",
           "exercises": [
             {
               "type": "quiz",
@@ -5133,7 +5133,7 @@
         {
           "slug": "fazendo-compras",
           "title": "Fazendo compras",
-          "lesson_md": "# Fazendo compras\n\n## Perguntando preço\n\n```\nHow much is this?            Quanto custa isso?\n```\n\n## O que você precisa\n\n```\nI need a shirt.              Eu preciso de uma camisa.\nDo you have this in red?     Você tem isso em vermelho?\n```\n\n## Sobre o preço\n\n```\nIt's cheap.                  É barato.\nIt's too expensive.          É caro demais.\n```\n\n## Fechando\n\n```\nI'll take it.                Vou levar.\nThanks a lot!                Muito obrigado!\n```\n\n> 💡 **too expensive** = caro **demais** (excessivo). **Do you have...?** é a\n> pergunta padrão para saber se a loja tem um produto.\n\n## Explicação prática\nUma conversa de compra pode seguir quatro passos: perguntar o preço, verificar uma cor ou tamanho, avaliar o preço e decidir. **I'll take it** mostra que você decidiu comprar.\n\n## Exemplos naturais\n- **Do you have this shirt in blue?** — Você tem esta camisa em azul?\n- **It's too expensive. I'll take it.** — É caro demais. Vou levar.\n\n## Erros comuns\n- Use **Do you have...?**; não monte a pergunta como *Is you have...?*.\n- **Too expensive** significa caro demais, não apenas caro.\n\n## Resumo prático\nPergunte preço e disponibilidade, descreva o produto e encerre com **I'll take it** ou uma avaliação educada.",
+          "lesson_md": "# Fazendo compras\n\n## Perguntando preço\n\n```\nHow much is this?            Quanto custa isso?\n```\n\n## O que você precisa\n\n```\nI need a shirt.              Eu preciso de uma camisa.\nDo you have this in red?     Você tem isso em vermelho?\n```\n\n## Sobre o preço\n\n```\nIt's cheap.                  É barato.\nIt's too expensive.          É caro demais.\n```\n\n## Fechando\n\n```\nI'll take it.                Vou levar.\nThanks a lot!                Muito obrigado!\n```\n\n> 💡 **too expensive** = caro **demais** (excessivo). **Do you have...?** é a\n> pergunta padrão para saber se a loja tem um produto.\n\n## Explicação prática\nUma conversa de compra pode seguir quatro passos: perguntar o preço, verificar uma cor ou tamanho, avaliar o preço e decidir. **I'll take it** mostra que você decidiu comprar.\n\n## Exemplos naturais\n- **Do you have this shirt in blue?** — Você tem esta camisa em azul?\n- **It's cheap. I'll take it.** — É barato. Vou levar.\n\n## Erros comuns\n- Use **Do you have...?**; não monte a pergunta como *Is you have...?*.\n- **Too expensive** significa caro demais, não apenas caro.\n\n## Resumo prático\nPergunte preço e disponibilidade, descreva o produto e encerre com **I'll take it** ou uma avaliação educada.",
           "exercises": [
             {
               "type": "quiz",
@@ -5303,12 +5303,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual resposta combina com 'How many brothers do you have?'",
-              "solution": "I have two brothers.",
+              "prompt": "Qual pergunta combina com a resposta \"I have two brothers.\"?",
+              "solution": "How many brothers do you have?",
               "options": [
-                "I have two brothers.",
-                "I am two brothers.",
-                "I has two brothers."
+                "How many brothers do you have?",
+                "How old are your brothers?",
+                "Where do your brothers live?"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -5701,11 +5701,11 @@
             },
             {
               "type": "quiz",
-              "prompt": "Para 'Where are you from?', qual resposta é natural?",
-              "solution": "I'm from Brazil.",
+              "prompt": "Para 'How are you?', qual é a resposta natural?",
+              "solution": "I'm fine, thanks.",
               "options": [
-                "I'm from Brazil.",
                 "I'm fine, thanks.",
+                "I'm from Brazil.",
                 "I'm 20 years old."
               ],
               "audio_lang": "en-US",
@@ -6192,7 +6192,7 @@
               "solution": "won't",
               "options": [
                 "won't",
-                "willn't",
+                "wouldn't",
                 "doesn't will"
               ],
               "audio_lang": "en-US",
@@ -6278,7 +6278,7 @@
         {
           "slug": "contaveis-e-incontaveis",
           "title": "Substantivos contáveis e incontáveis",
-          "lesson_md": "# Substantivos contáveis e incontáveis\n\n## Contáveis\n\nTêm singular e plural e podem ser contados: **a book / two books**, **an\napple / three apples**.\n\n## Incontáveis\n\nNão têm plural e não se contam (em inglês): **water, milk, rice, money,\nsugar, information, work**.\n\n```\nI need water.        (não \"waters\")\nHow much money?      (não \"moneys\")\n```\n\n## Regras rápidas\n\n- Contável + contável: **one banana, two bananas**.\n- Incontável: sempre no singular — **the water is cold** (não \"are\").\n- Para \"quantidade\" de incontáveis, use palavras como **a glass of water**, \n  **a piece of information**.\n\n> 💡 **money** é incontável em inglês! \"Two moneys\" está errado. Para contar,\n> conte a moeda: \"two dollars\", \"three reais\".\n\n## Explicação prática\nContáveis aceitam número e plural; incontáveis representam substâncias ou ideias como massa. Para contar uma substância, conte o recipiente ou a unidade: **two bottles of water** e **a piece of information**.\n\n## Exemplos naturais\n- **I need two bottles of water.** — Preciso de duas garrafas de água.\n- **Information is useful.** — Informação é útil.\n\n## Erros comuns\n- Não diga *two waters* quando quer dizer dois recipientes; use **two bottles of water**.\n- **Information** não recebe plural no inglês básico: diga **some information**.\n\n## Resumo prático\nPergunte se a palavra pode ser contada diretamente; use plural para contáveis e recipiente/medida para incontáveis.",
+          "lesson_md": "# Substantivos contáveis e incontáveis\n\n## Contáveis\n\nTêm singular e plural e podem ser contados: **a book / two books**, **an\napple / three apples**.\n\n## Incontáveis\n\nNão têm plural e não se contam (em inglês): **water, milk, rice, money,\nsugar, information, work**.\n\n```\nI need water.        (não \"waters\")\nHow much money?      (não \"moneys\")\n```\n\n## Regras rápidas\n\n- Contável: **one banana, two bananas**.\n- Incontável: sempre no singular — **the water is cold** (não \"are\").\n- Para \"quantidade\" de incontáveis, use palavras como **a glass of water**, \n  **a piece of information**.\n\n> 💡 **money** é incontável em inglês! \"Two moneys\" está errado. Para contar,\n> conte a moeda: \"two dollars\", \"three reais\".\n\n## Explicação prática\nContáveis aceitam número e plural; incontáveis representam substâncias ou ideias como massa. Para contar uma substância, conte o recipiente ou a unidade: **two bottles of water** e **a piece of information**.\n\n## Exemplos naturais\n- **I need two bottles of water.** — Preciso de duas garrafas de água.\n- **Information is useful.** — Informação é útil.\n\n## Erros comuns\n- Não diga *two waters* quando quer dizer dois recipientes; use **two bottles of water**.\n- **Information** não recebe plural no inglês básico: diga **some information**.\n\n## Resumo prático\nPergunte se a palavra pode ser contada diretamente; use plural para contáveis e recipiente/medida para incontáveis.",
           "exercises": [
             {
               "type": "quiz",
@@ -6478,12 +6478,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Complete a pergunta neutra: 'Do you have ___ water?'",
-              "solution": "any",
+              "prompt": "Complete a oferta educada: \"Would you like ___ coffee?\"",
+              "solution": "some",
               "options": [
+                "some",
                 "any",
-                "many",
-                "a"
+                "many"
               ],
               "audio_lang": "en-US",
               "position": 9
@@ -6780,12 +6780,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual frase diz que é proibido estacionar?",
-              "solution": "You mustn't park here.",
+              "prompt": "Qual frase diz que algo NÃO é necessário?",
+              "solution": "You don't have to come.",
               "options": [
-                "You mustn't park here.",
-                "You don't have to park here.",
-                "You have to park here."
+                "You don't have to come.",
+                "You mustn't come.",
+                "You must come."
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -6992,12 +6992,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual é o advérbio de 'careful'?",
-              "solution": "carefully",
+              "prompt": "Qual é o advérbio de \"easy\"?",
+              "solution": "easily",
               "options": [
-                "carefully",
-                "carefuly",
-                "careful"
+                "easily",
+                "easyly",
+                "easy"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -7052,7 +7052,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'Can you help ___?' (me)",
+              "prompt": "Complete: 'Can you help ___?' (eu)",
               "solution": "me",
               "audio_lang": "en-US",
               "position": 2
@@ -7424,12 +7424,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual documento de identificação você apresenta no aeroporto?",
-              "solution": "passport",
+              "prompt": "Como se diz \"voo\" em inglês?",
+              "solution": "flight",
               "options": [
-                "passport",
-                "map",
-                "luggage"
+                "flight",
+                "trip",
+                "ticket"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -7742,11 +7742,11 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual palavra significa 'remédio'?",
-              "solution": "medicine",
+              "prompt": "Como se diz \"saudável\" em inglês?",
+              "solution": "healthy",
               "options": [
-                "medicine",
-                "appointment",
+                "healthy",
+                "sick",
                 "pain"
               ],
               "audio_lang": "en-US",
@@ -7848,12 +7848,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Onde você lê uma página na internet?",
-              "solution": "website",
+              "prompt": "Como se diz \"tela\" em inglês?",
+              "solution": "screen",
               "options": [
-                "website",
+                "screen",
                 "battery",
-                "screen"
+                "website"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -7954,11 +7954,11 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual evento normalmente envolve música ao vivo?",
-              "solution": "concert",
+              "prompt": "Como se diz \"teatro\" em inglês?",
+              "solution": "theater",
               "options": [
-                "concert",
                 "theater",
+                "concert",
                 "game"
               ],
               "audio_lang": "en-US",
@@ -8060,12 +8060,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Como se diz 'vizinha' em inglês?",
-              "solution": "neighbor",
+              "prompt": "Como se diz \"amizade\" em inglês?",
+              "solution": "friendship",
               "options": [
-                "neighbor",
-                "colleague",
-                "girlfriend"
+                "friendship",
+                "relationship",
+                "neighbor"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -8802,12 +8802,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual lugar é a zona rural?",
-              "solution": "countryside",
+              "prompt": "Como se diz \"subúrbio\" (bairro residencial longe do centro) em inglês?",
+              "solution": "suburb",
               "options": [
-                "countryside",
+                "suburb",
                 "downtown",
-                "suburb"
+                "countryside"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -9643,10 +9643,10 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual resposta recusa sem ser grosseira?",
-              "solution": "I'd love to, but I'm busy.",
+              "prompt": "Qual resposta recusa e deixa a porta aberta para outra ocasião?",
+              "solution": "Maybe next time.",
               "options": [
-                "I'd love to, but I'm busy.",
+                "Maybe next time.",
                 "No way!",
                 "Leave me alone."
               ],
@@ -10062,12 +10062,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual abertura é educada para uma reclamação?",
-              "solution": "I'm sorry, but...",
+              "prompt": "Como dizer que o seu pedido veio errado?",
+              "solution": "My order is wrong.",
               "options": [
-                "I'm sorry, but...",
-                "Hey, you!",
-                "Shut up."
+                "My order is wrong.",
+                "My order is delicious.",
+                "I order every day."
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -10269,12 +10269,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual frase pede a opinião de outra pessoa?",
-              "solution": "What do you think?",
+              "prompt": "Qual frase usa \"I believe\" para dar uma opinião?",
+              "solution": "I believe it is a good plan.",
               "options": [
-                "What do you think?",
-                "I think so.",
-                "I am thinking."
+                "I believe it is a good plan.",
+                "I believe yesterday.",
+                "Believe I it a good plan."
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -10313,7 +10313,7 @@
           "exercises": [
             {
               "type": "quiz",
-              "prompt": "Complete: \"I have ___ to Paris.\" (been)",
+              "prompt": "Complete: \"I have ___ to Paris.\" (be)",
               "solution": "been",
               "options": [
                 "been",
@@ -10325,7 +10325,7 @@
             },
             {
               "type": "quiz",
-              "prompt": "Complete: \"She has ___ her homework.\" (finished)",
+              "prompt": "Complete: \"She has ___ her homework.\" (finish)",
               "solution": "finished",
               "options": [
                 "finished",
@@ -10631,7 +10631,7 @@
           "exercises": [
             {
               "type": "quiz",
-              "prompt": "Complete: \"When I arrived, she had ___.\" (left)",
+              "prompt": "Complete: \"When I arrived, she had ___.\" (leave)",
               "solution": "left",
               "options": [
                 "left",
@@ -10643,7 +10643,7 @@
             },
             {
               "type": "quiz",
-              "prompt": "Complete: \"He said he had ___ the email.\" (sent)",
+              "prompt": "Complete: \"He said he had ___ the email.\" (send)",
               "solution": "sent",
               "options": [
                 "sent",
@@ -10961,7 +10961,7 @@
             },
             {
               "type": "quiz",
-              "prompt": "Complete: \"If I ___ a lot of money, I would travel.\" (had)",
+              "prompt": "Complete: \"If I ___ a lot of money, I would travel.\" (have)",
               "solution": "had",
               "options": [
                 "had",
@@ -11291,7 +11291,7 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: Eu gosto de nadar.",
+              "prompt": "Traduza usando o gerúndio: Eu gosto de nadar.",
               "solution": "i like swimming",
               "audio_lang": "en-US",
               "position": 2
@@ -11880,8 +11880,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "please turn off the lights",
-              "audio_text": "please turn off the lights",
+              "solution": "we need to find out the truth",
+              "audio_text": "we need to find out the truth",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -12312,14 +12312,14 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "the experiment was successful",
-              "audio_text": "the experiment was successful",
+              "solution": "the research took three years",
+              "audio_text": "the research took three years",
               "audio_lang": "en-US",
               "position": 8
             },
             {
               "type": "speak",
-              "prompt": "Diga que a ciência explica o mundo.",
+              "prompt": "Diga que a ciência ajuda a explicar o mundo.",
               "solution": "science helps explain the world",
               "audio_text": "science helps explain the world",
               "audio_lang": "en-US",
@@ -12359,7 +12359,7 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: As eleições serão em novembro.",
+              "prompt": "Traduza: A eleição será em novembro.",
               "solution": "the election will be in november",
               "audio_lang": "en-US",
               "position": 2
@@ -13034,8 +13034,8 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: A empresa cresceu este ano.",
-              "solution": "the company grew this year",
+              "prompt": "Traduza: O lucro foi alto este ano.",
+              "solution": "the profit was high this year",
               "audio_lang": "en-US",
               "position": 6
             },
@@ -13140,8 +13140,8 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: Estou preocupado com a prova.",
-              "solution": "i am worried about the exam",
+              "prompt": "Traduza: Ela está com raiva.",
+              "solution": "she is angry",
               "audio_lang": "en-US",
               "position": 6
             },
@@ -13352,8 +13352,8 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: É importante respeitar outras pessoas.",
-              "solution": "it is important to respect other people",
+              "prompt": "Traduza: Eles pediram desculpas e chegaram a um acordo.",
+              "solution": "they apologized and reached a compromise",
               "audio_lang": "en-US",
               "position": 6
             },
@@ -13372,8 +13372,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "communication is important in relationships",
-              "audio_text": "communication is important in relationships",
+              "solution": "he apologized and she forgave him",
+              "audio_text": "he apologized and she forgave him",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -13458,8 +13458,8 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: A liberdade é importante para todos.",
-              "solution": "freedom is important to everyone",
+              "prompt": "Traduza: O significado da ideia é claro.",
+              "solution": "the meaning of the idea is clear",
               "audio_lang": "en-US",
               "position": 6
             },
@@ -13478,8 +13478,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "happiness is not only about money",
-              "audio_text": "happiness is not only about money",
+              "solution": "peace and justice are important values",
+              "audio_text": "peace and justice are important values",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -13893,12 +13893,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual expressão reformula uma ideia?",
-              "solution": "In other words, ...",
+              "prompt": "Qual expressão esclarece a sua intenção?",
+              "solution": "What I mean is...",
               "options": [
-                "In other words, ...",
-                "At first, ...",
-                "Good night, ..."
+                "What I mean is...",
+                "In conclusion...",
+                "By the way..."
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -13992,19 +13992,19 @@
             },
             {
               "type": "text",
-              "prompt": "Ordene e traduza: 'First / we / arrived / then / we / had dinner'.",
-              "solution": "first we arrived then we had dinner",
+              "prompt": "Traduza: De repente, o telefone tocou.",
+              "solution": "suddenly the phone rang",
               "audio_lang": "en-US",
               "position": 6
             },
             {
               "type": "quiz",
-              "prompt": "Qual conector apresenta o último evento?",
-              "solution": "Finally, ...",
+              "prompt": "Qual conector indica algo inesperado?",
+              "solution": "Suddenly, ...",
               "options": [
+                "Suddenly, ...",
                 "Finally, ...",
-                "First, ...",
-                "Suddenly, ..."
+                "First, ..."
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -14318,9 +14318,9 @@
             {
               "type": "quiz",
               "prompt": "Qual frase indica igualdade?",
-              "solution": "The two rooms are as bright as each other.",
+              "solution": "This room is as bright as that one.",
               "options": [
-                "The two rooms are as bright as each other.",
+                "This room is as bright as that one.",
                 "One room is brighter than the other.",
                 "This is the brightest room."
               ],
@@ -14734,8 +14734,8 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: Estou pensando em mudar de emprego.",
-              "solution": "i am thinking of changing jobs",
+              "prompt": "Traduza: Eu pretendo estudar mais.",
+              "solution": "i intend to study more",
               "audio_lang": "en-US",
               "position": 6
             },
@@ -14958,14 +14958,14 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual é a melhor primeira estratégia para fala rápida?",
-              "solution": "Focar nas palavras-chave e no contexto.",
+              "prompt": "Qual frase pede que a pessoa repita?",
+              "solution": "Could you say that again, please?",
               "options": [
-                "Focar nas palavras-chave e no contexto.",
-                "Ouvir cada letra separadamente.",
-                "Parar a conversa imediatamente."
+                "Could you say that again, please?",
+                "I caught everything.",
+                "Say nothing."
               ],
-              "audio_lang": "pt-BR",
+              "audio_lang": "en-US",
               "position": 7
             },
             {
@@ -15165,7 +15165,7 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: Temos que sair agora.",
+              "prompt": "Traduza usando a forma reduzida informal (gotta): Temos que sair agora.",
               "solution": "we gotta leave now",
               "audio_lang": "en-US",
               "position": 6
@@ -15292,8 +15292,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "he is coming at ten",
-              "audio_text": "he is coming at ten",
+              "solution": "check it out",
+              "audio_text": "check it out",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -15386,12 +15386,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual é a expansão de 'won't'?",
-              "solution": "will not",
+              "prompt": "'Can't' é a contração de:",
+              "solution": "cannot",
               "options": [
-                "will not",
-                "would not",
-                "want not"
+                "cannot",
+                "could not",
+                "will not"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -15727,9 +15727,9 @@
             },
             {
               "type": "speak",
-              "prompt": "Mostre que você está ouvindo com uma resposta curta.",
-              "solution": "uh huh i understand",
-              "audio_text": "uh huh i understand",
+              "prompt": "Mostre que você está acompanhando a conversa com uma resposta curta.",
+              "solution": "i see what you mean",
+              "audio_text": "i see what you mean",
               "audio_lang": "en-US",
               "position": 9
             }
@@ -15827,8 +15827,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "welcome to the show",
-              "audio_text": "welcome to the show",
+              "solution": "in this episode we talk about work",
+              "audio_text": "in this episode we talk about work",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -15902,7 +15902,7 @@
             },
             {
               "type": "quiz",
-              "prompt": "O que significa 'close captions'?",
+              "prompt": "O que significa 'closed captions'?",
               "solution": "legendas",
               "options": [
                 "legendas",
@@ -16122,12 +16122,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Complete: \"If I had seen him, I ___ have said hello.\"",
-              "solution": "would",
+              "prompt": "Complete: \"If she ___ studied, she would have passed.\"",
+              "solution": "had",
               "options": [
-                "would",
-                "will",
-                "had"
+                "had",
+                "has",
+                "would"
               ],
               "audio_lang": "en-US",
               "position": 5
@@ -16141,14 +16141,14 @@
             },
             {
               "type": "quiz",
-              "prompt": "O terceiro condicional fala de:",
-              "solution": "Uma possibilidade irreal no passado.",
+              "prompt": "Qual frase está no terceiro condicional?",
+              "solution": "If I had known, I would have helped.",
               "options": [
-                "Uma possibilidade irreal no passado.",
-                "Uma rotina atual.",
-                "Um horário futuro fixo."
+                "If I had known, I would have helped.",
+                "If I know, I will help.",
+                "If I knew, I would help."
               ],
-              "audio_lang": "pt-BR",
+              "audio_lang": "en-US",
               "position": 7
             },
             {
@@ -16452,8 +16452,8 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: O projeto deve ser concluído até sexta-feira.",
-              "solution": "the project should be finished by friday",
+              "prompt": "Traduza: O e-mail pode ser enviado hoje.",
+              "solution": "the email can be sent today",
               "audio_lang": "en-US",
               "position": 6
             },
@@ -16597,7 +16597,7 @@
         {
           "slug": "discurso-indireto-avancado",
           "title": "Discurso indireto avançado",
-          "lesson_md": "# Discurso indireto avançado\n\n## Objetivo\nRelatar perguntas, ordens, pedidos e sugestões sem reproduzir a fala diretamente.\n\n## Conceito\nPara perguntas de sim/não, use **asked if/whether**; para perguntas com *wh*, preserve a palavra interrogativa e use ordem afirmativa. Para ordens, use **told/asked + objeto + to**; para proibições, **not to**.\n\n## Exemplos traduzidos\n- **He asked me where I lived.** — Ele me perguntou onde eu morava.\n- **She told us not to leave.** — Ela nos disse para não sairmos.\n\n## Contraste e erro comum\nNão mantenha a ordem de pergunta dentro do discurso indireto: diga **He asked where I lived**, não *where did I live*. Depois de **told me**, inclua a pessoa antes de **to**.\n\n## Resumo\nIdentifique o tipo de fala, escolha **if**, uma *wh-word* ou **to/not to**, e ajuste o tempo quando necessário.",
+          "lesson_md": "# Discurso indireto avançado\n\n## Objetivo\nRelatar perguntas, ordens, pedidos e sugestões sem reproduzir a fala diretamente.\n\n## Conceito\nPara perguntas de sim/não, use **asked if/whether**; para perguntas com *wh*, preserve a palavra interrogativa e use ordem afirmativa. Para ordens, use **told/asked + objeto + to**; para proibições, **not to**. Verbos como **suggest** e **deny** vêm seguidos de **-ing**: **She suggested taking a break**; **He denied taking the money**.\n\n## Exemplos traduzidos\n- **He asked me where I lived.** — Ele me perguntou onde eu morava.\n- **She told us not to leave.** — Ela nos disse para não sairmos.\n\n## Contraste e erro comum\nNão mantenha a ordem de pergunta dentro do discurso indireto: diga **He asked where I lived**, não *where did I live*. Depois de **told me**, inclua a pessoa antes de **to**.\n\n## Resumo\nIdentifique o tipo de fala, escolha **if**, uma *wh-word* ou **to/not to**, e ajuste o tempo quando necessário.",
           "exercises": [
             {
               "type": "quiz",
@@ -16813,7 +16813,7 @@
           "exercises": [
             {
               "type": "quiz",
-              "prompt": "Complete a relativa reduzida: \"The man ___ next to me is my brother.\" (sitting)",
+              "prompt": "Complete a relativa reduzida: \"The man ___ next to me is my brother.\" (sit)",
               "solution": "sitting",
               "options": [
                 "sitting",
@@ -16837,7 +16837,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'The book ___ on the table is mine.' (lying)",
+              "prompt": "Complete: 'The book ___ on the table is mine.' (lie)",
               "solution": "lying",
               "audio_lang": "en-US",
               "position": 2
@@ -16915,7 +16915,7 @@
         {
           "slug": "gerundio-infinitivo-avancado",
           "title": "Gerúndio e infinitivo avançados",
-          "lesson_md": "# Gerúndio e infinitivo avançados\n\n## Objetivo\nDistinguir mudanças de sentido causadas por gerúndio ou infinitivo depois de verbos como remember, stop, try e regret.\n\n## Conceito\n**Remember + -ing** recorda uma ação passada; **remember + to** significa não esquecer uma ação. **Stop + -ing** encerra uma atividade; **stop + to** interrompe algo para fazer outra coisa. **Try to** indica esforço e **try + -ing**, uma tentativa como solução.\n\n## Exemplos traduzidos\n- **I remember locking the door.** — Lembro-me de ter trancado a porta.\n- **She stopped to answer the phone.** — Ela parou para atender o telefone.\n\n## Contraste e erro comum\nNão trate as duas formas como intercambiáveis: **I stopped smoking** significa que parei de fumar; **I stopped to smoke** significa que parei outra atividade para fumar.\n\n## Resumo\nObserve o sentido temporal ou de finalidade, escolha **-ing** ou **to + verbo** e confira o verbo que governa a estrutura.",
+          "lesson_md": "# Gerúndio e infinitivo avançados\n\n## Objetivo\nDistinguir mudanças de sentido causadas por gerúndio ou infinitivo depois de verbos como remember, stop, try e regret.\n\n## Conceito\n**Remember + -ing** recorda uma ação passada; **remember + to** significa não esquecer uma ação. **Stop + -ing** encerra uma atividade; **stop + to** interrompe algo para fazer outra coisa. **Try to** indica esforço e **try + -ing**, uma tentativa como solução. O infinitivo perfeito (**to have + particípio**) situa a ação antes do verbo principal: **She was glad to have met him**.\n\n## Exemplos traduzidos\n- **I remember locking the door.** — Lembro-me de ter trancado a porta.\n- **She stopped to answer the phone.** — Ela parou para atender o telefone.\n\n## Contraste e erro comum\nNão trate as duas formas como intercambiáveis: **I stopped smoking** significa que parei de fumar; **I stopped to smoke** significa que parei outra atividade para fumar.\n\n## Resumo\nObserve o sentido temporal ou de finalidade, escolha **-ing** ou **to + verbo** e confira o verbo que governa a estrutura.",
           "exercises": [
             {
               "type": "quiz",
@@ -17088,8 +17088,8 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: Embora estivesse cansado, ele terminou o trabalho.",
-              "solution": "although he was tired he finished the work",
+              "prompt": "Traduza: Portanto, precisamos de mais tempo.",
+              "solution": "therefore we need more time",
               "audio_lang": "en-US",
               "position": 6
             },
@@ -17209,12 +17209,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual combinação significa 'café forte'?",
-              "solution": "strong coffee",
+              "prompt": "Qual é a collocation correta com \"attention\"?",
+              "solution": "pay attention",
               "options": [
-                "strong coffee",
-                "heavy coffee",
-                "power coffee"
+                "pay attention",
+                "make attention",
+                "do attention"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -17540,8 +17540,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "this is an important decision",
-              "audio_text": "this is an important decision",
+              "solution": "we purchased a new laptop",
+              "audio_text": "we purchased a new laptop",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -18057,12 +18057,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual palavra significa 'abordagem' em um estudo?",
-              "solution": "approach",
+              "prompt": "Como se diz \"conclusão\" (de um estudo) em inglês?",
+              "solution": "conclusion",
               "options": [
-                "approach",
                 "conclusion",
-                "mistake"
+                "summary",
+                "approach"
               ],
               "audio_lang": "en-US",
               "position": 7
@@ -18163,12 +18163,12 @@
             },
             {
               "type": "quiz",
-              "prompt": "Quem é um stakeholder?",
-              "solution": "Uma parte interessada no projeto.",
+              "prompt": "Em uma reunião, o que é a \"agenda\"?",
+              "solution": "A pauta, a lista de assuntos.",
               "options": [
-                "Uma parte interessada no projeto.",
-                "Um erro de digitação.",
-                "Um horário do calendário."
+                "A pauta, a lista de assuntos.",
+                "O calendário pessoal.",
+                "O salário do mês."
               ],
               "audio_lang": "pt-BR",
               "position": 7
@@ -18443,7 +18443,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: '___ finished by now.' (they have)",
+              "prompt": "Complete com a contração: '___ finished by now.' (they have)",
               "solution": "they've",
               "audio_lang": "en-US",
               "position": 2
@@ -18656,7 +18656,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'I ___ know.' (não sei, redução)",
+              "prompt": "Complete com a redução informal: 'I ___.' (não sei)",
               "solution": "dunno",
               "audio_lang": "en-US",
               "position": 2
@@ -18695,7 +18695,7 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: Vou ligar para você mais tarde.",
+              "prompt": "Traduza usando a forma reduzida gonna: Vou ligar para você mais tarde.",
               "solution": "i am gonna call you later",
               "audio_lang": "en-US",
               "position": 6
@@ -19299,7 +19299,7 @@
             },
             {
               "type": "text",
-              "prompt": "Traduza: A decisão é sua.",
+              "prompt": "Traduza de forma natural, com a expressão 'up to': A decisão é sua.",
               "solution": "it's up to you",
               "audio_lang": "en-US",
               "position": 2
@@ -20413,14 +20413,14 @@
             },
             {
               "type": "quiz",
-              "prompt": "O que é uma 'overgeneralization'?",
-              "solution": "Uma conclusão ampla demais.",
+              "prompt": "Qual frase aponta uma generalização exagerada?",
+              "solution": "That's an overgeneralization.",
               "options": [
-                "Uma conclusão ampla demais.",
-                "Uma evidência muito precisa.",
-                "Uma pergunta de esclarecimento."
+                "That's an overgeneralization.",
+                "That's a clear fact.",
+                "That's a good question."
               ],
-              "audio_lang": "pt-BR",
+              "audio_lang": "en-US",
               "position": 7
             },
             {
@@ -20579,7 +20579,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: '___ it will rain.' (talvez)",
+              "prompt": "Complete com a palavra da lição, mais formal que 'maybe': '___ it will rain.' (talvez)",
               "solution": "perhaps",
               "audio_lang": "en-US",
               "position": 2
@@ -20898,7 +20898,7 @@
             {
               "type": "text",
               "prompt": "Traduza: Acho que houve um mal-entendido.",
-              "solution": "i think there is a misunderstanding",
+              "solution": "i think there was a misunderstanding",
               "audio_lang": "en-US",
               "position": 2
             },
@@ -21070,8 +21070,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "i look forward to your reply",
-              "audio_text": "i look forward to your reply",
+              "solution": "thank you for your prompt reply",
+              "audio_text": "thank you for your prompt reply",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -21163,11 +21163,11 @@
             },
             {
               "type": "quiz",
-              "prompt": "Qual abertura combina com uma amiga?",
-              "solution": "Hi Anna!",
+              "prompt": "Qual frase combina com um e-mail para uma amiga?",
+              "solution": "Hope you're well!",
               "options": [
-                "Hi Anna!",
-                "Dear Sir or Madam,",
+                "Hope you're well!",
+                "I am writing to formally inform you.",
                 "To whom it may concern,"
               ],
               "audio_lang": "en-US",
@@ -21176,8 +21176,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "talk to you soon",
-              "audio_text": "talk to you soon",
+              "solution": "can't wait to see you",
+              "audio_text": "can't wait to see you",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -21481,14 +21481,14 @@
             },
             {
               "type": "quiz",
-              "prompt": "O que é uma claim?",
-              "solution": "Uma afirmação ou posição defendida.",
+              "prompt": "Qual frase apresenta uma claim (a posição defendida)?",
+              "solution": "Remote work increases productivity.",
               "options": [
-                "Uma afirmação ou posição defendida.",
-                "A saudação do texto.",
-                "Um detalhe sem relação."
+                "Remote work increases productivity.",
+                "Dear Sir or Madam,",
+                "For example, yesterday."
               ],
-              "audio_lang": "pt-BR",
+              "audio_lang": "en-US",
               "position": 7
             },
             {
@@ -21918,8 +21918,8 @@
             {
               "type": "audio",
               "prompt": "Escute e transcreva a frase:",
-              "solution": "let's touch base next week",
-              "audio_text": "let's touch base next week",
+              "solution": "keep me posted on any changes",
+              "audio_text": "keep me posted on any changes",
               "audio_lang": "en-US",
               "position": 8
             },
@@ -22264,7 +22264,7 @@
         {
           "slug": "cleft-sentences",
           "title": "Cleft sentences",
-          "lesson_md": "# Cleft sentences\n\nAs **cleft sentences** dividem a frase para focar em um elemento.\n\n## Estruturas\n\n```\nIt was Ana who called.          Foi a Ana quem ligou.\nWhat I need is more time.       O que eu preciso é de mais tempo.\nThe reason why I came was to help.   O motivo de eu ter vindo era ajudar.\n```\n\n> 💡 **It + be + foco + who/that...** destaca a pessoa/coisa. **What + sujeito\n> + verbo + is...** destaca o que o sujeito precisa/quere.",
+          "lesson_md": "# Cleft sentences\n\nAs **cleft sentences** dividem a frase para focar em um elemento.\n\n## Estruturas\n\n```\nIt was Ana who called.          Foi a Ana quem ligou.\nWhat I need is more time.       O que eu preciso é de mais tempo.\nThe reason why I came was to help.   O motivo de eu ter vindo era ajudar.\n```\n\n> 💡 **It + be + foco + who/that...** destaca a pessoa/coisa. **What + sujeito\n> + verbo + is...** destaca o que o sujeito precisa/quer.",
           "exercises": [
             {
               "type": "quiz",
@@ -22292,7 +22292,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'It ___ my brother who broke the window.' (was)",
+              "prompt": "Complete: 'It ___ my brother who broke the window.' (be, no passado)",
               "solution": "was",
               "audio_lang": "en-US",
               "position": 2
@@ -22363,7 +22363,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete com elipse: 'She sings better than I ___' (do)",
+              "prompt": "Complete com elipse: 'She sings better than I ___' (auxiliar)",
               "solution": "do",
               "audio_lang": "en-US",
               "position": 2
@@ -23408,7 +23408,7 @@
         {
           "slug": "sinonimos-com-nuance",
           "title": "Sinônimos com nuance",
-          "lesson_md": "# Sinônimos com nuance\n\nSinônimos não são idênticos — cada um carrega **intensidade** e **tom**\ndiferentes.\n\n## Escala de intensidade\n\n```\nhappy  ->  content  ->  delighted  ->  thrilled\nangry  ->  annoyed  ->  upset  ->  furious\nimportant  ->  significant  ->  vital  ->  crucial\n```\n\n## Exemplos\n\n```\nShe was absolutely delighted.    Ela ficou absolutamente encantada.\nThis is absolutely crucial.      Isso é absolutamente essencial.\n```\n\n> 💡 Escolher entre sinônimos é escolher a **intensidade exata**: \"annoyed\" é\n> diferente de \"furious\".",
+          "lesson_md": "# Sinônimos com nuance\n\nSinônimos não são idênticos — cada um carrega **intensidade** e **tom**\ndiferentes.\n\n## Escala de intensidade\n\n```\ncontent  ->  happy  ->  delighted  ->  thrilled\nannoyed  ->  upset  ->  angry  ->  furious\nimportant  ->  significant  ->  vital  ->  crucial\n```\n\n## Exemplos\n\n```\nShe was absolutely delighted.    Ela ficou absolutamente encantada.\nThis is absolutely crucial.      Isso é absolutamente essencial.\n```\n\n> 💡 Escolher entre sinônimos é escolher a **intensidade exata**: \"annoyed\" é\n> diferente de \"furious\".",
           "exercises": [
             {
               "type": "quiz",
@@ -23558,8 +23558,8 @@
               "solution": "assist",
               "options": [
                 "assist",
-                "aid informal",
-                "help"
+                "help",
+                "ask"
               ],
               "audio_lang": "en-US",
               "position": 0
@@ -23570,7 +23570,7 @@
               "solution": "obtain",
               "options": [
                 "obtain",
-                "receive informal",
+                "get",
                 "grab"
               ],
               "audio_lang": "en-US",
@@ -23597,7 +23597,7 @@
               "solution": "inquire",
               "options": [
                 "inquire",
-                "question informal",
+                "ask",
                 "say"
               ],
               "audio_lang": "en-US",
@@ -23913,7 +23913,7 @@
         {
           "slug": "debates-c1",
           "title": "Debates (C1)",
-          "lesson_md": "# Debates (C1)\n\nNo debate de nível avançado, conteste com firmeza mas reconheça os bons\nargumentos.\n\n## Frases úteis\n\n```\nI take issue with that.              Discordo disso (formal).\nThat's a compelling argument.        É um argumento convincente.\nLet me offer a counterpoint.         Deixe-me oferecer um contraponto.\nSo you're saying that...             Então você está dizendo que...\n```\n\n> 💡 **I take issue with** é uma discordância firme e educada. **compelling**\n# ===== convencente =====",
+          "lesson_md": "# Debates (C1)\n\nNo debate de nível avançado, conteste com firmeza mas reconheça os bons\nargumentos.\n\n## Frases úteis\n\n```\nI take issue with that.              Discordo disso (formal).\nThat's a compelling argument.        É um argumento convincente.\nLet me offer a counterpoint.         Deixe-me oferecer um contraponto.\nSo you're saying that...             Então você está dizendo que...\n```\n\n> 💡 **I take issue with** é uma discordância firme e educada. **compelling**\n> convincente",
           "exercises": [
             {
               "type": "quiz",
@@ -24126,7 +24126,7 @@
         {
           "slug": "negociacoes-c1",
           "title": "Negociações (C1)",
-          "lesson_md": "# Negociações (C1)\n\nNo nível avançado, negocia-se com flexibilidade e busca-se o ganha-ganha.\n\n## Frases úteis\n\n```\nI'm prepared to meet you halfway.    Estou disposto a encontrar um meio-termo.\nLet's explore other options.         Vamos explorar outras opções.\nCan we revisit the terms?            Podemos revisar os termos?\n```\n\n> 💡 **meet someone halfway** = ceder até o meio-termo. **revisit the terms**\n# ===== reconsiderar os termos =====",
+          "lesson_md": "# Negociações (C1)\n\nNo nível avançado, negocia-se com flexibilidade e busca-se o ganha-ganha.\n\n## Frases úteis\n\n```\nI'm prepared to meet you halfway.    Estou disposto a encontrar um meio-termo.\nLet's explore other options.         Vamos explorar outras opções.\nCan we revisit the terms?            Podemos revisar os termos?\n```\n\n> 💡 **meet someone halfway** = ceder até o meio-termo. **revisit the terms**\n> reconsiderar os termos",
           "exercises": [
             {
               "type": "quiz",
@@ -24410,7 +24410,7 @@
         {
           "slug": "temas-politicos",
           "title": "Temas políticos",
-          "lesson_md": "# Temas políticos\n\nFalar de política com maturidade é ouvir os dois lados e usar linguagem\nneutra.\n\n## Frases úteis\n\n```\nFrom a political standpoint...       Do ponto de vista político...\nThe policy raises concerns.          A política levanta preocupações.\nBoth sides have valid points.        Os dois lados têm pontos válidos.\nIt depends on your perspective.      Depende da sua perspectiva.\n```\n\n> 💡 Discutir política não é impor opinião — é **analisar** com isenção:\n# ===== \"Both sides have valid points\" =====",
+          "lesson_md": "# Temas políticos\n\nFalar de política com maturidade é ouvir os dois lados e usar linguagem\nneutra.\n\n## Frases úteis\n\n```\nFrom a political standpoint...       Do ponto de vista político...\nThe policy raises concerns.          A política levanta preocupações.\nBoth sides have valid points.        Os dois lados têm pontos válidos.\nIt depends on your perspective.      Depende da sua perspectiva.\n```\n\n> 💡 Discutir política não é impor opinião — é **analisar** com isenção:\n> \"Both sides have valid points\"",
           "exercises": [
             {
               "type": "quiz",
@@ -24481,7 +24481,7 @@
         {
           "slug": "questoes-sociais",
           "title": "Questões sociais",
-          "lesson_md": "# Questões sociais\n\nPara discutir problemas sociais, nomeie o problema, proponha e analise.\n\n## Frases úteis\n\n```\nThis is a pressing issue.           Este é um problema urgente.\nWe need to address the root cause.  Precisamos atacar a causa raiz.\nThere's a gap between...            Há uma lacuna entre...\nIt's a systemic problem.            É um problema sistêmico.\n```\n\n> 💡 **pressing** = urgente. **systemic** = estrutural (não pontual).\n# ===== address = tratar/enfrentar =====",
+          "lesson_md": "# Questões sociais\n\nPara discutir problemas sociais, nomeie o problema, proponha e analise.\n\n## Frases úteis\n\n```\nThis is a pressing issue.           Este é um problema urgente.\nWe need to address the root cause.  Precisamos atacar a causa raiz.\nThere's a gap between...            Há uma lacuna entre...\nIt's a systemic problem.            É um problema sistêmico.\n```\n\n> 💡 **pressing** = urgente. **systemic** = estrutural (não pontual).\n> address = tratar/enfrentar",
           "exercises": [
             {
               "type": "quiz",
@@ -24552,7 +24552,7 @@
         {
           "slug": "discussoes-tecnicas",
           "title": "Discussões técnicas",
-          "lesson_md": "# Discussões técnicas\n\nFalar de tecnologia com clareza é explicar o **porquê e o como**, não só o\nresultado.\n\n## Frases úteis\n\n```\nIn technical terms, ...             Em termos técnicos, ...\nLet's look at the implementation.   Vamos ver a implementação.\nThe trade-off is between...         A compensação é entre...\nCould you walk me through that?     Pode me guiar por isso?\n```\n\n> 💡 **trade-off** = a desvantagem aceita em troca de uma vantagem (ex.:\n# ===== velocidade x custo). walk me through = explicar passo a passo =====",
+          "lesson_md": "# Discussões técnicas\n\nFalar de tecnologia com clareza é explicar o **porquê e o como**, não só o\nresultado.\n\n## Frases úteis\n\n```\nIn technical terms, ...             Em termos técnicos, ...\nLet's look at the implementation.   Vamos ver a implementação.\nThe trade-off is between...         A compensação é entre...\nCould you walk me through that?     Pode me guiar por isso?\n```\n\n> 💡 **trade-off** = a desvantagem aceita em troca de uma vantagem (ex.:\n> velocidade x custo). walk me through = explicar passo a passo",
           "exercises": [
             {
               "type": "quiz",
@@ -24694,7 +24694,7 @@
         {
           "slug": "opinioes-sutis",
           "title": "Expressando opiniões sutis",
-          "lesson_md": "# Expressando opiniões sutis\n\nOpiniões de nível C1 admitem **nuance**: ressalvas, exceções e graus.\n\n## Frases úteis\n\n```\nI'm inclined to think that...       Estou inclinado a achar que...\nI'd be inclined to agree, though...  Eu tenderia a concordar, embora...\nI can't entirely agree.             Não posso concordar inteiramente.\n```\n\n> 💡 **inclined to** = inclinado a (não é certeza, é tendência). A opinião\n# ===== sutil não diz \"100% sim ou não\" — diz o grau e a exceção =====",
+          "lesson_md": "# Expressando opiniões sutis\n\nOpiniões de nível C1 admitem **nuance**: ressalvas, exceções e graus.\n\n## Frases úteis\n\n```\nI'm inclined to think that...       Estou inclinado a achar que...\nI'd be inclined to agree, though...  Eu tenderia a concordar, embora...\nI can't entirely agree.             Não posso concordar inteiramente.\n```\n\n> 💡 **inclined to** = inclinado a (não é certeza, é tendência). A opinião\n> sutil não diz \"100% sim ou não\" — diz o grau e a exceção",
           "exercises": [
             {
               "type": "quiz",
@@ -24765,7 +24765,7 @@
         {
           "slug": "lidando-com-discordancia",
           "title": "Lidando com discordância",
-          "lesson_md": "# Lidando com discordância\n\nDiscordar sem quebrar a relação é uma arte — reconheça o ponto do outro.\n\n## Frases úteis\n\n```\nI understand where you're coming from, but...   Entendo seu ponto de vista, mas...\nI hear you, but...                              Entendo o que você diz, mas...\nLet's agree to disagree.                        Vamos concordar em discordar.\n```\n\n> 💡 \"I understand where you're coming from\" = reconhece a perspectiva antes\n# ===== de contrapor. \"Agree to disagree\" encerra de forma madura =====",
+          "lesson_md": "# Lidando com discordância\n\nDiscordar sem quebrar a relação é uma arte — reconheça o ponto do outro.\n\n## Frases úteis\n\n```\nI understand where you're coming from, but...   Entendo seu ponto de vista, mas...\nI hear you, but...                              Entendo o que você diz, mas...\nLet's agree to disagree.                        Vamos concordar em discordar.\n```\n\n> 💡 \"I understand where you're coming from\" = reconhece a perspectiva antes\n> de contrapor. \"Agree to disagree\" encerra de forma madura",
           "exercises": [
             {
               "type": "quiz",
@@ -24836,7 +24836,7 @@
         {
           "slug": "falando-espontaneamente",
           "title": "Falando espontaneamente",
-          "lesson_md": "# Falando espontaneamente\n\nFalar sem preparo exige **vocabulário automático** e frases-ponte para ganhar\ntempo.\n\n## Frases-ponte\n\n```\nLet me think for a moment.            Deixe-me pensar um momento.\nThat's a great question.              É uma ótima pergunta.\nOff the top of my head...             De cabeça, sem pensar muito...\nLet me put it this way.               Deixe-me colocar desta forma.\n```\n\n> 💡 As frases-ponte dão 2-3 segundos para organizar a resposta — tempo\n# ===== suficiente para formular bem =====",
+          "lesson_md": "# Falando espontaneamente\n\nFalar sem preparo exige **vocabulário automático** e frases-ponte para ganhar\ntempo.\n\n## Frases-ponte\n\n```\nLet me think for a moment.            Deixe-me pensar um momento.\nThat's a great question.              É uma ótima pergunta.\nOff the top of my head...             De cabeça, sem pensar muito...\nLet me put it this way.               Deixe-me colocar desta forma.\n```\n\n> 💡 As frases-ponte dão 2-3 segundos para organizar a resposta — tempo\n> suficiente para formular bem",
           "exercises": [
             {
               "type": "quiz",
@@ -24987,7 +24987,7 @@
         {
           "slug": "fala-rapida",
           "title": "Fala rápida",
-          "lesson_md": "# Fala rápida\n\nFala acelerada exige estratégia — e não há vergonha em pedir para repetir.\n\n## Estratégias\n\n- **Capte o sentido geral** — você não precisa de cada sílaba.\n- **Peça para desacelerar**: \"Could you speak more slowly, please?\"\n- **Peça para repetir**: \"Sorry, could you say that again?\"\n\n> 💡 Pedir repetição é **normal e esperado** — até nativos fazem. É o oposto\n# ===== de fraqueza =====",
+          "lesson_md": "# Fala rápida\n\nFala acelerada exige estratégia — e não há vergonha em pedir para repetir.\n\n## Estratégias\n\n- **Capte o sentido geral** — você não precisa de cada sílaba.\n- **Peça para desacelerar**: \"Could you speak more slowly, please?\"\n- **Peça para repetir**: \"Sorry, could you say that again?\"\n\n> 💡 Pedir repetição é **normal e esperado** — até nativos fazem. É o oposto\n> de fraqueza",
           "exercises": [
             {
               "type": "quiz",
@@ -25058,7 +25058,7 @@
         {
           "slug": "sotaques-c1",
           "title": "Sotaques (C1)",
-          "lesson_md": "# Sotaques (C1)\n\nNo C1, você precisa entender uma variedade maior de sotaques.\n\n## Sotaques comuns além de americano/britânico\n\n```\naustraliano       (diferente ritmo e vogais)\nindiano           (ritmo próprio)\nsul-africano      (pronúncia distinta)\n```\n\n## A defesa é a exposição\n\nQuanto mais sotaques você ouvir, mais fácil cada um fica. Treine com\nentrevistas, podcasts e vídeos de países diferentes.\n\n> 💘 **A única defesa contra sotaques é exposição variada e repetida.**",
+          "lesson_md": "# Sotaques (C1)\n\nNo C1, você precisa entender uma variedade maior de sotaques.\n\n## Sotaques comuns além de americano/britânico\n\n```\naustraliano       (diferente ritmo e vogais)\nindiano           (ritmo próprio)\nsul-africano      (pronúncia distinta)\n```\n\n## A defesa é a exposição\n\nQuanto mais sotaques você ouvir, mais fácil cada um fica. Treine com\nentrevistas, podcasts e vídeos de países diferentes.\n\n> 💡 **A única defesa contra sotaques é exposição variada e repetida.**",
           "exercises": [
             {
               "type": "quiz",
@@ -25849,7 +25849,7 @@
         {
           "slug": "lendo-noticias",
           "title": "Lendo notícias (C1)",
-          "lesson_md": "# Lendo notícias (C1)\n\nNotícias têm estrutura própria: **manchete** + **lead** + **corpo**.\n\n## Manchetes compactas\n\n```\nBan Raises Rates      O banco aumenta as taxas.\nLeaders Meet in Paris  Líderes se reúnem em Paris.\n```\n\nAs manchetes omitem artigos e verbos para caber em uma linha.\n\n## Lead\n\nO primeiro parágrafo responde: o que, quem, onde, quando.\n\n> 💡 Vocabulário formal de notícia: **announce** (anunciar), **surge**\n# ===== (disparar), decline (cair), concern (preocupação) =====",
+          "lesson_md": "# Lendo notícias (C1)\n\nNotícias têm estrutura própria: **manchete** + **lead** + **corpo**.\n\n## Manchetes compactas\n\n```\nBank Raises Rates     O banco aumenta as taxas.\nLeaders Meet in Paris  Líderes se reúnem em Paris.\n```\n\nAs manchetes omitem artigos e verbos auxiliares (is/are) para caber em uma linha.\n\n## Lead\n\nO primeiro parágrafo responde: o que, quem, onde, quando.\n\n> 💡 Vocabulário formal de notícia: **announce** (anunciar), **surge**\n> (disparar), decline (cair), concern (preocupação)",
           "exercises": [
             {
               "type": "quiz",
@@ -25865,7 +25865,7 @@
             },
             {
               "type": "quiz",
-              "prompt": "O que 'Ban Raises Rates' significa?",
+              "prompt": "O que 'Bank Raises Rates' significa?",
               "solution": "o banco aumenta as taxas",
               "options": [
                 "o banco aumenta as taxas",
@@ -25920,7 +25920,7 @@
         {
           "slug": "lendo-ensaios",
           "title": "Lendo ensaios",
-          "lesson_md": "# Lendo ensaios\n\nUm ensaio segue: **tese** (introdução) -> **argumentos** (corpo) ->\n**conclusão**.\n\n## Para seguir o argumento\n\n- Encontre a **tese** na introdução.\n- Siga os **conectivos**: however, moreover, therefore.\n- Veja como a **conclusão** retoma a tese.\n\n## Vocabulário\n\n```\nthe author argues that...   o autor argumenta que...\nthe essay examines...       o ensaio examina...\n```\n\n> 💡 Ensaio acadêmico usa hedging e tom formal: \"The author argues\",\n> # ===== não \"I think\" =====",
+          "lesson_md": "# Lendo ensaios\n\nUm ensaio segue: **tese** (introdução) -> **argumentos** (corpo) ->\n**conclusão**.\n\n## Para seguir o argumento\n\n- Encontre a **tese** na introdução.\n- Siga os **conectivos**: however, moreover, therefore.\n- Veja como a **conclusão** retoma a tese.\n\n## Vocabulário\n\n```\nthe author argues that...   o autor argumenta que...\nthe essay examines...       o ensaio examina...\n```\n\n> 💡 Ensaio acadêmico usa hedging e tom formal: \"The author argues\",\n> não \"I think\"",
           "exercises": [
             {
               "type": "quiz",
@@ -26062,7 +26062,7 @@
         {
           "slug": "textos-academicos",
           "title": "Textos acadêmicos",
-          "lesson_md": "# Textos acadêmicos\n\nO artigo acadêmico tem **abstract**, **metodologia**, **resultados**,\n**discussão** e **conclusão**.\n\n## Estratégia de leitura\n\n1. Leia o **abstract** (resumo) e a **conclusão** primeiro.\n2. Depois, vá para a **discussão**.\n3. Por fim, os detalhes da metodologia.\n\n## Vocabulário\n\n```\nabstract        resumo\nsuggests        sugere\nevidence        evidência\nsignificant     significativo\n```\n\n> 💡 Citações dão crédito e apoio ao argumento. Hedging (\"may\",\n> # ===== \"suggests\") suaviza as afirmações =====",
+          "lesson_md": "# Textos acadêmicos\n\nO artigo acadêmico tem **abstract**, **metodologia**, **resultados**,\n**discussão** e **conclusão**.\n\n## Estratégia de leitura\n\n1. Leia o **abstract** (resumo) e a **conclusão** primeiro.\n2. Depois, vá para a **discussão**.\n3. Por fim, os detalhes da metodologia.\n\n## Vocabulário\n\n```\nabstract        resumo\nsuggests        sugere\nevidence        evidência\nsignificant     significativo\n```\n\n> 💡 Citações dão crédito e apoio ao argumento. Hedging (\"may\",\n> \"suggests\") suaviza as afirmações",
           "exercises": [
             {
               "type": "quiz",
@@ -26133,7 +26133,7 @@
         {
           "slug": "documentacao-tecnica",
           "title": "Documentação técnica",
-          "lesson_md": "# Documentação técnica\n\nDocumentação (README, manuais, API docs) usa **instruções diretas e\nprecisas**.\n\n## Vocabulário comum\n\n```\ninstall        instalar\nrun            rodar\nconfigure      configurar\ndeploy         publicar\n```\n\n## Exemplos\n\n```\nInstall the package first.     Instale o pacote primeiro.\nFor more info, see the docs.   Para mais informações, veja a documentação.\n```\n\n> 💡 README explica o que o projeto faz e como usar. O tom é imperativo e\n# ===== objetivo =====",
+          "lesson_md": "# Documentação técnica\n\nDocumentação (README, manuais, API docs) usa **instruções diretas e\nprecisas**.\n\n## Vocabulário comum\n\n```\ninstall        instalar\nrun            rodar\nconfigure      configurar\ndeploy         publicar\n```\n\n## Exemplos\n\n```\nInstall the package first.     Instale o pacote primeiro.\nFor more info, see the docs.   Para mais informações, veja a documentação.\n```\n\n> 💡 README explica o que o projeto faz e como usar. O tom é imperativo e\n> objetivo",
           "exercises": [
             {
               "type": "quiz",
@@ -26204,7 +26204,7 @@
         {
           "slug": "literatura",
           "title": "Literatura",
-          "lesson_md": "# Literatura\n\nA leitura literária exige atenção a **tom**, **tema** e **subtexto**.\n\n## Vocabulário literário\n\n```\nnovel          romance (livro)\nis set in...   se passa em...\nforeshadowing  prenúncio\ntheme          tema\n```\n\n## Exemplos\n\n```\nThe novel is set in Paris.     O romance se passa em Paris.\nThe author uses irony.         O autor usa ironia.\n```\n\n> 💡 Personagens e cenários revelam o tema. **Foreshadowing** dá pistas do\n# ===== que virá =====",
+          "lesson_md": "# Literatura\n\nA leitura literária exige atenção a **tom**, **tema** e **subtexto**.\n\n## Vocabulário literário\n\n```\nnovel          romance (livro)\nis set in...   se passa em...\nforeshadowing  prenúncio\ntheme          tema\n```\n\n## Exemplos\n\n```\nThe novel is set in Paris.     O romance se passa em Paris.\nThe author uses irony.         O autor usa ironia.\n```\n\n> 💡 Personagens e cenários revelam o tema. **Foreshadowing** dá pistas do\n> que virá",
           "exercises": [
             {
               "type": "quiz",
@@ -26346,7 +26346,7 @@
         {
           "slug": "documentacao-profissional",
           "title": "Documentação profissional",
-          "lesson_md": "# Documentação profissional\n\nRelatórios, propostas e contratos usam linguagem **formal, clara e\nobjetiva**.\n\n## Vocabulário formal\n\n```\nwhereas         considerando que\nhereby          por meio deste\npursuant to     em conformidade com\nshall           deverá (obrigação)\n```\n\n## Exemplos\n\n```\nThe contract must be signed.     O contrato deve ser assinado.\nThe report summarizes the results.   O relatório resume os resultados.\n```\n\n> 💡 **shall** em contratos = obrigação. Para ler proposta, procure o\n# ===== objetivo, o custo e o cronograma =====",
+          "lesson_md": "# Documentação profissional\n\nRelatórios, propostas e contratos usam linguagem **formal, clara e\nobjetiva**.\n\n## Vocabulário formal\n\n```\nwhereas         considerando que\nhereby          por meio deste\npursuant to     em conformidade com\nshall           deverá (obrigação)\n```\n\n## Exemplos\n\n```\nThe contract must be signed.     O contrato deve ser assinado.\nThe report summarizes the results.   O relatório resume os resultados.\n```\n\n> 💡 **shall** em contratos = obrigação. Para ler proposta, procure o\n> objetivo, o custo e o cronograma",
           "exercises": [
             {
               "type": "quiz",
@@ -26417,7 +26417,7 @@
         {
           "slug": "identificando-argumentos",
           "title": "Identificando argumentos",
-          "lesson_md": "# Identificando argumentos\n\nMapear um texto é separar **afirmação** (claim), **evidência** e\n**conclusão**.\n\n## Os três elementos\n\n```\nClaim:       a posição defendida.\nEvidence:    os dados/exemplos que apoiam.\nConclusion:  a síntese lógica do argumento.\n```\n\n## Exemplo\n\n```\nClaim:    Remote work is better.\nEvidence: Productivity rose 20% in the survey.\nConclusion: Therefore, remote work benefits companies.\n```\n\n> 💡 Ao ler, pergunte: \"Qual é a afirmação? O que a apoia? O que o autor\n# ===== conclui?\" =====",
+          "lesson_md": "# Identificando argumentos\n\nMapear um texto é separar **afirmação** (claim), **evidência** e\n**conclusão**.\n\n## Os três elementos\n\n```\nClaim:       a posição defendida.\nEvidence:    os dados/exemplos que apoiam.\nConclusion:  a síntese lógica do argumento.\n```\n\n## Exemplo\n\n```\nClaim:    Remote work is better.\nEvidence: Productivity rose 20% in the survey.\nConclusion: Therefore, remote work benefits companies.\n```\n\n> 💡 Ao ler, pergunte: \"Qual é a afirmação? O que a apoia? O que o autor\n> conclui?\"",
           "exercises": [
             {
               "type": "quiz",
@@ -26488,7 +26488,7 @@
         {
           "slug": "identificando-vies",
           "title": "Identificando viés",
-          "lesson_md": "# Identificando viés\n\n**Viés** é uma inclinação que distorce a neutralidade de um texto.\n\n## Sinais de viés\n\n- **Linguagem emocional** demais (disastrous, outrageous).\n- **Omissão** de um lado da história.\n- Fontes que só apoiam uma visão.\n\n## Como detectar\n\nPergunte: \"Quem está falando? O que foi omitido? De onde vem a\ninformação?\"\n\n> 💘 Um texto neutro apresenta os dois lados; um texto tendencioso\n> # ===== escolhe só as palavras e fatos que apoiam uma posição =====",
+          "lesson_md": "# Identificando viés\n\n**Viés** é uma inclinação que distorce a neutralidade de um texto.\n\n## Sinais de viés\n\n- **Linguagem emocional** demais (disastrous, outrageous).\n- **Omissão** de um lado da história.\n- Fontes que só apoiam uma visão.\n\n## Como detectar\n\nPergunte: \"Quem está falando? O que foi omitido? De onde vem a\ninformação?\"\n\n> 💡 Um texto neutro apresenta os dois lados; um texto tendencioso\n> escolhe só as palavras e fatos que apoiam uma posição",
           "exercises": [
             {
               "type": "quiz",
@@ -26559,7 +26559,7 @@
         {
           "slug": "sentido-implicito-leitura",
           "title": "Sentido implícito (na leitura)",
-          "lesson_md": "# Sentido implícito (na leitura)\n\n**Subtexto** é o sentido por trás das palavras — ler as entrelinhas.\n\n## Como detectar\n\n- Note o **tom** e a **ironia**.\n- Compare o que é dito com o **contexto**.\n- Pergunte: \"O que o autor está sugerindo sem dizer?\"\n\n## Exemplos\n\n```\n\"Of course you know everything.\"   (ironia = crítica)\nHis words suggest hidden criticism.  (subtexto)\n```\n\n> 💡 O implícito aparece em literatura, humor e análise — o leitor C1\n# ===== capta o que ficou nas entrelinhas =====",
+          "lesson_md": "# Sentido implícito (na leitura)\n\n**Subtexto** é o sentido por trás das palavras — ler as entrelinhas.\n\n## Como detectar\n\n- Note o **tom** e a **ironia**.\n- Compare o que é dito com o **contexto**.\n- Pergunte: \"O que o autor está sugerindo sem dizer?\"\n\n## Exemplos\n\n```\n\"Of course you know everything.\"   (ironia = crítica)\nHis words suggest hidden criticism.  (subtexto)\n```\n\n> 💡 O implícito aparece em literatura, humor e análise — o leitor C1\n> capta o que ficou nas entrelinhas",
           "exercises": [
             {
               "type": "quiz",
@@ -26630,7 +26630,7 @@
         {
           "slug": "entendendo-tom-escrito",
           "title": "Entendendo tom",
-          "lesson_md": "# Entendendo tom\n\nO **tom** de um texto é a atitude/emoção que o autor transmite.\n\n## Tons comuns\n\n```\nformal      (oficial, impessoal)\ninformal    (amigável, próximo)\nsarcastic   (irônico, oposto do literal)\nnostalgic   (saudoso do passado)\nurgent      (urgente)\n```\n\n## Como identificar\n\nPreste atenção ao **vocabulário** e às **escolhas** do autor — cada palavra\ncarrega tom.\n\n> 💡 O tom responde: \"como o autor se sente sobre o assunto?\" — e como ele\n# ===== quer que o leitor se sinta =====",
+          "lesson_md": "# Entendendo tom\n\nO **tom** de um texto é a atitude/emoção que o autor transmite.\n\n## Tons comuns\n\n```\nformal      (oficial, impessoal)\ninformal    (amigável, próximo)\nsarcastic   (irônico, oposto do literal)\nnostalgic   (saudoso do passado)\nurgent      (urgente)\n```\n\n## Como identificar\n\nPreste atenção ao **vocabulário** e às **escolhas** do autor — cada palavra\ncarrega tom.\n\n> 💡 O tom responde: \"como o autor se sente sobre o assunto?\" — e como ele\n> quer que o leitor se sinta",
           "exercises": [
             {
               "type": "quiz",
@@ -26658,7 +26658,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'The tone is clearly ___ .' (formal)",
+              "prompt": "Complete: 'The tone is clearly ___ .' (oposto de informal)",
               "solution": "formal",
               "audio_lang": "en-US",
               "position": 2
@@ -26780,7 +26780,7 @@
         {
           "slug": "relatorios-c1",
           "title": "Relatórios (C1)",
-          "lesson_md": "# Relatórios (C1)\n\nO relatório avançado tem **executive summary**, dados, interpretação e\nrecomendação.\n\n## Estrutura\n\n```\nExecutive summary:  o essencial para decisão\nFindings:           os dados\nImplications:       o que os dados significam\nRecommendation:     o que fazer\n```\n\n## Frases úteis\n\n```\nThe figures indicate...                Os números indicam...\nThe implications are clear.            As implicações são claras.\nIt is strongly recommended that...     Recomenda-se fortemente que...\n```\n\n> 💡 Relatório C1 não é só números: é **dados + interpretação +\n# ===== recomendação =====",
+          "lesson_md": "# Relatórios (C1)\n\nO relatório avançado tem **executive summary**, dados, interpretação e\nrecomendação.\n\n## Estrutura\n\n```\nExecutive summary:  o essencial para decisão\nFindings:           os dados\nImplications:       o que os dados significam\nRecommendation:     o que fazer\n```\n\n## Frases úteis\n\n```\nThe figures indicate...                Os números indicam...\nThe implications are clear.            As implicações são claras.\nIt is strongly recommended that...     Recomenda-se fortemente que...\n```\n\n> 💡 Relatório C1 não é só números: é **dados + interpretação +\n> recomendação",
           "exercises": [
             {
               "type": "quiz",
@@ -26851,7 +26851,7 @@
         {
           "slug": "essays-c1",
           "title": "Redações (C1)",
-          "lesson_md": "# Redações (C1)\n\nO essay C1 tem **tese matizada**, argumentos equilibrados e tom acadêmico.\n\n## Características\n\n- Tese **específica e defensável** (com nuance).\n- Mostra os **dois lados** com equilíbrio.\n- Usa hedging e conectivos sofisticados.\n\n## Frases úteis\n\n```\nThis essay examines both sides.       Este texto examina os dois lados.\nWhile it is true that..., it is also...   Embora seja verdade que..., também é...\n```\n\n> 💡 Ensaio C1 **reconhece o outro lado** antes de defender o seu — isso\n# ===== fortalece o argumento =====",
+          "lesson_md": "# Redações (C1)\n\nO essay C1 tem **tese matizada**, argumentos equilibrados e tom acadêmico.\n\n## Características\n\n- Tese **específica e defensável** (com nuance).\n- Mostra os **dois lados** com equilíbrio.\n- Usa hedging e conectivos sofisticados.\n\n## Frases úteis\n\n```\nThis essay examines both sides.       Este texto examina os dois lados.\nWhile it is true that..., it is also...   Embora seja verdade que..., também é...\n```\n\n> 💡 Ensaio C1 **reconhece o outro lado** antes de defender o seu — isso\n> fortalece o argumento",
           "exercises": [
             {
               "type": "quiz",
@@ -26922,7 +26922,7 @@
         {
           "slug": "propostas-c1",
           "title": "Propostas (C1)",
-          "lesson_md": "# Propostas (C1)\n\nA proposta C1 convence com **viabilidade**, **custo** e **benefícios**.\n\n## Estrutura\n\n```\nObjetivo + Plano + Cronograma + Custo + Benefícios + Riscos\n```\n\n## Frases úteis\n\n```\nThis is feasible because...           Isso é viável porque...\nWe need to assess the risk.           Precisamos avaliar o risco.\nThe long-term benefits outweigh the costs.   Os benefícios de longo prazo superam os custos.\n```\n\n> 💡 Proposta convincente **antecipa as objeções** — mostre que você já\n# ===== pensou nos riscos =====",
+          "lesson_md": "# Propostas (C1)\n\nA proposta C1 convence com **viabilidade**, **custo** e **benefícios**.\n\n## Estrutura\n\n```\nObjetivo + Plano + Cronograma + Custo + Benefícios + Riscos\n```\n\n## Frases úteis\n\n```\nThis is feasible because...           Isso é viável porque...\nWe need to assess the risk.           Precisamos avaliar o risco.\nThe long-term benefits outweigh the costs.   Os benefícios de longo prazo superam os custos.\n```\n\n> 💡 Proposta convincente **antecipa as objeções** — mostre que você já\n> pensou nos riscos",
           "exercises": [
             {
               "type": "quiz",
@@ -26993,7 +26993,7 @@
         {
           "slug": "artigos-escritos",
           "title": "Artigos (escritos)",
-          "lesson_md": "# Artigos (escritos)\n\nUm artigo (blog, revista) começa com um **hook** e mantém o leitor engajado.\n\n## Estrutura\n\n```\nHook (prende o leitor) + desenvolvimento + conclusão\n```\n\n## Frases úteis\n\n```\nThis article offers practical tips.     Este artigo oferece dicas práticas.\nThe headline grabbed my attention.      A manchete chamou minha atenção.\n```\n\n> 💡 O **hook** é a primeira frase que prende o leitor: uma pergunta, um dado\n# ===== surpreendente ou uma história curta =====",
+          "lesson_md": "# Artigos (escritos)\n\nUm artigo (blog, revista) começa com um **hook** e mantém o leitor engajado.\n\n## Estrutura\n\n```\nHook (prende o leitor) + desenvolvimento + conclusão\n```\n\n## Frases úteis\n\n```\nThis article offers practical tips.     Este artigo oferece dicas práticas.\nThe headline grabbed my attention.      A manchete chamou minha atenção.\n```\n\n> 💡 O **hook** é a primeira frase que prende o leitor: uma pergunta, um dado\n> surpreendente ou uma história curta",
           "exercises": [
             {
               "type": "quiz",
@@ -27064,7 +27064,7 @@
         {
           "slug": "resenhas-c1",
           "title": "Resenhas (C1)",
-          "lesson_md": "# Resenhas (C1)\n\nA resenha crítica avalia com **equilíbrio**: pontos fortes e fracos.\n\n## Como criticar com nuance\n\n```\nWhile the pacing is slow, the character depth is strong.\nEmbora o ritmo seja lento, a profundidade dos personagens é forte.\n```\n\n## Palavras de avaliação C1\n\n```\ncompelling    convincente\nflawed        com falhas\nnuanced       matizado\nworth watching  vale a pena assistir\n```\n\n> 💡 Resenha C1 conclui com **recomendação qualificada**: \"Despite its\n# ===== flaws, the film is worth watching.\" =====",
+          "lesson_md": "# Resenhas (C1)\n\nA resenha crítica avalia com **equilíbrio**: pontos fortes e fracos.\n\n## Como criticar com nuance\n\n```\nWhile the pacing is slow, the character depth is strong.\nEmbora o ritmo seja lento, a profundidade dos personagens é forte.\n```\n\n## Palavras de avaliação C1\n\n```\ncompelling    convincente\nflawed        com falhas\nnuanced       matizado\nworth watching  vale a pena assistir\n```\n\n> 💡 Resenha C1 conclui com **recomendação qualificada**: \"Despite its\n> flaws, the film is worth watching.\"",
           "exercises": [
             {
               "type": "quiz",
@@ -27092,7 +27092,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'The author's ___ is evident throughout.' (talento)",
+              "prompt": "Complete: 'The author's ___ is evident throughout.' (habilidade)",
               "solution": "skill",
               "audio_lang": "en-US",
               "position": 2
@@ -27135,7 +27135,7 @@
         {
           "slug": "escrita-tecnica",
           "title": "Escrita técnica",
-          "lesson_md": "# Escrita técnica\n\nEscrita técnica prioriza **clareza** e **precisão** — sem ambiguidade.\n\n## Como escrever\n\n```\nFirst, ... Then, ... Finally, ...   passo a passo claro\nThis function processes the data.   o que faz, por que e como\n```\n\n## Vocabulário\n\n```\nprocess        processar\ndebug          depurar\nconfigure      configurar\n```\n\n> 💡 Boa documentação responde: o que é, por que usar e como usar. Evite\n# ===== jargão desnecessário e ambiguidade =====",
+          "lesson_md": "# Escrita técnica\n\nEscrita técnica prioriza **clareza** e **precisão** — sem ambiguidade.\n\n## Como escrever\n\n```\nFirst, ... Then, ... Finally, ...   passo a passo claro\nThis function processes the data.   o que faz, por que e como\n```\n\n## Vocabulário\n\n```\nprocess        processar\ndebug          depurar\nconfigure      configurar\n```\n\n> 💡 Boa documentação responde: o que é, por que usar e como usar. Evite\n> jargão desnecessário e ambiguidade",
           "exercises": [
             {
               "type": "quiz",
@@ -27206,7 +27206,7 @@
         {
           "slug": "escrita-academica-c1",
           "title": "Escrita acadêmica (C1)",
-          "lesson_md": "# Escrita acadêmica (C1)\n\nA escrita acadêmica avança para **síntese de fontes** e **análise crítica**.\n\n## Vocabulário\n\n```\nliterature review    revisão da literatura\nsynthesize           sintetizar\ncite                 citar\nrequire              exigir\n```\n\n## Frases úteis\n\n```\nSeveral studies agree that...       Vários estudos concordam que...\nThe findings require further investigation.   Os resultados exigem mais investigação.\n```\n\n> 💘 Citação acadêmica usa **autor + ano** (ex.: Smith, 2020). A análise\n# ===== crítica questiona suposições e evidência =====",
+          "lesson_md": "# Escrita acadêmica (C1)\n\nA escrita acadêmica avança para **síntese de fontes** e **análise crítica**.\n\n## Vocabulário\n\n```\nliterature review    revisão da literatura\nsynthesize           sintetizar\ncite                 citar\nrequire              exigir\n```\n\n## Frases úteis\n\n```\nSeveral studies agree that...       Vários estudos concordam que...\nThe findings require further investigation.   Os resultados exigem mais investigação.\n```\n\n> 💡 Citação acadêmica usa **autor + ano** (ex.: Smith, 2020). A análise\n> crítica questiona suposições e evidência",
           "exercises": [
             {
               "type": "quiz",
@@ -27277,7 +27277,7 @@
         {
           "slug": "escrita-persuasiva",
           "title": "Escrita persuasiva",
-          "lesson_md": "# Escrita persuasiva\n\nPersuasão combina **logos** (lógica), **pathos** (emoção) e **ethos**\n(credibilidade), e termina com uma **call to action**.\n\n## Os três apelos\n\n```\nLogos   ->  lógica e dados\nPathos  ->  emoção e histórias\nEthos   ->  credibilidade e autoridade\n```\n\n## Frases úteis\n\n```\nAct now before it is too late.      Aja agora antes que seja tarde.\nJoin us and make the difference.    Junte-se a nós e faça a diferença.\n```\n\n> 💡 A **call to action** é o pedido final: \"Join us\", \"Act now\", \"Sign\n# ===== the petition\". Sem ela, a persuasão não fecha =====",
+          "lesson_md": "# Escrita persuasiva\n\nPersuasão combina **logos** (lógica), **pathos** (emoção) e **ethos**\n(credibilidade), e termina com uma **call to action**.\n\n## Os três apelos\n\n```\nLogos   ->  lógica e dados\nPathos  ->  emoção e histórias\nEthos   ->  credibilidade e autoridade\n```\n\n## Frases úteis\n\n```\nAct now before it is too late.      Aja agora antes que seja tarde.\nJoin us and make the difference.    Junte-se a nós e faça a diferença.\n```\n\n> 💡 A **call to action** é o pedido final: \"Join us\", \"Act now\", \"Sign\n> the petition\". Sem ela, a persuasão não fecha",
           "exercises": [
             {
               "type": "quiz",
@@ -27348,7 +27348,7 @@
         {
           "slug": "escrita-argumentativa",
           "title": "Escrita argumentativa",
-          "lesson_md": "# Escrita argumentativa\n\nO texto argumentativo estrutura: **claim** -> **counterclaim** ->\n**rebuttal**.\n\n## Estrutura\n\n```\nClaim:        sua posição\nCounterclaim: o argumento contrário\nRebuttal:     refutação do contrário\n```\n\n## Frases úteis\n\n```\nCritics argue that...            Os críticos argumentam que...\nWhile critics object, the evidence is strong.   Embora os críticos objetem, a evidência é forte.\n```\n\n> 💡 Argumentação madura **reconhece o contra-argumento e o refuta** — não\n# ===== finge que ele não existe =====",
+          "lesson_md": "# Escrita argumentativa\n\nO texto argumentativo estrutura: **claim** -> **counterclaim** ->\n**rebuttal**.\n\n## Estrutura\n\n```\nClaim:        sua posição\nCounterclaim: o argumento contrário\nRebuttal:     refutação do contrário\n```\n\n## Frases úteis\n\n```\nCritics argue that...            Os críticos argumentam que...\nWhile critics object, the evidence is strong.   Embora os críticos objetem, a evidência é forte.\n```\n\n> 💡 Argumentação madura **reconhece o contra-argumento e o refuta** — não\n> finge que ele não existe",
           "exercises": [
             {
               "type": "quiz",
@@ -27419,7 +27419,7 @@
         {
           "slug": "edicao",
           "title": "Edição",
-          "lesson_md": "# Edição\n\nEditar é onde o texto bom vira excelente: **revise**, **enxugue** e\n**proofread**.\n\n## As três etapas\n\n```\nRevise:       melhore conteúdo e estrutura.\nCut:          remova redundância e palavras desnecessárias.\nProofread:    corrija ortografia e gramática finais.\n```\n\n> 💘 **Proofread** é a última passada — sempre antes de enviar ou publicar.",
+          "lesson_md": "# Edição\n\nEditar é onde o texto bom vira excelente: **revise**, **enxugue** e\n**proofread**.\n\n## As três etapas\n\n```\nRevise:       melhore conteúdo e estrutura.\nCut:          remova redundância e palavras desnecessárias.\nProofread:    corrija ortografia e gramática finais.\n```\n\n> 💡 **Proofread** é a última passada — sempre antes de enviar ou publicar.",
           "exercises": [
             {
               "type": "quiz",
@@ -27490,7 +27490,7 @@
         {
           "slug": "estilo-de-escrita",
           "title": "Estilo",
-          "lesson_md": "# Estilo\n\nO estilo de escrita depende de escolhas: voz **ativa** vs **passiva**, e\n**concisão**.\n\n## Voz ativa vs passiva\n\n```\nAtiva:   The team made the decision.     (direta)\nPassiva: The decision was made.          (impessoal)\n```\n\n## Quando usar cada uma\n\n- **Ativa**: textos diretos e claros.\n- **Passiva**: formal/impessoal (relatórios, academia).\n\n> 💡 Regra geral: prefira a **ativa** para clareza; use a passiva quando o\n# ===== agente for irrelevante ou desconhecido =====",
+          "lesson_md": "# Estilo\n\nO estilo de escrita depende de escolhas: voz **ativa** vs **passiva**, e\n**concisão**.\n\n## Voz ativa vs passiva\n\n```\nAtiva:   The team made the decision.     (direta)\nPassiva: The decision was made.          (impessoal)\n```\n\n## Quando usar cada uma\n\n- **Ativa**: textos diretos e claros.\n- **Passiva**: formal/impessoal (relatórios, academia).\n\n> 💡 Regra geral: prefira a **ativa** para clareza; use a passiva quando o\n> agente for irrelevante ou desconhecido",
           "exercises": [
             {
               "type": "quiz",
@@ -27561,7 +27561,7 @@
         {
           "slug": "coesao",
           "title": "Coesão",
-          "lesson_md": "# Coesão\n\n**Coesão** conecta frases e parágrafos — o texto flui sem repetição.\n\n## Como criar coesão\n\n- **Referências**: this, it, such (evitam repetir a palavra).\n- **Conectivos**: however, furthermore, therefore.\n- **Ordem lógica**: uma ideia puxa a próxima.\n\n## Exemplo\n\n```\nThe results were strong. Therefore, the team celebrated.\n```\n\n> 💡 Texto coeso flui naturalmente; texto sem coesão \"salta\" de ideia em\n# ===== ideia =====",
+          "lesson_md": "# Coesão\n\n**Coesão** conecta frases e parágrafos — o texto flui sem repetição.\n\n## Como criar coesão\n\n- **Referências**: this, it, such (evitam repetir a palavra).\n- **Conectivos**: however, furthermore, therefore.\n- **Ordem lógica**: uma ideia puxa a próxima.\n\n## Exemplo\n\n```\nThe results were strong. Therefore, the team celebrated.\n```\n\n> 💡 Texto coeso flui naturalmente; texto sem coesão \"salta\" de ideia em\n> ideia",
           "exercises": [
             {
               "type": "quiz",
@@ -27632,7 +27632,7 @@
         {
           "slug": "precisao-escrita",
           "title": "Precisão (escrita)",
-          "lesson_md": "# Precisão (escrita)\n\nPrecisão é escolher a **palavra exata** — sem vagueza.\n\n## Substitua o vago\n\n```\na lot of things  ->  several issues\nstuff            ->  details / materials\ngood             ->  effective / strong\n```\n\n## Exemplos\n\n```\nThe report covers several topics.    O relatório cobre vários tópicos.\nPlease be specific about the numbers.   Por favor, seja específico sobre os números.\n```\n\n> 💘 A vagueza (\"stuff\", \"things\") enfraquece o texto. No C1, cada ideia\n# ===== tem a palavra certa =====",
+          "lesson_md": "# Precisão (escrita)\n\nPrecisão é escolher a **palavra exata** — sem vagueza.\n\n## Substitua o vago\n\n```\na lot of things  ->  several issues\nstuff            ->  details / materials\ngood             ->  effective / strong\n```\n\n## Exemplos\n\n```\nThe report covers several topics.    O relatório cobre vários tópicos.\nPlease be specific about the numbers.   Por favor, seja específico sobre os números.\n```\n\n> 💡 A vagueza (\"stuff\", \"things\") enfraquece o texto. No C1, cada ideia\n> tem a palavra certa",
           "exercises": [
             {
               "type": "quiz",
@@ -27703,7 +27703,7 @@
         {
           "slug": "registro-escrito",
           "title": "Registro (escrita)",
-          "lesson_md": "# Registro (escrita)\n\nO registro deve ser **adequado ao público** e **consistente** do início ao\nfim.\n\n## Como escolher\n\nPergunte: \"**Quem lê** e **qual o objetivo**?\"\n\n```\nE-mail ao chefe  ->  formal\nMensagem ao amigo ->  informal\nTexto acadêmico  ->  formal e impessoal\n```\n\n> 💡 **Misturar registros** num mesmo texto confunde o leitor. Mantenha um\n# ===== registro consistente do início ao fim =====",
+          "lesson_md": "# Registro (escrita)\n\nO registro deve ser **adequado ao público** e **consistente** do início ao\nfim.\n\n## Como escolher\n\nPergunte: \"**Quem lê** e **qual o objetivo**?\"\n\n```\nE-mail ao chefe  ->  formal\nMensagem ao amigo ->  informal\nTexto acadêmico  ->  formal e impessoal\n```\n\n> 💡 **Misturar registros** num mesmo texto confunde o leitor. Mantenha um\n> registro consistente do início ao fim",
           "exercises": [
             {
               "type": "quiz",
@@ -27782,7 +27782,7 @@
         {
           "slug": "entrevistas-de-emprego",
           "title": "Entrevistas de emprego",
-          "lesson_md": "# Entrevistas de emprego\n\nA entrevista em inglês exige frases prontas para se apresentar e responder.\n\n## Frases úteis\n\n```\nTell me about yourself.              Conte-me sobre você.\nMy greatest strength is...           Meu maior ponto forte é...\nI'm looking for a role where...      Estou procurando um cargo onde...\nI believe I'm qualified for this position.   Acredito que sou qualificado para esta vaga.\n```\n\n> 💡 Sobre pontos fracos, mostre **consciência e melhoria**: \"I used to\n# ===== struggle with X, so I worked on Y.\" =====",
+          "lesson_md": "# Entrevistas de emprego\n\nA entrevista em inglês exige frases prontas para se apresentar e responder.\n\n## Frases úteis\n\n```\nTell me about yourself.              Conte-me sobre você.\nMy greatest strength is...           Meu maior ponto forte é...\nI'm looking for a role where...      Estou procurando um cargo onde...\nI believe I'm qualified for this position.   Acredito que sou qualificado para esta vaga.\n```\n\n> 💡 Sobre pontos fracos, mostre **consciência e melhoria**: \"I used to\n> struggle with X, so I worked on Y.\"",
           "exercises": [
             {
               "type": "quiz",
@@ -27853,7 +27853,7 @@
         {
           "slug": "curriculo-cv",
           "title": "Currículo (CV/resume)",
-          "lesson_md": "# Currículo (CV/resume)\n\nO currículo em inglês tem seções claras e verbos de ação.\n\n## Seções\n\n```\nWork Experience    experiência profissional\nEducation          formação\nSkills             habilidades\n```\n\n## Verbos de ação\n\n```\nmanaged    gerenciei\nled        liderei\ndeveloped  desenvolvi\nimproved   melhorei\n```\n\n> 💡 Para a maioria dos países, use **resume** (1-2 páginas). Comece frases\n# ===== com verbos de ação no passado: \"Led a team of ten people.\" =====",
+          "lesson_md": "# Currículo (CV/resume)\n\nO currículo em inglês tem seções claras e verbos de ação.\n\n## Seções\n\n```\nWork Experience    experiência profissional\nEducation          formação\nSkills             habilidades\n```\n\n## Verbos de ação\n\n```\nmanaged    gerenciei\nled        liderei\ndeveloped  desenvolvi\nimproved   melhorei\n```\n\n> 💡 Para a maioria dos países, use **resume** (1-2 páginas). Comece frases\n> com verbos de ação no passado: \"Led a team of ten people.\"",
           "exercises": [
             {
               "type": "quiz",
@@ -27881,7 +27881,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'Led a team of ___ people.' (10)",
+              "prompt": "Complete com o número por extenso: 'Led a team of ___ people.' (10)",
               "solution": "ten",
               "audio_lang": "en-US",
               "position": 2
@@ -27924,7 +27924,7 @@
         {
           "slug": "linkedin",
           "title": "LinkedIn",
-          "lesson_md": "# LinkedIn\n\nO LinkedIn é o \"cartão de visitas\" profissional.\n\n## Elementos-chave\n\n```\nHeadline:    seu título profissional (ex.: Software Engineer)\nSummary:     resumo com impacto e objetivos\nOpen to work: indicador de que busca vaga\n```\n\n## Frases úteis\n\n```\nI'm open to new opportunities.      Estou aberto a novas oportunidades.\nLet's connect on LinkedIn.          Vamos conectar no LinkedIn.\nI'd like to connect with you.       Gostaria de me conectar com você.\n```\n\n> 💘 Um bom summary mostra **impacto e objetivos** — não é só lista de\n# ===== empresas =====",
+          "lesson_md": "# LinkedIn\n\nO LinkedIn é o \"cartão de visitas\" profissional.\n\n## Elementos-chave\n\n```\nHeadline:    seu título profissional (ex.: Software Engineer)\nSummary:     resumo com impacto e objetivos\nOpen to work: indicador de que busca vaga\n```\n\n## Frases úteis\n\n```\nI'm open to new opportunities.      Estou aberto a novas oportunidades.\nLet's connect on LinkedIn.          Vamos conectar no LinkedIn.\nI'd like to connect with you.       Gostaria de me conectar com você.\n```\n\n> 💡 Um bom summary mostra **impacto e objetivos** — não é só lista de\n> empresas",
           "exercises": [
             {
               "type": "quiz",
@@ -27995,7 +27995,7 @@
         {
           "slug": "reunioes",
           "title": "Reuniões",
-          "lesson_md": "# Reuniões\n\nFrases essenciais para conduzir e participar de reuniões.\n\n## Frases úteis\n\n```\nLet's get started.                Vamos começar.\nShall we move on to the next point?   Vamos passar para o próximo ponto?\nLet's circle back to that later.   Vamos voltar a isso depois.\nWhat are your thoughts on this?    O que vocês acham disso?\nLet's wrap up.                     Vamos encerrar.\n```\n\n> 💘 **circle back** = voltar a um assunto depois. **wrap up** = encerrar.",
+          "lesson_md": "# Reuniões\n\nFrases essenciais para conduzir e participar de reuniões.\n\n## Frases úteis\n\n```\nLet's get started.                Vamos começar.\nShall we move on to the next point?   Vamos passar para o próximo ponto?\nLet's circle back to that later.   Vamos voltar a isso depois.\nWhat are your thoughts on this?    O que vocês acham disso?\nLet's wrap up.                     Vamos encerrar.\n```\n\n> 💡 **circle back** = voltar a um assunto depois. **wrap up** = encerrar.",
           "exercises": [
             {
               "type": "quiz",
@@ -28066,7 +28066,7 @@
         {
           "slug": "apresentacoes-trabalho",
           "title": "Apresentações (trabalho)",
-          "lesson_md": "# Apresentações (trabalho)\n\nApresentar no trabalho é guiar, destacar e abrir para perguntas.\n\n## Frases úteis\n\n```\nLet me walk you through...        Deixe-me guiá-los por...\nThe key takeaway is...            A principal ideia é...\nThe main point here is...         O ponto principal aqui é...\nAny questions?                    Alguma pergunta?\n```\n\n> 💘 Uma boa apresentação termina com **resumo e próximos passos**, e abre\n# ===== espaço para perguntas =====",
+          "lesson_md": "# Apresentações (trabalho)\n\nApresentar no trabalho é guiar, destacar e abrir para perguntas.\n\n## Frases úteis\n\n```\nLet me walk you through...        Deixe-me guiá-los por...\nThe key takeaway is...            A principal ideia é...\nThe main point here is...         O ponto principal aqui é...\nAny questions?                    Alguma pergunta?\n```\n\n> 💡 Uma boa apresentação termina com **resumo e próximos passos**, e abre\n> espaço para perguntas",
           "exercises": [
             {
               "type": "quiz",
@@ -28137,7 +28137,7 @@
         {
           "slug": "emails-trabalho",
           "title": "E-mails (trabalho)",
-          "lesson_md": "# E-mails (trabalho)\n\nO e-mail de trabalho é **curto, claro e com próximo passo**.\n\n## Estrutura\n\n```\nAssunto: ação específica (\"Meeting rescheduled to Friday\")\nAbrir:   o porquê\nPedido:  a ação (com prazo)\nFechar:  cortesia + próximo passo\n```\n\n## Frases úteis\n\n```\nCould you please review this by Friday?   Pode revisar isso até sexta?\nPlease let me know if you have any questions.   Avise se tiver dúvidas.\nWould Thursday work for you?              Quinta-feira funciona para você?\n```\n\n> 💘 E-mail bom tem **uma ação clara** e **um prazo** — não é um texto vago.",
+          "lesson_md": "# E-mails (trabalho)\n\nO e-mail de trabalho é **curto, claro e com próximo passo**.\n\n## Estrutura\n\n```\nAssunto: ação específica (\"Meeting rescheduled to Friday\")\nAbrir:   o porquê\nPedido:  a ação (com prazo)\nFechar:  cortesia + próximo passo\n```\n\n## Frases úteis\n\n```\nCould you please review this by Friday?   Pode revisar isso até sexta?\nPlease let me know if you have any questions.   Avise se tiver dúvidas.\nWould Thursday work for you?              Quinta-feira funciona para você?\n```\n\n> 💡 E-mail bom tem **uma ação clara** e **um prazo** — não é um texto vago.",
           "exercises": [
             {
               "type": "quiz",
@@ -28208,7 +28208,7 @@
         {
           "slug": "slack-teams",
           "title": "Slack/Teams",
-          "lesson_md": "# Slack/Teams\n\nO chat do trabalho tem abreviações e frases curtas.\n\n## Abreviações\n\n```\nFYI    for your information (para sua informação)\nASAP   as soon as possible (o quanto antes)\nTL;DR  too long; didn't read (resumo)\n```\n\n## Frases úteis\n\n```\nPing me later.                 Me chama depois.\nKeep me in the loop.           Mantenha-me atualizado.\nCan you follow up on this?     Pode dar continuidade nisso?\n```\n\n> 💘 **in the loop** = informado/ciente. **ping me** = me avise/contate.",
+          "lesson_md": "# Slack/Teams\n\nO chat do trabalho tem abreviações e frases curtas.\n\n## Abreviações\n\n```\nFYI    for your information (para sua informação)\nASAP   as soon as possible (o quanto antes)\nTL;DR  too long; didn't read (resumo)\n```\n\n## Frases úteis\n\n```\nPing me later.                 Me chama depois.\nKeep me in the loop.           Mantenha-me atualizado.\nCan you follow up on this?     Pode dar continuidade nisso?\n```\n\n> 💡 **in the loop** = informado/ciente. **ping me** = me avise/contate.",
           "exercises": [
             {
               "type": "quiz",
@@ -28279,7 +28279,7 @@
         {
           "slug": "discussoes-tecnicas-trabalho",
           "title": "Discussões técnicas (trabalho)",
-          "lesson_md": "# Discussões técnicas (trabalho)\n\nFalar de tecnologia no trabalho exige vocabulário de projeto.\n\n## Frases úteis\n\n```\nThis is a blocker.                 Isso é um impedimento.\nThe system is composed of...       O sistema é composto por...\nI suggest we refactor this.        Sugiro refatorarmos isso.\n```\n\n> 💘 **blocker** = impedimento que trava a entrega. Proposta técnica boa\n# ===== ouve, propõe e explica o porquê =====",
+          "lesson_md": "# Discussões técnicas (trabalho)\n\nFalar de tecnologia no trabalho exige vocabulário de projeto.\n\n## Frases úteis\n\n```\nThis is a blocker.                 Isso é um impedimento.\nThe system is composed of...       O sistema é composto por...\nI suggest we refactor this.        Sugiro refatorarmos isso.\n```\n\n> 💡 **blocker** = impedimento que trava a entrega. Proposta técnica boa\n> ouve, propõe e explica o porquê",
           "exercises": [
             {
               "type": "quiz",
@@ -28350,7 +28350,7 @@
         {
           "slug": "status-updates",
           "title": "Dando status updates",
-          "lesson_md": "# Dando status updates\n\nO status update mantém o time alinhado sobre o andamento.\n\n## Frases úteis\n\n```\nLet me update you on the project.     Deixe-me atualizá-los sobre o projeto.\nI'm on track.                         Estou em dia.\nI'm running behind schedule.          Estou atrasado.\nWe hit an issue with the deployment.  Enfrentamos um problema no deploy.\n```\n\n> 💘 Um bom status tem: **o que fez + o que falta + bloqueios**.",
+          "lesson_md": "# Dando status updates\n\nO status update mantém o time alinhado sobre o andamento.\n\n## Frases úteis\n\n```\nLet me update you on the project.     Deixe-me atualizá-los sobre o projeto.\nI'm on track.                         Estou em dia.\nI'm running behind schedule.          Estou atrasado.\nWe hit an issue with the deployment.  Enfrentamos um problema no deploy.\n```\n\n> 💡 Um bom status tem: **o que fez + o que falta + bloqueios**.",
           "exercises": [
             {
               "type": "quiz",
@@ -28421,7 +28421,7 @@
         {
           "slug": "pedindo-esclarecimentos",
           "title": "Pedindo esclarecimentos",
-          "lesson_md": "# Pedindo esclarecimentos\n\nNo trabalho, perguntar é **profissional** — nunca fraqueza.\n\n## Frases úteis\n\n```\nCould you clarify what you mean?      Pode esclarecer o que quer dizer?\nCould you elaborate on that point?    Pode detalhar esse ponto?\nJust to be clear, we meet at 3.       Só para deixar claro, nos vemos às 3.\nSo, to confirm, the deadline is Friday.   Então, para confirmar, o prazo é sexta.\n```\n\n> 💘 Confirmar o entendimento evita retrabalho: \"So, to confirm...\" é ouro.",
+          "lesson_md": "# Pedindo esclarecimentos\n\nNo trabalho, perguntar é **profissional** — nunca fraqueza.\n\n## Frases úteis\n\n```\nCould you clarify what you mean?      Pode esclarecer o que quer dizer?\nCould you elaborate on that point?    Pode detalhar esse ponto?\nJust to be clear, we meet at 3.       Só para deixar claro, nos vemos às 3.\nSo, to confirm, the deadline is Friday.   Então, para confirmar, o prazo é sexta.\n```\n\n> 💡 Confirmar o entendimento evita retrabalho: \"So, to confirm...\" é ouro.",
           "exercises": [
             {
               "type": "quiz",
@@ -28492,7 +28492,7 @@
         {
           "slug": "explicando-problemas",
           "title": "Explicando problemas",
-          "lesson_md": "# Explicando problemas\n\nExplicar um problema com clareza = **sintoma + causa + solução**.\n\n## Frases úteis\n\n```\nWe're experiencing an issue with...   Estamos com um problema em...\nWe have identified the root cause.    Identificamos a causa raiz.\nHere's the workaround.                Aqui está a solução paliativa.\nThis affects all users.               Isso afeta todos os usuários.\n```\n\n> 💘 **root cause** = causa raiz. **workaround** = solução paliativa\n# ===== enquanto a definitiva não sai =====",
+          "lesson_md": "# Explicando problemas\n\nExplicar um problema com clareza = **sintoma + causa + solução**.\n\n## Frases úteis\n\n```\nWe're experiencing an issue with...   Estamos com um problema em...\nWe have identified the root cause.    Identificamos a causa raiz.\nHere's the workaround.                Aqui está a solução paliativa.\nThis affects all users.               Isso afeta todos os usuários.\n```\n\n> 💡 **root cause** = causa raiz. **workaround** = solução paliativa\n> enquanto a definitiva não sai",
           "exercises": [
             {
               "type": "quiz",
@@ -28563,7 +28563,7 @@
         {
           "slug": "discutindo-prazos",
           "title": "Discutindo prazos",
-          "lesson_md": "# Discutindo prazos\n\nFalar de prazos exige realismo e proatividade.\n\n## Frases úteis\n\n```\nThe deadline is Friday.              O prazo é sexta.\nCan we push the deadline to Monday?  Podemos adiar o prazo para segunda?\nI need an extension.                 Preciso de uma prorrogação.\nWe can meet the deadline.            Damos conta do prazo.\n```\n\n> 💘 **push the deadline** = adiar o prazo. **meet the deadline** = cumprir\n# ===== o prazo =====",
+          "lesson_md": "# Discutindo prazos\n\nFalar de prazos exige realismo e proatividade.\n\n## Frases úteis\n\n```\nThe deadline is Friday.              O prazo é sexta.\nCan we push the deadline to Monday?  Podemos adiar o prazo para segunda?\nI need an extension.                 Preciso de uma prorrogação.\nWe can meet the deadline.            Damos conta do prazo.\n```\n\n> 💡 **push the deadline** = adiar o prazo. **meet the deadline** = cumprir\n> o prazo",
           "exercises": [
             {
               "type": "quiz",
@@ -28634,7 +28634,7 @@
         {
           "slug": "dando-feedback",
           "title": "Dando feedback",
-          "lesson_md": "# Dando feedback\n\nFeedback construtivo é **específico** e **bem-intencionado**.\n\n## Frases úteis\n\n```\nI appreciate your work on...          Aprecio seu trabalho em...\nHave you considered...?               Você já considerou...?\nOne thing to improve is...            Uma coisa a melhorar é...\n```\n\n> 💘 O \"sanduíche\" clássico: **positivo + melhoria + positivo**. E seja\n# ===== específico — \"bom trabalho\" genérico não ajuda =====",
+          "lesson_md": "# Dando feedback\n\nFeedback construtivo é **específico** e **bem-intencionado**.\n\n## Frases úteis\n\n```\nI appreciate your work on...          Aprecio seu trabalho em...\nHave you considered...?               Você já considerou...?\nOne thing to improve is...            Uma coisa a melhorar é...\n```\n\n> 💡 O \"sanduíche\" clássico: **positivo + melhoria + positivo**. E seja\n> específico — \"bom trabalho\" genérico não ajuda",
           "exercises": [
             {
               "type": "quiz",
@@ -28705,7 +28705,7 @@
         {
           "slug": "recebendo-feedback",
           "title": "Recebendo feedback",
-          "lesson_md": "# Recebendo feedback\n\nReceber bem o feedback mostra **maturidade profissional**.\n\n## Frases úteis\n\n```\nThank you for the feedback.           Obrigado pelo retorno.\nThat's a fair point.                  É um ponto justo.\nI'll work on that.                    Vou trabalhar nisso.\nCould you give me an example?         Pode me dar um exemplo?\n```\n\n> 💘 A pior atitude é se defender na hora. Agradeça, considere e peça\n# ===== detalhes se precisar =====",
+          "lesson_md": "# Recebendo feedback\n\nReceber bem o feedback mostra **maturidade profissional**.\n\n## Frases úteis\n\n```\nThank you for the feedback.           Obrigado pelo retorno.\nThat's a fair point.                  É um ponto justo.\nI'll work on that.                    Vou trabalhar nisso.\nCould you give me an example?         Pode me dar um exemplo?\n```\n\n> 💡 A pior atitude é se defender na hora. Agradeça, considere e peça\n> detalhes se precisar",
           "exercises": [
             {
               "type": "quiz",
@@ -28776,7 +28776,7 @@
         {
           "slug": "negociando-no-trabalho",
           "title": "Negociando (no trabalho)",
-          "lesson_md": "# Negociando (no trabalho)\n\nNegociação (salário, termos, prazos) exige respeito e base em dados.\n\n## Frases úteis\n\n```\nCould we discuss the compensation?       Podemos discutir a remuneração?\nI was expecting a salary of...          Eu esperava um salário de...\nLet's find a middle ground.             Vamos encontrar um meio-termo.\nLet me consider the offer.              Deixe-me considerar a oferta.\n```\n\n> 💘 Negociação profissional é **respeitosa e baseada em dados** — nada de\n# ===== agressividade ou pressa =====",
+          "lesson_md": "# Negociando (no trabalho)\n\nNegociação (salário, termos, prazos) exige respeito e base em dados.\n\n## Frases úteis\n\n```\nCould we discuss the compensation?       Podemos discutir a remuneração?\nI was expecting a salary of...          Eu esperava um salário de...\nLet's find a middle ground.             Vamos encontrar um meio-termo.\nLet me consider the offer.              Deixe-me considerar a oferta.\n```\n\n> 💡 Negociação profissional é **respeitosa e baseada em dados** — nada de\n> agressividade ou pressa",
           "exercises": [
             {
               "type": "quiz",
@@ -28855,7 +28855,7 @@
         {
           "slug": "vocabulario-de-programacao",
           "title": "Vocabulário de programação",
-          "lesson_md": "# Vocabulário de programação\n\n| Inglês | Português |\n|---|---|\n| code | código |\n| bug | erro (em código) |\n| variable | variável |\n| function | função |\n| loop | laço |\n| to run | executar |\n| library | biblioteca |\n| framework | framework |\n| API | API |\n\n## Exemplos\n\n```\nThe code runs on the server.      O código roda no servidor.\nThis function processes the data.  Esta função processa os dados.\n```\n\n> 💘 **bug** = erro. **run** = executar. **library/framework** = código\n# ===== pronto para reutilizar =====",
+          "lesson_md": "# Vocabulário de programação\n\n| Inglês | Português |\n|---|---|\n| code | código |\n| bug | erro (em código) |\n| variable | variável |\n| function | função |\n| loop | laço |\n| to run | executar |\n| library | biblioteca |\n| framework | framework |\n| API | API |\n\n## Exemplos\n\n```\nThe code runs on the server.      O código roda no servidor.\nThis function processes the data.  Esta função processa os dados.\n```\n\n> 💡 **bug** = erro. **run** = executar. **library/framework** = código\n> pronto para reutilizar",
           "exercises": [
             {
               "type": "quiz",
@@ -28926,7 +28926,7 @@
         {
           "slug": "vocabulario-de-software",
           "title": "Vocabulário de desenvolvimento de software",
-          "lesson_md": "# Vocabulário de desenvolvimento de software\n\n| Inglês | Português |\n|---|---|\n| requirements | requisitos |\n| architecture | arquitetura |\n| frontend | frontend (parte visual) |\n| backend | backend (dados/lógica) |\n| database | banco de dados |\n| feature | funcionalidade |\n| release | versão publicada |\n| deployment | implantação/deploy |\n\n## Exemplos\n\n```\nThis is a new feature.          Esta é uma nova funcionalidade.\nWe release a new version monthly.   Publicamos uma nova versão mensalmente.\n```\n\n> 💘 **feature** = funcionalidade nova. **deployment** = colocar o software\n# ===== no ar =====",
+          "lesson_md": "# Vocabulário de desenvolvimento de software\n\n| Inglês | Português |\n|---|---|\n| requirements | requisitos |\n| architecture | arquitetura |\n| frontend | frontend (parte visual) |\n| backend | backend (dados/lógica) |\n| database | banco de dados |\n| feature | funcionalidade |\n| release | versão publicada |\n| deployment | implantação/deploy |\n\n## Exemplos\n\n```\nThis is a new feature.          Esta é uma nova funcionalidade.\nWe release a new version monthly.   Publicamos uma nova versão mensalmente.\n```\n\n> 💡 **feature** = funcionalidade nova. **deployment** = colocar o software\n> no ar",
           "exercises": [
             {
               "type": "quiz",
@@ -28997,7 +28997,7 @@
         {
           "slug": "lendo-documentacao",
           "title": "Lendo documentação",
-          "lesson_md": "# Lendo documentação\n\nA documentação (README, docs) tem seções padrão.\n\n## Seções comuns\n\n```\nInstallation    instalação\nUsage           como usar\nAPI reference   referência da API\nExamples        exemplos\n```\n\n## Exemplos\n\n```\nCheck the documentation for details.   Consulte a documentação para detalhes.\nSee the API reference for all methods.  Veja a referência da API para todos os métodos.\n```\n\n> 💘 Boa documentação inclui **exemplos e casos de uso** — não só o logo.",
+          "lesson_md": "# Lendo documentação\n\nA documentação (README, docs) tem seções padrão.\n\n## Seções comuns\n\n```\nInstallation    instalação\nUsage           como usar\nAPI reference   referência da API\nExamples        exemplos\n```\n\n## Exemplos\n\n```\nCheck the documentation for details.   Consulte a documentação para detalhes.\nSee the API reference for all methods.  Veja a referência da API para todos os métodos.\n```\n\n> 💡 Boa documentação inclui **exemplos e casos de uso** — não só o logo.",
           "exercises": [
             {
               "type": "quiz",
@@ -29068,7 +29068,7 @@
         {
           "slug": "github",
           "title": "GitHub",
-          "lesson_md": "# GitHub\n\nO vocabulário de GitHub e Git.\n\n| Inglês | Português |\n|---|---|\n| repository | repositório |\n| branch | ramo |\n| to clone | copiar (repo) |\n| to push | enviar (commits) |\n| to pull | puxar (do remoto) |\n| issue | tarefa/bug registrado |\n| pull request | pedido de revisão |\n\n## Comandos\n\n```\ngit clone        copia o repositório\ngit push         envia commits\ngit pull         baixa mudanças\n```\n\n> 💘 **issue** registra tarefa ou bug. **PR** propõe mudança para revisão.",
+          "lesson_md": "# GitHub\n\nO vocabulário de GitHub e Git.\n\n| Inglês | Português |\n|---|---|\n| repository | repositório |\n| branch | ramo |\n| to clone | copiar (repo) |\n| to push | enviar (commits) |\n| to pull | puxar (do remoto) |\n| issue | tarefa/bug registrado |\n| pull request | pedido de revisão |\n\n## Comandos\n\n```\ngit clone        copia o repositório\ngit push         envia commits\ngit pull         baixa mudanças\n```\n\n> 💡 **issue** registra tarefa ou bug. **PR** propõe mudança para revisão.",
           "exercises": [
             {
               "type": "quiz",
@@ -29139,7 +29139,7 @@
         {
           "slug": "stack-overflow",
           "title": "Stack Overflow",
-          "lesson_md": "# Stack Overflow\n\nPara perguntar bem no Stack Overflow, descreva o problema com código.\n\n## Como perguntar\n\n```\nI'm getting a SyntaxError.        Estou com um SyntaxError.\nHere's my code.                   Aqui está meu código.\nHas anyone solved this problem?   Alguém já resolveu esse problema?\n```\n\n## A resposta boa\n\n```\nAccepted answer    resposta marcada como correta\n```\n\n> 💘 Boa pergunta inclui **código + erro**. Antes de perguntar, procure se\n# ===== alguém já perguntou =====",
+          "lesson_md": "# Stack Overflow\n\nPara perguntar bem no Stack Overflow, descreva o problema com código.\n\n## Como perguntar\n\n```\nI'm getting a SyntaxError.        Estou com um SyntaxError.\nHere's my code.                   Aqui está meu código.\nHas anyone solved this problem?   Alguém já resolveu esse problema?\n```\n\n## A resposta boa\n\n```\nAccepted answer    resposta marcada como correta\n```\n\n> 💡 Boa pergunta inclui **código + erro**. Antes de perguntar, procure se\n> alguém já perguntou",
           "exercises": [
             {
               "type": "quiz",
@@ -29210,7 +29210,7 @@
         {
           "slug": "artigos-tecnicos",
           "title": "Artigos técnicos",
-          "lesson_md": "# Artigos técnicos\n\nArtigos técnicos (blogs, tutoriais) seguem: **problema -> solução ->\nconclusão**.\n\n## Frases úteis\n\n```\nThis tutorial explains step by step.   Este tutorial explica passo a passo.\nThis article explains how to scale.    Este artigo explica como escalar.\n```\n\n> 💘 Para julgar um artigo, veja se **resolve o problema** — e teste o que\n# ===== aprendeu na prática =====",
+          "lesson_md": "# Artigos técnicos\n\nArtigos técnicos (blogs, tutoriais) seguem: **problema -> solução ->\nconclusão**.\n\n## Frases úteis\n\n```\nThis tutorial explains step by step.   Este tutorial explica passo a passo.\nThis article explains how to scale.    Este artigo explica como escalar.\n```\n\n> 💡 Para julgar um artigo, veja se **resolve o problema** — e teste o que\n> aprendeu na prática",
           "exercises": [
             {
               "type": "quiz",
@@ -29281,7 +29281,7 @@
         {
           "slug": "code-review",
           "title": "Code review",
-          "lesson_md": "# Code review\n\nRevisar código exige vocabulário gentil e preciso.\n\n## Frases úteis\n\n```\nLGTM                          looks good to me (está bom pra mim)\nMinor: could you fix the spacing?   Menor: pode corrigir o espaçamento?\nThis looks good to me.        Isso parece bom para mim.\n```\n\n> 💘 **LGTM** = looks good to me — aprovação comum em PRs. Review gentil\n# ===== **sugere**, não impõe =====",
+          "lesson_md": "# Code review\n\nRevisar código exige vocabulário gentil e preciso.\n\n## Frases úteis\n\n```\nLGTM                          looks good to me (está bom pra mim)\nMinor: could you fix the spacing?   Menor: pode corrigir o espaçamento?\nThis looks good to me.        Isso parece bom para mim.\n```\n\n> 💡 **LGTM** = looks good to me — aprovação comum em PRs. Review gentil\n> **sugere**, não impõe",
           "exercises": [
             {
               "type": "quiz",
@@ -29352,7 +29352,7 @@
         {
           "slug": "pull-requests",
           "title": "Pull requests",
-          "lesson_md": "# Pull requests\n\nA linguagem do PR: abrir, revisar, pedir mudanças, aprovar e mergear.\n\n## Frases úteis\n\n```\nPlease review my changes.        Por favor, revise minhas mudanças.\nI've pushed the changes.         Enviei (push) as mudanças.\nRequested changes                mudanças solicitadas\nLooks good, merging now.         Parece bom, mergeando agora.\n```\n\n> 💘 Um PR descritivo explica **o que mudou e por quê** — não só o título.",
+          "lesson_md": "# Pull requests\n\nA linguagem do PR: abrir, revisar, pedir mudanças, aprovar e mergear.\n\n## Frases úteis\n\n```\nPlease review my changes.        Por favor, revise minhas mudanças.\nI've pushed the changes.         Enviei (push) as mudanças.\nRequested changes                mudanças solicitadas\nLooks good, merging now.         Parece bom, mergeando agora.\n```\n\n> 💡 Um PR descritivo explica **o que mudou e por quê** — não só o título.",
           "exercises": [
             {
               "type": "quiz",
@@ -29423,7 +29423,7 @@
         {
           "slug": "discussoes-de-arquitetura",
           "title": "Discussões de arquitetura",
-          "lesson_md": "# Discussões de arquitetura\n\nFalar de arquitetura é discutir **escolhas e trade-offs**.\n\n## Frases úteis\n\n```\nWe should consider using...       Devemos considerar usar...\nThis scales well with users.      Isso escala bem com usuários.\nThe trade-off of this approach is complexity.   A desvantagem desta abordagem é a complexidade.\n```\n\n> 💘 **scales well** = aguenta crescimento. **trade-off** = desvantagem\n# ===== aceita em troca de uma vantagem =====",
+          "lesson_md": "# Discussões de arquitetura\n\nFalar de arquitetura é discutir **escolhas e trade-offs**.\n\n## Frases úteis\n\n```\nWe should consider using...       Devemos considerar usar...\nThis scales well with users.      Isso escala bem com usuários.\nThe trade-off of this approach is complexity.   A desvantagem desta abordagem é a complexidade.\n```\n\n> 💡 **scales well** = aguenta crescimento. **trade-off** = desvantagem\n> aceita em troca de uma vantagem",
           "exercises": [
             {
               "type": "quiz",
@@ -29494,7 +29494,7 @@
         {
           "slug": "system-design",
           "title": "Vocabulário de system design",
-          "lesson_md": "# Vocabulário de system design\n\n| Inglês | Português |\n|---|---|\n| latency | latência (tempo de resposta) |\n| throughput | vazão (quanto processa) |\n| cache | cache (dados rápidos) |\n| load balancer | balanceador de carga |\n| availability | disponibilidade |\n| queue | fila |\n\n## Exemplos\n\n```\nWe added a cache to reduce latency.   Adicionamos um cache para reduzir a latência.\nWe need a load balancer.              Precisamos de um balanceador de carga.\n```\n\n> 💘 **latency** = tempo de resposta; **throughput** = quanto o sistema\n# ===== processa por unidade de tempo =====",
+          "lesson_md": "# Vocabulário de system design\n\n| Inglês | Português |\n|---|---|\n| latency | latência (tempo de resposta) |\n| throughput | vazão (quanto processa) |\n| cache | cache (dados rápidos) |\n| load balancer | balanceador de carga |\n| availability | disponibilidade |\n| queue | fila |\n\n## Exemplos\n\n```\nWe added a cache to reduce latency.   Adicionamos um cache para reduzir a latência.\nWe need a load balancer.              Precisamos de um balanceador de carga.\n```\n\n> 💡 **latency** = tempo de resposta; **throughput** = quanto o sistema\n> processa por unidade de tempo",
           "exercises": [
             {
               "type": "quiz",
@@ -29565,7 +29565,7 @@
         {
           "slug": "vocabulario-de-debugging",
           "title": "Vocabulário de debugging",
-          "lesson_md": "# Vocabulário de debugging\n\n| Inglês | Português |\n|---|---|\n| traceback | rastreamento do erro |\n| to reproduce | reproduzir |\n| breakpoint | ponto de parada |\n| stack trace | trilha da pilha |\n| log | registro |\n\n## Exemplos\n\n```\nCan you reproduce the error?      Você consegue reproduzir o erro?\nLet's check the error log.        Vamos ver o registro de erros.\n```\n\n> 💘 O primeiro passo do debug: **ler o erro e reproduzir**. Um\n# ===== breakpoint pausa o código para inspeção =====",
+          "lesson_md": "# Vocabulário de debugging\n\n| Inglês | Português |\n|---|---|\n| traceback | rastreamento do erro |\n| to reproduce | reproduzir |\n| breakpoint | ponto de parada |\n| stack trace | trilha da pilha |\n| log | registro |\n\n## Exemplos\n\n```\nCan you reproduce the error?      Você consegue reproduzir o erro?\nLet's check the error log.        Vamos ver o registro de erros.\n```\n\n> 💡 O primeiro passo do debug: **ler o erro e reproduzir**. Um\n> breakpoint pausa o código para inspeção",
           "exercises": [
             {
               "type": "quiz",
@@ -29636,7 +29636,7 @@
         {
           "slug": "vocabulario-de-ia",
           "title": "Vocabulário de IA",
-          "lesson_md": "# Vocabulário de IA\n\n| Inglês | Português |\n|---|---|\n| model | modelo |\n| training | treinamento |\n| dataset | conjunto de dados |\n| inference | inferência (usar o modelo) |\n| prompt | instrução ao modelo |\n| token | pedaço de texto |\n| neural network | rede neural |\n\n## Exemplos\n\n```\nWe trained the model on new data.   Treinamos o modelo com dados novos.\nThe model was trained on a large dataset.   O modelo foi treinado em um grande conjunto de dados.\n```\n\n> 💘 **training** = treinar com dados; **inference** = usar o modelo\n# ===== treinado para prever =====",
+          "lesson_md": "# Vocabulário de IA\n\n| Inglês | Português |\n|---|---|\n| model | modelo |\n| training | treinamento |\n| dataset | conjunto de dados |\n| inference | inferência (usar o modelo) |\n| prompt | instrução ao modelo |\n| token | pedaço de texto |\n| neural network | rede neural |\n\n## Exemplos\n\n```\nWe trained the model on new data.   Treinamos o modelo com dados novos.\nThe model was trained on a large dataset.   O modelo foi treinado em um grande conjunto de dados.\n```\n\n> 💡 **training** = treinar com dados; **inference** = usar o modelo\n> treinado para prever",
           "exercises": [
             {
               "type": "quiz",
@@ -29707,7 +29707,7 @@
         {
           "slug": "vocabulario-de-cloud",
           "title": "Vocabulário de cloud",
-          "lesson_md": "# Vocabulário de cloud\n\n| Inglês | Português |\n|---|---|\n| cloud | nuvem (servidores remotos) |\n| instance | máquina virtual |\n| provider | provedor (AWS, Azure, GCP) |\n| scaling | escalar (recursos sob demanda) |\n| serverless | sem gerenciar servidores |\n| region | região |\n\n## Exemplos\n\n```\nWe deployed to the cloud.         Publicamos na nuvem.\nWe host the app on a cloud provider.   Hospedamos o app em um provedor de nuvem.\n```\n\n> 💘 **scaling** ajusta recursos sob demanda. **serverless** = você não\n# ===== gerencia servidores =====",
+          "lesson_md": "# Vocabulário de cloud\n\n| Inglês | Português |\n|---|---|\n| cloud | nuvem (servidores remotos) |\n| instance | máquina virtual |\n| provider | provedor (AWS, Azure, GCP) |\n| scaling | escalar (recursos sob demanda) |\n| serverless | sem gerenciar servidores |\n| region | região |\n\n## Exemplos\n\n```\nWe deployed to the cloud.         Publicamos na nuvem.\nWe host the app on a cloud provider.   Hospedamos o app em um provedor de nuvem.\n```\n\n> 💡 **scaling** ajusta recursos sob demanda. **serverless** = você não\n> gerencia servidores",
           "exercises": [
             {
               "type": "quiz",
@@ -29778,7 +29778,7 @@
         {
           "slug": "vocabulario-de-devops",
           "title": "Vocabulário de DevOps",
-          "lesson_md": "# Vocabulário de DevOps\n\n| Inglês | Português |\n|---|---|\n| CI/CD | integração/entrega contínuas |\n| pipeline | pipeline (fluxo automatizado) |\n| container | container (ambiente isolado) |\n| deployment | deploy |\n| monitoring | monitoramento |\n| rollback | voltar versão anterior |\n| alert | alerta |\n\n## Exemplos\n\n```\nThe deployment pipeline is automated.   O pipeline de deploy é automatizado.\nThe pipeline runs on every commit.      O pipeline roda a cada commit.\n```\n\n> 💘 **CI/CD** automatiza build, teste e deploy. **rollback** volta para a\n# ===== versão anterior em caso de problema =====",
+          "lesson_md": "# Vocabulário de DevOps\n\n| Inglês | Português |\n|---|---|\n| CI/CD | integração/entrega contínuas |\n| pipeline | pipeline (fluxo automatizado) |\n| container | container (ambiente isolado) |\n| deployment | deploy |\n| monitoring | monitoramento |\n| rollback | voltar versão anterior |\n| alert | alerta |\n\n## Exemplos\n\n```\nThe deployment pipeline is automated.   O pipeline de deploy é automatizado.\nThe pipeline runs on every commit.      O pipeline roda a cada commit.\n```\n\n> 💡 **CI/CD** automatiza build, teste e deploy. **rollback** volta para a\n> versão anterior em caso de problema",
           "exercises": [
             {
               "type": "quiz",
@@ -29806,7 +29806,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'The pipeline runs on every ___ .' (commit)",
+              "prompt": "Complete: 'The pipeline runs on every ___ .' (registro de uma alteração no Git)",
               "solution": "commit",
               "audio_lang": "en-US",
               "position": 2
@@ -29852,12 +29852,12 @@
     {
       "slug": "modulo-25-treino-fluencia",
       "title": "Módulo 25 — Treino de Fluência",
-      "summary": "Falar sem travar: pensar em inglês, evitar a tradução mental, parafrasear, circumlocução, espontaneidade, recall de vocabulário, frases automáticas, velocidade, pronúncia, entonação, escuta rápida e alternância de contexto.",
+      "summary": "Falar sem travar: pensar em inglês, evitar a tradução mental, parafrasear, circunlocução, espontaneidade, recall de vocabulário, frases automáticas, velocidade, pronúncia, entonação, escuta rápida e alternância de contexto.",
       "topics": [
         {
           "slug": "pensando-em-ingles",
           "title": "Pensando em inglês",
-          "lesson_md": "# Pensando em inglês\n\nA fluência real começa quando você **pensa direto em inglês** — sem traduzir\nmentalmente.\n\n## Como praticar\n\n- **Rotule** objetos ao redor em inglês (tabela, cadeira, janela).\n- **Narre** o que faz: \"I'm opening the door\", \"I need my keys\".\n- Forme pensamentos simples direto no idioma.\n\n> 💡 Pensar em inglês deixa a fala mais **rápida e natural** — porque você\n# ===== pula a etapa da tradução =====",
+          "lesson_md": "# Pensando em inglês\n\nA fluência real começa quando você **pensa direto em inglês** — sem traduzir\nmentalmente.\n\n## Como praticar\n\n- **Rotule** objetos ao redor em inglês (table, chair, window).\n- **Narre** o que faz: \"I'm opening the door\", \"I need my keys\".\n- Forme pensamentos simples direto no idioma.\n\n> 💡 Pensar em inglês deixa a fala mais **rápida e natural** — porque você\n> pula a etapa da tradução",
           "exercises": [
             {
               "type": "quiz",
@@ -29928,7 +29928,7 @@
         {
           "slug": "evitando-traducao-mental",
           "title": "Evitando tradução mental",
-          "lesson_md": "# Evitando tradução mental\n\nA tradução palavra a palavra **atrasa** e gera erros. Aprenda em **blocos**.\n\n## O que fazer\n\n- Aprenda **chunks** (blocos prontos): \"It depends\", \"What I meant was\".\n- Associe a palavra à **imagem/ideia**, não ao português.\n- Não abra o dicionário a cada palavra — use o contexto.\n\n> 💘 Blocos prontos como \"It depends\" são aprendidos **como um todo** — não\n# ===== traduzidos palavra por palavra =====",
+          "lesson_md": "# Evitando tradução mental\n\nA tradução palavra a palavra **atrasa** e gera erros. Aprenda em **blocos**.\n\n## O que fazer\n\n- Aprenda **chunks** (blocos prontos): \"It depends\", \"What I meant was\".\n- Associe a palavra à **imagem/ideia**, não ao português.\n- Não abra o dicionário a cada palavra — use o contexto.\n\n> 💡 Blocos prontos como \"It depends\" são aprendidos **como um todo** — não\n> traduzidos palavra por palavra",
           "exercises": [
             {
               "type": "quiz",
@@ -29999,7 +29999,7 @@
         {
           "slug": "parafrase-fluencia",
           "title": "Paráfrase",
-          "lesson_md": "# Paráfrase\n\n**Parafrasear** é dizer a mesma ideia com outras palavras — essencial quando\nvocê trava numa palavra.\n\n## Exemplos\n\n```\nI'm tired.   ->   I'm exhausted.\nShe is very happy.   ->   She is delighted.\n```\n\n## Quando usar\n\n- Você esqueceu a palavra exata.\n- O ouvinte não entendeu.\n- Você quer evitar repetição.\n\n> 💘 Paráfrase + sinônimos = o socorro da fluência quando falta a palavra.",
+          "lesson_md": "# Paráfrase\n\n**Parafrasear** é dizer a mesma ideia com outras palavras — essencial quando\nvocê trava numa palavra.\n\n## Exemplos\n\n```\nI'm tired.   ->   I'm exhausted.\nShe is very happy.   ->   She is delighted.\n```\n\n## Quando usar\n\n- Você esqueceu a palavra exata.\n- O ouvinte não entendeu.\n- Você quer evitar repetição.\n\n> 💡 Paráfrase + sinônimos = o socorro da fluência quando falta a palavra.",
           "exercises": [
             {
               "type": "quiz",
@@ -30043,9 +30043,9 @@
             {
               "type": "quiz",
               "prompt": "Paráfrase é essencial para:",
-              "solution": "fluência e circumlocução",
+              "solution": "fluência e circunlocução",
               "options": [
-                "fluência e circumlocução",
+                "fluência e circunlocução",
                 "decorar",
                 "nada"
               ],
@@ -30070,7 +30070,7 @@
         {
           "slug": "circunlocucao",
           "title": "Circunlocução",
-          "lesson_md": "# Circunlocução\n\n**Circunlocução** é descrever uma palavra que você não lembra — mantém a\nconversa fluindo.\n\n## Como descrever sem a palavra\n\n```\n\"It's the thing you use to keep food cold.\"   (refrigerador)\n\"It's the tool you use to cut paper.\"         (tesoura)\n```\n\n## Por que importa\n\nEm vez de travar (\"I don't know the word\"), você **descreve** — e o nativo\nte ajuda ou você se faz entender.\n\n> 💘 Circunlocução = falar ao redor da palavra. Treine descrevendo objetos\n# ===== do dia a dia sem dizer o nome =====",
+          "lesson_md": "# Circunlocução\n\n**Circunlocução** é descrever uma palavra que você não lembra — mantém a\nconversa fluindo.\n\n## Como descrever sem a palavra\n\n```\n\"It's the thing you use to keep food cold.\"   (refrigerador)\n\"It's the tool you use to cut paper.\"         (tesoura)\n```\n\n## Por que importa\n\nEm vez de travar (\"I don't know the word\"), você **descreve** — e o nativo\nte ajuda ou você se faz entender.\n\n> 💡 Circunlocução = falar ao redor da palavra. Treine descrevendo objetos\n> do dia a dia sem dizer o nome",
           "exercises": [
             {
               "type": "quiz",
@@ -30141,7 +30141,7 @@
         {
           "slug": "espontaneidade-fluencia",
           "title": "Falando espontaneamente",
-          "lesson_md": "# Falando espontaneamente\n\nFalar sem ensaio exige **frases-ponte** para ganhar tempo e responder.\n\n## Frases-ponte\n\n```\nLet me think for a moment.         Deixe-me pensar um momento.\nThat's a great question.           É uma ótima pergunta.\nOff the top of my head...          De cabeça, sem pensar muito...\n```\n\n## Ao não saber responder\n\n- **Reformule** e tente (\"Let me put it this way...\").\n- Não fique em silêncio — o nativo também hesita.\n\n> 💘 Espontaneidade melhora com **prática de resposta rápida** — não com\n# ===== silêncio =====",
+          "lesson_md": "# Falando espontaneamente\n\nFalar sem ensaio exige **frases-ponte** para ganhar tempo e responder.\n\n## Frases-ponte\n\n```\nLet me think for a moment.         Deixe-me pensar um momento.\nThat's a great question.           É uma ótima pergunta.\nOff the top of my head...          De cabeça, sem pensar muito...\n```\n\n## Ao não saber responder\n\n- **Reformule** e tente (\"Let me put it this way...\").\n- Não fique em silêncio — o nativo também hesita.\n\n> 💡 Espontaneidade melhora com **prática de resposta rápida** — não com\n> silêncio",
           "exercises": [
             {
               "type": "quiz",
@@ -30212,7 +30212,7 @@
         {
           "slug": "recall-de-vocabulario",
           "title": "Recall de vocabulário",
-          "lesson_md": "# Recall de vocabulário\n\n**Recall ativo** é lembrar a palavra **sem ajuda** — muito mais forte que só\nreconhecer.\n\n## Como treinar\n\n- **Teste-se**: veja a tradução e diga a palavra em inglês.\n- Use **repetição espaçada** (revisar em intervalos).\n- Antes de conferir, tente **recordar**.\n\n> 💘 Reler a lista não é recall — **testar-se** é. Quem se testa lembra\n# ===== muito mais =====",
+          "lesson_md": "# Recall de vocabulário\n\n**Recall ativo** é lembrar a palavra **sem ajuda** — muito mais forte que só\nreconhecer.\n\n## Como treinar\n\n- **Teste-se**: veja a tradução e diga a palavra em inglês.\n- Use **repetição espaçada** (revisar em intervalos).\n- Antes de conferir, tente **recordar**.\n\n> 💡 Reler a lista não é recall — **testar-se** é. Quem se testa lembra\n> muito mais",
           "exercises": [
             {
               "type": "quiz",
@@ -30283,7 +30283,7 @@
         {
           "slug": "formacao-automatica-de-frases",
           "title": "Formação automática de frases",
-          "lesson_md": "# Formação automática de frases\n\nFluência é montar frases **sem pensar muito** — automatizando estruturas.\n\n## Templates para automatizar\n\n```\nI'm planning to ___.          Estou planejando...\nI'm looking forward to ___.   Estou ansioso para...\nI'm used to ___.              Estou acostumado a...\n```\n\n## Como praticar\n\nRepita os templates em voz alta com vocabulário diferente até saírem\nautomáticos.\n\n> 💘 Com o tempo, as frases saem **sozinhas** — sem montar do zero cada vez.",
+          "lesson_md": "# Formação automática de frases\n\nFluência é montar frases **sem pensar muito** — automatizando estruturas.\n\n## Templates para automatizar\n\n```\nI'm planning to ___.          Estou planejando...\nI'm looking forward to ___.   Estou ansioso para...\nI'm used to ___.              Estou acostumado a...\n```\n\n## Como praticar\n\nRepita os templates em voz alta com vocabulário diferente até saírem\nautomáticos.\n\n> 💡 Com o tempo, as frases saem **sozinhas** — sem montar do zero cada vez.",
           "exercises": [
             {
               "type": "quiz",
@@ -30354,7 +30354,7 @@
         {
           "slug": "velocidade-de-conversa",
           "title": "Velocidade de conversa",
-          "lesson_md": "# Velocidade de conversa\n\nFale em uma velocidade **natural e equilibrada** — nem lenta demais, nem\ncorrendo.\n\n## O problema de cada extremo\n\n```\nMuito devagar:  soa inseguro e cansa o ouvinte.\nMuito rápido:   compromete a clareza.\n```\n\n## Como melhorar\n\n- Pratique **frases inteiras** (não palavra por palavra).\n- Automatize vocabulário e estruturas.\n\n> 💘 A velocidade vem da **automatização**, não da pressa. Fale confortável\n# ===== e deixe o vocabulário fluir =====",
+          "lesson_md": "# Velocidade de conversa\n\nFale em uma velocidade **natural e equilibrada** — nem lenta demais, nem\ncorrendo.\n\n## O problema de cada extremo\n\n```\nMuito devagar:  soa inseguro e cansa o ouvinte.\nMuito rápido:   compromete a clareza.\n```\n\n## Como melhorar\n\n- Pratique **frases inteiras** (não palavra por palavra).\n- Automatize vocabulário e estruturas.\n\n> 💡 A velocidade vem da **automatização**, não da pressa. Fale confortável\n> e deixe o vocabulário fluir",
           "exercises": [
             {
               "type": "quiz",
@@ -30382,7 +30382,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'Speak at a ___ pace.' (natural)",
+              "prompt": "Complete: 'Speak at a ___ pace.' (nem rápido nem lento: espontâneo)",
               "solution": "natural",
               "audio_lang": "en-US",
               "position": 2
@@ -30425,7 +30425,7 @@
         {
           "slug": "pronuncia-fluencia",
           "title": "Pronúncia (fluência)",
-          "lesson_md": "# Pronúncia (fluência)\n\nNa fluência, o objetivo é **clareza** — ser entendido — mais do que um\nsotaque perfeito.\n\n## O que treinar\n\n- **Pares mínimos**: ship/sheep, bit/beat (sons que mudam a palavra).\n- **Ritmo e ligação**: a fala conectada (Módulo 14).\n- **Shadowing**: repetir o áudio em voz alta, imitando.\n\n> 💘 **Clareza > perfeição**: você não precisa soar britânico ou americano —\n# ===== precisa ser entendido =====",
+          "lesson_md": "# Pronúncia (fluência)\n\nNa fluência, o objetivo é **clareza** — ser entendido — mais do que um\nsotaque perfeito.\n\n## O que treinar\n\n- **Pares mínimos**: ship/sheep, bit/beat (sons que mudam a palavra).\n- **Ritmo e ligação**: a fala conectada (Módulo 14).\n- **Shadowing**: repetir o áudio em voz alta, imitando.\n\n> 💡 **Clareza > perfeição**: você não precisa soar britânico ou americano —\n> precisa ser entendido",
           "exercises": [
             {
               "type": "quiz",
@@ -30496,7 +30496,7 @@
         {
           "slug": "entonacao-fluencia",
           "title": "Entonação (fluência)",
-          "lesson_md": "# Entonação (fluência)\n\nA **entonação** (subir/descer a voz) muda o significado e a intenção.\n\n## Regras básicas\n\n```\nPergunta sim/não:  tom sobe no fim  (\"Ready? ↗\")\nAfirmação / wh:    tom desce       (\"I'm tired. ↘\")\n```\n\n## Como treinar\n\n- **Repita imitando** o tom do nativo (shadowing).\n- Note como a mesma frase muda com o tom.\n\n> 💘 \"It's really interesting\" com tom diferente pode ser elogio ou ironia —\n# ===== o tom é parte do significado =====",
+          "lesson_md": "# Entonação (fluência)\n\nA **entonação** (subir/descer a voz) muda o significado e a intenção.\n\n## Regras básicas\n\n```\nPergunta sim/não:  tom sobe no fim  (\"Ready? ↗\")\nAfirmação / wh:    tom desce       (\"I'm tired. ↘\")\n```\n\n## Como treinar\n\n- **Repita imitando** o tom do nativo (shadowing).\n- Note como a mesma frase muda com o tom.\n\n> 💡 \"It's really interesting\" com tom diferente pode ser elogio ou ironia —\n> o tom é parte do significado",
           "exercises": [
             {
               "type": "quiz",
@@ -30567,7 +30567,7 @@
         {
           "slug": "velocidade-de-escuta",
           "title": "Velocidade de escuta",
-          "lesson_md": "# Velocidade de escuta\n\nTreine o ouvido com velocidades crescentes até o natural parecer claro.\n\n## Como treinar\n\n- Aumente a velocidade do áudio **aos poucos** (1.1x, 1.25x, 1.5x).\n- Quando você entende a 1.5x, a fala normal parece lenta e clara.\n\n> 💘 O segredo é a **exposição frequente** — não é um teste, é um treino de\n# ===== adaptação =====",
+          "lesson_md": "# Velocidade de escuta\n\nTreine o ouvido com velocidades crescentes até o natural parecer claro.\n\n## Como treinar\n\n- Aumente a velocidade do áudio **aos poucos** (1.1x, 1.25x, 1.5x).\n- Quando você entende a 1.5x, a fala normal parece lenta e clara.\n\n> 💡 O segredo é a **exposição frequente** — não é um teste, é um treino de\n> adaptação",
           "exercises": [
             {
               "type": "quiz",
@@ -30638,7 +30638,7 @@
         {
           "slug": "alternancia-de-contexto",
           "title": "Alternância de contexto",
-          "lesson_md": "# Alternância de contexto\n\nFluência total é **adaptar a linguagem** a cada situação — formal, informal,\ntécnica, social.\n\n## Como praticar\n\n- Fale do **mesmo assunto** em registros diferentes.\n- Pratique em temas variados: trabalho, lazer, notícias, tecnologia.\n- Observe como a linguagem muda com o ambiente.\n\n> 💘 No nível avançado, você alterna **com naturalidade**: e-mail formal de\n# ===== manhã, conversa informal à noite, discussão técnica no meio =====",
+          "lesson_md": "# Alternância de contexto\n\nFluência total é **adaptar a linguagem** a cada situação — formal, informal,\ntécnica, social.\n\n## Como praticar\n\n- Fale do **mesmo assunto** em registros diferentes.\n- Pratique em temas variados: trabalho, lazer, notícias, tecnologia.\n- Observe como a linguagem muda com o ambiente.\n\n> 💡 No nível avançado, você alterna **com naturalidade**: e-mail formal de\n> manhã, conversa informal à noite, discussão técnica no meio",
           "exercises": [
             {
               "type": "quiz",
@@ -30666,7 +30666,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'Switch between ___ and formal.' (informal)",
+              "prompt": "Complete: 'Switch between ___ and formal.' (oposto de formal)",
               "solution": "informal",
               "audio_lang": "en-US",
               "position": 2
@@ -30717,7 +30717,7 @@
         {
           "slug": "entendendo-nuance",
           "title": "Entendendo nuance",
-          "lesson_md": "# Entendendo nuance\n\n**Nuance** é a sutileza de significado — a diferença entre \"annoyed\" e\n\"furious\", ou entre \"It's fine\" e \"It's great\".\n\n## Exemplos de nuance\n\n```\nannoyed (chateado)  <  angry (bravo)  <  furious (furioso)\nIt's fine.   (ok, meio insatisfeito)\nIt's great.  (entusiasmado)\n```\n\n> 💘 Captar nuance exige atenção ao **tom e ao contexto** — não só ao\n# ===== dicionário =====",
+          "lesson_md": "# Entendendo nuance\n\n**Nuance** é a sutileza de significado — a diferença entre \"annoyed\" e\n\"furious\", ou entre \"It's fine\" e \"It's great\".\n\n## Exemplos de nuance\n\n```\nannoyed (chateado)  <  angry (bravo)  <  furious (furioso)\nIt's fine.   (ok, meio insatisfeito)\nIt's great.  (entusiasmado)\n```\n\n> 💡 Captar nuance exige atenção ao **tom e ao contexto** — não só ao\n> dicionário",
           "exercises": [
             {
               "type": "quiz",
@@ -30745,7 +30745,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'Choose words with the right ___ .' (nuance)",
+              "prompt": "Complete: 'Choose words with the right ___ .' (sutileza de sentido)",
               "solution": "nuance",
               "audio_lang": "en-US",
               "position": 2
@@ -30773,9 +30773,9 @@
             {
               "type": "quiz",
               "prompt": "'It could be worse' transmite:",
-              "solution": "insatisfação disfarçada",
+              "solution": "que a situação não é ótima, mas é aceitável",
               "options": [
-                "insatisfação disfarçada",
+                "que a situação não é ótima, mas é aceitável",
                 "alegria total",
                 "surpresa"
               ],
@@ -30788,7 +30788,7 @@
         {
           "slug": "sentido-implicito-dominio",
           "title": "Sentido implícito (domínio)",
-          "lesson_md": "# Sentido implícito (domínio)\n\nNo domínio C1, você lê as **entrelinhas** — inclusive em negociações.\n\n## Exemplos\n\n```\n\"I'll think about it.\"   ->  muitas vezes é um \"não\" educado.\n\"That's interesting.\"    ->  pode ser indiferença ou desaprovação.\n```\n\n## Como captar\n\nObserve **tom, contexto e hesitação** — não só as palavras.\n\n> 💘 Em conversas sutis (negociação, feedback), o implícito manda. Quem só\n# ===== ouve o literal perde metade da mensagem =====",
+          "lesson_md": "# Sentido implícito (domínio)\n\nNo domínio C1, você lê as **entrelinhas** — inclusive em negociações.\n\n## Exemplos\n\n```\n\"I'll think about it.\"   ->  muitas vezes é um \"não\" educado.\n\"That's interesting.\"    ->  pode ser indiferença ou desaprovação.\n```\n\n## Como captar\n\nObserve **tom, contexto e hesitação** — não só as palavras.\n\n> 💡 Em conversas sutis (negociação, feedback), o implícito manda. Quem só\n> ouve o literal perde metade da mensagem",
           "exercises": [
             {
               "type": "quiz",
@@ -30859,7 +30859,7 @@
         {
           "slug": "humor-c1",
           "title": "Humor (C1)",
-          "lesson_md": "# Humor (C1)\n\nEntender humor em inglês exige **cultura**, **contexto** e **ironia**.\n\n## Tipos comuns\n\n```\nWordplay     jogo de palavras\nIronia       dizer o contrário com tom\nReferência   piada que depende de cultura/filme/série\n```\n\n## Se a piada não funciona\n\nProvavelmente faltou a **referência cultural** — não é que seu inglês seja\nfraco.\n\n> 💘 Quanto mais filmes, séries e notícias você consome, mais referências\n# ===== você acumula — e mais humor você entende =====",
+          "lesson_md": "# Humor (C1)\n\nEntender humor em inglês exige **cultura**, **contexto** e **ironia**.\n\n## Tipos comuns\n\n```\nWordplay     jogo de palavras\nIronia       dizer o contrário com tom\nReferência   piada que depende de cultura/filme/série\n```\n\n## Se a piada não funciona\n\nProvavelmente faltou a **referência cultural** — não é que seu inglês seja\nfraco.\n\n> 💡 Quanto mais filmes, séries e notícias você consome, mais referências\n> você acumula — e mais humor você entende",
           "exercises": [
             {
               "type": "quiz",
@@ -30887,7 +30887,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'He has a great sense of ___ .' (humor)",
+              "prompt": "Complete: 'He has a great sense of ___ .' (o que faz rir)",
               "solution": "humor",
               "audio_lang": "en-US",
               "position": 2
@@ -30930,7 +30930,7 @@
         {
           "slug": "sarcasmo-c1",
           "title": "Sarcasmo (C1)",
-          "lesson_md": "# Sarcasmo (C1)\n\n**Sarcasmo** diz o **oposto** do significado literal, usando o tom.\n\n## Exemplos\n\n```\n\"Great, another meeting.\"   (frustração)\n\"Oh, perfect timing!\"       (na verdade, péssimo timing)\n```\n\n## Cuidado\n\n- Use sarcasmo com quem **conhece seu tom** — com estranhos, pode soar rude.\n- O tom costuma ser **plano ou exagerado**.\n\n> 💘 Entender sarcasmo é essencial; **produzir** sarcasmo exige contexto e\n# ===== confiança =====",
+          "lesson_md": "# Sarcasmo (C1)\n\n**Sarcasmo** diz o **oposto** do significado literal, usando o tom.\n\n## Exemplos\n\n```\n\"Great, another meeting.\"   (frustração)\n\"Oh, perfect timing!\"       (na verdade, péssimo timing)\n```\n\n## Cuidado\n\n- Use sarcasmo com quem **conhece seu tom** — com estranhos, pode soar rude.\n- O tom costuma ser **plano ou exagerado**.\n\n> 💡 Entender sarcasmo é essencial; **produzir** sarcasmo exige contexto e\n> confiança",
           "exercises": [
             {
               "type": "quiz",
@@ -31001,7 +31001,7 @@
         {
           "slug": "linguagem-idiomatica",
           "title": "Linguagem idiomática",
-          "lesson_md": "# Linguagem idiomática\n\nNo domínio C1, você usa idioms com **naturalidade** — e sem exagerar.\n\n## Idioms comuns do dia a dia\n\n```\nIt's a no-brainer.      É óbvio.\nI'm on the fence.       Estou em cima do muro (indeciso).\nIt slipped my mind.     Me escapou (esqueci).\n```\n\n> 💘 Idioms demais soam **forçados**. Use com moderação, no contexto certo —\n# ===== como um nativo faria =====",
+          "lesson_md": "# Linguagem idiomática\n\nNo domínio C1, você usa idioms com **naturalidade** — e sem exagerar.\n\n## Idioms comuns do dia a dia\n\n```\nIt's a no-brainer.      É óbvio.\nI'm on the fence.       Estou em cima do muro (indeciso).\nIt slipped my mind.     Me escapou (esqueci).\n```\n\n> 💡 Idioms demais soam **forçados**. Use com moderação, no contexto certo —\n> como um nativo faria",
           "exercises": [
             {
               "type": "quiz",
@@ -31029,7 +31029,7 @@
             },
             {
               "type": "text",
-              "prompt": "Complete: 'It's a no-___ .' (brainer)",
+              "prompt": "Complete: 'It's a no-___ .' (algo óbvio, que não exige pensar)",
               "solution": "brainer",
               "audio_lang": "en-US",
               "position": 2
@@ -31072,7 +31072,7 @@
         {
           "slug": "referencias-culturais",
           "title": "Referências culturais",
-          "lesson_md": "# Referências culturais\n\nReferências a filmes, séries, história e cultura aparecem o tempo todo.\n\n## Exemplos\n\n```\n\"That's so 'to Google it'!\"   (o Google virou verbo)\n\"He's the new Steve Jobs.\"    (referência a inovação)\n```\n\n## Por que importam\n\nSem a referência, a piada ou o comentário **perde o sentido**.\n\n> 💘 Para acumular referências, consuma **filmes, séries e notícias em\n# ===== inglês** — é a cultura que completa a língua =====",
+          "lesson_md": "# Referências culturais\n\nReferências a filmes, séries, história e cultura aparecem o tempo todo.\n\n## Exemplos\n\n```\n\"Just google it!\"             (o Google virou verbo: \"pesquise\")\n\"He's the new Steve Jobs.\"    (referência a inovação)\n```\n\n## Por que importam\n\nSem a referência, a piada ou o comentário **perde o sentido**.\n\n> 💡 Para acumular referências, consuma **filmes, séries e notícias em\n> inglês** — é a cultura que completa a língua",
           "exercises": [
             {
               "type": "quiz",
@@ -31143,7 +31143,7 @@
         {
           "slug": "registros-diferentes",
           "title": "Registros diferentes",
-          "lesson_md": "# Registros diferentes\n\nDomínio total é **alternar registros** com naturalidade.\n\n## O mesmo assunto, registros diferentes\n\n```\nFormal:   \"I would like to request a meeting.\"\nSemiformal: \"Can we schedule a meeting?\"\nInformal: \"Wanna meet up?\"\n```\n\n> 💘 Quem domina o C1 não fala igual em todos os lugares — **adapta** o\n# ===== registro ao público e à situação =====",
+          "lesson_md": "# Registros diferentes\n\nDomínio total é **alternar registros** com naturalidade.\n\n## O mesmo assunto, registros diferentes\n\n```\nFormal:   \"I would like to request a meeting.\"\nSemiformal: \"Can we schedule a meeting?\"\nInformal: \"Wanna meet up?\"\n```\n\n> 💡 Quem domina o C1 não fala igual em todos os lugares — **adapta** o\n> registro ao público e à situação",
           "exercises": [
             {
               "type": "quiz",
@@ -31214,7 +31214,7 @@
         {
           "slug": "linguagem-formal",
           "title": "Linguagem formal",
-          "lesson_md": "# Linguagem formal\n\nA linguagem formal usa **frases completas** e **vocabulário polido**.\n\n## Padrões formais\n\n```\nI would appreciate it if...     Ficaria grato se...\nPlease be advised that...       Informo que...\nWe would be most grateful.      Ficaríamos muito gratos.\n```\n\n> 💘 Em formal, **evite contrações** (\"I am\", não \"I'm\") e gírias. É o\n# ===== padrão de e-mails, documentos e discursos =====",
+          "lesson_md": "# Linguagem formal\n\nA linguagem formal usa **frases completas** e **vocabulário polido**.\n\n## Padrões formais\n\n```\nI would appreciate it if...     Ficaria grato se...\nPlease be advised that...       Informo que...\nWe would be most grateful.      Ficaríamos muito gratos.\n```\n\n> 💡 Em formal, **evite contrações** (\"I am\", não \"I'm\") e gírias. É o\n> padrão de e-mails, documentos e discursos",
           "exercises": [
             {
               "type": "quiz",
@@ -31285,7 +31285,7 @@
         {
           "slug": "linguagem-informal",
           "title": "Linguagem informal",
-          "lesson_md": "# Linguagem informal\n\nA linguagem informal usa **contrações**, **gírias** e **expressões**.\n\n## Exemplos\n\n```\nWanna hang out?          Quer sair?\nNo worries!              Sem problema!\nCatch you later!         Até mais!\n```\n\n> 💘 Saber **quando NÃO** usar o informal é parte do domínio: amigos e\n# ===== conversas sim; e-mail formal, tese ou entrevista, não =====",
+          "lesson_md": "# Linguagem informal\n\nA linguagem informal usa **contrações**, **gírias** e **expressões**.\n\n## Exemplos\n\n```\nWanna hang out?          Quer sair?\nNo worries!              Sem problema!\nCatch you later!         Até mais!\n```\n\n> 💡 Saber **quando NÃO** usar o informal é parte do domínio: amigos e\n> conversas sim; e-mail formal, tese ou entrevista, não",
           "exercises": [
             {
               "type": "quiz",
@@ -31356,7 +31356,7 @@
         {
           "slug": "linguagem-profissional",
           "title": "Linguagem profissional",
-          "lesson_md": "# Linguagem profissional\n\nA linguagem profissional é **clara, concisa e educada**.\n\n## Frases úteis\n\n```\nCould you please take a look?      Pode dar uma olhada, por favor?\nLet's schedule a follow-up.        Vamos agendar um acompanhamento.\nPlease let me know your decision.  Avise-me sua decisão.\n```\n\n> 💘 Profissional **assertivo** pede sem agredir: \"Could you please...\"\n# ===== é firme e educado ao mesmo tempo =====",
+          "lesson_md": "# Linguagem profissional\n\nA linguagem profissional é **clara, concisa e educada**.\n\n## Frases úteis\n\n```\nCould you please take a look?      Pode dar uma olhada, por favor?\nLet's schedule a follow-up.        Vamos agendar um acompanhamento.\nPlease let me know your decision.  Avise-me sua decisão.\n```\n\n> 💡 Profissional **assertivo** pede sem agredir: \"Could you please...\"\n> é firme e educado ao mesmo tempo",
           "exercises": [
             {
               "type": "quiz",
@@ -31427,7 +31427,7 @@
         {
           "slug": "linguagem-academica",
           "title": "Linguagem acadêmica",
-          "lesson_md": "# Linguagem acadêmica\n\nA linguagem acadêmica é **impessoal** e com **hedging**.\n\n## Padrões acadêmicos\n\n```\nIt could be argued that...       Pode-se argumentar que...\nThe evidence suggests that...    A evidência sugere que...\nAccording to Smith...            Segundo Smith...\n```\n\n> 💘 No acadêmico, **citações dão credibilidade** e o **hedging** suaviza as\n# ===== afirmações — nada de \"I think\" ou certezas absolutas =====",
+          "lesson_md": "# Linguagem acadêmica\n\nA linguagem acadêmica é **impessoal** e com **hedging**.\n\n## Padrões acadêmicos\n\n```\nIt could be argued that...       Pode-se argumentar que...\nThe evidence suggests that...    A evidência sugere que...\nAccording to Smith...            Segundo Smith...\n```\n\n> 💡 No acadêmico, **citações dão credibilidade** e o **hedging** suaviza as\n> afirmações — nada de \"I think\" ou certezas absolutas",
           "exercises": [
             {
               "type": "quiz",
@@ -31498,7 +31498,7 @@
         {
           "slug": "linguagem-persuasiva",
           "title": "Linguagem persuasiva",
-          "lesson_md": "# Linguagem persuasiva\n\nA linguagem persuasiva combina **lógica, emoção e credibilidade** e termina\ncom uma **ação**.\n\n## Frases úteis\n\n```\nImagine the benefits.          Imagine as vantagens.\nThis is a unique opportunity.  Esta é uma oportunidade única.\nAct now!                       Aja agora!\n```\n\n> 💘 Persuasão de nível usa **verbos de ação** e foca no **benefício** para\n# ===== o outro — e encerra com uma call to action =====",
+          "lesson_md": "# Linguagem persuasiva\n\nA linguagem persuasiva combina **lógica, emoção e credibilidade** e termina\ncom uma **ação**.\n\n## Frases úteis\n\n```\nImagine the benefits.          Imagine as vantagens.\nThis is a unique opportunity.  Esta é uma oportunidade única.\nAct now!                       Aja agora!\n```\n\n> 💡 Persuasão de nível usa **verbos de ação** e foca no **benefício** para\n> o outro — e encerra com uma call to action",
           "exercises": [
             {
               "type": "quiz",
@@ -31569,7 +31569,7 @@
         {
           "slug": "comunicacao-precisa",
           "title": "Comunicação precisa",
-          "lesson_md": "# Comunicação precisa\n\n**Comunicação precisa** evita ambiguidade — essencial em prazos, números e\ndecisões.\n\n## Frases úteis\n\n```\nPlease specify the exact date.     Especifique a data exata.\nJust to be clear...                Só para ficar claro...\nCould you clarify the timeline?    Pode esclarecer o cronograma?\n```\n\n> 💘 \"Just to be clear...\" confirma a precisão e evita retrabalho — é a\n# ===== marca da comunicação profissional =====",
+          "lesson_md": "# Comunicação precisa\n\n**Comunicação precisa** evita ambiguidade — essencial em prazos, números e\ndecisões.\n\n## Frases úteis\n\n```\nPlease specify the exact date.     Especifique a data exata.\nJust to be clear...                Só para ficar claro...\nCould you clarify the timeline?    Pode esclarecer o cronograma?\n```\n\n> 💡 \"Just to be clear...\" confirma a precisão e evita retrabalho — é a\n> marca da comunicação profissional",
           "exercises": [
             {
               "type": "quiz",
@@ -31640,7 +31640,7 @@
         {
           "slug": "conversa-natural",
           "title": "Conversa natural",
-          "lesson_md": "# Conversa natural\n\nConversa natural tem **troca de turnos**, **reações** e **perguntas**.\n\n## Reações naturais\n\n```\nOh, really? That's great!      Sério? Que ótimo!\nI see what you mean.           Entendo o que você quer dizer.\nBy the way, have you heard?    A propósito, você ouviu?\n```\n\n## Pegando o turno\n\n```\nCan I add something here?      Posso acrescentar algo?\n```\n\n> 💘 Conversa flui com **escuta ativa** — reagir e perguntar mantém o\n# ===== diálogo vivo =====",
+          "lesson_md": "# Conversa natural\n\nConversa natural tem **troca de turnos**, **reações** e **perguntas**.\n\n## Reações naturais\n\n```\nOh, really? That's great!      Sério? Que ótimo!\nI see what you mean.           Entendo o que você quer dizer.\nBy the way, have you heard?    A propósito, você ouviu?\n```\n\n## Pegando o turno\n\n```\nCan I add something here?      Posso acrescentar algo?\n```\n\n> 💡 Conversa flui com **escuta ativa** — reagir e perguntar mantém o\n> diálogo vivo",
           "exercises": [
             {
               "type": "quiz",
@@ -31719,7 +31719,7 @@
         {
           "slug": "ler-livros-em-ingles",
           "title": "Ler livros em inglês",
-          "lesson_md": "# Ler livros em inglês\n\nLer é uma das formas mais ricas de imersão — e deve ser **progressiva**.\n\n## Como começar\n\n- Escolha livros **curtos e do seu nível**.\n- Leia **um pouco todo dia** (2-3 páginas).\n- Ao encontrar palavra nova, **tente adivinhar pelo contexto** antes do\n  dicionário.\n\n> 💘 Ler em voz alta de vez em quando também treina **pronúncia e ritmo**.",
+          "lesson_md": "# Ler livros em inglês\n\nLer é uma das formas mais ricas de imersão — e deve ser **progressiva**.\n\n## Como começar\n\n- Escolha livros **curtos e do seu nível**.\n- Leia **um pouco todo dia** (2-3 páginas).\n- Ao encontrar palavra nova, **tente adivinhar pelo contexto** antes do\n  dicionário.\n\n> 💡 Ler em voz alta de vez em quando também treina **pronúncia e ritmo**.",
           "exercises": [
             {
               "type": "quiz",
@@ -31790,7 +31790,7 @@
         {
           "slug": "filmes-sem-legenda",
           "title": "Assistir filmes sem legenda",
-          "lesson_md": "# Assistir filmes sem legenda\n\nLargar a legenda é **progressivo** — e um marco da imersão.\n\n## Como fazer\n\n1. **1ª fase**: legenda em inglês.\n2. **2ª fase**: cenas conhecidas sem legenda.\n3. **3ª fase**: episódios/filmes inteiros sem legenda.\n\nAo travar, **rever a cena com legenda** — é assim que se conecta som e\nescrita.\n\n> 💘 Re-assistir algo que você já conhece sem legenda usa o **contexto**\n# ===== para preencher o que não ouviu =====",
+          "lesson_md": "# Assistir filmes sem legenda\n\nLargar a legenda é **progressivo** — e um marco da imersão.\n\n## Como fazer\n\n1. **1ª fase**: legenda em inglês.\n2. **2ª fase**: cenas conhecidas sem legenda.\n3. **3ª fase**: episódios/filmes inteiros sem legenda.\n\nAo travar, **rever a cena com legenda** — é assim que se conecta som e\nescrita.\n\n> 💡 Re-assistir algo que você já conhece sem legenda usa o **contexto**\n> para preencher o que não ouviu",
           "exercises": [
             {
               "type": "quiz",
@@ -31861,7 +31861,7 @@
         {
           "slug": "conteudo-tecnico-imersao",
           "title": "Conteúdo técnico em inglês",
-          "lesson_md": "# Conteúdo técnico em inglês\n\nTutoriais, palestras e docs em inglês são a imersão perfeita para quem\ntrabalha com tecnologia.\n\n## Como aproveitar\n\n- Assista **tutoriais e talks** em inglês.\n- **Pause e repita** os trechos importantes.\n- Fixe o vocabulário **no contexto real**.\n\n> 💘 Code reviews, palestras e docs em inglês treinam o vocabulário técnico\n# ===== que você vai usar de verdade =====",
+          "lesson_md": "# Conteúdo técnico em inglês\n\nTutoriais, palestras e docs em inglês são a imersão perfeita para quem\ntrabalha com tecnologia.\n\n## Como aproveitar\n\n- Assista **tutoriais e talks** em inglês.\n- **Pause e repita** os trechos importantes.\n- Fixe o vocabulário **no contexto real**.\n\n> 💡 Code reviews, palestras e docs em inglês treinam o vocabulário técnico\n> que você vai usar de verdade",
           "exercises": [
             {
               "type": "quiz",
@@ -31932,7 +31932,7 @@
         {
           "slug": "ouvir-podcasts-imersao",
           "title": "Ouvir podcasts (imersão)",
-          "lesson_md": "# Ouvir podcasts (imersão)\n\nPodcasts são imersão que **cabe em qualquer rotina**.\n\n## Como aproveitar\n\n- Ouça **no deslocamento** (commute), academia ou tarefas.\n- Escolha temas do seu **interesse**.\n- Depois, **resuma em voz alta** — treina escuta E fala.\n\n> 💘 Um pouco todo dia rende mais que horas no domingo. Constância é a\n# ===== chave =====",
+          "lesson_md": "# Ouvir podcasts (imersão)\n\nPodcasts são imersão que **cabe em qualquer rotina**.\n\n## Como aproveitar\n\n- Ouça **no deslocamento** (commute), academia ou tarefas.\n- Escolha temas do seu **interesse**.\n- Depois, **resuma em voz alta** — treina escuta E fala.\n\n> 💡 Um pouco todo dia rende mais que horas no domingo. Constância é a\n> chave",
           "exercises": [
             {
               "type": "quiz",
@@ -32003,7 +32003,7 @@
         {
           "slug": "escrever-todos-os-dias",
           "title": "Escrever todos os dias",
-          "lesson_md": "# Escrever todos os dias\n\nA escrita diária constrói **consistência** e **vocabulário ativo**.\n\n## Como fazer\n\n- Escreva um **diário** em inglês: \"Today I...\".\n- Não **traduza palavra a palavra** — use o que você já sabe.\n- Revise às vezes, mas **escreva todo dia**.\n\n> 💘 Escrever consolida o vocabulário **ativo** — aquele que você consegue\n# ===== produzir, não só reconhecer =====",
+          "lesson_md": "# Escrever todos os dias\n\nA escrita diária constrói **consistência** e **vocabulário ativo**.\n\n## Como fazer\n\n- Escreva um **diário** em inglês: \"Today I...\".\n- Não **traduza palavra a palavra** — use o que você já sabe.\n- Revise às vezes, mas **escreva todo dia**.\n\n> 💡 Escrever consolida o vocabulário **ativo** — aquele que você consegue\n> produzir, não só reconhecer",
           "exercises": [
             {
               "type": "quiz",
@@ -32074,7 +32074,7 @@
         {
           "slug": "falar-todos-os-dias",
           "title": "Falar todos os dias",
-          "lesson_md": "# Falar todos os dias\n\nFalar diariamente é o treino que fecha a fluência.\n\n## Como praticar sem interlocutor\n\n- **Shadowing**: repetir em voz alta o que ouve (áudio, série, podcast).\n- **Fale sozinho**: narre sua rotina ou descreva o que vê.\n- Se puder, **app/amigo**: 10 minutos de conversa real.\n\n> 💘 A **constância importa mais que a duração**: 10 minutos todo dia vencem\n# ===== 2 horas uma vez por semana =====",
+          "lesson_md": "# Falar todos os dias\n\nFalar diariamente é o treino que fecha a fluência.\n\n## Como praticar sem interlocutor\n\n- **Shadowing**: repetir em voz alta o que ouve (áudio, série, podcast).\n- **Fale sozinho**: narre sua rotina ou descreva o que vê.\n- Se puder, **app/amigo**: 10 minutos de conversa real.\n\n> 💡 A **constância importa mais que a duração**: 10 minutos todo dia vencem\n> 2 horas uma vez por semana",
           "exercises": [
             {
               "type": "quiz",
@@ -32145,7 +32145,7 @@
         {
           "slug": "participar-de-discussoes",
           "title": "Participar de discussões",
-          "lesson_md": "# Participar de discussões\n\nDiscussões reais colocam seu inglês à prova — e treinam o pensamento.\n\n## Onde participar\n\n- **Fóruns** (Reddit, Stack Overflow, comunidades).\n- **Grupos** de idiomas e meetups.\n- Comentários em **inglês** (notícias, YouTube).\n\n> 💘 Discutir ativamente treina **produção e pensamento em inglês**. Não\n# ===== tenha medo de errar — errar faz parte de aprender =====",
+          "lesson_md": "# Participar de discussões\n\nDiscussões reais colocam seu inglês à prova — e treinam o pensamento.\n\n## Onde participar\n\n- **Fóruns** (Reddit, Stack Overflow, comunidades).\n- **Grupos** de idiomas e meetups.\n- Comentários em **inglês** (notícias, YouTube).\n\n> 💡 Discutir ativamente treina **produção e pensamento em inglês**. Não\n> tenha medo de errar — errar faz parte de aprender",
           "exercises": [
             {
               "type": "quiz",
@@ -32216,7 +32216,7 @@
         {
           "slug": "ler-documentacao-tecnica",
           "title": "Ler documentação técnica",
-          "lesson_md": "# Ler documentação técnica\n\nA documentação real é uma das melhores fontes de **inglês técnico autêntico**.\n\n## Como aproveitar\n\n- Leia a **docs** das ferramentas que você usa.\n- Anote **expressões úteis** (install, configure, deploy).\n- Replique em conversas e textos.\n\n> 💘 Docs ensinam frases **reais de uso técnico** — o inglês exato do\n# ===== dia a dia de quem trabalha com tecnologia =====",
+          "lesson_md": "# Ler documentação técnica\n\nA documentação real é uma das melhores fontes de **inglês técnico autêntico**.\n\n## Como aproveitar\n\n- Leia a **docs** das ferramentas que você usa.\n- Anote **expressões úteis** (install, configure, deploy).\n- Replique em conversas e textos.\n\n> 💡 Docs ensinam frases **reais de uso técnico** — o inglês exato do\n> dia a dia de quem trabalha com tecnologia",
           "exercises": [
             {
               "type": "quiz",
@@ -32287,7 +32287,7 @@
         {
           "slug": "trabalhar-em-ingles",
           "title": "Trabalhar inteiramente em inglês",
-          "lesson_md": "# Trabalhar inteiramente em inglês\n\nO ambiente de trabalho 100% em inglês é a imersão profissional completa.\n\n## O que envolve\n\n```\ne-mails e chats em inglês\nreuniões e apresentações\ncódigo, docs e code reviews\n```\n\n## O essencial\n\n- **Vocabulário técnico** + **comunicação clara**.\n- Os chunks do dia a dia do trabalho (Módulo 23).\n\n> 💘 A imersão total acelera a fluência como nada mais — mas exige a base\n# ===== que você construiu até aqui =====",
+          "lesson_md": "# Trabalhar inteiramente em inglês\n\nO ambiente de trabalho 100% em inglês é a imersão profissional completa.\n\n## O que envolve\n\n```\ne-mails e chats em inglês\nreuniões e apresentações\ncódigo, docs e code reviews\n```\n\n## O essencial\n\n- **Vocabulário técnico** + **comunicação clara**.\n- Os chunks do dia a dia do trabalho (Módulo 23).\n\n> 💡 A imersão total acelera a fluência como nada mais — mas exige a base\n> que você construiu até aqui",
           "exercises": [
             {
               "type": "quiz",
@@ -32358,7 +32358,7 @@
         {
           "slug": "pensar-em-ingles-imersao",
           "title": "Pensar em inglês (imersão)",
-          "lesson_md": "# Pensar em inglês (imersão)\n\nPensar em inglês é o **sinal máximo** de fluência consolidada.\n\n## Como chegar lá\n\n- **Narre sua rotina** em inglês (em pensamento ou voz baixa).\n- Responda a si mesmo em inglês.\n- Aos poucos, os sonhos também migram para o inglês — um grande marco!\n\n> 💘 Quando você **sonha** em inglês, a imersão virou parte de você.\n# ===== Parabéns: este é o fim do curso, e o começo da autonomia =====",
+          "lesson_md": "# Pensar em inglês (imersão)\n\nPensar em inglês é o **sinal máximo** de fluência consolidada.\n\n## Como chegar lá\n\n- **Narre sua rotina** em inglês (em pensamento ou voz baixa).\n- Responda a si mesmo em inglês.\n- Aos poucos, os sonhos também migram para o inglês — um grande marco!\n\n> 💡 Quando você **sonha** em inglês, a imersão virou parte de você.\n> Parabéns: este é o fim do curso, e o começo da autonomia",
           "exercises": [
             {
               "type": "quiz",

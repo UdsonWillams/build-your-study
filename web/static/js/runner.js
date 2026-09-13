@@ -647,7 +647,28 @@
   }
 
   // --- 5. Normalização de texto para exercícios de idioma ---
+  // Contrações comuns viram a forma longa dos dois lados (I'm = I am), para o
+  // corretor aceitar as duas formas.
+  const CONTRACTIONS = [
+    [/\bcan't\b/g, "cannot"], [/\bcan not\b/g, "cannot"], [/\bwon't\b/g, "will not"],
+    [/n't\b/g, " not"], [/\bi'm\b/g, "i am"], [/'re\b/g, " are"], [/'ve\b/g, " have"],
+    [/'ll\b/g, " will"], [/'d\b/g, " would"], [/\blet's\b/g, "let us"],
+    [/\b(it|he|she|that|what|there|where|who|here|how)'s\b/g, "$1 is"],
+  ];
+
   function normalize(s) {
+    let t = s.toLowerCase().replace(/ё/g, "е").replace(/[’‘]/g, "'");
+    for (const [pattern, repl] of CONTRACTIONS) t = t.replace(pattern, repl);
+    return t
+      .replace(/[.,!?;:'"“”…–—-]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  // --- 6. Feedback de erro melhorado para exercícios de texto ---
+  // Antes das contrações serem expandidas, o corretor só tirava o apóstrofo
+  // ("dont" = "don't"); as duas leituras continuam aceitas.
+  function looseNormalize(s) {
     return s.toLowerCase()
       .replace(/ё/g, "е")
       .replace(/[.,!?;:'"’‘“”…–—-]/g, "")
@@ -655,7 +676,10 @@
       .trim();
   }
 
-  // --- 6. Feedback de erro melhorado para exercícios de texto ---
+  function sameAnswer(a, b) {
+    return normalize(a) === normalize(b) || looseNormalize(a) === looseNormalize(b);
+  }
+
   function buildTextErrorFeedback(student, solution) {
     const normStudent = normalize(student);
     const normSolution = normalize(solution);
@@ -700,7 +724,7 @@
       }
       attempted.add(exId);
 
-      if (normalize(studentAnswer) === normalize(solution)) {
+      if (sameAnswer(studentAnswer, solution)) {
         output.classList.add("ok");
         output.textContent = "Correto! Muito bem.";
         passed.add(exId);
@@ -725,7 +749,7 @@
       }
       attempted.add(exId);
 
-      if (normalize(selected.textContent) === normalize(solution)) {
+      if (sameAnswer(selected.textContent, solution)) {
         selected.classList.add("is-correct");
         output.classList.add("ok");
         output.textContent = "Correto! Muito bem.";
@@ -733,7 +757,7 @@
       } else {
         selected.classList.add("is-wrong");
         options.forEach((b) => {
-          if (normalize(b.textContent) === normalize(solution)) b.classList.add("is-correct");
+          if (sameAnswer(b.textContent, solution)) b.classList.add("is-correct");
         });
         output.classList.add("err");
         output.textContent = "Não foi dessa vez. A opção correta está destacada.";
@@ -898,7 +922,7 @@ exec(_test_src, _ns)
       // navegador sem reconhecimento não podem valer um zero na nota.
       attempted.add(exId);
 
-      if (transcripts.some(t => normalize(t) === normalize(solution))) {
+      if (transcripts.some(t => sameAnswer(t, solution))) {
         resultEl.className = "speak-result ok";
         resultEl.textContent = `Perfeito! Você disse: "${best}"`;
         passed.add(exId);
@@ -981,7 +1005,7 @@ exec(_test_src, _ns)
           } else if (type === "quiz") {
             ex.querySelectorAll(".quiz-option").forEach((b) => {
               b.classList.remove("is-wrong");
-              b.classList.toggle("is-correct", normalize(b.textContent) === normalize(solution));
+              b.classList.toggle("is-correct", sameAnswer(b.textContent, solution));
             });
           } else {
             const input = ex.querySelector(".text-input");

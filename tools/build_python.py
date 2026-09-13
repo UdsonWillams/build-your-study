@@ -26,8 +26,17 @@ OUT_PATH = CONTENT_DIR / "python-do-zero.json"
 
 def normalize(s):
     """Espelha normalize() de web/static/js/runner.js."""
-    s = s.lower().replace("ё", "е")
-    s = re.sub(r"[.,!?;:'\"’‘“”…–—-]", "", s)
+    s = s.lower().replace("ё", "е").replace("’", "'").replace("‘", "'")
+    # Contrações comuns viram a forma longa dos dois lados (I'm = I am), para o
+    # corretor aceitar as duas formas.
+    for pattern, repl in (
+        (r"\bcan't\b", "cannot"), (r"\bcan not\b", "cannot"), (r"\bwon't\b", "will not"),
+        (r"n't\b", " not"), (r"\bi'm\b", "i am"), (r"'re\b", " are"), (r"'ve\b", " have"),
+        (r"'ll\b", " will"), (r"'d\b", " would"), (r"\blet's\b", "let us"),
+        (r"\b(it|he|she|that|what|there|where|who|here|how)'s\b", r"\1 is"),
+    ):
+        s = re.sub(pattern, repl, s)
+    s = re.sub(r"[.,!?;:'\"“”…–—-]", "", s)
     return re.sub(r"\s+", " ", s).strip()
 
 
